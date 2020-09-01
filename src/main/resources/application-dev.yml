@@ -9,8 +9,8 @@ spring:
   datasource:
     url: jdbc:oracle:thin:@localhost:1521:XE
     driver-class-name: oracle.jdbc.OracleDriver
-    username: example
-    password: example
+    username: SSAWFA
+    password: SSAW123
 mybatis:
   mapper-locations: classpath:/mapper/*/*.xml
   configuration:
