@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssaw.TAManagement.mapper.TatransactionMapper">
+
+    <!--增加-->
+    <insert id="insertTatransaction">
+        insert into Tatransaction(transactionId,dateTime,balanceDate,fundId,fundNum,accountId,totalMoney,actualMoney,price,cost,agencies,transactionType,transactionStatus) values
+        (#{transactionId},#{dateTime},#{balanceDate},#{fundId},#{fundNum},#{accountId),#{totalMoney},#{actualMoney},#{price},#{cost},#{agencies},#{transactionType},#{transactionStatus})
+    </insert>
+    <!--修改-->
+    <update id="updateTatransaction">
+        update transactionId set dateTime=#{dateTime},balanceDate=#{balanceDate},fundId=#{fundId},fundNum=#{fundNum},accountId=#{accountId},totalMoney=#{totalMoney},actualMoney=#{actualMoney},
+        price=#{price},cost=#{cost},agencies=#{agencies},transactionType=#{transactionType},transactionStatus=#{transactionStatus}
+    </update>
+    <!--删除-->
+    <delete id="deleteTatransaction">
+        delete from Tatransaction where transactionId=#{transactionId}
+    </delete>
+    <!--查询-->
+    <select id="selectTatransaction"  resultType="com.ssaw.TAManagement.entity.Tatransaction">
+         select * from Tatransaction
+    </select>
+
+</mapper>
