@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="FA" />
         <module name="FASystem" />
+        <module name="FA" />
       </profile>
     </annotationProcessing>
   </component>
