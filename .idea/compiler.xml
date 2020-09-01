@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="FASystem" />
         <module name="FA" />
+        <module name="FA3" />
         <module name="FA2" />
       </profile>
     </annotationProcessing>
@@ -16,6 +17,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="FA" options="-parameters" />
       <module name="FA2" options="-parameters" />
+      <module name="FA3" options="-parameters" />
       <module name="FASystem" options="-parameters" />
     </option>
   </component>
