@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssaw.BusinessDescription.mapper.SecuritiesMapper">
+    <delete id="deleteSecurities" parameterType="String">
+         delete from securities where securitiesId=#{securitiesId}
+    </delete>
+    <update id="updateSecurities" parameterType="com.ssaw.BusinessDescription.entity.Securities">
+        update securities set securitiesName=#{securitiesName},securitiesType=#{securitiesType},issueDate=#{issueDate},delayDate=#{delayDate},stockId=#{stockId},exchange=#{exchange},securitiesDesc=#{securitiesDesc} where ecuritiesId=#{ecuritiesId}
+    </update>
+    <insert id="insertSecurities" parameterType="com.ssaw.BusinessDescription.entity.Securities">
+        insert into securities values (#{ecuritiesId},#{securitiesName},#{securitiesType},#{issueDate},#{delayDate},#{stockId},#{exchange},#{securitiesDesc})
+    </insert>
+</mapper>
