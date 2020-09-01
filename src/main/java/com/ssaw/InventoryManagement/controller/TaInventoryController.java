@@ -1,5 +1,6 @@
 package com.ssaw.InventoryManagement.controller;
 
+import com.ssaw.InventoryManagement.entity.TaInventory;
 import com.ssaw.InventoryManagement.service.TaInventoryService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

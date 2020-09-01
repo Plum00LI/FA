@@ -1,5 +1,6 @@
 package com.ssaw.InventoryManagement.controller;
 
+import com.ssaw.InventoryManagement.entity.CashInventory;
 import com.ssaw.InventoryManagement.service.CashInventoryService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
