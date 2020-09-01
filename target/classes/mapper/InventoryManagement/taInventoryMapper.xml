@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssaw.InventoryManagement.mapper.TaInventoryMapper">
+    <insert id="insertTaInventory">
+
+    </insert>
+    <update id="updateTaInventory">
+
+    </update>
+    <delete id="deleteTaInventory">
+        delete from taInventory where taInventoryId={taInventoryId}
+    </delete>
+
+
+    <select id="selectTaInventory" resultType="com.ssaw.InventoryManagement.entity.TaInventory"></select>
+</mapper>
