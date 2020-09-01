@@ -1,6 +1,7 @@
 package com.ssaw.InventoryManagement.mapper;
 
 import com.ssaw.InventoryManagement.entity.SecuritiesInventory;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 *@version:1.0
 *@create: 2020-09-01
 */
-@Service
+@Mapper
 public interface SecuritiesInventoryMapper {
     /**
      * 查询

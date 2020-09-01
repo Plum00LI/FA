@@ -17,7 +17,7 @@ import java.util.List;
  * Author:   SYT
  */
 @RestController
-@RequestMapping("/taInventory")
+@RequestMapping("taInventory")
 public class TaInventoryController {
     @Resource
     TaInventoryService taInventoryService;
@@ -26,7 +26,7 @@ public class TaInventoryController {
      * 分页查询
      * @return
      */
-    @RequestMapping("/select")
+    @RequestMapping("select")
     public HashMap selectTaInventory(){
         List<TaInventory> taInventoryList=taInventoryService.selectTaInventory();
         HashMap taInventoryMap=new HashMap();
@@ -40,7 +40,7 @@ public class TaInventoryController {
      * @param taInventory
      * @return
      */
-    @RequestMapping("/insert")
+    @RequestMapping("insert")
     public int insertTaInventory(TaInventory taInventory){
         int i=taInventoryService.insertTaInventory(taInventory);
         return i;
@@ -51,7 +51,7 @@ public class TaInventoryController {
      * @param taInventory
      * @return
      */
-    @RequestMapping("/insert")
+    @RequestMapping("update")
     public int updateTaInventory(TaInventory taInventory){
         int i=taInventoryService.updateTaInventory(taInventory);
         return i;
@@ -62,7 +62,7 @@ public class TaInventoryController {
      * @param taInventoryId
      * @return
      */
-    @RequestMapping("/insert")
+    @RequestMapping("delete")
     public int deleteTaInventory(int taInventoryId){
         int i=taInventoryService.deleteTaInventory(taInventoryId);
         return i;

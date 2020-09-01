@@ -12,7 +12,6 @@ import java.util.List;
  * @authod:洪彬峰
  * @date:2020-09-01
  */
-@Service
 public interface TatransactionService {
     //查询
     public List<Tatransaction> selectTatransaction();

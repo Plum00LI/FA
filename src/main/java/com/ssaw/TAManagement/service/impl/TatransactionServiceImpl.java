@@ -1,7 +1,7 @@
 package com.ssaw.TAManagement.service.impl;
 
 import com.ssaw.TAManagement.entity.Tatransaction;
-import com.ssaw.TAManagement.mapper.TatransactionMapper;
+import com.ssaw.TAManagement.mapper.TaTransactionMapper;
 import com.ssaw.TAManagement.service.TatransactionService;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class TatransactionServiceImpl implements TatransactionService{
     @Resource
-    TatransactionMapper tatransactionMapper;
+    TaTransactionMapper tatransactionMapper;
 
     @Override
     public List<Tatransaction> selectTatransaction() {

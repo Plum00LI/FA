@@ -1,4 +1,10 @@
 package com.ssaw.TAManagement.mapper;
+
+import com.ssaw.TAManagement.entity.Tatransaction;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
+
 /**
  * TA交易数据dao层接口
  * @type:Mapper_interface
@@ -7,13 +13,8 @@ package com.ssaw.TAManagement.mapper;
  * @date:2020-09-01
  */
 
-
-import com.ssaw.TAManagement.entity.Tatransaction;
-import org.apache.ibatis.annotations.Mapper;
-
-import java.util.List;
 @Mapper
-public interface TatransactionMapper {
+public interface TaTransactionMapper {
 
     //查询
     public List<Tatransaction> selectTatransaction();

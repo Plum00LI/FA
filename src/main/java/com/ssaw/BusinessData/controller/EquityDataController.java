@@ -20,24 +20,24 @@ public class EquityDataController {
     @Resource
     EquityDataService transactionDataService;
 
-    @RequestMapping("/insertTransactionData")
+    @RequestMapping("/insertEquityData")
     public int insertTransactionData(EquityData transactionData){
         int i = transactionDataService.insertTransactionData(transactionData);
         return i;
     }
 
-    @RequestMapping("/deleteTransactionData")
+    @RequestMapping("/deleteEquityData")
     public void deleteTransactionData(int equityId){
         transactionDataService.deleteTransactionData(equityId);
     }
 
-    @RequestMapping("/updateTransactionData")
+    @RequestMapping("/updateEquityData")
     public int updateTransactionData(EquityData transactionData){
         int i = transactionDataService.updateTransactionData(transactionData);
         return i;
     }
 
-    @RequestMapping("/selectTransactionData")
+    @RequestMapping("/selectEquityData")
     public HashMap selectTransactionData(){
         List<EquityData> transactionDataList =transactionDataService.selectTransactionData();
         HashMap transactionDateMap = new HashMap();

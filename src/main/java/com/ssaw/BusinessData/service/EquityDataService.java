@@ -11,7 +11,6 @@ import java.util.List;
  * @author:孙浩
  * @create:2020-09-01
  */
-@Service
 public interface EquityDataService {
     public int insertTransactionData(EquityData transactionData);
     public void deleteTransactionData(int equityId);

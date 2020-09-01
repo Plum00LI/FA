@@ -1,5 +1,6 @@
 package com.ssaw.BusinessData.service.impl;
 
+
 import com.ssaw.BusinessData.entity.EquityData;
 import com.ssaw.BusinessData.mapper.EquityDataMapper;
 import com.ssaw.BusinessData.service.EquityDataService;
@@ -17,25 +18,25 @@ import java.util.List;
 @Service
 public class EquityDataServiceImpl implements EquityDataService {
     @Resource
-    EquityDataMapper transactionDataMapper;
+    EquityDataMapper equityDataMapper;
 
     @Override
     public int insertTransactionData(EquityData transactionData) {
-        return transactionDataMapper.insertTransactionData(transactionData);
+        return equityDataMapper.insertTransactionData(transactionData);
     }
 
     @Override
     public void deleteTransactionData(int equityId) {
-        transactionDataMapper.deleteTransactionData(equityId);
+        equityDataMapper.deleteTransactionData(equityId);
     }
 
     @Override
     public int updateTransactionData(EquityData transactionData) {
-        return transactionDataMapper.updateTransactionData(transactionData);
+        return equityDataMapper.updateTransactionData(transactionData);
     }
 
     @Override
     public List<EquityData> selectTransactionData() {
-        return transactionDataMapper.selectTransactionData();
+        return equityDataMapper.selectTransactionData();
     }
 }
