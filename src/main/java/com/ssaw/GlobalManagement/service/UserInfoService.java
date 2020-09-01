@@ -1,0 +1,19 @@
+package com.ssaw.GlobalManagement.service;
+
+import java.util.Map;
+
+/**
+ * UserInfo服务类接口
+ * @type: service_interface
+ * @version: v1.0
+ * @author: plum
+ * @date: 2020/09/02
+ */
+public interface UserInfoService {
+
+    //查询所有用户的服务类接口方法-待实现
+    public Map<String,Object> selectUserInfo(String pageSize,String page);
+
+    //通过UserId删除用户的服务类接口方法-待实现
+    public boolean deleteUserInfoByUserId(String userId);
+}
