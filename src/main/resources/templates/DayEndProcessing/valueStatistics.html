@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="../../static/lib/layui/css/layui2.css" />
+    <link rel="stylesheet" href="../../static/lib/layui/css/layer.css"
+          media="all" />
+    <link rel="stylesheet" href="../../static/lib/layui/css/view.css">
+    <script src="../../static/lib/layui/layui.js"></script>
+    <link rel="stylesheet" href="../../static/lib/layui/formSelects-v4.css" />
+    <script src="../../static/lib/layui/formSelects-v4.js"></script>
+    <style type="text/css">
+        .layui-unselect {
+            height: 32px;
+        }
+    </style>
+</head>
+<body style="overflow: auto; background-color: white;"
+      class="layui-view-body layui-content">
+<div>
+    <div id="toolbarDemo">
+        <div>
+            <form id="searchform" lay-filter="searchform"
+                  class="layui-form layui-form-pane">
+                <div class="layui-form">
+                    <div class="layui-form-item">
+                        <label style="height: 32px;" class="layui-form-label">统计日期</label>
+                        <div class="layui-inline">
+                            <input type="text" style="height: 32px;" class="layui-input" id="test12" name = "datetime">
+                        </div>
+                        <div class="layui-inline">
+                            <button type="button"
+                                    class="layui-btn layui-btn-sm search">
+                                <i class="layui-icon">&#xe615;</i>统计
+                            </button>
+                            <button type="button" lay-event="search1"
+                                    class="layui-btn layui-btn-sm">
+                                <i class="layui-icon">&#xe615;</i>查询
+                            </button>
+                            <button type="button" lay-event="search2"
+                                    class="layui-btn layui-btn-sm">
+                                <i class="layui-icon">&#xe62f;</i>净值导出
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <table class="layui-table layui-form" id="tree-table" lay-size="sm"></table>
+</div>
+<div id="addContent"
+     style="display: none; height: 100%; height: 100%; text-align: center;">
+    <form id="addform" lay-filter="addform"
+          class="layui-form layui-form-pane"
+          style="margin: 30px auto; display: inline-block;">
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label">角色名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="roleName" lay-verify="required"
+                       autocomplete="off" placeholder="请输入用户名" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-input-inline">
+					<textarea rows="" name="roleDesc" lay-verify="required" cols=""
+                              class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div style="position: absolute; bottom: 0px; left: 45%;">
+            <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
+                <i class="layui-icon">&#x1005;</i>添加
+            </button>
+            <button class="layui-btn layui-bg-red cancel" type="button">
+                <i class="layui-icon">&#x1006;</i>取消
+            </button>
+        </div>
+    </form>
+</div>
+
+<script src="../../static/js/DayEndProcessing/valueStatistics.js"></script>
+</body>
+</html>
