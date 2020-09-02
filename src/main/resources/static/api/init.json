@@ -10,7 +10,7 @@
   },
   "menuInfo": [
     {
-      "title": "业务",
+      "title": "数据维护",
       "icon": "fa fa-address-book",
       "href": "",
       "target": "_self",
@@ -152,7 +152,7 @@
       ]
     },
     {
-      "title": "处理",
+      "title": "业务处理",
       "icon": "fa fa-lemon-o",
       "href": "",
       "target": "_self",
@@ -224,7 +224,7 @@
       ]
     },
     {
-      "title": "库存",
+      "title": "库存管理",
       "icon": "fa fa-slideshare",
       "href": "",
       "target": "_self",
@@ -262,7 +262,7 @@
       ]
     },
     {
-      "title": "报表",
+      "title": "报表管理",
       "icon": "fa fa-slideshare",
       "href": "",
       "target": "_self",
@@ -336,7 +336,7 @@
       ]
     },
     {
-      "title": "系统",
+      "title": "系统管理",
       "icon": "fa fa-slideshare",
       "href": "",
       "target": "_self",
@@ -351,11 +351,12 @@
           "title": "节假日管理",
           "href": "page/error.html",
           "icon": "fa fa-superpowers",
+
           "target": "_self"
         },
         {
           "title": "用户管理",
-          "href": "getPage/userInfoTable",
+          "href": "page/userInfoTable",
           "icon": "fa fa-superpowers",
           "target": "_self"
         },
