@@ -32,9 +32,8 @@ public class BondServiceImpl implements BondService {
     }
 
     @Override
-    public int  deleteBond(int securitiesId) {
-        int a = bondMapper.deleteBond(securitiesId);
-        return  a;
+    public void   deleteBond(int securitiesId) {
+       bondMapper.deleteBond(securitiesId);
     }
 
     @Override

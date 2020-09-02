@@ -18,7 +18,7 @@ public interface BondMapper {
     //增加
     public int insertBond(Bond bond);
     //删除
-    public int  deleteBond(int securitiesId);
+    public void  deleteBond(int securitiesId);
     //修改
     public int updateBond(Bond bond);
 }
