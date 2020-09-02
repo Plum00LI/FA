@@ -4,6 +4,7 @@ import com.ssaw.BusinessDescription.entity.Fund;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * create by: 曾钦辉
@@ -36,7 +37,7 @@ public interface FundService {
     /**
      * 查询基金信息
      * @param
-     * @return List<Fund>
+     * @return Map<String,Object>
      */
-    List<Fund> selectFund();
+    Map<String,Object> selectFund(String pageSize, String page);
 }

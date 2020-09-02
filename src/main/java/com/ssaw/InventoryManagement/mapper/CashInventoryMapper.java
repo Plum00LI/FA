@@ -4,6 +4,7 @@ import com.ssaw.InventoryManagement.entity.CashInventory;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * ClassName:    CashInventoryMapper
@@ -15,8 +16,8 @@ import java.util.List;
  */
 @Mapper
 public interface CashInventoryMapper {
-    public List<CashInventory> selectCashInventory();
-
+    public List<CashInventory> selectCashInventory(Map map);
+    public List<CashInventory> selectCashInventoryAll();
     public int insertCashInventory(CashInventory cashInventory);
 
     public int updateCashInventory(CashInventory cashInventory);

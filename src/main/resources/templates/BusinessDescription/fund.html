@@ -10,51 +10,49 @@
     <link rel="stylesheet" href="../../static/css/font.css">
     <link rel="stylesheet" href="../../static/css/xadmin.css">
     <link rel="stylesheet" href="../../static/css/theme9.css">
+    <script src="js/fund.js"></script>
     <script src="../../static/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script type="text/javascript" src="../../static/js/xadmin.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]-->
-      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 
-    <link rel="stylesheet" href="./lib/layui/css/layui.css">
+    <link rel="stylesheet" href="../../static/lib/layui/css/layui.css">
 
 
     <script src="../../static/lib/layui/layui.js"></script>
     <!--工具条-->
     <script type="text/html" id="userToolBar">
         <div style="float:right">
-        <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
-                class="layui-icon">&#xe654;</i>添加数据</button>
-        <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll"><i
-                class="layui-icon">&#xe640;</i>批量删除</button>
+            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
+                    class="layui-icon">&#xe654;</i>添加数据</button>
+            <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll"><i
+                    class="layui-icon">&#xe640;</i>批量删除</button>
         </div>
         <br/>
         <form class="layui-form layui-col-space5">
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">权益类型</label>
-
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">基金代码</label>
+            </div>
+            <div class="layui-inline layui-show-xs-block">
+                <input class="layui-input"  autocomplete="off" placeholder="请输入基金代码" name="" id="">
+            </div>
+            <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">基金类型</label>
+            </div>
             <div class="layui-inline layui-show-xs-block">
                 <select name="cateid">
-                    <option>请选择</option>
-                    <option>分红</option>
-                    <option>送股</option>
+                    <option placeholder="请选择"></option>
+                    <option>封闭式</option>
+                    <option>开放式</option>
                 </select>
-            </div>
-            </div>
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">权益除权日</label>
-
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input"  autocomplete="off" placeholder="请输入统计日期" name="end" id="end">
-            </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
             </div>
         </form>
     </script>
-
 
 
     <script type="text/javascript">
@@ -69,11 +67,11 @@
 
             //执行一个laydate实例
             laydate.render({
-                elem: '#end' //指定元素
+                elem: '#start' //指定元素
             });
 
             laydate.render({
-                elem: '#start'
+                elem: '#start2'
             })
 
             laydate.render({
@@ -144,24 +142,19 @@
             });
             table.render({
                 elem: '#userTable',
-                url: './EquityData/selectEquityData',
+                url: './selectUser',
                 page: true,
                 height: 498,
                 toolbar: '#userToolBar',//显示在表头的工具条
                 minLength:80,
                 cols: [[ //表头
-                    {type: 'checkbox', fixed: 'left'}
-                    ,{field: 'equityId', title: '权益编号', width:100, align:'center'}
-                    ,{field: 'dateTime', title: '业务日期', width: 100, align:'center'}
-                    ,{field: 'securityId', title: '证券ID', width:100, align:'center'}
-                    ,{field: 'securityName', title: '证券名称', width: 100, align:'center'}
-                    ,{field: 'equitiesRecord', title: '权益登记日', width:100, align:'center'}
-                    ,{field: 'equitiesExright', title: '权益除权日', width: 100, align:'center'}
-                    ,{field: 'receivedDate', title: '到账日期', width: 100, align:'center'}
-                    ,{field: 'equitiesType', title: '权益类型', width: 100, align:'center'}
-                    ,{field: 'proportion', title: '比例%', width: 100, align:'center'}
-                    ,{field: 'disposeStatus', title: '处理状态', width: 100, align:'center'}
-                    ,{field: 'operation', title: '操作' , width: 140, align:'center'}
+                    {type: 'checkbox', field: 'left'}
+                    ,{field: 'fundId', title: '基金代码', width:240, align:'center'}
+                    ,{field: 'fundName', title: '基金名称', width: 240, align:'center'}
+                    ,{field: 'managerId', title: '基金管理公司', width:240, align:'center'}
+                    ,{field: 'trusteeBlank', title: '基金托管银行', width: 240, align:'center'}
+                    ,{field: 'fundType', title: '基金类型', width:240, align:'center'}
+                    ,{field: 'operation', title: '操作' , width: 240, align:'center'}
                 ]]
             });
             //给工具条的按钮添加事件
@@ -172,7 +165,7 @@
                     case 'add':
                         var index=layer.open({
                             type: 1,
-                            title: '添加数据信息',
+                            title: '添加基金信息',
                             closeBtn: 1,
                             move:false,
                             content:$("#addContent"),
@@ -293,104 +286,106 @@
 
     </div>
 </div>
-
-
 <!--增加的div内容-->
-<div id="addContent" style="display: none; height: 100%; width:100%; text-align: center">
-    <form id="addform" lay-filter="addform" class="layui-form layui-col-space5" style="margin: 50px auto; display: inline-block;">
-        <div class="layui-inline layui-show-xs-block" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">权益ID</label>
-                <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="权益ID" name="equityId">
-                </div>
-        </div>
-        &nbsp&nbsp&nbsp&nbsp&nbsp
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">业务日期</label>
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入业务日期" name="end" id="start">
+<div id="addContent"
+     style="display: none; height: 100%; height: 100%; text-align: center;">
+    <form id="addform" lay-filter="addform"
+          class="layui-form layui-form-pane"
+          style="margin: 30px auto; display: inline-block;">
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label layui-bg-green" style="width: 140px;">基金代码</label>
+            <div class="layui-input-inline">
+                <input type="number"   lay-verify="required"
+                       autocomplete="off" placeholder="基金代码" class="layui-input" name="fundId">
+            </div>
+            <label class="layui-form-label layui-bg-green" style=" width: 140px;margin-left: 50px;">基金名称</label>
+            <div class="layui-input-inline">
+                <input type="text"   lay-verify="required" name="fundName"
+                       autocomplete="off" placeholder="基金名称" class="layui-input" onkeyup="value=value.replace(/[\d]/g,'') "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[\d]/g,''))" >
             </div>
         </div>
-        <br>
-        <br>
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">证券ID</label>
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入证券ID" name="dateTime">
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label layui-bg-green" style="width: 140px;">  成立日期</label>
+            <div class="layui-input-inline" >
+                <input type="text" placeholder="成立日期" name="setUpDate" id="start2" style="width: 190px;"
+                       lay-verify="start2"  autocomplete="off" class="layui-input">
             </div>
-        </div>
-        &nbsp&nbsp&nbsp&nbsp&nbsp
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">证券名称</label>
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入证券名称" name="securityName">
-            </div>
-        </div>
-        <br>
-        <br>
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">权益登记日</label>
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入登记日" name="equitiesRecord" id="equitiesRecord">
-            </div>
-        </div>
-        &nbsp&nbsp&nbsp&nbsp&nbsp
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">权益除权日</label>
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入除权日" name="equitiesExright" id="equitiesExright">
-            </div>
-        </div>
-        <br>
-        <br>
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">到账日</label>
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入到账日" name="receivedDate" id="receivedDate">
-            </div>
-        </div>
-        &nbsp&nbsp&nbsp&nbsp&nbsp
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">权益类型</label>
-        <div class="layui-inline layui-show-xs-block" style="width: 182px">
-            <select name="equitiesType">
-                <option>请选择</option>
-                <option value="1">送股</option>
-                <option value="2">分红</option>
-            </select>
-        </div>
-        </div>
-        <br>
-        <br>
-        <div class="layui-inline layui-show-xs-block" style="float: left">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">比例(%)</label>
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入比例,单位为%" name="proportion">
-            </div>
-        </div>
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">处理状态</label>
-            <div class="layui-inline layui-show-xs-block" style="width: 182px">
-                <select name="disposeStatus">
-                    <option>请选择</option>
-                    <option value="0">未处理</option>
-                    <option value="1">已处理</option>
+
+
+            <label class="layui-form-label layui-bg-green" style="width: 140px;margin-left: 50px;"> 基金类型 </label>
+            <div class="layui-input-inline" >
+                <select   xm-select-radio=""
+                          xm-select-search="" lay-verify="required"
+                          xm-select-direction="down" xm-select-search-type="dl" name="fundType"/>
+                <option></option>
+                <option value="1">开放式</option>
+                <option value="2">封闭式</option>
                 </select>
             </div>
         </div>
-        <br>
-        <br>
-        <div class="layui-inline layui-show-xs-block" style="float: left">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">账户名称</label>
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入账户名称" name="securityName">
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label layui-bg-green" style="width: 140px;">  基金管理公司 </label>
+            <div class="layui-input-inline">
+                <input type="text" name="managerName" placeholder="基金管理公司" autocomplete="off" class="layui-input" id="fundcompany">
+                <input type="text" style="display: none;" name="managerId" placeholder="基金管理公司" autocomplete="off" class="layui-input"  id="fundcompany01">
+
+            </div>
+            <label class="layui-form-label layui-bg-green" style="width: 140px;margin-left: 50px;">基金托管银行</label>
+            <div class="layui-input-inline">
+                <input type="text" name="trusteeName" placeholder="基金托管银行" autocomplete="off" class="layui-input" id="fundbank">
+                <input type="text"  style="display: none;" name="trusteeBlank" placeholder="基金托管银行" autocomplete="off" class="layui-input"  id="fundbank01">
+
             </div>
         </div>
 
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label layui-bg-green" style="width: 140px;">   初期净值 </label>
+            <div class="layui-input-inline">
+                <input type="text"   lay-verify="required" name="initNetWorth"
+                       autocomplete="off" placeholder="初期净值 " class="layui-input" onkeyup = "if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"onafterpaste = "if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}">
+            </div>
+            <label class="layui-form-label layui-bg-green" style="width: 140px;margin-left: 50px;">基金规模</label>
+            <div class="layui-input-inline">
+                <input type="text" name="sizeOfThe"  lay-verify="numbers" autocomplete="off" placeholder="基金规模" class="layui-input" >
+            </div>
+        </div>
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label layui-bg-green" style="width: 140px;"> 管理人费率  </label>
+            <div class="layui-input-inline">
+                <input type="number" oninput="if(value.length>4)value=value.slice(0,4)"  lay-verify="required" placeholder="管理人费率" name="managerRate"
+                       autocomplete="off" class="layui-input" style="width: 140px;"/>
+                <div style="margin-top: -27px;margin-left: 125px;"> <a style="font-size:18px;">%</a></div>
+            </div>
+            <label class="layui-form-label layui-bg-green" style="width: 140px;margin-left: 50px;">  托管人费率 </label>
+            <div class="layui-input-inline">
+                <input type="number"   lay-verify="required" oninput="if(value.length>4)value=value.slice(0,4)"
+                       autocomplete="off" placeholder="  托管人费率" class="layui-input"  name="hostingRate" style="width: 140px;">
+                <div style="margin-top: -27px;margin-left: 125px;"> <a style="font-size:18px;">%</a></div>
 
-        <div style="position: absolute; bottom: 0px; left: 45%;">
-            <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
+
+            </div>
+        </div>
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label layui-bg-green" style="width: 140px;"> 计提天数</label>
+            <div class="layui-input-inline" >
+                <select  name="provisionDays">
+                    <option></option>
+                    <option value="1">360</option>
+                    <option value="2">365</option>
+                    <option value="3">366</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label layui-bg-green" style="width: 140px;height: 100px;line-height: 100px;">备注</label>
+            <div class="layui-input-inline">
+					<textarea rows="" name="fundDesc"   placeholder="备注" cols=""
+                              class="layui-textarea" style="width: 580px;"></textarea>
+            </div>
+        </div>
+        <div style="position: absolute;left: 45%;">
+            <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
             <button class="layui-btn layui-bg-red cancel" type="button">
@@ -407,36 +402,49 @@
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label"></label>
+            <label class="layui-form-label layui-bg-green">费率类型</label>
             <div class="layui-input-inline">
-                <input type="text" name="userId" lay-verify="required"
-                       autocomplete="off" placeholder="请输入用户ID" class="layui-input">
+                <select name="cateid">
+                    <option>请选择</option>
+                    <option>上交所</option>
+                    <option>深交所</option>
+                </select>
+            </div>
+            <label class="layui-form-label layui-bg-green">交易所名称</label>
+            <div class="layui-input-inline">
+                <select name="cateid">
+                    <option>请选择</option>
+                    <option>股票</option>
+                    <option>债券</option>
+                </select>
             </div>
         </div>
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label"></label>
+            <label class="layui-form-label layui-bg-green"> 过户费</label>
             <div class="layui-input-inline">
-                <input type="text" name="userName" lay-verify="required"
-                       autocomplete="off" placeholder="请输入用户名" class="layui-input">
+                <input type="number" name="userName" lay-verify="required"
+                       autocomplete="off" placeholder="" class="layui-input">
+            </div>
+            <label class="layui-form-label layui-bg-green"> 印花税</label>
+            <div class="layui-input-inline">
+                <input type="number" name="userName" lay-verify="required"
+                       autocomplete="off" placeholder="" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label"></label>
+            <label class="layui-form-label layui-bg-green"> 经手费</label>
             <div class="layui-input-inline">
-                <input type="password" name="userPwd" lay-verify="required"
-                       autocomplete="off" placeholder="请输入密码" class="layui-input">
+                <input type="number" name="userName" lay-verify="required"
+                       autocomplete="off" placeholder="" class="layui-input">
+            </div>
+            <label class="layui-form-label layui-bg-green"> 征管费</label>
+            <div class="layui-input-inline">
+                <input type="number" name="userName" lay-verify="required"
+                       autocomplete="off" placeholder="" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label"></label>
-            <div class="layui-input-inline">
-                <select id="roleId_2" name="roleId" xm-select="add" xm-select-radio=""
-                        xm-select-search="" lay-verify="required"
-                        xm-select-direction="down" xm-select-search-type="dl">
-                </select>
-            </div>
-        </div>
+
         <div style="position: absolute; bottom: 0px; left: 45%;">
             <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
                 <i class="layui-icon">&#x1005;</i>添加

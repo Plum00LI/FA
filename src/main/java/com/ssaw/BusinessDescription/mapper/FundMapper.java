@@ -4,6 +4,8 @@ import com.ssaw.BusinessDescription.entity.Fund;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
+
 /**
  * create by: 曾钦辉
  * description: 基金信息mapper接口
@@ -37,5 +39,5 @@ public interface FundMapper {
      * @param
      * @return List<Fund>
      */
-    List<Fund> selectFund();
+    void selectFund(Map map);
 }
