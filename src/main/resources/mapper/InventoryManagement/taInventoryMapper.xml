@@ -15,5 +15,7 @@
     </delete>
 
 
-    <select id="selectTaInventory" resultType="com.ssaw.InventoryManagement.entity.TaInventory"></select>
+    <select id="selectTaInventory" resultType="com.ssaw.InventoryManagement.entity.TaInventory">
+
+    </select>
 </mapper>

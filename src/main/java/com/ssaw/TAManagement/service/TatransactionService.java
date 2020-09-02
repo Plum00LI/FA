@@ -18,7 +18,7 @@ public interface TatransactionService {
     //增加
     public int insertTatransaction(Tatransaction tatransaction);
     //删除
-    public int  deleteTatransaction(int transactionId);
+    public void  deleteTatransaction(int transactionId);
     //修改
     public int updateTatransaction(Tatransaction tatransaction);
 }

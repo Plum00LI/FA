@@ -17,11 +17,11 @@ import java.util.List;
 public interface TaTransactionMapper {
 
     //查询
-    public List<Tatransaction> selectTatransaction();
+    public List<Tatransaction> select();
     //增加
-    public int insertTatransaction(Tatransaction tatransaction);
+    public int insert(Tatransaction tatransaction);
     //删除
-    public int deleteTatransaction(int transactionId);
+    public void delete(int transactionId);
     //修改
-    public int updateTatransaction(Tatransaction tatransaction);
+    public int update(Tatransaction tatransaction);
 }

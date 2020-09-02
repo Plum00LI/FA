@@ -1,3 +1,5 @@
+<!--syt
+1.0-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,50 +13,37 @@
     <link rel="stylesheet" href="../../static/css/xadmin.css">
     <link rel="stylesheet" href="../../static/css/theme9.css">
     <script src="../../static/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script type="text/javascript" src="../static/js/xadmin.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]-->
-      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 
     <link rel="stylesheet" href="./lib/layui/css/layui.css">
 
 
-    <script src="../../static/lib/layui/layui.js"></script>
+    <script src="./lib/layui/layui.js"></script>
     <!--工具条-->
     <script type="text/html" id="userToolBar">
         <div style="float:right">
-        <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
-                class="layui-icon">&#xe654;</i>添加数据</button>
-        <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll"><i
-                class="layui-icon">&#xe640;</i>批量删除</button>
+            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
+                    class="layui-icon">&#xe654;</i>添加数据</button>
+            <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll"><i
+                    class="layui-icon">&#xe640;</i>批量删除</button>
         </div>
         <br/>
         <form class="layui-form layui-col-space5">
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">权益类型</label>
-
-            <div class="layui-inline layui-show-xs-block">
-                <select name="cateid">
-                    <option>请选择</option>
-                    <option>分红</option>
-                    <option>送股</option>
-                </select>
-            </div>
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">统计日期</label>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">权益除权日</label>
-
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input"  autocomplete="off" placeholder="请输入统计日期" name="end" id="end">
-            </div>
+                <input class="layui-input"  autocomplete="off" placeholder="请输入统计日期" name="datetime" id="datetime">
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
             </div>
         </form>
     </script>
-
 
 
     <script type="text/javascript">
@@ -69,25 +58,11 @@
 
             //执行一个laydate实例
             laydate.render({
-                elem: '#end' //指定元素
+                elem: '#datetime' //指定元素
             });
-
             laydate.render({
-                elem: '#start'
-            })
-
-            laydate.render({
-                elem: '#equitiesRecord'
-            })
-
-            laydate.render({
-                elem: '#equitiesExright'
-            })
-
-            laydate.render({
-                elem: '#receivedDate'
-            })
-
+                elem: '#datetime1' //指定元素
+            });
             //新增提交
             form.on('submit(addsubmit)', function(data){
                 var formData=$('#addform').serialize();
@@ -143,25 +118,20 @@
                 return false;
             });
             table.render({
-                elem: '#userTable',
-                url: './EquityData/selectEquityData',
+                elem: '#cashInventoryTable',
+                url: './cashInventory/select',
                 page: true,
                 height: 498,
                 toolbar: '#userToolBar',//显示在表头的工具条
                 minLength:80,
                 cols: [[ //表头
                     {type: 'checkbox', fixed: 'left'}
-                    ,{field: 'equityId', title: '权益编号', width:100, align:'center'}
-                    ,{field: 'dateTime', title: '业务日期', width: 100, align:'center'}
-                    ,{field: 'securityId', title: '证券ID', width:100, align:'center'}
-                    ,{field: 'securityName', title: '证券名称', width: 100, align:'center'}
-                    ,{field: 'equitiesRecord', title: '权益登记日', width:100, align:'center'}
-                    ,{field: 'equitiesExright', title: '权益除权日', width: 100, align:'center'}
-                    ,{field: 'receivedDate', title: '到账日期', width: 100, align:'center'}
-                    ,{field: 'equitiesType', title: '权益类型', width: 100, align:'center'}
-                    ,{field: 'proportion', title: '比例%', width: 100, align:'center'}
-                    ,{field: 'disposeStatus', title: '处理状态', width: 100, align:'center'}
-                    ,{field: 'operation', title: '操作' , width: 140, align:'center'}
+                    ,{field: 'id', title: 'TA库存ID', width:180}
+                    ,{field: 'experience', title: '统计日期', width: 200}
+                    ,{field: 'sex', title: '数量', width:200}
+                    ,{field: 'score', title: '金额', width: 200}
+                    ,{field: 'city', title: '描述', width:200}
+                    ,{field: 'classify', title: '操作', width: 200}
                 ]]
             });
             //给工具条的按钮添加事件
@@ -276,6 +246,8 @@
                     layer.full(index);
                 };
             })
+
+
         });
     </script>
 </head>
@@ -283,7 +255,7 @@
       class="layui-view-body layui-content">
 <div>
     <!--表格-->
-    <table id="userTable" lay-filter="userTable"></table>
+    <table id="cashInventoryTable" lay-filter="userTable"></table>
     <!--工具条-->
     <div style="display: none;" id="barDemo">
         <a class="layui-btn layui-btn-xs" lay-event="edit"><i
@@ -293,107 +265,53 @@
 
     </div>
 </div>
-
-
+<!--增加的div内容-->
 <!--增加的div内容-->
 <div id="addContent" style="display: none; height: 100%; width:100%; text-align: center">
     <form id="addform" lay-filter="addform" class="layui-form layui-col-space5" style="margin: 50px auto; display: inline-block;">
-        <div class="layui-inline layui-show-xs-block" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">权益ID</label>
+        <div style="float: left;">
+            <div class="layui-inline layui-show-xs-block" style="text-align: center;">
+                <label class="layui-form-label layui-bg-green" style="text-align: center">统计日期</label>
                 <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="权益ID" name="equityId">
+                    <input class="layui-input"  autocomplete="off" placeholder="日期" name="datetime" id="datetime1">
                 </div>
-        </div>
-        &nbsp&nbsp&nbsp&nbsp&nbsp
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">业务日期</label>
+            </div>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入业务日期" name="end" id="start">
+                <label class="layui-form-label layui-bg-green" style="text-align: center">金额</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <input class="layui-input" placeholder="金额" name="cashAccountName">
+                </div>
             </div>
         </div>
-        <br>
-        <br>
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">证券ID</label>
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入证券ID" name="dateTime">
-            </div>
-        </div>
-        &nbsp&nbsp&nbsp&nbsp&nbsp
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">证券名称</label>
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入证券名称" name="securityName">
-            </div>
-        </div>
-        <br>
-        <br>
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">权益登记日</label>
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入登记日" name="equitiesRecord" id="equitiesRecord">
-            </div>
-        </div>
-        &nbsp&nbsp&nbsp&nbsp&nbsp
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">权益除权日</label>
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入除权日" name="equitiesExright" id="equitiesExright">
-            </div>
-        </div>
-        <br>
-        <br>
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">到账日</label>
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入到账日" name="receivedDate" id="receivedDate">
-            </div>
-        </div>
-        &nbsp&nbsp&nbsp&nbsp&nbsp
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">权益类型</label>
-        <div class="layui-inline layui-show-xs-block" style="width: 182px">
-            <select name="equitiesType">
-                <option>请选择</option>
-                <option value="1">送股</option>
-                <option value="2">分红</option>
-            </select>
-        </div>
-        </div>
-        <br>
-        <br>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         <div class="layui-inline layui-show-xs-block" style="float: left">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">比例(%)</label>
+            <label class="layui-form-label layui-bg-green" style="text-align: center">数量</label>
+            <!--            -->
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入比例,单位为%" name="proportion">
+                <input class="layui-input" placeholder="数量" name="balance">
             </div>
         </div>
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <br>
+        <br>
+        <br/>
+        <br/>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">处理状态</label>
-            <div class="layui-inline layui-show-xs-block" style="width: 182px">
-                <select name="disposeStatus">
-                    <option>请选择</option>
-                    <option value="0">未处理</option>
-                    <option value="1">已处理</option>
-                </select>
-            </div>
-        </div>
-        <br>
-        <br>
-        <div class="layui-inline layui-show-xs-block" style="float: left">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">账户名称</label>
+            <label class="layui-form-label layui-bg-green" style="text-align: center; width: 130px; height: 81px; line-height: 81px">备注</label>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入账户名称" name="securityName">
+                <textarea name="" required lay-verify="required" placeholder="请输入" class="layui-textarea" style="width: 467px"></textarea>
             </div>
         </div>
+
 
 
         <div style="position: absolute; bottom: 0px; left: 45%;">
             <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
-            <button class="layui-btn layui-bg-red cancel" type="button">
+            <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
                 <i class="layui-icon">&#x1006;</i>取消
             </button>
         </div>
@@ -451,3 +369,4 @@
 
 </body>
 </html>
+

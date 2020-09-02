@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program:权益数据模块
@@ -15,37 +16,42 @@ import java.util.List;
  * @author:孙浩
  * @create:2020-09-01
  */
+@RequestMapping("equityData")
 @RestController
 public class EquityDataController {
     @Resource
-    EquityDataService transactionDataService;
+    EquityDataService equityDataService;
 
-    @RequestMapping("/insertEquityData")
-    public int insertTransactionData(EquityData transactionData){
-        int i = transactionDataService.insertTransactionData(transactionData);
+    @RequestMapping("insertEquityData")
+    public int insertEquityData(EquityData equityData){
+        int i = equityDataService.insertEquityData(equityData);
         return i;
     }
 
-    @RequestMapping("/deleteEquityData")
-    public void deleteTransactionData(int equityId){
-        transactionDataService.deleteTransactionData(equityId);
+    @RequestMapping("deleteEquityData")
+    public void deleteEquityData(int equityId){
+        equityDataService.deleteEquityData(equityId);
     }
 
-    @RequestMapping("/updateEquityData")
-    public int updateTransactionData(EquityData transactionData){
-        int i = transactionDataService.updateTransactionData(transactionData);
+    @RequestMapping("updateEquityData")
+    public int updateEquityData(EquityData equityData){
+        int i = equityDataService.updateEquityData(equityData);
         return i;
     }
 
-    @RequestMapping("/selectEquityData")
-    public HashMap selectTransactionData(){
-        List<EquityData> transactionDataList =transactionDataService.selectTransactionData();
-        HashMap transactionDateMap = new HashMap();
-        transactionDateMap.put("count",10);
-        transactionDateMap.put("code",0);
-        transactionDateMap.put("msg","");
-        transactionDateMap.put("data",transactionDataList);
-        System.out.println("已有"+transactionDataList.size()+"条数据");
-        return transactionDateMap;
+    @RequestMapping("selectEquityData")
+    public Map<String,Object> selectEquityData(String page,String limit){
+        //调用Service层执行查询，接收返回结果集Map
+        Map<String, Object> map = equityDataService.selectEquityData(page,limit);
+        List<EquityData> equityDataList = (List<EquityData>) map.get("equityDataList");
+        int count = (int) map.get("count");
+        //以layui要求存储响应数据格式
+        Map<String, Object> equityDataMap = new HashMap<>();
+        equityDataMap.put("code",0);
+        equityDataMap.put("msg","");
+        equityDataMap.put("count",count);
+        equityDataMap.put("data",equityDataList);
+        //返回数据
+        return equityDataMap;
     }
 }
