@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssaw.InventoryManagement.mapper.TaInventoryMapper">
+    <insert id="insertTaInventory">
+        insert  into taInventory values (#{taInventoryId},#{fundId},#{tanum},#{tatotal},
+        #{dateTime},#{securityPeriodFlag},#{taInventoryDesc})
+    </insert>
+    <update id="updateTaInventory">
+        update taInventory set taInventoryDesc=#{taInventoryDesc},fundId=#{fundId},tanum=#{tanum},
+        tatotal=#{tatotal},dateTime=#{dateTime},securityPeriodFlag=#{securityPeriodFlag}
+         where taInventoryId=#{taInventoryId}
+    </update>
+    <delete id="deleteTaInventory">
+        delete from taInventory where taInventoryId={taInventoryId}
+    </delete>
+
+
+    <select id="selectTaInventory" resultType="com.ssaw.InventoryManagement.entity.TaInventory"></select>
+</mapper>

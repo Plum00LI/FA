@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssaw.BusinessDescription.mapper.AccountMapper">
+    <insert id="insertAccount"></insert>
+    <update id="updateAccount"></update>
+    <delete id="deleteAccount"></delete>
+
+    <select id="selectAccount" resultType="com.ssaw.BusinessDescription.entity.Account"></select>
+</mapper>
