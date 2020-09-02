@@ -6,6 +6,8 @@ import com.ssaw.BusinessDescription.service.SecuritiesService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
+
 /**
  * 债券参数
  * @type Securities的service的实现类
@@ -17,6 +19,12 @@ import javax.annotation.Resource;
 public class SecuritiesServiceImpl implements SecuritiesService {
     @Resource
     SecuritiesService securitiesService;
+
+    @Override
+    public List<Securities> selectSecurities() {
+        return securitiesService.selectSecurities();
+    }
+
     @Override
     public void insertSecurities(Securities securities) {
         securitiesService.insertSecurities(securities);

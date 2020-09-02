@@ -10,6 +10,9 @@
         update securities set securitiesName=#{securitiesName},securitiesType=#{securitiesType},issueDate=#{issueDate},delayDate=#{delayDate},stockId=#{stockId},exchange=#{exchange},securitiesDesc=#{securitiesDesc} where ecuritiesId=#{ecuritiesId}
     </update>
     <insert id="insertSecurities" parameterType="com.ssaw.BusinessDescription.entity.Securities">
-        insert into securities values (#{ecuritiesId},#{securitiesName},#{securitiesType},#{issueDate},#{delayDate},#{stockId},#{exchange},#{securitiesDesc})
+        insert into securities(ecuritiesId,securitiesName,securitiesType,issueDate,delayDate,stockId,exchange,securitiesDesc) values (#{ecuritiesId},#{securitiesName},#{securitiesType},#{issueDate},#{delayDate},#{stockId},#{exchange},#{securitiesDesc})
     </insert>
+    <select id="selectSecurities" resultType="com.ssaw.BusinessDescription.entity.Securities">
+        select ecuritiesId,securitiesName,securitiesType,issueDate,delayDate,stockId,exchange,securitiesDesc from securities
+    </select>
 </mapper>

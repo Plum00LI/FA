@@ -4,13 +4,13 @@
                 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.BusinessDescription.mapper.StockMapper">
         <select id="selectSonStock" resultType="com.ssaw.BusinessDescription.entity.Stock" parameterType="String">
-            select * from stock where stockParentId=#{stockId}
+            select stockParentId,stockName,stockDesc,stockId from stock where stockParentId=#{stockId}
         </select>
         <insert id="insertStockParentMsg" parameterType="com.ssaw.BusinessDescription.entity.Stock">
-            insert into stock values (#{stockId},'000',#{stockName},#{stockDesc})
+            insert into stock(tockParentId,stockName,stockDesc,stockId) values (#{stockId},'000',#{stockName},#{stockDesc})
         </insert>
         <insert id="insertStockSonMsg" parameterType="com.ssaw.BusinessDescription.entity.Stock">
-            insert into stock values (#{stockId},#{stockParentId},#{stockName},#{stockDesc})
+            insert into stock(tockParentId,stockName,stockDesc,stockId) values (#{stockId},#{stockParentId},#{stockName},#{stockDesc})
         </insert>
         <update id="updateStock" parameterType="com.ssaw.BusinessDescription.entity.Stock">
             update stock set stockParentId=#{stockParentId},stockName=#{stockName},stockDesc=#{stockDesc} where stockId=#{stockId}

@@ -17,6 +17,7 @@ public interface SecuritiesMapper {
     /**
      * 查询所有
      */
+    public List<Stock> selectSecurities();
     /**
      * 按条件查询
      * @return 条件查询的集合

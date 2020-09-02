@@ -16,6 +16,7 @@ public interface StockMapper {
     /**
      * 查询所有
      */
+    public List<Stock> selectStock();
     /**
      * 根据父类查子类
      */

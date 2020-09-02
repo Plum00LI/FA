@@ -15,13 +15,14 @@ import java.util.List;
 @Service
 public interface StockService {
     /**
+     * 查询所有
+     */
+    public List<Stock> selectStock();
+    /**
      * 增加父类
      * @param stock
      */
     public void insertStockParentMsg(Stock stock);
-    /**
-     * 查询所有
-     */
     /**
      * 根据父类查子类
      */
