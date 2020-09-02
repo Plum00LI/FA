@@ -3,6 +3,7 @@ package com.ssaw.BusinessDescription.mapper;
 import com.ssaw.BusinessDescription.entity.Account;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -14,8 +15,8 @@ import java.util.List;
 */
 @Mapper
 public interface AccountMapper {
-    public List<Account> selectAccount();
-    public int insertAccount();
-    public int updateAccount();
-    public int deleteAccount();
+    public void selectAccount(HashMap hashMap);
+    public int insertAccount(Account account);
+    public int updateAccount(Account account);
+    public int deleteAccount(int accountId);
 }

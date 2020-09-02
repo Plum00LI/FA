@@ -18,9 +18,29 @@
     <delete id="deleteFund" parameterType="int">
          delete from fund WHERE fundId=#{fundId}
     </delete>
-    <select id="selectFund" resultType="com.ssaw.BusinessDescription.entity.Fund">
-        select fundId,fundName,fundType,managerId,trusteeBlank,initNetWorth,
-        sizeOfThe,managerRate,hostingRate,provisionDays,setUpDate,fundDesc,accountId
-        from fund
+<!--    <select id="selectFund" resultType="com.ssaw.BusinessDescription.entity.Fund">-->
+<!--        select fundId,fundName,fundType,managerId,trusteeBlank,initNetWorth,-->
+<!--        sizeOfThe,managerRate,hostingRate,provisionDays,setUpDate,fundDesc,accountId-->
+<!--        from fund-->
+<!--    </select>-->
+    <resultMap id="fundMap" type="com.ssaw.BusinessDescription.entity.Fund">
+        <result property="fundId" column="fundId" javaType="Integer"></result>
+        <result property="fundName" column="fundName" javaType="String"></result>
+        <result property="fundType" column="fundType" javaType="DOUBLE"></result>
+        <result property="managerId" column="managerId" javaType="String"></result>
+        <result property="trusteeBlank" column="trusteeBlank" javaType="String"></result>
+        <result property="initNetWorth" column="initNetWorth" javaType="DOUBLE"></result>
+        <result property="sizeOfThe" column="sizeOfThe" javaType="DOUBLE"></result>
+        <result property="managerRate" column="managerRate" javaType="DOUBLE"></result>
+        <result property="hostingRate" column="hostingRate" javaType="DOUBLE"></result>
+        <result property="provisionDays" column="provisionDays" javaType="DOUBLE"></result>
+        <result property="setUpDate" column="setUpDate" javaType="String"></result>
+        <result property="fundDesc" column="fundDesc" javaType="String"></result>
+        <result property="accountId" column="accountId" javaType="String"></result>
+    </resultMap>
+
+    <select id="selectFund" parameterType="java.util.Map" statementType="CALLABLE">
+        {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},#{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=INTEGER},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=fundMap})}
     </select>
+
 </mapper>

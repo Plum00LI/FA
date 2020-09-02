@@ -1,6 +1,6 @@
 package com.ssaw.CashManagement.mapper;
 
-import com.ssaw.CashManagement.entity.BankTreasurer;
+
 import com.ssaw.CashManagement.entity.TransferMoney;
 import org.apache.ibatis.annotations.Mapper;
 

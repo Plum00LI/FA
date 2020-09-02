@@ -7,20 +7,20 @@
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="./css/xadmin.css">
-    <link rel="stylesheet" href="./css/theme9.css">
-    <script src="./lib/layui/layui.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="../../static/css/font.css">
+    <link rel="stylesheet" href="../../static/css/xadmin.css">
+    <link rel="stylesheet" href="../../static/css/theme9.css">
+    <script src="../../static/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/xadmin.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]-->
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 
-    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <link rel="stylesheet" href="./lib/layui/css/layui.css">
 
 
-    <script src="lib/layui/layui.js"></script>
+    <script src="../../static/lib/layui/layui.js"></script>
     <!--工具条-->
     <script type="text/html" id="userToolBar">
         <div style="float:right">
@@ -33,7 +33,7 @@
         <form class="layui-form layui-col-space5">
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">权益类型</label>
-            </div>
+
             <div class="layui-inline layui-show-xs-block">
                 <select name="cateid">
                     <option>请选择</option>
@@ -41,11 +41,13 @@
                     <option>送股</option>
                 </select>
             </div>
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">权益除权日</label>
             </div>
             <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">权益除权日</label>
+
+            <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input"  autocomplete="off" placeholder="请输入统计日期" name="end" id="end">
+            </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
@@ -142,7 +144,7 @@
             });
             table.render({
                 elem: '#userTable',
-                url: './selectUser',
+                url: './EquityData/selectEquityData',
                 page: true,
                 height: 498,
                 toolbar: '#userToolBar',//显示在表头的工具条
@@ -302,19 +304,22 @@
                 <input class="layui-input" placeholder="权益ID" name="equityId">
                 </div>
         </div>
+        &nbsp&nbsp&nbsp&nbsp&nbsp
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">业务日期</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" placeholder="请输入业务日期" name="end" id="start">
             </div>
         </div>
-        <br/>
+        <br>
+        <br>
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">证券ID</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" placeholder="请输入证券ID" name="dateTime">
             </div>
         </div>
+        &nbsp&nbsp&nbsp&nbsp&nbsp
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">证券名称</label>
             <div class="layui-inline layui-show-xs-block">
@@ -322,12 +327,14 @@
             </div>
         </div>
         <br>
+        <br>
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">权益登记日</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" placeholder="请输入登记日" name="equitiesRecord" id="equitiesRecord">
             </div>
         </div>
+        &nbsp&nbsp&nbsp&nbsp&nbsp
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">权益除权日</label>
             <div class="layui-inline layui-show-xs-block">
@@ -335,37 +342,49 @@
             </div>
         </div>
         <br>
+        <br>
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">到账日</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" placeholder="请输入到账日" name="receivedDate" id="receivedDate">
             </div>
         </div>
+        &nbsp&nbsp&nbsp&nbsp&nbsp
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">权益类型</label>
         <div class="layui-inline layui-show-xs-block" style="width: 182px">
             <select name="equitiesType">
                 <option>请选择</option>
-                <option>分红</option>
-                <option>送股</option>
+                <option value="1">送股</option>
+                <option value="2">分红</option>
             </select>
         </div>
         </div>
         <br>
-        <div class="layui-inline layui-show-xs-block">
+        <br>
+        <div class="layui-inline layui-show-xs-block" style="float: left">
             <label class="layui-form-label layui-bg-green" style="text-align: center">比例(%)</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" placeholder="请输入比例,单位为%" name="proportion">
             </div>
         </div>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">处理状态</label>
             <div class="layui-inline layui-show-xs-block" style="width: 182px">
                 <select name="disposeStatus">
                     <option>请选择</option>
-                    <option>未处理</option>
-                    <option>已处理</option>
+                    <option value="0">未处理</option>
+                    <option value="1">已处理</option>
                 </select>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="layui-inline layui-show-xs-block" style="float: left">
+            <label class="layui-form-label layui-bg-green" style="text-align: center">账户名称</label>
+            <div class="layui-inline layui-show-xs-block">
+                <input class="layui-input" placeholder="请输入账户名称" name="securityName">
             </div>
         </div>
 

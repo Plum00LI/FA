@@ -23,24 +23,23 @@ public class TatransactionServiceImpl implements TatransactionService{
 
     @Override
     public List<Tatransaction> selectTatransaction() {
-        return tatransactionMapper.selectTatransaction();
+        return tatransactionMapper.select();
     }
 
     @Override
     public int insertTatransaction(Tatransaction tatransaction) {
-        int msg = tatransactionMapper.insertTatransaction(tatransaction);
+        int msg = tatransactionMapper.insert(tatransaction);
         return msg;
     }
 
     @Override
-    public int deleteTatransaction(int transactionId) {
-        int a  = tatransactionMapper.deleteTatransaction(transactionId);
-        return a;
+    public void deleteTatransaction(int transactionId) {
+            tatransactionMapper.delete(transactionId);
     }
 
     @Override
     public int updateTatransaction(Tatransaction tatransaction) {
-        int i = tatransactionMapper.updateTatransaction(tatransaction);
+        int i = tatransactionMapper.update(tatransaction);
         return i;
     }
 }

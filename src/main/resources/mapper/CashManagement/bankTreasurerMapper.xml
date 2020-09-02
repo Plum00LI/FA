@@ -4,8 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.CashManagement.mapper.BankTreasurerMapper">
     <insert id="insertBankTreasurer"></insert>
-    <update id="updateBankTreasurer"></update>
-    <delete id="deleteBankTreasurer"></delete>
+    <update id="updateBankTreasurer">
+        	UPDATE bankTreasurer SET accountId=#{accountId}, totalPrice=#{totalPrice},
+		allocatingType=#{allocatingType},flag=#{flag},dbTime = #{dbTime},
+		bankTreasurerDesc = #{bankTreasurerDesc}  WHERE treasurerId=#{treasurerId}
+    </update>
+    <delete id="deleteBankTreasurer">
+            delete from bankTreasurer where treasurerId=#{treasurerId}
+    </delete>
 
-    <select id="selectBankTreasurer" resultType="com.ssaw.CashManagement.entity.BankTreasurer"></select>
+    <select id="selectBankTreasurer" resultType="com.ssaw.CashManagement.entity.BankTreasurer">
+                select * from bankTreasurer
+    </select>
 </mapper>

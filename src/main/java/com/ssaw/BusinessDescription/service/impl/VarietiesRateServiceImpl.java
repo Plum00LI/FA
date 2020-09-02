@@ -33,11 +33,13 @@ public class VarietiesRateServiceImpl implements VarietiesRateService {
     //增加
     @Override
     public int insertVarietiesRate(VarietiesRate varietiesRate) {
-        return varietiesRateMapper.insertVarietiesRate(varietiesRate);
+        int i=varietiesRateMapper.insertVarietiesRate(varietiesRate);
+        return i;
     }
     //修改
     @Override
     public int updateVarietiesRate(VarietiesRate varietiesRate) {
-        return varietiesRateMapper.updateVarietiesRate(varietiesRate);
+        int i=varietiesRateMapper.updateVarietiesRate(varietiesRate);
+        return i;
     }
 }

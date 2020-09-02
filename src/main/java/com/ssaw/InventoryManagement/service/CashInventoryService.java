@@ -4,6 +4,7 @@ import com.ssaw.InventoryManagement.entity.CashInventory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * ClassName:    CashInventoryService
@@ -15,8 +16,8 @@ import java.util.List;
  */
 @Service
 public interface CashInventoryService {
-    public List<CashInventory> selectCashInventory();
-
+    public Map<String,Object> selectCashInventory(String pageSize,String page);
+    public List<CashInventory> selectCashInventoryAll();
     public int insertCashInventory(CashInventory cashInventory);
 
     public int updateCashInventory(CashInventory cashInventory);

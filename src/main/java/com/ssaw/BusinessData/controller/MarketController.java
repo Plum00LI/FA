@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.xml.crypto.Data;
@@ -22,15 +23,15 @@ import java.util.List;
 *@version:1.0
 *@create: 2020-09-01
 */
-@Controller
-@RequestMapping("/market")
+@RestController
+@RequestMapping("market")
 public class MarketController {
     //调用用户Biz对象
     //自动装配 按照类型自动装配
     @Resource
     MarketService marketService;
 
-    @RequestMapping("/selectMarket")
+    @RequestMapping("selectMarket")
     public HashMap selectMarket(){
         System.out.println("行情数据查询控制器");
         HashMap hashMap = new HashMap();
@@ -43,7 +44,7 @@ public class MarketController {
         return hashMap;
     }
 
-    @RequestMapping(value = "/insertMarket",method = {RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value = "insertMarket",method = {RequestMethod.GET,RequestMethod.POST})
     public int insertMarket(@ModelAttribute Market market){
        /* Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");

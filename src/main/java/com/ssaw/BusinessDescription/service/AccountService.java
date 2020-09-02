@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public interface AccountService {
     public List<Account> selectAccount();
-    public int insertAccount();
-    public int updateAccount();
-    public int deleteAccount();
+    public int insertAccount(Account account);
+    public int updateAccount(Account account);
+    public int deleteAccount(int accountId);
 }

@@ -3,7 +3,7 @@ package com.ssaw.BusinessData.service;
 import com.ssaw.BusinessData.entity.EquityData;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * @program:权益数据模块
@@ -11,9 +11,10 @@ import java.util.List;
  * @author:孙浩
  * @create:2020-09-01
  */
+@Service
 public interface EquityDataService {
-    public int insertTransactionData(EquityData transactionData);
-    public void deleteTransactionData(int equityId);
-    public int updateTransactionData(EquityData transactionData);
-    public List<EquityData> selectTransactionData();
+    public int insertEquityData(EquityData equityData);
+    public void deleteEquityData(int equityId);
+    public int updateEquityData(EquityData equityData);
+    public Map<String,Object> selectEquityData(String pageSize,String page);
 }
