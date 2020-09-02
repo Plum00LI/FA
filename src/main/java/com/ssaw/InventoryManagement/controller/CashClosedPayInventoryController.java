@@ -15,29 +15,30 @@ import java.util.List;
  * @author:孙浩
  * @create:2020-09-01
  */
+@RequestMapping("CashClosedPayInventory")
 @RestController
 public class CashClosedPayInventoryController {
     @Resource
     CashClosedPayInventoryService cashClosedPayInventoryService;
 
-    @RequestMapping("/insertCashClosedPayInventory")
+    @RequestMapping("insertCashClosedPayInventory")
     public int insertCashClosedPayInventory(CashClosedPayInventory cashClosedPayInventory){
         int j = cashClosedPayInventoryService.insertCashClosedPayInventory(cashClosedPayInventory);
         return j;
     }
 
-    @RequestMapping("/deleteCashClosedPayInventory")
+    @RequestMapping("deleteCashClosedPayInventory")
     public void deleteCashClosedPayInventory(int crcsId){
         cashClosedPayInventoryService.deleteCashClosedPayInventory(crcsId);
     }
 
-    @RequestMapping("/updateCashClosedPayInventory")
+    @RequestMapping("updateCashClosedPayInventory")
     public int updateCashClosedPayInventory(CashClosedPayInventory cashClosedPayInventory){
         int j = cashClosedPayInventoryService.updateCashClosedPayInventory(cashClosedPayInventory);
         return j;
     }
 
-    @RequestMapping("/selectCashClosedPayInventory")
+    @RequestMapping("selectCashClosedPayInventory")
     public HashMap selectCashClosedPayInventory(){
         List<CashClosedPayInventory> cashClosedPayInventoryList = cashClosedPayInventoryService.selectCashClosedPayInventory();
         HashMap cashClosedPayInventoryMap = new HashMap();
