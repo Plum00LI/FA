@@ -17,7 +17,7 @@ public class BankTreasurer {
     private String dateTime;//业务日期
     private String businessId;//业务标号
     private int allocatingType;//调拨类型
-    private String BankTreasurerDesc;//备注
+    private String bankTreasurerDesc;//备注
 
     public BankTreasurer() {
     }
@@ -32,7 +32,7 @@ public class BankTreasurer {
         this.dateTime = dateTime;
         this.businessId = businessId;
         this.allocatingType = allocatingType;
-        BankTreasurerDesc = bankTreasurerDesc;
+        this.bankTreasurerDesc = bankTreasurerDesc;
     }
 
     public String getTreasurerId() {
@@ -108,11 +108,11 @@ public class BankTreasurer {
     }
 
     public String getBankTreasurerDesc() {
-        return BankTreasurerDesc;
+        return bankTreasurerDesc;
     }
 
     public void setBankTreasurerDesc(String bankTreasurerDesc) {
-        BankTreasurerDesc = bankTreasurerDesc;
+        this.bankTreasurerDesc = bankTreasurerDesc;
     }
 
     @Override
@@ -127,7 +127,7 @@ public class BankTreasurer {
                 ", dateTime='" + dateTime + '\'' +
                 ", businessId='" + businessId + '\'' +
                 ", allocatingType=" + allocatingType +
-                ", BankTreasurerDesc='" + BankTreasurerDesc + '\'' +
+                ", bankTreasurerDesc='" + bankTreasurerDesc + '\'' +
                 '}';
     }
 }

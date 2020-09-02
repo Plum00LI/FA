@@ -1,9 +1,8 @@
 package com.ssaw.CashManagement.mapper;
 
-import com.ssaw.BusinessData.mapper.DepositMapper;
 import com.ssaw.CashManagement.entity.BankTreasurer;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 

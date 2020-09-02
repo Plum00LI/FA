@@ -15,8 +15,8 @@ public class Deposit {
     private int directionOfMoney;//资金调拨方向1代表流入-1代表流出
     private String businessDate;//业务时间
     private int businessType;//业务类型 1代表定期三天2代表七天3代表活期
-    private double Money;//存款金额
-    private double Interest;//所含利息
+    private double money;//存款金额
+    private double interest;//所含利息
     private String endDate;//存款业务到期时间
     private int flag;//到期办理标志0未办理1已办理
     private String depositDesc;//备注
@@ -32,8 +32,8 @@ public class Deposit {
         this.directionOfMoney = directionOfMoney;
         this.businessDate = businessDate;
         this.businessType = businessType;
-        Money = money;
-        Interest = interest;
+        this.money = money;
+        this.interest = interest;
         this.endDate = endDate;
         this.flag = flag;
         this.depositDesc = depositDesc;
@@ -96,19 +96,19 @@ public class Deposit {
     }
 
     public double getMoney() {
-        return Money;
+        return money;
     }
 
     public void setMoney(double money) {
-        Money = money;
+        this.money = money;
     }
 
     public double getInterest() {
-        return Interest;
+        return interest;
     }
 
     public void setInterest(double interest) {
-        Interest = interest;
+        this.interest = interest;
     }
 
     public String getEndDate() {
@@ -145,8 +145,8 @@ public class Deposit {
                 ", directionOfMoney=" + directionOfMoney +
                 ", businessDate='" + businessDate + '\'' +
                 ", businessType=" + businessType +
-                ", Money=" + Money +
-                ", Interest=" + Interest +
+                ", money=" + money +
+                ", interest=" + interest +
                 ", endDate='" + endDate + '\'' +
                 ", flag=" + flag +
                 ", depositDesc='" + depositDesc + '\'' +

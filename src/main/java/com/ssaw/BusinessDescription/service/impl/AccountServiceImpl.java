@@ -6,6 +6,7 @@ import com.ssaw.BusinessDescription.service.AccountService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -19,23 +20,34 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
     @Resource
     AccountMapper accountMapper;
+
     @Override
     public List<Account> selectAccount() {
-        return accountMapper.selectAccount();
+        HashMap accountMap=new HashMap();
+        accountMap.put("p_tableName","account");
+        accountMap.put("p_condition","");
+        accountMap.put("p_pageSize",4);
+        accountMap.put("p_page",1);
+        accountMap.put("p_count",0);
+        accountMap.put("p_cursor",null);
+        accountMapper.selectAccount(accountMap);
+        List<Account> accountList = (List<Account>) accountMap.get("p_cursor");
+        System.out.println(accountList);
+        return accountList;
     }
 
     @Override
-    public int insertAccount() {
-        return accountMapper.insertAccount();
+    public int insertAccount(Account account) {
+        return accountMapper.insertAccount(account);
     }
 
     @Override
-    public int updateAccount() {
-        return accountMapper.updateAccount();
+    public int updateAccount(Account account) {
+        return accountMapper.updateAccount(account);
     }
 
     @Override
-    public int deleteAccount() {
-        return accountMapper.deleteAccount();
+    public int deleteAccount(int accountId) {
+        return accountMapper.deleteAccount(accountId);
     }
 }
