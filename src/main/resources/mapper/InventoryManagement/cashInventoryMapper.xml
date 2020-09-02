@@ -14,6 +14,22 @@
         delete from cashInventory where cashInventoryId=#{cashInventoryId}
     </delete>
     <select id="selectCashInventory" resultType="com.ssaw.InventoryManagement.entity.CashInventory">
-
+        {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},#{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=INTEGER},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=cashInventoryMap})}
     </select>
+
+    <resultMap id="cashInventoryMap" type="com.ssaw.InventoryManagement.entity.CashInventory">
+        <result property="cashInventoryId" column="cashInventoryId" javaType="Integer"></result>
+        <result property="fundId" column="fundId" javaType="String"></result>
+        <result property="cashBlance" column="cashBlance" javaType="String"></result>
+        <result property="accountId" column="accountId" javaType="Integer"></result>
+        <result property="dateTime" column="dateTime" javaType="Integer"></result>
+        <result property="securitiesNum" column="securitiesNum" javaType="Integer"></result>
+        <result property="securityPeriodFlag" column="securityPeriodFlag" javaType="Integer"></result>
+        <result property="cashInventoryDesc" column="cashInventoryDesc" javaType="String"></result>
+    </resultMap>
+
+    <select id="selectCashInventoryAll" resultType="com.ssaw.InventoryManagement.entity.CashInventory">
+        select * from cashInventory
+    </select>
+
 </mapper>
