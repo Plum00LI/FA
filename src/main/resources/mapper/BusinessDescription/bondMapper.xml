@@ -17,7 +17,7 @@
     <!--删除-->
     <delete id="updateBond">  delete from Bond where securitiesId=#{securitiesId}</delete>
     <!--查询-->
-    <select id="selectBond"  resultType="com.ssaw.TAManagement.entity.Tatransaction">
+    <select id="selectBond"  resultType="com.ssaw.TAManagement.entity.TaTransaction">
          select * from Bond
     </select>
 

@@ -1,7 +1,7 @@
 package com.ssaw.BusinessDescription.service;
 
 import com.ssaw.BusinessDescription.entity.Bond;
-import com.ssaw.TAManagement.entity.Tatransaction;
+import com.ssaw.TAManagement.entity.TaTransaction;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public interface BondService {
     //查询
-    public List<Tatransaction> selectBond();
+    public List<TaTransaction> selectBond();
     //增加
     public int insertBond(Bond bond);
     //删除

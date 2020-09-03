@@ -1,9 +1,8 @@
 package com.ssaw.TAManagement.service;
 
-import com.ssaw.TAManagement.entity.Tatransaction;
-import org.springframework.stereotype.Service;
+import com.ssaw.TAManagement.entity.TaTransaction;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * TA交易数据服务层接口
@@ -14,11 +13,11 @@ import java.util.List;
  */
 public interface TatransactionService {
     //查询
-    public List<Tatransaction> selectTatransaction();
+    Map<String,Object> selectTatransaction(String pageSize, String page);
     //增加
-    public int insertTatransaction(Tatransaction tatransaction);
+    public int insertTatransaction(TaTransaction tatransaction);
     //删除
-    public void  deleteTatransaction(int transactionId);
+    public void  deleteTatransaction(String transactionId);
     //修改
-    public int updateTatransaction(Tatransaction tatransaction);
+    public int updataTetransaction(TaTransaction tatransaction);
 }
