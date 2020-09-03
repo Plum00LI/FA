@@ -3,7 +3,7 @@ package com.ssaw.BusinessDescription.service.impl;
 import com.ssaw.BusinessDescription.entity.Bond;
 import com.ssaw.BusinessDescription.mapper.BondMapper;
 import com.ssaw.BusinessDescription.service.BondService;
-import com.ssaw.TAManagement.entity.Tatransaction;
+import com.ssaw.TAManagement.entity.TaTransaction;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,7 +21,7 @@ public class BondServiceImpl implements BondService {
     @Resource
     BondMapper bondMapper;
     @Override
-    public List<Tatransaction> selectBond() {
+    public List<TaTransaction> selectBond() {
         return bondMapper.selectBond();
     }
 

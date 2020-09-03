@@ -1,9 +1,9 @@
 package com.ssaw.TAManagement.mapper;
 
-import com.ssaw.TAManagement.entity.Tatransaction;
+import com.ssaw.TAManagement.entity.TaTransaction;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * TA交易数据dao层接口
@@ -16,12 +16,27 @@ import java.util.List;
 @Mapper
 public interface TaTransactionMapper {
 
-    //查询
-    public List<Tatransaction> select();
-    //增加
-    public int insert(Tatransaction tatransaction);
-    //删除
-    public void delete(int transactionId);
-    //修改
-    public int update(Tatransaction tatransaction);
+    /**
+     * 查询基金信息
+     * @param
+     * @return List<Fund>
+     */
+     void selectTaTransaction(Map map);
+    /**
+     * 增加基金信息
+     * @param tatransaction
+     * @return int
+     */
+     int insertTaTransaction(TaTransaction tatransaction);
+    /**
+     * 删除基金信息
+     * @param transactionId
+     */
+     void deleteTaTransaction(String transactionId);
+    /**
+     * 修改基金信息
+     * @param tatransaction
+     * @return
+     */
+     int updateTaTransaction(TaTransaction tatransaction);
 }

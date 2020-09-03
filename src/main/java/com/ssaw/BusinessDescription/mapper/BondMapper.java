@@ -7,14 +7,14 @@ package com.ssaw.BusinessDescription.mapper;
  * @date:2020-09-01
  */
 import com.ssaw.BusinessDescription.entity.Bond;
-import com.ssaw.TAManagement.entity.Tatransaction;
+import com.ssaw.TAManagement.entity.TaTransaction;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 @Mapper
 public interface BondMapper {
     //查询
-    public List<Tatransaction> selectBond();
+    public List<TaTransaction> selectBond();
     //增加
     public int insertBond(Bond bond);
     //删除

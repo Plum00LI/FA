@@ -6,11 +6,11 @@ package com.ssaw.TAManagement.entity;
  * @authod:洪彬峰
  * @date:2020-09-01
  */
-public class Tatransaction {
-    private String transactionId;      //PK , 交易数据编号 TA202008310001
+public class TaTransaction {
+    private String transactionId="123";      //PK , 交易数据编号 TA202008310001
     private String dateTime;           //交易日期
     private String balanceDate;        //结算日期
-    private String fundId;             //FK 基金Id来自基金表
+    private String fundId="12";             //FK 基金Id来自基金表
     private double fundNum;            //交易数量
     private String accountId;          //FK 来自现金账户表 现金账户Id
     private double totalMoney;         //总金额
@@ -21,9 +21,9 @@ public class Tatransaction {
     private int    transactionType;    //1认购 2申购 3赎回
     private int    transactionStatus;  //1结算 0未结算
 
-    public Tatransaction(){}
+    public TaTransaction(){}
 
-    public Tatransaction(String transactionId, String dateTime, String balanceDate, String fundId, double fundNum, String accountId, double totalMoney, double actualMoney, double price, double cost, int agencies, int transactionType, int transactionStatus) {
+    public TaTransaction(String transactionId, String dateTime, String balanceDate, String fundId, double fundNum, String accountId, double totalMoney, double actualMoney, double price, double cost, int agencies, int transactionType, int transactionStatus) {
         this.transactionId = transactionId;
         this.dateTime = dateTime;
         this.balanceDate = balanceDate;

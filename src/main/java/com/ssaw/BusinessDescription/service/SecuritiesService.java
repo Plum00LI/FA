@@ -5,6 +5,7 @@ import com.ssaw.BusinessDescription.entity.Stock;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 债券参数
@@ -13,16 +14,12 @@ import java.util.List;
  * @date 2020-09-01
  * @version 1.0
  */
-@Service
 public interface SecuritiesService {
     /**
-     * 查询所有
-     */
-    public List<Securities> selectSecurities();
-    /**
-     * 按条件查询
+     * 按条件查询 调用存储过程
      * @return 条件查询的集合
      */
+    public Map<String,Object> selectSecurities(String pageSize, String page);
     /**
      * 增加
      * @param securities

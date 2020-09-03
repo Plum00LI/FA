@@ -3,15 +3,27 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.BusinessData.mapper.MarketMapper">
-   <insert id="insertMarket" parameterType="int">
-      insert into market values (#{marketId},#{securitiesId},#{securitiesName},#{dateTime},#{openPrice},#{closingPrice},#{desc})
+   <insert id="insertMarket" parameterType="com.ssaw.BusinessData.entity.Market">
+      insert into market values(#{marketId,jdbcType=VARCHAR},#{securitiesId,jdbcType=VARCHAR},#{dateTime,jdbcType=VARCHAR},#{openPrice},#{closingPrice},#{marketdesc,jdbcType=VARCHAR})
    </insert>
-   <update id="updateMarket" parameterType="int">
-      update market set securitiesId=#{securitiesId},securitiesName=#{securitiesName},dateTime=#{dateTime},openPrice=#{openPrice},closingPrice=#{closingPrice},desc=#{desc} where marketId=#{marketId}
+   <update id="updateMarket" parameterType="com.ssaw.BusinessData.entity.Market">
+      update market set securitiesId=#{securitiesId,jdbcType=VARCHAR},dateTime=#{dateTime,jdbcType=VARCHAR},openPrice=#{openPrice},closingPrice=#{closingPrice},marketdesc=#{marketdesc,jdbcType=VARCHAR} where marketId=#{marketId,jdbcType=VARCHAR}
    </update>
-   <delete id="deleteMarket" parameterType="int">
+   <delete id="deleteMarket" parameterType="com.ssaw.BusinessData.entity.Market">
       delete from market where marketId=#{marketId}
    </delete>
+   <resultMap id="marketMap" type="com.ssaw.BusinessData.entity.Market">
+      <result property="marketId" column="marketId" javaType="String"></result>
+      <result property="securitiesId" column="securitiesId" javaType="String"></result>
+      <result property="dateTime" column="dateTime" javaType="String"></result>
+      <result property="openPrice" column="openPrice" javaType="Double"></result>
+      <result property="closingPrice" column="closingPrice" javaType="Double"></result>
+      <result property="marketdesc" column="marketdesc" javaType="String"></result>
+   </resultMap>
+   <select id="selectMarketInfo" parameterType="java.util.Map" statementType="CALLABLE" resultType="java.util.Map">
+      {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR}, #{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=VARCHAR},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=marketMap})}
+   </select>
+
    <select id="selectMarket" resultType="com.ssaw.BusinessData.entity.Market">
       select * from market
    </select>

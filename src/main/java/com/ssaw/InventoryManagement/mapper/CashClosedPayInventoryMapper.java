@@ -4,6 +4,7 @@ import com.ssaw.InventoryManagement.entity.CashClosedPayInventory;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program:现金应收应付库存模块
@@ -16,5 +17,5 @@ public interface CashClosedPayInventoryMapper {
     public int insertCashClosedPayInventory(CashClosedPayInventory cashClosedPayInventory);
     public void deleteCashClosedPayInventory(int crcsId);
     public int updateCashClosedPayInventory(CashClosedPayInventory cashClosedPayInventory);
-    public List<CashClosedPayInventory> selectCashClosedPayInventory();
+    public void selectCashClosedPayInventory(Map map);
 }

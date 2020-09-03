@@ -9,7 +9,7 @@ package com.ssaw.InventoryManagement.entity;
  * Author:   SYT
  */
 public class TaInventory {
-    //备注
+    //TA库存Id
     private String taInventoryId;
     //FK 基金Id来自基金表
     private String fundId;
@@ -21,7 +21,7 @@ public class TaInventory {
     private String dateTime;
     //是否从其他系统导入的期初数据  0：不是  1：是
     private int securityPeriodFlag;
-    //TA库存Id
+     //备注
     private String taInventoryDesc;
 
 
