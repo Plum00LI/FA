@@ -3,8 +3,9 @@ package com.ssaw.BusinessDescription.mapper;
 import com.ssaw.BusinessDescription.entity.Account;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 /**
 *@program:TescComment
@@ -15,8 +16,12 @@ import java.util.List;
 */
 @Mapper
 public interface AccountMapper {
-    public void selectAccount(HashMap hashMap);
+    //查询所有现金账户的方法
+    public void selectAccount(Map map);
+    //增加现金账户的方法
     public int insertAccount(Account account);
+    //修改现金账户的方法
     public int updateAccount(Account account);
-    public int deleteAccount(int accountId);
+    //通过Id删除现金账户的方法
+    public int deleteAccount(List accountId);
 }
