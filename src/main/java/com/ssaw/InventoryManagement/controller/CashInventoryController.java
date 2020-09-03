@@ -30,7 +30,7 @@ public class CashInventoryController {
     @RequestMapping("/select")
     public Map<String,Object> selectCashInventory(String page, String limit){
         //调用Service层执行查询，接收返回结果集Map
-        Map<String, Object> map =  cashInventoryService.selectCashInventory(page,limit);
+        Map<String, Object> map =  cashInventoryService.selectCashInventory(limit,page);
         //从结果集中拿出结果
         List<CashInventory> cashInventoryList = (List<CashInventory>) map.get("cashInventory");
         int count = (int) map.get("count");
@@ -44,24 +44,36 @@ public class CashInventoryController {
         return json;
     }
 
-    /**
+   /* *//**
      * 查询所有
      * @return
-     */
+     *//*
     @RequestMapping("/selectAll")
     public List<CashInventory> selectCashInventoryAll(){
         List<CashInventory> cashInventoryList=cashInventoryService.selectCashInventoryAll();
         return cashInventoryList;
-    }
+    }*/
+
     /**
      * 增加现金库存
-     * @param cashInventory 现金库存实体类对象
+     * @param datetime
+     * @param accountId
+     * @param cashBlance
+     * @param cashInventoryDesc
      * @return
      */
-    @RequestMapping("insert")
-    public int insertCashInventory(CashInventory cashInventory){
-        int i=cashInventoryService.insertCashInventory(cashInventory);
-        return i;
+    @RequestMapping("/insert")
+    public int insertCashInventory(String datetime,String accountId,String cashInventoryDesc){
+//        double v_cashBlance = 0.0;
+//        if (cashBlance!=null&&!cashBlance.equals("")){
+//            v_cashBlance=Double.parseDouble(cashBlance);
+//        }
+//        CashInventory cashInventory = new CashInventory("C202009030001","4",v_cashBlance,accountId,datetime,10000,1,cashInventoryDesc);
+//        int i=cashInventoryService.insertCashInventory(cashInventory);
+
+        System.out.println(datetime);
+
+        return 0;
     }
 
     /**
@@ -69,7 +81,7 @@ public class CashInventoryController {
      * @param cashInventory  现金库存实体类对象
      * @return
      */
-    @RequestMapping("update")
+    @RequestMapping("/update")
     public int updateCashInventory(CashInventory cashInventory){
         int i=cashInventoryService.updateCashInventory(cashInventory);
         return i;
@@ -80,7 +92,7 @@ public class CashInventoryController {
      * @param cashInventoryId 库存Id
      * @return
      */
-    @RequestMapping("delete")
+    @RequestMapping("/delete")
     public int deleteCashInventory(int cashInventoryId){
         int i=cashInventoryService.deleteCashInventory(cashInventoryId);
         return i;
