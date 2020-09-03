@@ -4,6 +4,8 @@ import com.ssaw.BusinessDescription.entity.Stock;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+
 /**
  * 股票板块
  * @type stock的service类
@@ -17,7 +19,7 @@ public interface StockService {
     /**
      * 查询所有
      */
-    public List<Stock> selectStock();
+    public Map<String,Object> selectStock(String pageSize, String page);
     /**
      * 增加父类
      * @param stock

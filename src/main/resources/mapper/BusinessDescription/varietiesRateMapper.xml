@@ -4,10 +4,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.BusinessDescription.mapper.VarietiesRateMapper">
 
+    <resultMap id="varietiesRateMap" type="com.ssaw.BusinessDescription.entity.VarietiesRate">
+        <result property="exchangeName" column="exchangeName" javaType="Integer"></result>
+        <result property="rateType" column="rateType" javaType="Integer"></result>
+        <result property="stampDuty" column="stampDuty" javaType="Double"></result>
+        <result property="transferFee" column="transferFee" javaType="Double"></result>
+        <result property="collectionRate" column="collectionRate" javaType="Double"></result>
+        <result property="brokerage" column="brokerage" javaType="Double"></result>
+    </resultMap>
+
 
     <!--查询-->
-    <select id="selectVarietiesRate" resultType="com.ssaw.BusinessDescription.entity.VarietiesRate">
-        select exchangeName,rateType,stampDuty, transferFee,collectionRate,brokerage from varietiesRate
+    <select id="selectVarietiesRate" parameterType="java.util.Map" statementType="CALLABLE">
+    {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},#{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=INTEGER},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=varietiesRateMap})}
     </select>
     <!--删除-->
     <delete id="deleteVarietiesRate">

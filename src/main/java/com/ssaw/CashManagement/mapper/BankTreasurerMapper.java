@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 
 import java.util.List;
+import java.util.Map;
 
 /**
 *@program:TescComment
@@ -15,7 +16,7 @@ import java.util.List;
 */
 @Mapper
 public interface BankTreasurerMapper {
-    public List<BankTreasurer> selectBankTreasurer();
+    public void selectBankTreasurer(Map map);
     public int insertBankTreasurer(BankTreasurer bankTreasurer);
     public int updateBankTreasurer(BankTreasurer bankTreasurer);
     public int deleteBankTreasurer(int treasurerId);

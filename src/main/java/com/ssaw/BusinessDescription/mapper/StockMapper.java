@@ -1,9 +1,12 @@
 package com.ssaw.BusinessDescription.mapper;
 
 import com.ssaw.BusinessDescription.entity.Stock;
+import com.ssaw.BusinessDescription.entity.VarietiesRate;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
+
 /**
  * 股票板块
  * @type stock的dao层
@@ -16,7 +19,7 @@ public interface StockMapper {
     /**
      * 查询所有
      */
-    public List<Stock> selectStock();
+    public void selectStock(Map map);
     /**
      * 根据父类查子类
      */

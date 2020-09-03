@@ -7,7 +7,7 @@ package com.ssaw.BusinessData.entity;
  * @create:2020-09-01
  */
 public class EquityData {
-    private int equityId;//权益ID（隐藏字段）
+    private String equityId;//权益ID（隐藏字段）
     private String dateTime;//业务日期
     private int securityId;//证券Id
     private String securityName;//证券名称
@@ -21,8 +21,8 @@ public class EquityData {
     public EquityData() {
     }
 
-    public EquityData(int equityId, String dateTime, int securityId, String securityName, String equitiesRecord, String equitiesExright,
-                      String receivedDate, int equitiesType, int proportion, int disposeStatus) {
+    public EquityData(String equityId, String dateTime, int securityId, String securityName, String equitiesRecord,
+                      String equitiesExright, String receivedDate, int equitiesType, int proportion, int disposeStatus) {
         this.equityId = equityId;
         this.dateTime = dateTime;
         this.securityId = securityId;
@@ -35,11 +35,11 @@ public class EquityData {
         this.disposeStatus = disposeStatus;
     }
 
-    public int getEquityId() {
+    public String getEquityId() {
         return equityId;
     }
 
-    public void setEquityId(int equityId) {
+    public void setEquityId(String equityId) {
         this.equityId = equityId;
     }
 

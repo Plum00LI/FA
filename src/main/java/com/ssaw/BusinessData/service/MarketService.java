@@ -2,8 +2,10 @@ package com.ssaw.BusinessData.service;
 
 import com.ssaw.BusinessData.entity.Market;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 *@program: TescComment
@@ -13,6 +15,7 @@ import java.util.List;
 *@create: 2020-09-01
 */
 @Service
+@Transactional
 public interface MarketService {
     /**
      * 查询
@@ -30,11 +33,15 @@ public interface MarketService {
      * 删除
      * @return 返回一个int类型的参数
      */
-    public int deleteMarket(int marketId);
+    public int deleteMarket(String marketId);
 
     /**
      * 修改
      * @return 返回一个int类型的参数
      */
     public int updateMarket(Market market);
+
+
+
+    public Map<String,Object> selectMarketInfo(String pageSize, String page);
 }

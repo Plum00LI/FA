@@ -5,6 +5,8 @@ import com.ssaw.BusinessDescription.entity.Stock;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
+
 /**
  * 债券参数
  * @type Securities的dao层
@@ -15,23 +17,20 @@ import java.util.List;
 @Mapper
 public interface SecuritiesMapper {
     /**
-     * 查询所有
-     */
-    public List<Stock> selectSecurities();
-    /**
-     * 按条件查询
+     * 按条件查询 分页查询
      * @return 条件查询的集合
      */
+    public void selectSecurities(Map map);
     /**
      * 增加
      * @param securities
      */
     public void insertSecurities(Securities securities);
     /**
-     * 单个删除
+     * 删除
      *根据证券编号 securitiesId
      */
-    public void deleteSecurities(String securitiesId);
+    public int deleteSecurities(String securitiesId);
     /**
      * 修改
      * 根据证券编号 securitiesId

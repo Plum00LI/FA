@@ -38,7 +38,7 @@ public class Fund {
     private double provisionDays;
     private String setUpDate;
     private String fundDesc;
-    private String accountId;
+    private String accountId="123123";
 
     public Fund() {
     }

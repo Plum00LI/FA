@@ -4,6 +4,7 @@ import com.ssaw.BusinessDescription.entity.VarietiesRate;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 交易所品种费率 的dao层
@@ -15,9 +16,9 @@ import java.util.List;
 @Mapper
 public interface VarietiesRateMapper {
     //查询与分页查询
-    public List<VarietiesRate> selectVarietiesRate();
+    public void selectVarietiesRate(Map map);
     //删除
-    public void deleteVarietiesRate(int exchangeNameId,int rateTypeId);
+    public void deleteVarietiesRate(int exchangeName,int rateType);
     //增加
     public int insertVarietiesRate(VarietiesRate varietiesRate);
     //修改
