@@ -4,6 +4,7 @@ import com.ssaw.InventoryManagement.entity.TaInventory;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * ClassName:    TaInventoryMapper
@@ -15,8 +16,30 @@ import java.util.List;
  */
 @Mapper
 public interface TaInventoryMapper {
-    public List<TaInventory> selectTaInventory();
+    /**
+     * 分页查询ta库存方法
+     * @param map
+     */
+    public void selectTaInventory(Map map);
+
+    /**
+     * 增加
+     * @param taInventory
+     * @return
+     */
     public int insertTaInventory(TaInventory taInventory);
+
+    /**
+     * 修改ta库存信息
+     * @param taInventory
+     * @return
+     */
     public int updateTaInventory(TaInventory taInventory);
+
+    /**
+     * 删除
+     * @param taInventoryId
+     * @return
+     */
     public int deleteTaInventory(int taInventoryId);
 }

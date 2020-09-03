@@ -11,7 +11,7 @@ public class CashClosedPayInventory {
     private String crcsId;//现金应收应付库存Id（隐藏字段）
     private String businessDate;//业务日期
     private String cashAccountName;//现金账户名称
-    private int fundId;//基金ID（隐藏字段）
+    private String fundId;//基金ID（隐藏字段）
     private String fundName;//基金名称（隐藏字段）
     private int businessType;//业务类型  1.管理费  2.托管费  3.存款利息  4.申购赎回费
     private int businessStatus;//业务状态   1.流入  -1.流出
@@ -21,8 +21,8 @@ public class CashClosedPayInventory {
     public CashClosedPayInventory() {
     }
 
-    public CashClosedPayInventory(String crcsId, String businessDate, String cashAccountName,
-                                  int fundId, String fundName, int businessType, int businessStatus, int initialSigns, double toalMoney) {
+    public CashClosedPayInventory(String crcsId, String businessDate, String cashAccountName, String fundId, String fundName,
+                                  int businessType, int businessStatus, int initialSigns, double toalMoney) {
         this.crcsId = crcsId;
         this.businessDate = businessDate;
         this.cashAccountName = cashAccountName;
@@ -58,11 +58,11 @@ public class CashClosedPayInventory {
         this.cashAccountName = cashAccountName;
     }
 
-    public int getFundId() {
+    public String getFundId() {
         return fundId;
     }
 
-    public void setFundId(int fundId) {
+    public void setFundId(String fundId) {
         this.fundId = fundId;
     }
 

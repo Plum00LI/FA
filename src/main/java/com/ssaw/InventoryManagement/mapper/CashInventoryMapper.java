@@ -16,8 +16,11 @@ import java.util.Map;
  */
 @Mapper
 public interface CashInventoryMapper {
-    public List<CashInventory> selectCashInventory(Map map);
-    public List<CashInventory> selectCashInventoryAll();
+    //分页查询所有现金库存方法
+    public void selectCashInventory(Map map);
+    //查询所有
+//    public List<CashInventory> selectCashInventoryAll();
+
     public int insertCashInventory(CashInventory cashInventory);
 
     public int updateCashInventory(CashInventory cashInventory);

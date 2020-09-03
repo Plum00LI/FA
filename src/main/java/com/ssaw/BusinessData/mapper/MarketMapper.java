@@ -6,6 +6,7 @@ import com.ssaw.BusinessData.entity.Market;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 *@program: TescComment
@@ -32,11 +33,20 @@ public interface MarketMapper {
      * 删除
      * @return 返回一个int类型的参数
      */
-    public int deleteMarket(int marketId);
+    public int deleteMarket(String marketId);
 
     /**
      * 修改
      * @return 返回一个int类型的参数
      */
     public int updateMarket(Market market);
+
+
+    /**
+     * 分页查询
+     * @param map 结果集
+     * @return
+     */
+      public Map<String,Object> selectMarketInfo(Map map);
+
 }

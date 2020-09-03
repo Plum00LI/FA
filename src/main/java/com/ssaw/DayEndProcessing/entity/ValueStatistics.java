@@ -4,7 +4,8 @@ package com.ssaw.DayEndProcessing.entity;
  * create by: 佘高鹏
  * description: TODO
  * create time: 2020/9/1 9:43
- * version number 1.0
+ * updata time: 2020/9/3 16:03
+ * version number 2.0
   * @Param: 净值统计类
  * @return 
  */
@@ -32,44 +33,44 @@ package com.ssaw.DayEndProcessing.entity;
  */
 public class ValueStatistics {
     private String valueStatisticsDate;
-    private String valueStatisticsId;
-    private String projectId;
+    private int projectId;
     private String projectName;
     private String projectCode;
-    private int quantity;
-    private int peice;
-    private int cost;
-    private int marketValue;
-    private int valuation;
-    private String projectFatherId;
-    private String relation;
-    private int appreciationSum;
-    private int liabilities;
-    private int propertySum;
-    private int propertyNetWorth;
-    private int unitNetWorth;
+    private String quantityint;
+    private String peice;
+    private String cost;
+    private String marketValue;
+    private String valuation;
+    private int projectFatherId;
+
 
     public ValueStatistics() {
     }
 
-    public ValueStatistics(String valueStatisticsDate, String valueStatisticsId, String projectId, String projectName, String projectCode, int quantity, int peice, int cost, int marketValue, int valuation, String projectFatherId, String relation, int appreciationSum, int liabilities, int propertySum, int propertyNetWorth, int unitNetWorth) {
-        this.valueStatisticsDate = valueStatisticsDate;
-        this.valueStatisticsId = valueStatisticsId;
+    public ValueStatistics( int projectId, String projectName, String projectCode, String quantityint, String peice, String cost, String marketValue, String valuation, int projectFatherId) {
         this.projectId = projectId;
         this.projectName = projectName;
         this.projectCode = projectCode;
-        this.quantity = quantity;
+        this.quantityint = quantityint;
         this.peice = peice;
         this.cost = cost;
         this.marketValue = marketValue;
         this.valuation = valuation;
         this.projectFatherId = projectFatherId;
-        this.relation = relation;
-        this.appreciationSum = appreciationSum;
-        this.liabilities = liabilities;
-        this.propertySum = propertySum;
-        this.propertyNetWorth = propertyNetWorth;
-        this.unitNetWorth = unitNetWorth;
+    }
+
+
+    public ValueStatistics(String valueStatisticsDate, int projectId, String projectName, String projectCode, String quantityint, String peice, String cost, String marketValue, String valuation, int projectFatherId) {
+        this.valueStatisticsDate = valueStatisticsDate;
+        this.projectId = projectId;
+        this.projectName = projectName;
+        this.projectCode = projectCode;
+        this.quantityint = quantityint;
+        this.peice = peice;
+        this.cost = cost;
+        this.marketValue = marketValue;
+        this.valuation = valuation;
+        this.projectFatherId = projectFatherId;
     }
 
     public String getValueStatisticsDate() {
@@ -80,19 +81,11 @@ public class ValueStatistics {
         this.valueStatisticsDate = valueStatisticsDate;
     }
 
-    public String getValueStatisticsId() {
-        return valueStatisticsId;
-    }
-
-    public void setValueStatisticsId(String valueStatisticsId) {
-        this.valueStatisticsId = valueStatisticsId;
-    }
-
-    public String getProjectId() {
+    public int getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(String projectId) {
+    public void setProjectId(int projectId) {
         this.projectId = projectId;
     }
 
@@ -112,122 +105,67 @@ public class ValueStatistics {
         this.projectCode = projectCode;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public String getQuantity() {
+        return quantityint;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setQuantity(String quantityint) {
+        this.quantityint = quantityint;
     }
 
-    public int getPeice() {
+    public String getPeice() {
         return peice;
     }
 
-    public void setPeice(int peice) {
+    public void setPeice(String peice) {
         this.peice = peice;
     }
 
-    public int getCost() {
+    public String getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(String cost) {
         this.cost = cost;
     }
 
-    public int getMarketValue() {
+    public String getMarketValue() {
         return marketValue;
     }
 
-    public void setMarketValue(int marketValue) {
+    public void setMarketValue(String marketValue) {
         this.marketValue = marketValue;
     }
 
-    public int getValuation() {
+    public String getValuation() {
         return valuation;
     }
 
-    public void setValuation(int valuation) {
+    public void setValuation(String valuation) {
         this.valuation = valuation;
     }
 
-    public String getProjectFatherId() {
+    public int getProjectFatherId() {
         return projectFatherId;
     }
 
-    public void setProjectFatherId(String projectFatherId) {
+    public void setProjectFatherId(int projectFatherId) {
         this.projectFatherId = projectFatherId;
-    }
-
-    public String getRelation() {
-        return relation;
-    }
-
-    public void setRelation(String relation) {
-        this.relation = relation;
-    }
-
-    public int getAppreciationSum() {
-        return appreciationSum;
-    }
-
-    public void setAppreciationSum(int appreciationSum) {
-        this.appreciationSum = appreciationSum;
-    }
-
-    public int getLiabilities() {
-        return liabilities;
-    }
-
-    public void setLiabilities(int liabilities) {
-        this.liabilities = liabilities;
-    }
-
-    public int getPropertySum() {
-        return propertySum;
-    }
-
-    public void setPropertySum(int propertySum) {
-        this.propertySum = propertySum;
-    }
-
-    public int getPropertyNetWorth() {
-        return propertyNetWorth;
-    }
-
-    public void setPropertyNetWorth(int propertyNetWorth) {
-        this.propertyNetWorth = propertyNetWorth;
-    }
-
-    public int getUnitNetWorth() {
-        return unitNetWorth;
-    }
-
-    public void setUnitNetWorth(int unitNetWorth) {
-        this.unitNetWorth = unitNetWorth;
     }
 
     @Override
     public String toString() {
         return "ValueStatistics{" +
                 "valueStatisticsDate='" + valueStatisticsDate + '\'' +
-                ", valueStatisticsId='" + valueStatisticsId + '\'' +
-                ", projectId='" + projectId + '\'' +
+                ", projectId=" + projectId +
                 ", projectName='" + projectName + '\'' +
                 ", projectCode='" + projectCode + '\'' +
-                ", quantity=" + quantity +
-                ", peice=" + peice +
-                ", cost=" + cost +
-                ", marketValue=" + marketValue +
-                ", valuation=" + valuation +
-                ", projectFatherId='" + projectFatherId + '\'' +
-                ", relation='" + relation + '\'' +
-                ", appreciationSum=" + appreciationSum +
-                ", liabilities=" + liabilities +
-                ", propertySum=" + propertySum +
-                ", propertyNetWorth=" + propertyNetWorth +
-                ", unitNetWorth=" + unitNetWorth +
+                ", quantityint='" + quantityint + '\'' +
+                ", peice='" + peice + '\'' +
+                ", cost='" + cost + '\'' +
+                ", marketValue='" + marketValue + '\'' +
+                ", valuation='" + valuation + '\'' +
+                ", projectFatherId=" + projectFatherId +
                 '}';
     }
 }

@@ -5,17 +5,16 @@
 
 <mapper namespace="com.ssaw.DayEndProcessing.mapper.ValueStatisticsMapper">
       <insert id="insertValueStatistics" parameterType="com.ssaw.DayEndProcessing.entity.ValueStatistics">
-            insert into valueStatistics values (#{valueStatisticsDate},#{valueStatisticsId},#{projectId},#{projectName},#{projectCode},#{quantity},#{peice},#{cost},#{marketValue},#{valuation},#{projectFatherId},#{relation},#{appreciationSum},#{liabilities},#{propertySum},#{propertyNetWorth},#{unitNetWorth})
+            insert into valueStatistics values (#{valueStatisticsDate},#{projectId},#{projectName},#{projectCode},#{quantityint},#{peice},#{cost},#{marketValue},#{valuation},#{projectFatherId})
 
-      </insert>
+     </insert>
       <delete id="deleteValueStatistics" parameterType="string">
         delete  from valueStatistics where valueStatisticsDate=#{valueStatisticsDate}
 
       </delete>
 
     <select id="selectValueStatistics" parameterType="com.ssaw.DayEndProcessing.entity.ValueStatistics" resultType="com.ssaw.DayEndProcessing.entity.ValueStatistics">
-        select  valueStatisticsDate,valueStatisticsId,projectId,projectName,projectCode,quantity,peice,cost,marketValue,valuation,projectFatherId,relation,appreciationSum,liabilities,propertySum,propertyNetWorth,unitNetWorth from valueStatistics where valueStatisticsDate=#{valueStatisticsDate}
-
+        select  valueStatisticsDate,projectId,projectName,projectCode,quantityint,peice,cost,marketValue,valuation,projectFatherId from valueStatistics where valueStatisticsDate=#{valueStatisticsDate}
     </select>
 
 

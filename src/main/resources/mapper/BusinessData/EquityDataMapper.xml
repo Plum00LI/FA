@@ -12,12 +12,16 @@
         update EquityData set dateTime=#{dateTime},securityId=#{securityId},securityName=#{securityName},equitiesRecord=#{equitiesRecord},equitiesExright=#{equitiesExright},receivedDate=#{receivedDate},equitiesType=#{equitiesType},proportion=#{proportion},disposeStatus=#{disposeStatus} where equityId=#{equityId}
     </update>
     <!--删除-->
-    <delete id="deleteEquityData">
-        delete from EquityData where equityId=#{equityId}
+    <delete id="deleteEquityData" parameterType="java.util.List">
+        delete from EquityData where equityId in
+        <foreach collection="list" item="equityId"
+                 open="(" separator="," close=")">
+            #{equityId}
+        </foreach>
     </delete>
     <!--查询-->
     <resultMap id="equityDataMap" type="com.ssaw.BusinessData.entity.EquityData">
-        <result property="equityId" column="equityId" javaType="Integer"></result>
+        <result property="equityId" column="equityId" javaType="String"></result>
         <result property="dateTime" column="dateTime" javaType="String"></result>
         <result property="securityId" column="securityId" javaType="Integer"></result>
         <result property="securityName" column="securityName" javaType="String"></result>

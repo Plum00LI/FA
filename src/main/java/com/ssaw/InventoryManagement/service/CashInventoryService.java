@@ -2,6 +2,7 @@ package com.ssaw.InventoryManagement.service;
 
 import com.ssaw.InventoryManagement.entity.CashInventory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -15,9 +16,13 @@ import java.util.Map;
  * Author:   SYT
  */
 @Service
+@Transactional
 public interface CashInventoryService {
+    //查询所有现金库存的服务类接口方法-待实现
     public Map<String,Object> selectCashInventory(String pageSize,String page);
-    public List<CashInventory> selectCashInventoryAll();
+
+//    public List<CashInventory> selectCashInventoryAll();
+
     public int insertCashInventory(CashInventory cashInventory);
 
     public int updateCashInventory(CashInventory cashInventory);
