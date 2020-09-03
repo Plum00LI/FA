@@ -4,23 +4,23 @@
     <title>权益数据设置</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+<!--    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />-->
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="../static/css/font.css">
-    <link rel="stylesheet" href="../static/css/xadmin.css">
-    <link rel="stylesheet" href="../static/css/theme9.css">
-    <script src="../static/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../static/js/xadmin.js"></script>
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/xadmin.css">
+    <link rel="stylesheet" href="../css/theme9.css">
+    <script src="../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/xadmin.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]-->
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 
-    <link rel="stylesheet" href="../static/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="../lib/layui/css/layui.css">
 
 
-    <script src="../static/lib/layui/layui.js"></script>
+    <script src="../lib/layui/layui.js"></script>
     <!--工具条-->
     <script type="text/html" id="userToolBar">
         <div style="float:right">
@@ -93,7 +93,7 @@
             //新增提交
             form.on('submit(addsubmit)', function(data){
                 var formData=$('#addform').serialize();
-                $.post("../user/insertUser",formData,function(msg){
+                $.post("../insertCashClosedPayInventory",formData,function(msg){
                     if(msg>0){
                         table.reload('userTable');
                         layer.closeAll();
@@ -160,24 +160,51 @@
             });
             table.render({
                 elem: '#userTable',
-                url: './selectUser',
+                url: '../selectCashClosedPayInventory',
                 page: true,
-                height: 498,
+                height: 500,
                 toolbar: '#userToolBar',//显示在表头的工具条
                 minLength:80,
-                cols: [[ //表头
+                cols: [
+                    [ //表头
                     {type: 'checkbox', fixed: 'left'}
-                    ,{field: 'businessDate', title: '业务日期', width:170, align:'center'}
-                    ,{field: 'crcsId', title: '现金应收应付库存ID', width: 170, align:'center'}
-                    ,{field: 'cashAccountName', title: '现金账户名称', width:170, align:'center'}
-                    ,{field: 'fundId', title: '基金编号', width: 170, align:'center'}
-                    ,{field: 'fundName', title: '基金名称', width:170, align:'center'}
-                    ,{field: 'businessType', title: '业务类型', width: 170, align:'center'}
-                    ,{field: 'businessStatus', title: '业务状态', width: 170, align:'center'}
-                    ,{field: 'initialSigns', title: '期初标志', width: 170, align:'center'}
-                    ,{field: 'toalMoney', title: '总金额%', width: 170, align:'center'}
-                    ,{field: 'operation', title: '操作' , width: 200, align:'center'}
-                ]]
+                    ,{field: 'crcsId', title: '现金应收应付库存ID', width: 185, align:'center'}
+                    ,{field: 'businessDate', title: '业务日期', width:182, align:'center'}
+                    ,{field: 'cashAccountName', title: '现金账户名称', width:185, align:'center'}
+                    ,{field: 'fundId', title: '基金编号', width: 185, align:'center'}
+                    ,{field: 'fundName', title: '基金名称', width:185, align:'center'}
+                    ,{field: 'businessType', title: '业务类型', width: 180, align:'center',
+                        templet:function (item) {
+                            if (item.businessType==1){
+                                return '管理费';
+                            }else if (item.businessType==2){
+                                return '托管费';
+                            }else if (item.businessType==3){
+                                return '存款利息';
+                            }
+                            return '申购赎回费';
+                        }
+                    }
+                    ,{field: 'businessStatus', title: '业务状态', width: 180, align:'center',
+                        templet:function (item) {
+                            if (item.businessStatus==1){
+                                return '流入';
+                            }
+                            return '流出';
+                        }
+                    }
+                    ,{field: 'initialSigns', title: '期初标志', width: 180, align:'center',
+                        templet:function (item) {
+                            if (item.initialSigns==1){
+                                return '是';
+                            }
+                            return '否';
+                        }
+                    }
+                    ,{field: 'toalMoney', title: '总金额', width: 185, align:'center'}
+                    ,{title: 'operation', title: '操作', toolbar:'#barDemo', width: 180, align:'center'}
+                ]
+                ]
             });
             //给工具条的按钮添加事件
             table.on('toolbar(userTable)',function (obj) {
@@ -193,17 +220,6 @@
                             content:$("#addContent"),
                             btn:[]
                         });
-                        $.ajax({
-                            url:'../user/selectRole',
-                            dataType:'json',
-                            type:'post',
-                            success:function(obj){
-                                $.each(obj,function(index,item){
-                                    $('#roleId').append(new Option(item.roleName,item.roleId));//往下拉菜单里添加元素
-                                })
-                                form.render();//菜单渲染 把内容加载进去
-                            }
-                        })
                         form.render();
                         //全屏
                         layer.full(index);
@@ -264,8 +280,6 @@
 
                     });
                 } else if (obj.event === 'edit') {
-                    alert(JSON.stringify(data));
-
                     form.val('editform',$.parseJSON(JSON.stringify(data)));
                     var index = layer.open({
                         type: 1,
@@ -275,19 +289,6 @@
                         area: ['500px', '400px'],
                         content:$('#editContent')
                     });
-                    $.ajax({
-                        url:'../user/selectRole',
-                        dataType:'json',
-                        type:'post',
-                        success:function(obj){
-
-                            $.each(obj,function(index,item){
-                                $('#roleId_2').append(new Option(item.roleName,item.roleId));//往下拉菜单里添加元素
-                            })
-                            $("#roleId_2 option[value='"+data.roleId+"']").attr("selected", "selected");
-                            form.render();//菜单渲染 把内容加载进去
-                        }
-                    })
                     form.render();
                     layer.full(index);
                 };
@@ -323,8 +324,8 @@
             <label class="layui-form-label layui-bg-green" style="text-align: center">期初状态</label>
             <div class="layui-inline layui-show-xs-block">
                 <select name="initialSigns" disabled="true">
-                    <option>是</option>
-                    <option>否</option>
+                    <option value="1">是</option>
+                    <option value="0">否</option>
                 </select>
             </div>
         </div>
@@ -341,8 +342,8 @@
             <label class="layui-form-label layui-bg-green" style="text-align: center">业务状态</label>
             <div class="layui-inline layui-show-xs-block">
                 <select name="businessStatus">
-                    <option>流入</option>
-                    <option>流出</option>
+                    <option value="1">流入</option>
+                    <option value="-1">流出</option>
                 </select>
             </div>
         </div>
@@ -360,10 +361,10 @@
             <div class="layui-inline layui-show-xs-block">
                 <select name="businessType">
                     <option>请选择</option>
-                    <option>管理费</option>
-                    <option>托管费</option>
-                    <option>存款利息</option>
-                    <option>申购赎回费</option>
+                    <option value="1">管理费</option>
+                    <option value="2">托管费</option>
+                    <option value="3">存款利息</option>
+                    <option value="4">申购赎回费</option>
                 </select>
             </div>
         </div>
@@ -385,7 +386,7 @@
 
 
         <div style="position: absolute; bottom: 0px; left: 45%;">
-            <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
+            <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
             <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
@@ -401,40 +402,72 @@
     <form id="editform" lay-filter="editform"
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label"></label>
-            <div class="layui-input-inline">
-                <input type="text" name="userId" lay-verify="required"
-                       autocomplete="off" placeholder="请输入用户ID" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label"></label>
-            <div class="layui-input-inline">
-                <input type="text" name="userName" lay-verify="required"
-                       autocomplete="off" placeholder="请输入用户名" class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label"></label>
-            <div class="layui-input-inline">
-                <input type="password" name="userPwd" lay-verify="required"
-                       autocomplete="off" placeholder="请输入密码" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label"></label>
-            <div class="layui-input-inline">
-                <select id="roleId_2" name="roleId" xm-select="add" xm-select-radio=""
-                        xm-select-search="" lay-verify="required"
-                        xm-select-direction="down" xm-select-search-type="dl">
+        <div class="layui-inline layui-show-xs-block" style="text-align: center;">
+            <label class="layui-form-label layui-bg-green" style="text-align: center">期初状态</label>
+            <div class="layui-inline layui-show-xs-block">
+                <select name="initialSigns" disabled="true">
+                    <option value="1">是</option>
+                    <option value="0">否</option>
                 </select>
+            </div>
+        </div>
+        &nbsp&nbsp&nbsp&nbsp&nbsp
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label layui-bg-green" style="text-align: center">账户名称</label>
+            <div class="layui-inline layui-show-xs-block">
+                <input class="layui-input" placeholder="请输入账户名称" name="cashAccountName">
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label layui-bg-green" style="text-align: center">业务状态</label>
+            <div class="layui-inline layui-show-xs-block">
+                <select name="businessStatus">
+                    <option value="1">流入</option>
+                    <option value="-1">流出</option>
+                </select>
+            </div>
+        </div>
+        &nbsp&nbsp&nbsp&nbsp&nbsp
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label layui-bg-green" style="text-align: center">业务日期</label>
+            <div class="layui-inline layui-show-xs-block">
+                <input class="layui-input" placeholder="请输入业务日期" name="businessDate" id="start2">
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label layui-bg-green" style="text-align: center">业务类型</label>
+            <div class="layui-inline layui-show-xs-block">
+                <select name="businessType">
+                    <option>请选择</option>
+                    <option value="1">管理费</option>
+                    <option value="2">托管费</option>
+                    <option value="3">存款利息</option>
+                    <option value="4">申购赎回费</option>
+                </select>
+            </div>
+        </div>
+        &nbsp&nbsp&nbsp&nbsp&nbsp
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label layui-bg-green" style="text-align: center">总金额</label>
+            <div class="layui-inline layui-show-xs-block">
+                <input class="layui-input" placeholder="请输入总金额" name="toalMoney">
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="layui-inline layui-show-xs-block" style="float: left">
+            <label class="layui-form-label layui-bg-green" style="text-align: center; width: 160px; height: 100px; line-height: 81px">备注</label>
+            <div class="layui-inline layui-show-xs-block">
+                <textarea name="" required lay-verify="required" placeholder="请输入" class="layui-textarea" style="width: 484px"></textarea>
             </div>
         </div>
         <div style="position: absolute; bottom: 0px; left: 45%;">
             <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
-                <i class="layui-icon">&#x1005;</i>添加
+                <i class="layui-icon">&#x1005;</i>确认编辑
             </button>
             <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
                 <i class="layui-icon">&#x1006;</i>取消

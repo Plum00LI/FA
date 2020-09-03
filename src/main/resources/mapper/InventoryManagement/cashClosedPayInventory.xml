@@ -15,7 +15,20 @@
         delete from CashClosedPayInventory where crcsId=#{crcsId}
     </delete>
 
-    <select id="selectCashClosedPayInventory" resultType="com.ssaw.InventoryManagement.entity.CashClosedPayInventory">
-        select * from CashClosedPayInventory
+    <!--查询-->
+    <resultMap id="cashClosedPayInventoryMap" type="com.ssaw.InventoryManagement.entity.CashClosedPayInventory">
+        <result property="crcsId" column="crcsId" javaType="String"></result>
+        <result property="businessDate" column="businessDate" javaType="String"></result>
+        <result property="cashAccountName" column="cashAccountName" javaType="String"></result>
+        <result property="fundId" column="fundId" javaType="String"></result>
+        <result property="fundName" column="fundName" javaType="String"></result>
+        <result property="businessType" column="businessType" javaType="Integer"></result>
+        <result property="businessStatus" column="businessStatus" javaType="Integer"></result>
+        <result property="initialSigns" column="initialSigns" javaType="Integer"></result>
+        <result property="toalMoney" column="toalMoney" javaType="Double"></result>
+    </resultMap>
+
+    <select id="selectCashClosedPayInventory" parameterType="java.util.Map" statementType="CALLABLE">
+        {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},#{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=INTEGER},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=cashClosedPayInventoryMap})}
     </select>
 </mapper>

@@ -7,10 +7,10 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
   datasource:
-    url: jdbc:oracle:thin:@localhost:1521:orcl
+    url: jdbc:oracle:thin:@127.0.0.1:1521:orcl
     driver-class-name: oracle.jdbc.OracleDriver
-    username: XXXXXX
-    password: XXXXXX
+    username: sunH
+    password: root
 mybatis:
   mapper-locations: classpath:/mapper/*/*.xml
   configuration:
