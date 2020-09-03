@@ -1,86 +1,171 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" href="../static/lib/layui/css/layui2.css" />
-    <link rel="stylesheet" href="../static/lib/layui/css/layer.css"
-          media="all" />
-    <link rel="stylesheet" href="../static/lib/layui/css/view.css">
-    <script src="../static/lib/layui/layui.js"></script>
-    <link rel="stylesheet" href="../static/lib/layui/formSelects-v4.css" />
-    <script src="../static/lib/layui/formSelects-v4.js"></script>
-    <style type="text/css">
-        .layui-unselect {
-            height: 32px;
+    <meta charset="UTF-8">
+    <title>menu</title>
+    <link rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../lib/layuimini/css/public.css" media="all">
+    <style>
+        .layui-btn:not(.layui-btn-lg ):not(.layui-btn-sm):not(.layui-btn-xs) {
+            height: 34px;
+            line-height: 34px;
+            padding: 0 8px;
         }
     </style>
 </head>
-<body style="overflow: auto; background-color: white;"
-      class="layui-view-body layui-content">
-<div>
-    <div id="toolbarDemo">
-        <div>
-            <form id="searchform" lay-filter="searchform"
-                  class="layui-form layui-form-pane">
-                <div class="layui-form">
-                    <div class="layui-form-item">
-                        <label style="height: 32px;" class="layui-form-label">统计日期</label>
-                        <div class="layui-inline">
-                            <input type="text" style="height: 32px;" class="layui-input" id="test12" name = "datetime">
-                        </div>
-                        <div class="layui-inline">
-                            <button type="button"
-                                    class="layui-btn layui-btn-sm search">
-                                <i class="layui-icon">&#xe615;</i>统计
-                            </button>
-                            <button type="button" lay-event="search1"
-                                    class="layui-btn layui-btn-sm">
-                                <i class="layui-icon">&#xe615;</i>查询
-                            </button>
-                            <button type="button" lay-event="search2"
-                                    class="layui-btn layui-btn-sm">
-                                <i class="layui-icon">&#xe62f;</i>净值导出
-                            </button>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div id="toolbarDemo">
+            <div>
+                <form id="searchform" lay-filter="searchform"
+                      class="layui-form layui-form-pane">
+                    <div class="layui-form">
+                        <div class="layui-form-item">
+                            <label style="height: 32px;" class="layui-form-label">统计日期</label>
+                            <div class="layui-inline">
+                                <input type="text" style="height: 32px;" class="layui-input" id="test12" name = "datetime">
+                            </div>
+                            <div class="layui-inline">
+                                <button type="button"
+                                        class="layui-btn layui-btn-sm search" id="statisticsButton" >
+                                    <i class="layui-icon">&#xe615;</i>统计
+                                </button>
+                                <button type="button" lay-event="search1"
+                                        class="layui-btn layui-btn-sm" id="statisticsButton2">
+                                    <i class="layui-icon">&#xe615;</i>查询
+                                </button>
+                                <button type="button" lay-event="search2"
+                                        class="layui-btn layui-btn-sm">
+                                    <i class="layui-icon">&#xe62f;</i>净值导出
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
-        </div>
-
+                </form>
+            </div>
     </div>
-    <table class="layui-table layui-form" id="tree-table" lay-size="sm"></table>
-</div>
-<div id="addContent"
-     style="display: none; height: 100%; height: 100%; text-align: center;">
-    <form id="addform" lay-filter="addform"
-          class="layui-form layui-form-pane"
-          style="margin: 30px auto; display: inline-block;">
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label">角色名</label>
-            <div class="layui-input-inline">
-                <input type="text" name="roleName" lay-verify="required"
-                       autocomplete="off" placeholder="请输入用户名" class="layui-input">
+        <div>
+            <div class="layui-btn-group">
+                <button class="layui-btn" id="btn-expand">全部展开</button>
+                <button class="layui-btn layui-btn-normal" id="btn-fold">全部折叠</button>
             </div>
+            <table id="munu-table" class="layui-table" lay-filter="munu-table"></table>
         </div>
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label">描述</label>
-            <div class="layui-input-inline">
-					<textarea rows="" name="roleDesc" lay-verify="required" cols=""
-                              class="layui-textarea"></textarea>
-            </div>
-        </div>
-        <div style="position: absolute; bottom: 0px; left: 45%;">
-            <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
-                <i class="layui-icon">&#x1005;</i>添加
-            </button>
-            <button class="layui-btn layui-bg-red cancel" type="button">
-                <i class="layui-icon">&#x1006;</i>取消
-            </button>
-        </div>
-    </form>
+ </div>
 </div>
 
-<script src="../static/js/DayEndProcessing/valueStatistics.js"></script>
+
+
 </body>
 </html>
+<script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="../lib/layuimini/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script>
+    layui.use(['table', 'treetable','laydate'], function () {
+        var $ = layui.jquery;
+        var table = layui.table;
+        var treetable = layui.treetable;
+        var dates = layui.laydate;
+        dates.render({
+            elem: '#test12',
+            type: 'date' ,//默认，可不填
+            value: new Date()//获取当前时间
+        });
+
+
+        // 渲染表格
+        layer.load(2);
+        treetable.render({
+            treeColIndex: 1,
+            treeSpid: -1,
+            treeIdName: 'projectId',
+            treePidName: 'projectFatherId',
+            elem: '#munu-table',
+            // url: '../lib/layuimini/api/test.json',
+            url: '../ValueStatistics/selectValueStatistics?valueStatisticsDate='+$('#test12').val(),
+            page: false,
+            cols: [
+                [
+                    {type: 'checkbox'},
+                    {field: 'projectName', minWidth: 200, align: 'left', title: '项目名称'},
+                    {field: 'projectCode', width: 200, align: 'center',title: '项目代码'},
+                    {field: 'quantity', width: 200, align: 'center',title: '股数'},
+                    {field: 'peice', width: 200, align: 'center',title: '行情'},
+                    {field: 'cost', width: 200, align: 'center',title: '成本'},
+                    {field: 'marketValue', width: 200, align: 'center',title: '市值'},
+                    {field: 'valuation', width: 200, align: 'center',title: '估值增值'}
+
+                ]
+            ],
+            done: function () {
+                layer.closeAll('loading');
+            }
+        });
+
+        $('#btn-expand').click(function () {
+            treetable.expandAll('#munu-table');
+        });
+
+        $('#btn-fold').click(function () {
+            treetable.foldAll('#munu-table');
+        });
+        $('#statisticsButton').click(function(){
+            treetable.render({
+                treeColIndex: 1,
+                treeSpid: -1,
+                treeIdName: 'projectId',
+                treePidName: 'projectFatherId',
+                elem: '#munu-table',
+                // url: '../lib/layuimini/api/test.json',
+                url: '../ValueStatistics/insertValueStatistics?valueStatisticsDate='+$('#test12').val(),
+                page: false,
+                cols: [
+                    [
+                        {type: 'checkbox'},
+                        {field: 'projectName', minWidth: 200, align: 'left', title: '项目名称'},
+                        {field: 'projectCode', width: 200, align: 'center',title: '项目代码'},
+                        {field: 'quantity', width: 200, align: 'center',title: '股数'},
+                        {field: 'peice', width: 200, align: 'center',title: '行情'},
+                        {field: 'cost', width: 200, align: 'center',title: '成本'},
+                        {field: 'marketValue', width: 200, align: 'center',title: '市值'},
+                        {field: 'valuation', width: 200, align: 'center',title: '估值增值'}
+
+                    ]
+                ],
+                done: function () {
+                    layer.closeAll('loading');
+                }
+            });
+        })
+        $('#statisticsButton2').click(function(){
+            treetable.render({
+                treeColIndex: 1,
+                treeSpid: -1,
+                treeIdName: 'projectId',
+                treePidName: 'projectFatherId',
+                elem: '#munu-table',
+                // url: '../lib/layuimini/api/test.json',
+                url: '../ValueStatistics/selectValueStatistics?valueStatisticsDate='+$('#test12').val(),
+                page: false,
+                cols: [
+                    [
+                        {type: 'checkbox'},
+                        {field: 'projectName', minWidth: 200, align: 'left', title: '项目名称'},
+                        {field: 'projectCode', width: 200, align: 'center',title: '项目代码'},
+                        {field: 'quantity', width: 200, align: 'center',title: '股数'},
+                        {field: 'peice', width: 200, align: 'center',title: '行情'},
+                        {field: 'cost', width: 200, align: 'center',title: '成本'},
+                        {field: 'marketValue', width: 200, align: 'center',title: '市值'},
+                        {field: 'valuation', width: 200, align: 'center',title: '估值增值'}
+
+                    ]
+                ],
+                done: function () {
+                    layer.closeAll('loading');
+                }
+            });
+        })
+
+    });
+</script>
