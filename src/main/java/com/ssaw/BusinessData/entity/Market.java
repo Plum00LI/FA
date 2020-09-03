@@ -19,7 +19,7 @@ public class Market {
     /**
      * 行情Id
      */
-    private int marketId;
+    private String marketId;
     /**
      *证券编号
      */
@@ -27,7 +27,7 @@ public class Market {
     /**
      * 证券名称
      */
-    private int securitiesName;
+    private String securitiesName;
     /**
      * 日期
      */
@@ -43,26 +43,26 @@ public class Market {
     /**
      * 备注
      */
-    private String desc;
+    private String marketdesc;
 
     public Market() {
     }
 
-    public Market(int marketId, String securitiesId, int securitiesName, String dateTime, double openPrice, double closingPrice, String desc) {
+    public Market(String marketId, String securitiesId, String securitiesName, String dateTime, double openPrice, double closingPrice, String marketdesc) {
         this.marketId = marketId;
         this.securitiesId = securitiesId;
         this.securitiesName = securitiesName;
         this.dateTime = dateTime;
         this.openPrice = openPrice;
         this.closingPrice = closingPrice;
-        this.desc = desc;
+        this.marketdesc = marketdesc;
     }
 
-    public int getMarketId() {
+    public String getMarketId() {
         return marketId;
     }
 
-    public void setMarketId(int marketId) {
+    public void setMarketId(String marketId) {
         this.marketId = marketId;
     }
 
@@ -74,11 +74,11 @@ public class Market {
         this.securitiesId = securitiesId;
     }
 
-    public int getSecuritiesName() {
+    public String getSecuritiesName() {
         return securitiesName;
     }
 
-    public void setSecuritiesName(int securitiesName) {
+    public void setSecuritiesName(String securitiesName) {
         this.securitiesName = securitiesName;
     }
 
@@ -106,12 +106,12 @@ public class Market {
         this.closingPrice = closingPrice;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getMarketdesc() {
+        return marketdesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setMarketdesc(String marketdesc) {
+        this.marketdesc = marketdesc;
     }
 
     @Override
@@ -123,7 +123,7 @@ public class Market {
                 ", 日期='" + dateTime + '\'' +
                 ", 开盘价格=" + openPrice +
                 ", 闭市价格=" + closingPrice +
-                ", 备注='" + desc + '\'' +
+                ", 备注='" + marketdesc + '\'' +
                 '}';
     }
 }

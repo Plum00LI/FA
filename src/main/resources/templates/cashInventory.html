@@ -9,20 +9,20 @@
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="../static/css/font.css">
-    <link rel="stylesheet" href="../static/css/xadmin.css">
-    <link rel="stylesheet" href="../static/css/theme9.css">
-    <script src="../static/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../static/js/xadmin.js"></script>
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/xadmin.css">
+    <link rel="stylesheet" href="../css/theme9.css">
+    <script src="../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/xadmin.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]-->
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 
-    <link rel="stylesheet" href="../static/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="../lib/layui/css/layui.css">
 
 
-    <script src="../static/lib/layui/layui.js"></script>
+    <script src="../lib/layui/layui.js"></script>
     <!--工具条-->
     <script type="text/html" id="userToolBar">
         <div style="float:right">
@@ -72,7 +72,7 @@
             //新增提交
             form.on('submit(addsubmit)', function(data){
                 var formData=$('#addform').serialize();
-                $.post("../user/insertUser",formData,function(msg){
+                $.post("../cashInventory/insert",formData,function(msg){
                     if(msg>0){
                         table.reload('userTable');
                         layer.closeAll();
@@ -99,7 +99,7 @@
             //修改提交
             form.on('submit(editsubmit)', function(data){
                 var formData=$('#editform').serialize();
-                $.post("../user/updateUser",formData,function(msg){
+                $.post("../cashInventory/update",formData,function(msg){
                     if(msg>0){
                         table.reload('userTable');
                         layer.closeAll();
@@ -125,22 +125,24 @@
             });
             table.render({
                 elem: '#cashInventoryTable',
-                url: './cashInventory/selectAll',
+                url: '../cashInventory/select',
                 count:0,
                 page: true,
                 height: 498,
                 toolbar: '#userToolBar',//显示在表头的工具条
                 minLength:80,
-                cols: [[ //表头
+                cols: [
+                    [ //表头
                     {type: 'checkbox', fixed: 'left'}
-                    ,{field: 'cashInventoryId', title: '现金库存ID', width:180}
-                    ,{field: 'securitiesNum', title: '证券数量', width: 200}
-                    ,{field: 'accountId', title: '账户ID', width:200}
-                    ,{field: 'fundId', title: '账户名', width: 200}
-                    ,{field: 'cashBlance', title: '现金余额', width:200}
-                    ,{field: 'dateTime', title: '统计时间', width: 200}
-                    ,{field: 'classify', title: '操作', width: 200}
-                ]]
+                    ,{field: 'cashInventoryId', title: '现金库存ID'}
+                    ,{field: 'securitiesNum', title: '证券数量'}
+                    ,{field: 'accountId', title: '账户ID'}
+                    ,{field: 'fundId', title: '账户名'}
+                    ,{field: 'cashBlance', title: '现金余额'}
+                    ,{field: 'dateTime', title: '统计时间'}
+                    ,{field: 'right', title: '操作', toolbar:'#barDemo'}
+                ]
+                ]
             });
             //给工具条的按钮添加事件
             table.on('toolbar(userTable)',function (obj) {
@@ -216,11 +218,11 @@
             //给表格编辑，删除按钮添加点击事件
             table.on('tool(userTable)', function(obj) {
                 var data = obj.data;//得到删除行整行的数据
-                alert(data.userId);
+                alert(data.cashInventoryId);
                 if (obj.event === 'del') {
                     layer.confirm('真的删除行么',{icon: 2}, function(index){
                         layer.close(index);
-                        $.post("../user/deleteUser", {userId:data.userId+""},function(msg){
+                        $.post("../user/deleteUser", {cashInventoryId:data.cashInventoryId+""},function(msg){
                             table.reload('userTable');
                         });
 
@@ -231,14 +233,14 @@
                     form.val('editform',$.parseJSON(JSON.stringify(data)));
                     var index = layer.open({
                         type: 1,
-                        title: '修改权益数据',
+                        title: '修改现金库存',
                         closeBtn: 1,
                         move:false,
                         area: ['500px', '400px'],
                         content:$('#editContent')
                     });
                     $.ajax({
-                        url:'../user/selectRole',
+                        url:'../cashInventory/update',
                         dataType:'json',
                         type:'post',
                         success:function(obj){
@@ -259,7 +261,6 @@
         function myclose() {
             parent.layer.closeAll();
         }
-
     </script>
 </head>
 <body style="overflow: auto; background-color: white;"
@@ -277,20 +278,19 @@
     </div>
 </div>
 <!--增加的div内容-->
-<!--增加的div内容-->
 <div id="addContent" style="display: none; height: 100%; width:100%; text-align: center">
     <form id="addform" lay-filter="addform" class="layui-form layui-col-space5" style="margin: 50px auto; display: inline-block;">
         <div style="float: left;">
         <div class="layui-inline layui-show-xs-block" style="text-align: center;">
             <label class="layui-form-label layui-bg-green" style="text-align: center">日期</label>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input"  autocomplete="off" placeholder="日期" name="datetime" id="datetime1">
+                <input type="text"  class="layui-input"  autocomplete="off" placeholder="日期" name="datetime" id="datetime1">
             </div>
         </div>
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">现金账户</label>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="现金账户" name="cashAccountName" id="cashAccountName">
+                <input type="text"  class="layui-input" placeholder="现金账户" name="accountId" id="accountId1">
             </div>
         </div>
         </div>
@@ -300,9 +300,8 @@
         <br/>
         <div class="layui-inline layui-show-xs-block" style="float: left">
             <label class="layui-form-label layui-bg-green" style="text-align: center">余额</label>
-<!--            -->
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="余额" name="balance">
+                <input type="text" class="layui-input" placeholder="余额" name="cashBlance" id="cashBlance1">
             </div>
         </div>
         <br>
@@ -312,7 +311,7 @@
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center; width: 130px; height: 81px; line-height: 81px">备注</label>
             <div class="layui-inline layui-show-xs-block">
-                <textarea name="" required lay-verify="required" placeholder="请输入" class="layui-textarea" style="width: 467px"></textarea>
+                <textarea name="cashInventoryDesc" required lay-verify="required" placeholder="请输入" class="layui-textarea" style="width: 467px"></textarea>
             </div>
         </div>
 
@@ -335,42 +334,53 @@
     <form id="editform" lay-filter="editform"
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label"></label>
-            <div class="layui-input-inline">
-                <input type="text" name="userId" lay-verify="required"
-                       autocomplete="off" placeholder="请输入用户ID" class="layui-input">
+        <div style="float: left;">
+            <div class="layui-inline layui-show-xs-block" style="text-align: center;">
+                <label class="layui-form-label layui-bg-green" style="text-align: center">日期</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <input  type="text" class="layui-input"  autocomplete="off" placeholder="日期" name="datetime" id="datetime2">
+                </div>
+            </div>
+            <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="text-align: center">卡号</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <input  type="text" class="layui-input" placeholder="卡号" name="accountId" id="accountId">
+                </div>
             </div>
         </div>
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label"></label>
-            <div class="layui-input-inline">
-                <input type="text" name="userName" lay-verify="required"
-                       autocomplete="off" placeholder="请输入用户名" class="layui-input">
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div style="float: left;">
+            <div class="layui-inline layui-show-xs-block" style="text-align: center;">
+                <label class="layui-form-label layui-bg-green" style="text-align: center">账户名称</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <input  type="text" class="layui-input"  autocomplete="off" placeholder="账户名称" name="datetime" id="zhanghu">
+                </div>
+            </div>
+            <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="text-align: center">余额</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <input  type="text" class="layui-input" placeholder="余额" name="cashBlance" id="cashBlance">
+                </div>
             </div>
         </div>
-
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label"></label>
-            <div class="layui-input-inline">
-                <input type="password" name="userPwd" lay-verify="required"
-                       autocomplete="off" placeholder="请输入密码" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label"></label>
-            <div class="layui-input-inline">
-                <select id="roleId_2" name="roleId" xm-select="add" xm-select-radio=""
-                        xm-select-search="" lay-verify="required"
-                        xm-select-direction="down" xm-select-search-type="dl">
-                </select>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label layui-bg-green" style="text-align: center; width: 130px; height: 101px; line-height: 81px">备注</label>
+            <div class="layui-inline layui-show-xs-block">
+                <textarea name="" required lay-verify="required" placeholder="请输入" class="layui-textarea" style="width: 467px"></textarea>
             </div>
         </div>
         <div style="position: absolute; bottom: 0px; left: 45%;">
             <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
-            <button class="layui-btn layui-bg-red cancel" type="button">
+            <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
                 <i class="layui-icon">&#x1006;</i>取消
             </button>
         </div>

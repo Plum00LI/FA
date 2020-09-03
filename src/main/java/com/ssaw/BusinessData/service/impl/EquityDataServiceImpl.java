@@ -6,6 +6,7 @@ import com.ssaw.BusinessData.service.EquityDataService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,8 +28,16 @@ public class EquityDataServiceImpl implements EquityDataService {
     }
 
     @Override
-    public void deleteEquityData(int equityId) {
-        equityDataMapper.deleteEquityData(equityId);
+    public int deleteEquityData(String equityId) {
+        //将id转为数据
+        String[] split = equityId.split(",");
+        //创建存放id的集合
+        ArrayList<Object> equityIdList = new ArrayList<>();
+        for (String id : split) {
+            //将id存入集合
+            equityIdList.add(id);
+        }
+       return equityDataMapper.deleteEquityData(equityIdList);
     }
 
     @Override
@@ -50,7 +59,7 @@ public class EquityDataServiceImpl implements EquityDataService {
         //定义一个分页页码变量
         int v_page = 0;
         //判断传入的page是否为null/空
-        if (page!=null&&!page.equals("")){
+        if (page != null && !page.equals("")){
             //通过Integer包装类将String类型转换成int基础数据类型
             v_page=Integer.parseInt(page);
         }
@@ -77,7 +86,7 @@ public class EquityDataServiceImpl implements EquityDataService {
         //将结果放入结果集Map
         resultMap.put("equityDataList",equityDataList);
         resultMap.put("count",v_count);
-        System.out.println(resultMap.get(equityDataList));
+        System.out.println(resultMap.get("equityDataList"));
         //返回结果集Map
         return resultMap;
     }
