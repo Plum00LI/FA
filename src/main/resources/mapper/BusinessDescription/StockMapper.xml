@@ -18,4 +18,13 @@
         <delete id="deleteStock" parameterType="String">
             delete from stock where stockId=#{stockId}
         </delete>
+    <resultMap id="stockMap" type="com.ssaw.BusinessDescription.entity.Stock">
+        <result property="stockId" column="stockId" javaType="String"></result>
+        <result property="stockParentId" column="stockParentId" javaType="String"></result>
+        <result property="stockName" column="stockName" javaType="String"></result>
+        <result property="stockDesc" column="stockDesc" javaType="String"></result>
+    </resultMap>
+    <select id="selectStock" parameterType="java.util.Map" statementType="CALLABLE">
+        {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},#{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=INTEGER},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=stockMap})}
+    </select>
 </mapper>
