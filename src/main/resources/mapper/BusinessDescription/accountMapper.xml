@@ -9,12 +9,15 @@
     #{deposit},#{cardRate},#{procisionDays},#{openTime},#{endTime},#{accountDesc})
     </insert>
     <update id="updateAccount" parameterType="com.ssaw.BusinessDescription.entity.Account">
-    update account set fundId=#{fundId},blankCardCode=#{blankCardCode},accountName=#{accountName},
-    blankName=#{blankName},deposit=#{deposit},cardRate=#{cardRate},procisionDays=#{procisionDays},
-    openTime=#{openTime},endTime=#{endTime},accountDesc=#{accountDesc} where accountId=#{accountId}
+    update account set accountName=#{accountName},deposit=#{deposit},cardRate=#{cardRate},procisionDays=#{procisionDays},accountDesc=#{accountDesc} where accountId=#{accountId}
     </update>
-    <delete id="deleteAccount" parameterType="int">
-         delete from account where accountId=#{accountId}
+    <delete id="deleteAccount"
+        parameterType="list">
+        delete from account where accountId in
+        <foreach collection="list" item="accountId" open="("
+                 separator="," close=")">
+            #{accountId}
+        </foreach>
     </delete>
     <resultMap id="accountMap" type="com.ssaw.BusinessDescription.entity.Account">
         <result property="accountId" column="accountId" javaType="String"></result>
@@ -31,10 +34,7 @@
     </resultMap>
 
     <select id="selectAccount" parameterType="java.util.Map" statementType="CALLABLE">
-            {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},
-            #{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=INTEGER},
-            #{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},
-            #{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=accountMap})}
+        {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},#{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=INTEGER},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=accountMap})}
     </select>
 
 </mapper>

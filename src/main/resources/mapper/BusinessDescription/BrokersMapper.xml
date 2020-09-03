@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssaw.BusinessDescription.mapper.BrokersMapper">
+
+    <resultMap id="brokersMap" type="com.ssaw.BusinessDescription.entity.Brokers">
+        <result property="brokersId" column="brokersId" javaType="String"></result>
+        <result property="brokersName" column="brokersName" javaType="String"></result>
+        <result property="brokersInstructions" column="brokersInstructions" javaType="String"></result>
+        <result property="desc" column="desc" javaType="String"></result>
+    </resultMap>
+
+    <select id="selectBrokers" parameterType="java.util.Map"  statementType="CALLABLE">
+      {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},#{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=INTEGER},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=brokersMap})}
+    </select>
+
+    <delete id="deleteBrokers" parameterType="com.ssaw.BusinessDescription.entity.Brokers">
+        DELETE from brokers where brokersId = #{brokersId}
+    </delete>
+
+    <insert id="insertBrokers" parameterType="com.ssaw.BusinessDescription.entity.Brokers">
+        insert into brokers value(#{brokersId},#{brokersName},#{brokersInstructions},#{desc})
+    </insert>
+    
+    <update id="updateBrokers" parameterType="com.ssaw.BusinessDescription.entity.Brokers">
+        UPDATE brokers set brokersName = #{brokersName},brokersInstructions = #{brokersInstructions},desc = #{desc} where brokersId = #{brokersId}
+    </update>
+
+</mapper>
