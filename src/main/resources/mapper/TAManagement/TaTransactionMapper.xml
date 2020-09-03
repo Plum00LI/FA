@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssaw.TAManagement.mapper.TaTransactionMapper">
-<!--    <insert id="insert" insert into Tatransaction values (#{transactionId},#{dateTime },#{balanceDate},#{fundId},#{fundNum},#{accountId,#{totalMoney},#{actualMoney},#{price},#{cost},#{agencies},#{transactionType},#{transactionStatus})</insert>-->
+    <!--<insert id="insert"> insert into Tatransaction values (#{transactionId},#{dateTime },#{balanceDate},#{fundId},#{fundNum},#{accountId,#{totalMoney},#{actualMoney},#{price},#{cost},#{agencies},#{transactionType},#{transactionStatus})</insert>-->
     <update id="update">update TransactionId set dateTime=#{dateTime},balanceDate=#{balanceDate},fundId=#{fundId},fundNum=#{fundNum},accountId=#{accountId},totalMoney=#{totalMoney},actualMoney=#{actualMoney},price=#{price},cost=#{cost},agencies=#{agencies},transactionType=#{transactionType},transactionStatus=#{transactionStatus}</update>
     <delete id="delete"> delete from Tatransaction where transactionId=#{transactionId</delete>
     <select id="select" resultType="com.ssaw.TAManagement.entity.Tatransaction"> select * from Tatransaction</select>

@@ -1,5 +1,5 @@
 layui.config({
-	base: '../../static/exts/',
+	base: '../exts/',
 })
 function fmoney(s, n) {
 	n = n > 0 && n <= 20 ? n : 2;

@@ -21,31 +21,38 @@ import java.util.Map;
  */
 @Service
 public class CashInventoryServiceImpl implements CashInventoryService {
-
+    /**
+     * 注入cashInventory的mapper
+     */
     @Resource
     CashInventoryMapper cashInventoryMapper;
 
-
+    /**
+     * 分页查询所有现金库存的方法
+     * @param pageSize  当前查询页数
+     * @param page  分页数据条目数
+     * @return  查询的结果集Map
+     */
     @Override
     public Map<String, Object> selectCashInventory(String pageSize, String page) {
         //创建一个结果集Map用于存放两个结果变量
-        Map<String, Object> resultMap = new HashMap<>();
+        Map<String,Object> resultMap=new HashMap<>();
         //定义一个分页条数变量
-        int v_pageSize = 0;
+        int v_pageSize=10;
         //判断传入的pageSize是否为null/空
-        if (pageSize!=null&&!pageSize.equals("")){
+        if (pageSize!=null && !pageSize.equals("")){
             //通过Integer包装类将String类型转换成int基础数据类型
             v_pageSize=Integer.parseInt(pageSize);
         }
         //定义一个分页页码变量
-        int v_page = 0;
+        int v_page=1;
         //判断传入的page是否为null/空
-        if (page!=null&&!page.equals("")){
+        if (page!=null && !page.equals("")){
             //通过Integer包装类将String类型转换成int基础数据类型
             v_page=Integer.parseInt(page);
         }
         //创建一个Map，用于存储过程的调用传值
-        Map<String,Object> map = new HashMap<>();
+        Map<String,Object> map=new HashMap<>();
         //传入存储过程需要查询的表名
         map.put("p_tableName","cashInventory");
         //传入查询条件
@@ -61,9 +68,9 @@ public class CashInventoryServiceImpl implements CashInventoryService {
         //调用Mapper执行查询
         cashInventoryMapper.selectCashInventory(map);
         //接收返回数据
-        List<CashInventory> cashInventoryList = (List<CashInventory>) map.get("p_cursor");
+        List<CashInventory> cashInventoryList= (List<CashInventory>) map.get("p_cursor");
         //接收返回总条数
-        int v_count = (int) map.get("p_count");
+        int v_count= (int) map.get("p_count");
         //将结果放入结果集Map
         resultMap.put("cashInventory",cashInventoryList);
         resultMap.put("count",v_count);
@@ -71,12 +78,13 @@ public class CashInventoryServiceImpl implements CashInventoryService {
         return resultMap;
     }
 
-    @Override
+  /*  @Override
     public List<CashInventory> selectCashInventoryAll() {
         return cashInventoryMapper.selectCashInventoryAll();
     }
-
+*/
     public int insertCashInventory(CashInventory cashInventory) {
+
         return cashInventoryMapper.insertCashInventory(cashInventory);
     }
 
