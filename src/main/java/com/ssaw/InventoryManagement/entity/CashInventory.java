@@ -31,6 +31,17 @@ public class CashInventory {
 
     }
 
+    /**
+     * CashInventory全参构造
+     * @param cashInventoryId
+     * @param fundId
+     * @param cashBlance
+     * @param accountId
+     * @param dateTime
+     * @param securitiesNum
+     * @param securityPeriodFlag
+     * @param cashInventoryDesc
+     */
     public CashInventory(String cashInventoryId, String fundId, double cashBlance, String accountId, String dateTime, int securitiesNum, int securityPeriodFlag, String cashInventoryDesc) {
         this.cashInventoryId = cashInventoryId;
         this.fundId = fundId;

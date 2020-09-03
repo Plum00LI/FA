@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * ClassName:    TaInventoryController
@@ -17,7 +18,7 @@ import java.util.List;
  * Author:   SYT
  */
 @RestController
-@RequestMapping("taInventory")
+@RequestMapping("/taInventory")
 public class TaInventoryController {
     @Resource
     TaInventoryService taInventoryService;
@@ -26,13 +27,20 @@ public class TaInventoryController {
      * 分页查询
      * @return
      */
-    @RequestMapping("select")
-    public HashMap selectTaInventory(){
-        List<TaInventory> taInventoryList=taInventoryService.selectTaInventory();
-        HashMap taInventoryMap=new HashMap();
-
-
-        return taInventoryMap;
+    @RequestMapping("/select")
+    public Map<String,Object> selectTaInventory(String page,String limit){
+        Map<String,Object> map=taInventoryService.selectTaInventory(limit,page);
+        //从结果集中拿出结果
+        List<TaInventory> taInventoryList= (List<TaInventory>) map.get("taInventory");
+        int count= (int) map.get("count");
+        //以layui要求存储响应数据格式
+        Map<String,Object> json=new HashMap<>();
+        json.put("code",0);
+        json.put("msg","");
+        json.put("count",count);
+        json.put("data",taInventoryList);
+        //返回数据
+        return json;
     }
 
     /**
@@ -40,7 +48,7 @@ public class TaInventoryController {
      * @param taInventory
      * @return
      */
-    @RequestMapping("insert")
+    @RequestMapping("/insert")
     public int insertTaInventory(TaInventory taInventory){
         int i=taInventoryService.insertTaInventory(taInventory);
         return i;
@@ -51,7 +59,7 @@ public class TaInventoryController {
      * @param taInventory
      * @return
      */
-    @RequestMapping("update")
+    @RequestMapping("/update")
     public int updateTaInventory(TaInventory taInventory){
         int i=taInventoryService.updateTaInventory(taInventory);
         return i;
@@ -62,7 +70,7 @@ public class TaInventoryController {
      * @param taInventoryId
      * @return
      */
-    @RequestMapping("delete")
+    @RequestMapping("/delete")
     public int deleteTaInventory(int taInventoryId){
         int i=taInventoryService.deleteTaInventory(taInventoryId);
         return i;
