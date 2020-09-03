@@ -3,6 +3,7 @@ package com.ssaw.GlobalManagement.service.impl;
 import com.ssaw.GlobalManagement.entity.UserInfo;
 import com.ssaw.GlobalManagement.mapper.UserInfoMapper;
 import com.ssaw.GlobalManagement.service.UserInfoService;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -53,7 +54,8 @@ public class UserInfoServiceImpl implements UserInfoService {
         //创建一个Map，用于存储过程的调用传值
         Map<String,Object> map = new HashMap<>();
         //传入存储过程需要查询的表名
-        map.put("p_tableName","userInfo");
+        map.put("p_tableName",SysTableNameListUtil.UI);
+
         //传入查询条件
         map.put("p_condition","");
         //传入分页显示条数
