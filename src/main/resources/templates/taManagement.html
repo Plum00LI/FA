@@ -1,57 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>划款指令页面</title>
+    <title>TA交易数据信息页面</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="../../static/css/font.css">
-    <link rel="stylesheet" href="../../static/css/xadmin.css">
-    <link rel="stylesheet" href="../../static/css/theme9.css">
-    <script src="../../static/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <link rel="stylesheet" href="../static/css/font.css">
+    <link rel="stylesheet" href="../static/css/xadmin.css">
+    <link rel="stylesheet" href="../static/css/theme9.css">
+    <script src="../static/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../static/js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]-->
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 
-    <link rel="stylesheet" href="./lib/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/lib/layui/css/layui.css">
 
-    <script src="./lib/layui/layui.js"></script>
+
+    <script src="../static/lib/layui/layui.js"></script>
     <!--工具条-->
+
     <script type="text/html" id="userToolBar">
-        <div style="float:right">
+        <div style="float:right;">
+            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm layui-bg-green" lay-event="add"><i
+                    class="layui-icon">&#xe654;</i>申购导入</button>
+
+            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm layui-bg-green" lay-event="add"><i
+                    class="layui-icon">&#xe654;</i>赎回导入</button>
             <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
-                    class="layui-icon">&#xe654;</i>添加划款指令</button>
+                    class="layui-icon">&#xe654;</i>添加数据</button>
             <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll"><i
                     class="layui-icon">&#xe640;</i>批量删除</button>
         </div>
         <br/>
+
         <form class="layui-form layui-col-space5">
+            <label class="layui-form-label layui-bg-green" style="width: 90px;text-align: center">交易日期</label>
+
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">划款日期</label>
-                <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择日期" name="end" id="start">
-                </div>
-            </div>
+                <input class="layui-input"  autocomplete="off" placeholder="请输入选择日期" name="end" id="start" style="width: 170px;">
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">指令状态</label>
-                <div class="layui-inline layui-show-xs-block" style="text-align: center" >
+                <label class="layui-form-label layui-bg-green" style="width: 90px;text-align: center">结算类型</label>
+
+                <div class="layui-inline layui-show-xs-block" style="width: 170px;">
                     <select name="cateid">
-                        <option>请选择指令状态</option>
-                        <option>未生成</option>
-                        <option>已生成</option>
+                        <option placeholder="请选择"></option>
+                        <option>上交所</option>
+                        <option>深交所</option>
                     </select>
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <label class="layui-form-label layui-bg-green" style="width: 90px;text-align: center">交易类型</label>
+
+                <div class="layui-inline layui-show-xs-block" style="width: 170px;">
+                    <select name="cateid">
+                        <option placeholder="请选择"></option>
+                        <option>请选择</option>
+                        <option>股票</option>
+                        <option>债券</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline layui-show-xs-block" >
+                <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索
+                </button>
             </div>
         </form>
     </script>
-
-
     <script type="text/javascript">
 
         layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
@@ -64,16 +84,9 @@
 
             //执行一个laydate实例
             laydate.render({
-                elem: '#start',//指定元素
+                elem: '#start' //指定元素
             });
-            //执行一个laydate实例
-            laydate.render({
-                elem: '#end'//指定元素
-            });
-            //执行一个laydate实例
-            laydate.render({
-                elem: '#up'//指定元素
-            });
+
             //新增提交
             form.on('submit(addsubmit)', function(data){
                 var formData=$('#addform').serialize();
@@ -137,12 +150,19 @@
                 minLength:80,
                 cols: [[ //表头
                     {type: 'checkbox', fixed: 'left'}
-                    ,{field: 'id', title: '划款账户', width:200,align:'center'}
-                    ,{field: 'username', title: '接收账户', width:200,align:'center'}
-                    ,{field: 'experience', title: '划款金额', width: 200,align:'center'}
-                    ,{field: 'sex', title: '划款日期', width:140,align:'center'}
-                    ,{field: 'score', title: '到账日期', width: 140,align:'center'}
-                    ,{field: 'right', title: '操作',width: 187, align:'center', toolbar: '#barDemo'}
+                    ,{field: 'transactionId', title: '基金', width:120, align:'center'}
+                    ,{field: 'accountId', title: '现金账户', width: 110, align:'center'}
+                    ,{field: 'dateTime ', title: '交易日期', width:110, align:'center'}
+                    ,{field: 'fundNum', title: '数量', width: 110, align:'center'}
+                    ,{field: 'balanceDate', title: '结算日期', width:110, align:'center'}
+                    ,{field: 'totalMoney', title: '总金额', width: 110, align:'center'}
+                    ,{field: 'actualMoney', title: '实际金额', width: 110, align:'center'}
+                    ,{field: 'price', title: '单价', width: 120, align:'center'}
+                    ,{field: 'cost', title: '费用', width: 110, align:'center'}
+                    ,{field: 'agencies', title: '代销机构' , width: 110, align:'center'}
+                    ,{field: 'transactionType',title:'类型' ,width: 110,align :'center'}
+                    ,{field: 'transactionStatus',title:'状态' ,width: 110,align :'center'}
+                    ,{field: 'caozuo',title:'操作' ,width: 120,align :'center'}
                 ]]
             });
             //给工具条的按钮添加事件
@@ -153,7 +173,7 @@
                     case 'add':
                         var index=layer.open({
                             type: 1,
-                            title: '添加资金调拨',
+                            title: '添加用户信息',
                             closeBtn: 1,
                             move:false,
                             content:$("#addContent"),
@@ -257,10 +277,9 @@
                     layer.full(index);
                 };
             })
-
-
         });
-        function myclose() {
+
+        function quxiao() {
             parent.layer.closeAll();
         }
     </script>
@@ -285,64 +304,121 @@
     <form id="addform" lay-filter="addform"
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
-        <div>
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">收款账户</label>
-                <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择收款账户">
-                </div>
+
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户</label>
+            <div class="layui-input-inline">
+                <input class="layui-input"  autocomplete="off" placeholder="请输入账户名称"
+                       name="transactionId" id="transactionId">
             </div>
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">付款账户</label>
-                <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择付款账户">
-                </div>
-            </div>
-        </div>
-        <br>
-        <div>
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">划款金额</label>
-                <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请输入划款金额">
-                </div>
-            </div>
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">划款日期</label>
-                <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择划款日期" name="end" id="end">
-                </div>
+
+            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易类型</label>
+            <div class="layui-input-inline">
+                <select name="cateid3">
+                    <option placeholder="请选择"></option>
+                    <option>申购</option>
+                    <option>赎回</option>
+                </select>
             </div>
         </div>
-        <br>
-        <div>
-            <div class="layui-inline layui-show-xs-block" style="float: left">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">到账日期</label>
-                <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择到账日期" name="end" id="up">
-                </div>
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">数量</label>
+            <div class="layui-input-inline">
+                <input type="text" name="fundNum" lay-verify="required"
+                       autocomplete="off" placeholder="数量" class="layui-input">
+            </div>
+
+            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">费用</label>
+            <div class="layui-input-inline">
+                <input type="text" name="cost" lay-verify="required"
+                       autocomplete="off" placeholder="请输入费用" class="layui-input">
+            </div>
+
+        </div>
+
+
+
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易日期</label>
+            <div class="layui-input-inline">
+                <input type="text" name="dateTime" lay-verify="required"
+                       autocomplete="off" placeholder="请输入日期" class="layui-input">
+            </div>
+
+            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">单价</label>
+            <div class="layui-input-inline">
+                <input type="text" name="price" lay-verify="required"
+                       autocomplete="off" placeholder="请输入单价" class="layui-input">
+            </div>
+
+        </div>
+
+
+
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">结算日期</label>
+            <div class="layui-input-inline">
+                <input type="text" name="balanceDate" lay-verify="required"
+                       autocomplete="off" placeholder="请输入结算日期" class="layui-input">
+            </div>
+
+            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">代销机构</label>
+            <div class="layui-input-inline">
+                <select name="cateid4">
+                    <option placeholder="请选择"></option>
+                    <option>建设银行</option>
+                    <option>工商银行</option>
+                    <option>农业银行</option>
+                </select>
             </div>
         </div>
-        <br>
-        <br>
-        <br>
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center; width: 130px; height: 100px; line-height: 81px">备注</label>
-            <div class="layui-inline layui-show-xs-block">
-                <textarea name="" required lay-verify="required" placeholder="备注" class="layui-textarea" style="width: 467px"></textarea>
+
+
+
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">总金额</label>
+            <div class="layui-input-inline">
+                <input type="text" name="cost" lay-verify="required"
+                       autocomplete="off" placeholder="请输入总金额" class="layui-input">
             </div>
+
+            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">实际金额</label>
+            <div class="layui-input-inline">
+                <input type="text" name="totalMoney" lay-verify="required"
+                       autocomplete="off" placeholder="请输入实际金额" class="layui-input">
+            </div>
+
         </div>
+
+
+
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易状态</label>
+            <div class="layui-input-inline">
+                <select name="cateid5">
+                    <option placeholder="请选择"></option>
+                    <option>已结算</option>
+                    <option>未结算</option>
+            </select>
+
+            </div>
+
+
+
+        </div>
+
+
+
         <div style="position: absolute; bottom: 0px; left: 45%;">
             <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
-            <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
-                <i class="layui-icon">&#x1006;</i>取消
+            <button class="layui-btn layui-bg-red cancel" type="button" onclick="quxiao()">
+                <i class="layui-icon" >&#x1006;</i>取消
             </button>
         </div>
     </form>
 </div>
-
 
 </body>
 </html>

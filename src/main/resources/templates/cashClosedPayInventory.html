@@ -1,52 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>现金应收应付</title>
+    <title>权益数据设置</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="../../static/css/font.css">
-    <link rel="stylesheet" href="../../static/css/xadmin.css">
-    <link rel="stylesheet" href="../../static/css/theme9.css">
-    <script src="../../static/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../../static/js/xadmin.js"></script>
+    <link rel="stylesheet" href="../static/css/font.css">
+    <link rel="stylesheet" href="../static/css/xadmin.css">
+    <link rel="stylesheet" href="../static/css/theme9.css">
+    <script src="../static/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../static/js/xadmin.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]-->
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 
-    <link rel="stylesheet" href="../../static/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/lib/layui/css/layui.css">
 
 
-    <script src="../../static/lib/layui/layui.js"></script>
+    <script src="../static/lib/layui/layui.js"></script>
     <!--工具条-->
     <script type="text/html" id="userToolBar">
         <div style="float:right">
-            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
+            <input type="checkbox" lay-event="initialSigns" title="是否为期初数据" lay-filter="initialSigns">&nbsp&nbsp&nbsp&nbsp
+            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm " lay-event="add" id="addbtn"><i
                     class="layui-icon">&#xe654;</i>添加数据</button>
             <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll"><i
                     class="layui-icon">&#xe640;</i>批量删除</button>
         </div>
-
+        <br/>
         <form class="layui-form layui-col-space5">
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">业务日期</label>
-
-                <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请输入统计日期" name="businessDate" id="start">
-                </div>
-            </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">业务类型</label>
                 <div class="layui-inline layui-show-xs-block">
                     <select name="businessType">
                         <option>请选择</option>
-                        <option>清算款</option>
-                        <option>估值增值</option>
-                        <option>债券利息</option>
+                        <option>管理费</option>
+                        <option>托管费</option>
+                        <option>存款利息</option>
+                        <option>申购赎回费</option>
                     </select>
+                </div>
+            </div>
+            <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">业务日期</label>
+
+                <div class="layui-inline layui-show-xs-block">
+                    <input class="layui-input"  autocomplete="off" placeholder="请输入统计日期" name="businessDate" id="start">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
@@ -71,9 +73,7 @@
             laydate.render({
                 elem: '#start' //指定元素
             });
-            laydate.render({
-                elem: '#start3'
-            })
+
             laydate.render({
                 elem: '#start2'
             })
@@ -117,6 +117,20 @@
                 });
                 return false;
             });
+
+            //期初数据选中事件
+            form.on('checkbox(initialSigns)', function(data){
+                var addbtn = document.getElementById('addbtn');
+                if(data.elem.checked){
+                    addbtn.classList.remove("layui-btn-disabled")
+                    addbtn.setAttribute("lay-event","add")
+
+                }else{
+                    addbtn.classList.add("layui-btn-disabled")
+                    addbtn.setAttribute("lay-event","")
+                }
+            });
+
             //修改提交
             form.on('submit(editsubmit)', function(data){
                 var formData=$('#editform').serialize();
@@ -153,12 +167,16 @@
                 minLength:80,
                 cols: [[ //表头
                     {type: 'checkbox', fixed: 'left'}
-                    ,{field: 'businessDate', title: '业务日期', width:210, align:'center'}
-                    ,{field: 'crcsId', title: '银行编号', width: 210, align:'center'}
-                    ,{field: 'cashAccountName', title: '银行名称', width:210, align:'center'}
-                    ,{field: 'fundId', title: '资金流向', width: 210, align:'center'}
-                    ,{field: 'fundName', title: '金额', width:210, align:'center'}
-                    ,{field: 'operation', title: '操作' , width: 210, align:'center'}
+                    ,{field: 'businessDate', title: '业务日期', width:170, align:'center'}
+                    ,{field: 'crcsId', title: '现金应收应付库存ID', width: 170, align:'center'}
+                    ,{field: 'cashAccountName', title: '现金账户名称', width:170, align:'center'}
+                    ,{field: 'fundId', title: '基金编号', width: 170, align:'center'}
+                    ,{field: 'fundName', title: '基金名称', width:170, align:'center'}
+                    ,{field: 'businessType', title: '业务类型', width: 170, align:'center'}
+                    ,{field: 'businessStatus', title: '业务状态', width: 170, align:'center'}
+                    ,{field: 'initialSigns', title: '期初标志', width: 170, align:'center'}
+                    ,{field: 'toalMoney', title: '总金额%', width: 170, align:'center'}
+                    ,{field: 'operation', title: '操作' , width: 200, align:'center'}
                 ]]
             });
             //给工具条的按钮添加事件
@@ -175,11 +193,21 @@
                             content:$("#addContent"),
                             btn:[]
                         });
+                        $.ajax({
+                            url:'../user/selectRole',
+                            dataType:'json',
+                            type:'post',
+                            success:function(obj){
+                                $.each(obj,function(index,item){
+                                    $('#roleId').append(new Option(item.roleName,item.roleId));//往下拉菜单里添加元素
+                                })
+                                form.render();//菜单渲染 把内容加载进去
+                            }
+                        })
                         form.render();
                         //全屏
                         layer.full(index);
                         break;
-
                     case 'search':
                         alert("搜索");
                         var userName= $("#userName").val();
@@ -194,8 +222,6 @@
                             }
                         });
                         break;
-
-                    case 'add':
 
 
                     case 'deleteAll':
@@ -222,6 +248,7 @@
                             });
                         }
                         break;
+
                 }
             });
             //给表格编辑，删除按钮添加点击事件
@@ -293,47 +320,70 @@
 <div id="addContent" style="display: none; height: 100%; width:100%; text-align: center">
     <form id="addform" lay-filter="addform" class="layui-form layui-col-space5" style="margin: 50px auto; display: inline-block;">
         <div class="layui-inline layui-show-xs-block" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">账户编号</label>
-            <div class="layui-inline layui-show-xs-block" style="width: 195px">
-                <input class="layui-input" placeholder="请选择银行编号" name="name1">
+            <label class="layui-form-label layui-bg-green" style="text-align: center">期初状态</label>
+            <div class="layui-inline layui-show-xs-block">
+                <select name="initialSigns" disabled="true">
+                    <option>是</option>
+                    <option>否</option>
+                </select>
             </div>
         </div>
+        &nbsp&nbsp&nbsp&nbsp&nbsp
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">业务日期</label>
-
-            <div class="layui-inline layui-show-xs-block" style="width: 195px">
-                <input class="layui-input" placeholder="请输入业务日期" name="businessDate" id="start3">
+            <label class="layui-form-label layui-bg-green" style="text-align: center">账户名称</label>
+            <div class="layui-inline layui-show-xs-block">
+                <input class="layui-input" placeholder="请输入账户名称" name="cashAccountName">
             </div>
         </div>
-        <br/>
+        <br>
+        <br>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">资金流向</label>
-            <div class="layui-inline layui-show-xs-block" style="width: 195px">
+            <label class="layui-form-label layui-bg-green" style="text-align: center">业务状态</label>
+            <div class="layui-inline layui-show-xs-block">
                 <select name="businessStatus">
                     <option>流入</option>
                     <option>流出</option>
                 </select>
             </div>
         </div>
+        &nbsp&nbsp&nbsp&nbsp&nbsp
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label layui-bg-green" style="text-align: center">业务日期</label>
+            <div class="layui-inline layui-show-xs-block">
+                <input class="layui-input" placeholder="请输入业务日期" name="businessDate" id="start2">
+            </div>
+        </div>
+        <br>
+        <br>
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">业务类型</label>
-            <div class="layui-inline layui-show-xs-block" style="width: 195px">
+            <div class="layui-inline layui-show-xs-block">
                 <select name="businessType">
                     <option>请选择</option>
-                    <option>清算款</option>
-                    <option>估值增值</option>
-                    <option>债券利息</option>
+                    <option>管理费</option>
+                    <option>托管费</option>
+                    <option>存款利息</option>
+                    <option>申购赎回费</option>
                 </select>
             </div>
         </div>
-        <br>
-        <div class="layui-inline layui-show-xs-block" style="float: left">
+        &nbsp&nbsp&nbsp&nbsp&nbsp
+        <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">总金额</label>
-            <div class="layui-inline layui-show-xs-block" style="width: 195px">
-                <input class="layui-input" placeholder="请输入总金额" name="toalMoney" >
+            <div class="layui-inline layui-show-xs-block">
+                <input class="layui-input" placeholder="请输入总金额" name="toalMoney">
             </div>
         </div>
         <br>
+        <br>
+        <div class="layui-inline layui-show-xs-block" style="float: left">
+            <label class="layui-form-label layui-bg-green" style="text-align: center; width: 130px; height: 81px; line-height: 81px">备注</label>
+            <div class="layui-inline layui-show-xs-block">
+                <textarea name="" required lay-verify="required" placeholder="请输入" class="layui-textarea" style="width: 484px"></textarea>
+            </div>
+        </div>
+
+
         <div style="position: absolute; bottom: 0px; left: 45%;">
             <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
@@ -351,48 +401,37 @@
     <form id="editform" lay-filter="editform"
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
-        <div class="layui-inline layui-show-xs-block" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">账户编号</label>
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请选择银行编号" name="name1">
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-inline">
+                <input type="text" name="userId" lay-verify="required"
+                       autocomplete="off" placeholder="请输入用户ID" class="layui-input">
             </div>
         </div>
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">业务日期</label>
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-inline">
+                <input type="text" name="userName" lay-verify="required"
+                       autocomplete="off" placeholder="请输入用户名" class="layui-input">
+            </div>
+        </div>
 
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入业务日期" name="businessDate" id="start2">
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-inline">
+                <input type="password" name="userPwd" lay-verify="required"
+                       autocomplete="off" placeholder="请输入密码" class="layui-input">
             </div>
         </div>
-        <br/>
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">资金流向</label>
-            <div class="layui-inline layui-show-xs-block" style="width: 195px">
-                <select name="businessStatus">
-                    <option>流入</option>
-                    <option>流出</option>
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-inline">
+                <select id="roleId_2" name="roleId" xm-select="add" xm-select-radio=""
+                        xm-select-search="" lay-verify="required"
+                        xm-select-direction="down" xm-select-search-type="dl">
                 </select>
             </div>
         </div>
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">业务类型</label>
-            <div class="layui-inline layui-show-xs-block" style="width: 195px">
-                <select name="businessType">
-                    <option>请选择</option>
-                    <option>清算款</option>
-                    <option>估值增值</option>
-                    <option>债券利息</option>
-                </select>
-            </div>
-        </div>
-        <br>
-        <div class="layui-inline layui-show-xs-block" style="float: left">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">总金额</label>
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入总金额" name="toalMoney" >
-            </div>
-        </div>
-        <br>
         <div style="position: absolute; bottom: 0px; left: 45%;">
             <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
