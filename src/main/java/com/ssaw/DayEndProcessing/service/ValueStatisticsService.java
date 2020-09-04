@@ -2,6 +2,7 @@ package com.ssaw.DayEndProcessing.service;
 
 import com.ssaw.DayEndProcessing.entity.ValueStatistics;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @return
  */
 @Service
+
 public interface ValueStatisticsService {
     /**
      * 净值统计新增统计方法

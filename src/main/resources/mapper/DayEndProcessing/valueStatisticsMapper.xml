@@ -14,7 +14,7 @@
       </delete>
 
     <select id="selectValueStatistics" parameterType="com.ssaw.DayEndProcessing.entity.ValueStatistics" resultType="com.ssaw.DayEndProcessing.entity.ValueStatistics">
-        select  valueStatisticsDate,projectId,projectName,projectCode,quantityint,peice,cost,marketValue,valuation,projectFatherId from valueStatistics where valueStatisticsDate=#{valueStatisticsDate}
+        select  valueStatisticsDate,projectId,projectName,projectCode,quantityint,peice,cost,marketValue,valuation,projectFatherId  from valueStatistics where valueStatisticsDate=#{valueStatisticsDate}
     </select>
 
 

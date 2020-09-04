@@ -4,6 +4,7 @@ import com.ssaw.DayEndProcessing.entity.ValueStatistics;
 import com.ssaw.DayEndProcessing.mapper.ValueStatisticsMapper;
 import com.ssaw.DayEndProcessing.service.ValueStatisticsService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
  * @return
  */
 @Service
+@Transactional
 public class ValueStatisticsServiceImpl implements ValueStatisticsService {
     @Resource
     ValueStatisticsMapper valueStatisticsMapper;

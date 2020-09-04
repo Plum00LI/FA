@@ -123,10 +123,7 @@ public class ValueStatisticsController {
 //        valueStatisticsList.add(valueStatistics24);
         Map<String,Object> josn = new HashMap<String,Object>();
         josn.put("code", 0);
-        josn.put("count",valueStatisticsList
-
-
-                .size());
+        josn.put("count",valueStatisticsList.size());
         josn.put("msg", "");
         josn.put("data", valueStatisticsList);
         return josn;
