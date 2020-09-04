@@ -2,6 +2,7 @@ package com.ssaw.InventoryManagement.service;
 
 import com.ssaw.InventoryManagement.entity.SecuritiesInventory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
 *@create: 2020-09-01
 */
 @Service
+@Transactional
 public interface SecuritiesInventoryService {
     /**
      * 查询

@@ -21,7 +21,7 @@ import java.util.List;
 */
 @Controller
 @RequestMapping("/selectSecuritiesInventory")
-public class SelectSecuritiesInventoryController {
+public class SecuritiesInventoryController {
     //调用用户Biz对象
     //自动装配 按照类型自动装配
     @Resource

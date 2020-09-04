@@ -4,9 +4,13 @@ import com.ssaw.BusinessDescription.entity.Fund;
 import com.ssaw.BusinessDescription.mapper.FundMapper;
 import com.ssaw.BusinessDescription.service.FundService;
 import com.ssaw.GlobalManagement.entity.UserInfo;
+import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +24,7 @@ import java.util.Map;
  * @return
  */
 @Service
+@Transactional
 public class FundServiceImpl implements FundService {
     @Resource
     FundMapper fundMapper;
@@ -42,8 +47,20 @@ public class FundServiceImpl implements FundService {
      * @param fundId
      */
     @Override
-    public void deleteFund(int fundId) {
-        fundMapper.deleteFund(fundId);
+    public void deleteFund(String fundId) {
+        int v_fund=0;
+        String[] split=new String[0];
+        if (fundId!=null&&!fundId.equals("")){
+            split= fundId.split(",");
+
+        }
+        for(int i=0;i<split.length;i++){
+            v_fund=Integer.parseInt(split[i]);
+            fundMapper.deleteFund(v_fund);
+        }
+
+
+
 
     }
 
@@ -65,7 +82,7 @@ public class FundServiceImpl implements FundService {
      */
 
     @Override
-    public Map<String, Object> selectFund(String pageSize, String page) {
+    public Map<String, Object> selectFund(String pageSize, String page,String fundId,String fundType) {
         //创建一个结果集Map用于存放两个结果变量
         Map<String, Object> resultMap = new HashMap<>();
         //定义一个分页条数变量
@@ -82,12 +99,23 @@ public class FundServiceImpl implements FundService {
             //通过Integer包装类将String类型转换成int基础数据类型
             v_page=Integer.parseInt(page);
         }
+
+
+        int v_fundId = 0;
+        StringBuffer sqlWhere=new StringBuffer();
+        if(fundId!=null&&!fundId.equals("")){
+            v_fundId=Integer.parseInt(fundId);
+            sqlWhere.append(" AND fundId LIKE  '%"+v_fundId+"%'" );
+        }
+        if(fundType!=null&&!fundType.equals("")){
+            sqlWhere.append(" AND fundType LIKE  '%"+fundType+"%'" );
+        }
         //创建一个Map，用于存储过程的调用传值
         Map<String,Object> map = new HashMap<>();
         //传入存储过程需要查询的表名
         map.put("p_tableName","fund");
         //传入查询条件
-        map.put("p_condition","");
+        map.put("p_condition",sqlWhere.toString());
         //传入分页显示条数
         map.put("p_pageSize",v_pageSize);
         //传入分页页码
@@ -108,9 +136,12 @@ public class FundServiceImpl implements FundService {
         //将结果放入结果集Map
         resultMap.put("fundList",fundList);
         resultMap.put("count",v_count);
+        String p_condition = (String) map.get("p_condition");
+        System.out.println(p_condition);
         //返回结果集Map
         System.out.println(v_count);
         System.out.println(fundList);
+        System.out.println(sqlWhere.toString());
         return resultMap;
     }
 

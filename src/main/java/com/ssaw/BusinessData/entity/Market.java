@@ -45,6 +45,7 @@ public class Market {
      */
     private String marketdesc;
 
+
     public Market() {
     }
 
@@ -113,6 +114,7 @@ public class Market {
     public void setMarketdesc(String marketdesc) {
         this.marketdesc = marketdesc;
     }
+
 
     @Override
     public String toString() {

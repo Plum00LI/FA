@@ -1,12 +1,15 @@
 package com.ssaw.InventoryManagement.service.impl;
 
 
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.InventoryManagement.entity.CashInventory;
 import com.ssaw.InventoryManagement.mapper.CashInventoryMapper;
 import com.ssaw.InventoryManagement.service.CashInventoryService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +23,7 @@ import java.util.Map;
  * Author:   SYT
  */
 @Service
+@Transactional
 public class CashInventoryServiceImpl implements CashInventoryService {
     /**
      * 注入cashInventory的mapper
@@ -34,7 +38,7 @@ public class CashInventoryServiceImpl implements CashInventoryService {
      * @return  查询的结果集Map
      */
     @Override
-    public Map<String, Object> selectCashInventory(String pageSize, String page) {
+    public Map<String, Object> selectCashInventory(String pageSize, String page,String accountName,String dateTime) {
         //创建一个结果集Map用于存放两个结果变量
         Map<String,Object> resultMap=new HashMap<>();
         //定义一个分页条数变量
@@ -51,10 +55,19 @@ public class CashInventoryServiceImpl implements CashInventoryService {
             //通过Integer包装类将String类型转换成int基础数据类型
             v_page=Integer.parseInt(page);
         }
+        //定义变量确定条件
+        StringBuffer sqlWhere=new StringBuffer();
+        //账户名称
+        sqlWhere.append(" and accountName like '%"+accountName+"%'");
+
+
+
         //创建一个Map，用于存储过程的调用传值
         Map<String,Object> map=new HashMap<>();
+        String p_tableName="(select c.cashInventoryId,c.fundId,c.cashBlance,c.accountId,c.dateTime,c.securitiesNum,c.securityPeriodFlag,c.cashInventoryDesc,a.accountName "+
+        " from " + SysTableNameListUtil.CI+" c join "+SysTableNameListUtil.A +" a on c.accountId=a.accountId)";
         //传入存储过程需要查询的表名
-        map.put("p_tableName","cashInventory");
+        map.put("p_tableName",p_tableName);
         //传入查询条件
         map.put("p_condition","");
         //传入分页显示条数
@@ -78,23 +91,39 @@ public class CashInventoryServiceImpl implements CashInventoryService {
         return resultMap;
     }
 
-  /*  @Override
-    public List<CashInventory> selectCashInventoryAll() {
-        return cashInventoryMapper.selectCashInventoryAll();
-    }
-*/
+    /**
+     * 增加现金库存
+     * @param cashInventory
+     * @return
+     */
     public int insertCashInventory(CashInventory cashInventory) {
 
         return cashInventoryMapper.insertCashInventory(cashInventory);
     }
 
+    /**
+     * 修改现金库存信息
+     * @param cashInventory
+     * @return
+     */
     public int updateCashInventory(CashInventory cashInventory) {
         return cashInventoryMapper.updateCashInventory(cashInventory);
     }
 
-
-    public int deleteCashInventory(int cashInventoryId) {
-        return cashInventoryMapper.deleteCashInventory(cashInventoryId);
+    /**
+     * 批量删除
+     * @param cashInventoryId
+     * @return
+     */
+    @Override
+    public int deleteCashInventory(String cashInventoryId) {
+        String[] cashInventoryIds=cashInventoryId.split(",");
+        ArrayList<Object> cashInventoryIdList=new ArrayList<>();
+        for (String id:cashInventoryIds){
+            cashInventoryIdList.add(id);
+        }
+        return cashInventoryMapper.deleteCashInventory(cashInventoryIdList);
     }
+
 
 }

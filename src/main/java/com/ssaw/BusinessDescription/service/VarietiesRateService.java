@@ -18,9 +18,11 @@ import java.util.Map;
 @Transactional
 public interface VarietiesRateService {
     //查询与分页查询
-    public Map<String,Object> selectVarietiesRate(String pageSize,String page);
-    //删除
+    public Map<String,Object> selectVarietiesRate(String pageSize,String page,String exchangeName,String rateType);
+    //刪除
     public void deleteVarietiesRate(int exchangeName,int rateType);
+    //删除
+    public void deleteVarietiesRate2(String exchangeName,String rateType);
     //增加
     public int insertVarietiesRate(VarietiesRate varietiesRate);
     //修改

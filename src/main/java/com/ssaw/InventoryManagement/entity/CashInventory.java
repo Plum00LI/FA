@@ -26,6 +26,7 @@ public class CashInventory {
     //备注
     private String cashInventoryDesc;
 
+    private String accountName;
 
     public CashInventory(){
 
@@ -51,6 +52,26 @@ public class CashInventory {
         this.securitiesNum = securitiesNum;
         this.securityPeriodFlag = securityPeriodFlag;
         this.cashInventoryDesc = cashInventoryDesc;
+    }
+
+    public CashInventory(String cashInventoryId, String fundId, double cashBlance, String accountId, String dateTime, int securitiesNum, int securityPeriodFlag, String cashInventoryDesc, String accountName) {
+        this.cashInventoryId = cashInventoryId;
+        this.fundId = fundId;
+        this.cashBlance = cashBlance;
+        this.accountId = accountId;
+        this.dateTime = dateTime;
+        this.securitiesNum = securitiesNum;
+        this.securityPeriodFlag = securityPeriodFlag;
+        this.cashInventoryDesc = cashInventoryDesc;
+        this.accountName = accountName;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
     @Override
