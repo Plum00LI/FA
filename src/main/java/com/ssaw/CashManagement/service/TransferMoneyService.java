@@ -2,6 +2,7 @@ package com.ssaw.CashManagement.service;
 
 import com.ssaw.CashManagement.entity.TransferMoney;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

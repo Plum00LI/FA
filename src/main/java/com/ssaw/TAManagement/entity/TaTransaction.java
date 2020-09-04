@@ -7,10 +7,10 @@ package com.ssaw.TAManagement.entity;
  * @date:2020-09-01
  */
 public class TaTransaction {
-    private String transactionId="123";      //PK , 交易数据编号 TA202008310001
+    private String taTransactionId;      //PK , 交易数据编号 TA202008310001
     private String dateTime;           //交易日期
     private String balanceDate;        //结算日期
-    private String fundId="12";             //FK 基金Id来自基金表
+    private String fundId;             //FK 基金Id来自基金表
     private double fundNum;            //交易数量
     private String accountId;          //FK 来自现金账户表 现金账户Id
     private double totalMoney;         //总金额
@@ -23,28 +23,12 @@ public class TaTransaction {
 
     public TaTransaction(){}
 
-    public TaTransaction(String transactionId, String dateTime, String balanceDate, String fundId, double fundNum, String accountId, double totalMoney, double actualMoney, double price, double cost, int agencies, int transactionType, int transactionStatus) {
-        this.transactionId = transactionId;
-        this.dateTime = dateTime;
-        this.balanceDate = balanceDate;
-        this.fundId = fundId;
-        this.fundNum = fundNum;
-        this.accountId = accountId;
-        this.totalMoney = totalMoney;
-        this.actualMoney = actualMoney;
-        this.price = price;
-        this.cost = cost;
-        this.agencies = agencies;
-        this.transactionType = transactionType;
-        this.transactionStatus = transactionStatus;
+    public String getTaTransactionId() {
+        return taTransactionId;
     }
 
-    public String getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
+    public void setTaTransactionId(String taTransactionId) {
+        this.taTransactionId = taTransactionId;
     }
 
     public String getDateTime() {
@@ -145,8 +129,8 @@ public class TaTransaction {
 
     @Override
     public String toString() {
-        return "TatranSaction{" +
-                "transactionId='" + transactionId + '\'' +
+        return "TaTransaction{" +
+                "taTransactionId='" + taTransactionId + '\'' +
                 ", dateTime='" + dateTime + '\'' +
                 ", balanceDate='" + balanceDate + '\'' +
                 ", fundId='" + fundId + '\'' +

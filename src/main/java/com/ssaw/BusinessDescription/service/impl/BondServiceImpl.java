@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**债券信息设置实现类
  * @program:TescComment
@@ -20,9 +21,10 @@ import java.util.List;
 public class BondServiceImpl implements BondService {
     @Resource
     BondMapper bondMapper;
+
     @Override
-    public List<TaTransaction> selectBond() {
-        return bondMapper.selectBond();
+    public Map<String, Object> selectBond(String pageSize, String page) {
+        return null;
     }
 
     @Override

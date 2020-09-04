@@ -18,7 +18,7 @@ import java.util.Map;
 @Transactional
 public interface AccountService {
     //查询所有现金账户的服务类接口方法-待实现
-    public Map<String,Object> selectAccount(String pageSize,String page);
+    public Map<String,Object> selectAccount(String pageSize,String page,String accountName,String blankName);
     public int insertAccount(Account account);
     public int updateAccount(Account account);
     public int deleteAccount(String accountId);

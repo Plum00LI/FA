@@ -2,6 +2,7 @@ package com.ssaw.BusinessDescription.controller;
 
 import com.ssaw.BusinessDescription.entity.Fund;
 import com.ssaw.BusinessDescription.service.FundService;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,6 +26,7 @@ public class FundController {
     @Resource
     FundService fundService;
 
+
     @RequestMapping(value = "/insertFund")
     public int insertFund(Fund fund) {
         System.out.println("进来了");
@@ -35,9 +37,11 @@ public class FundController {
     }
 
     @RequestMapping(value = "/deleteFund")
-    public void deleteFund(int fundId) {
+    public void deleteFund(String fundId) {
         System.out.println("进来了");
+
         fundService.deleteFund(fundId);
+
     }
 
     @RequestMapping(value = "/updateFund")
@@ -49,9 +53,10 @@ public class FundController {
     }
 
     @RequestMapping(value = "/selectFund")
-    public Map<String, Object> selectFund(String page, String limit) {
-        System.out.println("进来了");
-        Map<String, Object> map = fundService.selectFund(limit, page);
+    public Map<String, Object> selectFund(String page, String limit,String fundId,String fundType) {
+        System.out.println("查询进来了");
+        Map<String, Object> map = fundService.selectFund(limit, page,fundId,fundType);
+        System.out.println(fundId+fundType);
         List<Fund> fundList = (List<Fund>) map.get("fundList");
         int count = (int) map.get("count");
         //以layui要求存储响应数据格式

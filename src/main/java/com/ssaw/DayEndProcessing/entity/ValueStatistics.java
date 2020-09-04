@@ -12,24 +12,17 @@ package com.ssaw.DayEndProcessing.entity;
 
 /**
  * 表名	valueStatistics净值统计
- * 表字段	数据类型	表字段名称	备注	模块名	关系人
- * valueStatisticsId	varchar(50)	库存编号/ID列
- * projectId	varchar(50)	项目编号	体现层次分级关系/例如股票
- * projectName	varchar(50)	项目名称	例如证券	证券库存统计	瞿萍
- * projectCode	varchar(50)	项目代码/账户号		证券库存统计	瞿萍
- * quantity	Number(12)	股数		证券库存统计	瞿萍
- * peice	Number(14,2)	行情		行情数据	瞿萍
- * cost	Number(12,3)	成本		资产估值	瞿萍
- * marketValue	Number(12,3)	市值		资产估值	瞿萍
- * valuation	Number(6,3)	估值增值		资产估值	瞿萍
- * projectFatherId	varchar(50)	父项目编号	体现层次分级关系/例如证券
- * relation	varchar(50)	项目关系	父子关系，例如证券为父，股票为子
- * appreciationSum	Number(12,3)	合计估值增值	可要可不要，有待确定/如果分别实现统计和查询，会方便一点	页面增值合计
- * liabilities	Number(12,3)	总负债	可要可不要，有待确定/如果分别实现统计和查询，会方便一点	页面总负债
- * propertySum	Number(14,2)	资产合计	可要可不要，有待确定/如果分别实现统计和查询，会方便一点	未计算负债时总资产
- * propertyNetWorth	Number(14,2)	资产净值
- * unitNetWorth	Number(14,2)	单位净值
- * valueStatisticsDate	varchar(50)	统计日期	主键
+ * 表字段	数据类型	表字段名称	备注
+ * valueStatisticsDate varchar(50) 时间 主键
+ * projectId	Number (5)	项目编号	主键 体现层次分级关系/例如股票
+ * projectName	varchar(50)	项目名称	例如证券
+ * projectCode	varchar(50)	项目代码/账户号
+ * quantityint	varchar(50)	股数		证券库存统计
+ * peice	varchar(50)	行情		行情数据
+ * cost	varchar(50)	成本		资产估值
+ * marketValue	varchar(50)	市值
+ * valuation	varchar(50)	估值增值
+ * projectFatherId	Number (5)	父项目编号	体现层次分级关系/例如证券
  */
 public class ValueStatistics {
     private String valueStatisticsDate;

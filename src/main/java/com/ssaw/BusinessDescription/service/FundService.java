@@ -26,7 +26,7 @@ public interface FundService {
      * 删除基金信息
      * @param fundId
      */
-    void deleteFund(int fundId);
+    void deleteFund(String fundId);
 
     /**
      * 修改基金信息
@@ -39,5 +39,5 @@ public interface FundService {
      * @param
      * @return Map<String,Object>
      */
-    Map<String,Object> selectFund(String pageSize, String page);
+    Map<String,Object> selectFund(String pageSize, String page,String fundId,String fundType);
 }

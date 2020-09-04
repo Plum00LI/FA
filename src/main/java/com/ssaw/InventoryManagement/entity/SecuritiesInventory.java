@@ -25,7 +25,7 @@ public class SecuritiesInventory {
     /**
      * 证券库存ID
      */
-    private int securitiesInventoryId;
+    private String securitiesInventoryId;
     /**
      * 证券库存日期
      */
@@ -33,7 +33,7 @@ public class SecuritiesInventory {
     /**
      * 证券编号
      */
-    private int securitiesId;
+    private String securitiesId;
     /**
      * 证券名
      */
@@ -61,12 +61,12 @@ public class SecuritiesInventory {
     /**
      * 备注 desc
      */
-    private String desc;
+    private String securitiesInventoryDesc;
 
     public SecuritiesInventory() {
     }
 
-    public SecuritiesInventory(int securitiesInventoryId, String dateTime, int securitiesId, String securitiesName, String fundId, int securityPeriodFlag, int securitiesNum, double price, double total, String desc) {
+    public SecuritiesInventory(String securitiesInventoryId, String dateTime, String securitiesId, String securitiesName, String fundId, int securityPeriodFlag, int securitiesNum, double price, double total, String securitiesInventoryDesc) {
         this.securitiesInventoryId = securitiesInventoryId;
         this.dateTime = dateTime;
         this.securitiesId = securitiesId;
@@ -76,14 +76,14 @@ public class SecuritiesInventory {
         this.securitiesNum = securitiesNum;
         this.price = price;
         this.total = total;
-        this.desc = desc;
+        this.securitiesInventoryDesc = securitiesInventoryDesc;
     }
 
-    public int getSecuritiesInventoryId() {
+    public String getSecuritiesInventoryId() {
         return securitiesInventoryId;
     }
 
-    public void setSecuritiesInventoryId(int securitiesInventoryId) {
+    public void setSecuritiesInventoryId(String securitiesInventoryId) {
         this.securitiesInventoryId = securitiesInventoryId;
     }
 
@@ -95,11 +95,11 @@ public class SecuritiesInventory {
         this.dateTime = dateTime;
     }
 
-    public int getSecuritiesId() {
+    public String getSecuritiesId() {
         return securitiesId;
     }
 
-    public void setSecuritiesId(int securitiesId) {
+    public void setSecuritiesId(String securitiesId) {
         this.securitiesId = securitiesId;
     }
 
@@ -151,12 +151,12 @@ public class SecuritiesInventory {
         this.total = total;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getSecuritiesInventoryDesc() {
+        return securitiesInventoryDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setSecuritiesInventoryDesc(String securitiesInventoryDesc) {
+        this.securitiesInventoryDesc = securitiesInventoryDesc;
     }
 
     @Override
@@ -171,7 +171,7 @@ public class SecuritiesInventory {
                 ", 证券的数量=" + securitiesNum +
                 ", 单位成本=" + price +
                 ", 总金额=" + total +
-                ", 备注='" + desc + '\'' +
+                ", 备注='" + securitiesInventoryDesc + '\'' +
                 '}';
     }
 }

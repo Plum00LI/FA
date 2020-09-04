@@ -31,24 +31,24 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户名称</label>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input"  autocomplete="off" placeholder="请输入账户名" name="accountName" id="accountName">
+                <input class="layui-input"  autocomplete="off" placeholder="请输入账户名" id="accountName">
             </div>
 
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">银行名称</label>
-            <div class="layui-inline layui-show-xs-block"  style="text-align: center">
-                <select name="blankName" id="blankName">
+            <div class="layui-inline layui-show-xs-block"  style="text-align: center" >
+                <select id="blankName">
                     <option>请选择</option>
-                    <option>中国银行</option>
-                    <option>建设银行</option>
-                    <option>工商银行</option>
-                    <option>农业银行</option>
+                    <option value="中国银行">中国银行</option>
+                    <option value="建设银行">建设银行</option>
+                    <option value="工商银行">工商银行</option>
+                    <option value="农业银行">农业银行</option>
                 </select>
             </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <button class="layui-btn"  lay-submit="" lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
             </div>
         </form>
     </script>
@@ -91,6 +91,8 @@
                 cols: [
                     [ //表头
                         {type: 'checkbox', fixed: 'left'}
+                        ,{field: 'accountId', title: '现金账户Id', width:200,align:'center',hide:true}
+                        ,{field: 'fundId', title: '基金Id', width:200,align:'center',hide:true}
                         ,{field: 'blankCardCode', title: '银行卡号', width:200,align:'center'}
                         ,{field: 'accountName', title: '账户名称', width:200,align:'center'}
                         ,{field: 'blankName', title: '银行名称', width: 150,align:'center'}
@@ -194,12 +196,14 @@
                         break;
                     case 'search':
                         alert("搜索");
-                        var userName= $("#userName").val();
+                        var accountName= $("#accountName").val();
+                        var blankName= $("#blankName").val();
                         //表格的重新加载事件
                         table.reload('userTable', {
                             method: 'post'
                             , where: {
-                                'userName': userName
+                                'accountName': accountName,
+                                'blankName': blankName
                             }
                             , page: {
                                 curr: 1
@@ -306,7 +310,7 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">银行名称</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请输入银行名称" name="blankName">
+                    <input class="layui-input"  autocomplete="off" placeholder="请输入银行名称" name="blankName" >
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">

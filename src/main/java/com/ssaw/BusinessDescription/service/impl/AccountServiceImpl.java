@@ -4,6 +4,7 @@ import com.ssaw.BusinessDescription.entity.Account;
 import com.ssaw.BusinessDescription.mapper.AccountMapper;
 import com.ssaw.BusinessDescription.service.AccountService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.Map;
 *@create:2020-09-01
 */
 @Service
+@Transactional
 public class AccountServiceImpl implements AccountService {
     /**
      * 注入Account的Mapper层
@@ -28,7 +30,7 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
-    public Map<String, Object> selectAccount(String pageSize, String page) {
+    public Map<String, Object> selectAccount(String pageSize, String page,String accountName,String blankName) {
         //创建一个结果集Map用于存放两个结果变量
         Map<String,Object> resultMap=new HashMap<>();
         //定义一个分页条数变量
@@ -45,12 +47,21 @@ public class AccountServiceImpl implements AccountService {
             //通过Integer包装类将String类型转换成int基础数据类型
             v_page=Integer.parseInt(page);
         }
+        String sql="";
+        if(accountName!=null && !accountName.equals("")){
+            sql=sql+" and accountName like '%"+accountName+"%'";
+        }
+        if(blankName!=null && !blankName.equals("")){
+            sql=sql+" and blankName='"+blankName+"'";
+        }
         //创建一个Map 用于存款过程的调用传值
         Map<String,Object> map=new HashMap<>();
         //传入存储过程需要查询的表名
         map.put("p_tableName","account");
+
+        System.out.println(sql);
         //传入查询的条件
-        map.put("p_condition","");
+        map.put("p_condition",sql);
         //传入分页显示条数
         map.put("p_pageSize",v_pageSize);
         //传入分页页码
