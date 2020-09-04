@@ -36,20 +36,20 @@
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">基金代码</label>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input"  autocomplete="off" placeholder="请输入基金代码" name="" id="">
+                <input class="layui-input"  autocomplete="off" placeholder="请输入基金代码" name="" id="fundId">
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">基金类型</label>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <select name="cateid">
+                <select name="cateid" id="fundType">
                     <option placeholder="请选择"></option>
-                    <option>封闭式</option>
-                    <option>开放式</option>
+                    <option value="2">封闭式</option>
+                    <option value="1">开放式</option>
                 </select>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <button class="layui-btn"  lay-submit=""  lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
             </div>
         </form>
     </script>
@@ -155,7 +155,11 @@
                     ,{field: 'fundName', title: '基金名称', width: 240, align:'center'}
                     ,{field: 'managerId', title: '基金管理公司', width:240, align:'center'}
                     ,{field: 'trusteeBlank', title: '基金托管银行', width: 240, align:'center'}
-                    ,{field: 'fundType', title: '基金类型', width:240, align:'center'}
+                    ,{field: 'fundType', title: '基金类型', width:240, align:'center',templet: function(item){
+                            if(item.fundType=='2') {return '封闭式';
+                            } else if(item.fundType=='1'){ return '开放式';
+                            }
+                        }}
                     ,{field: 'operation', title: '操作' , width: 240, align:'center',toolbar:'#barDemo'}
                 ]
                 ]
@@ -181,12 +185,14 @@
                         break;
                     case 'search':
                         alert("搜索");
-                        var userName= $("#userName").val();
+                        var fundId= $("#fundId").val();
+                        var fundType= $("#fundType").val();
                         //表格的重新加载事件
                         table.reload('userTable', {
                             method: 'post'
                             , where: {
-                                'userName': userName
+                                'fundId': fundId,
+                                'fundType':fundType
                             }
                             , page: {
                                 curr: 1

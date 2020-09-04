@@ -27,10 +27,10 @@ public class VarietiesRateController {
 
     //查询controller
     @RequestMapping("selectVarietiesRate")
-    public Map<String,Object> selectVarietiesRate(String page,String limit){
+    public Map<String,Object> selectVarietiesRate(String page,String limit,String exchangeNameIds,String rateTypeIds){
         System.out.println("进入了查询Controller");
         //调用Service层 返回结果集map
-        Map<String,Object> map =varietiesRateService.selectVarietiesRate(limit,page);
+        Map<String,Object> map =varietiesRateService.selectVarietiesRate(limit,page,exchangeNameIds,rateTypeIds);
         //从结果集中拿出结果
         //接收返回数据
         List<VarietiesRate> varietiesRates= (List<VarietiesRate>) map.get("varietiesRates");
@@ -49,14 +49,26 @@ public class VarietiesRateController {
     //删除方法
     @RequestMapping("deleteVarietiesRate")
     public void deleteVarietiesRate(int exchangeName, int rateType){
+
         System.out.println("进入删除controller了");
-        varietiesRateService.deleteVarietiesRate(exchangeName,rateType);
+            varietiesRateService.deleteVarietiesRate(exchangeName,rateType);
+
+    }
+
+    //批量刪除
+    @RequestMapping("deleteVarietiesRate2")
+    public void deleteVarietiesRate2(String exchangeName, String rateType){
+
+        System.out.println("进入批量删除controller了");
+        varietiesRateService.deleteVarietiesRate2(exchangeName,rateType);
+
     }
 
     //增加controller
     @RequestMapping("insertVarietiesRate")
     public int insertVarietiesRate(VarietiesRate varietiesRate){
         System.out.println("进入了增加controller了");
+
         int i=varietiesRateService.insertVarietiesRate(varietiesRate);
         return i;
     }

@@ -4,8 +4,10 @@ import com.ssaw.InventoryManagement.entity.TaInventory;
 import com.ssaw.InventoryManagement.mapper.TaInventoryMapper;
 import com.ssaw.InventoryManagement.service.TaInventoryService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,7 @@ import java.util.Map;
  * Author:   SYT
  */
 @Service
+@Transactional
 public class TaInventoryServiceImpl implements TaInventoryService {
     @Resource
     TaInventoryMapper taInventoryMapper;
@@ -88,9 +91,14 @@ public class TaInventoryServiceImpl implements TaInventoryService {
         return taInventoryMapper.updateTaInventory(taInventory);
     }
 
-
-    public int deleteTaInventory(int taInventoryId) {
-        return taInventoryMapper.deleteTaInventory(taInventoryId);
+    @Override
+    public int deleteTaInventory(String taInventoryId) {
+        String[] taInventoryIds=taInventoryId.split(",");
+        ArrayList<Object> taInventoryIdList=new ArrayList<>();
+        for (String id : taInventoryIds) {
+            taInventoryIdList.add(id);
+        }
+        return taInventoryMapper.deleteTaInventory(taInventoryIdList);
     }
 
 

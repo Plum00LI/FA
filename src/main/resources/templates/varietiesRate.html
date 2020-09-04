@@ -33,16 +33,17 @@
                     class="layui-icon">&#xe640;</i>批量删除
             </button>
         </div>
-        <br/>
+
         <form class="layui-form layui-col-space5">
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易所名称</label>
 
                 <div class="layui-inline layui-show-xs-block">
-                    <select name="cateid">
-                        <option>请选择</option>
-                        <option>上交所</option>
-                        <option>深交所</option>
+                    <select name="exchangeName" id="exchangeName_3">
+                        <option value="">请选择</option>
+                        <option value="1">上交所</option>
+                        <option value="2">深交所</option>
+
                     </select>
                 </div>
             </div>
@@ -50,15 +51,15 @@
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">费率类型</label>
 
                 <div class="layui-inline layui-show-xs-block">
-                    <select name="cateid">
-                        <option>请选择</option>
-                        <option>股票</option>
-                        <option>债券</option>
+                    <select name="rateType" id="rateType_3">
+                        <option value="">请选择</option>
+                        <option value="1">股票</option>
+                        <option value="2">债券</option>
                     </select>
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索
+                <button class="layui-btn" lay-submit="" lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索
                 </button>
             </div>
         </form>
@@ -165,17 +166,16 @@
                                 return '股票';
                             }
                         }}
-                    , {field: 'stampDuty', title: '印花税', width: 175, align: 'center'}
-                    , {field: 'transferFee', title: '过户费', width: 175, align: 'center'}
-                    , {field: 'collectionRate', title: '征管费', width: 175, align: 'center'}
-                    , {field: 'brokerage', title: '经手费', width: 175, align: 'center'}
+                    , {field: 'stampDuty', title: '印花税',  align: 'center'}
+                    , {field: 'transferFee', title: '过户费', align: 'center'}
+                    , {field: 'collectionRate', title: '征管费',  align: 'center'}
+                    , {field: 'brokerage', title: '经手费',  align: 'center'}
                     , {title: '操作', minWidth: 100, toolbar: '#barDemo', align: "center"}
                 ]
                 ],
                 limits: [10, 15, 20, 25, 50, 100],
                 limit: 15,
-                page: true,
-                skin: 'line'
+
             });
 
             //给工具条的按钮添加事件
@@ -196,19 +196,39 @@
                         //全屏
                         layer.full(index);
                         break;
+                    case 'search':
+                        alert("搜索");
+                        var exchangeNameIds = $("#exchangeName_3").val();
+                        var rateTypeIds = $("#rateType_3").val();
+                        //表格的重新加载事件
+                        table.reload('userTable', {
+                            method: 'post'
+                            , where: {
+                                'exchangeNameIds': exchangeNameIds,
+                                'rateTypeIds':rateTypeIds
+                            }
+                            , page: {
+                                curr: 1
+                            }
+                        });
+                        break;
                     case 'deleteAll':
                         var data = checkStatus.data;
                         //    layer.alert(JSON.stringify(data));
                         if (data.length == 0) {
                             layer.msg("请至少选择一条数据",)
                         } else {
-                            var ids = [];
+                            var exchangeNames = [];
                             for (var i = 0; i < data.length; i++) {
-                                ids.push(data[i].userId);
+                                exchangeNames.push(data[i].exchangeName);
+                            }
+                            var rateTypes=[];
+                            for (var i = 0; i < data.length; i++) {
+                                rateTypes.push(data[i].rateType);
                             }
                             layer.confirm('真的删除行么', {icon: 2}, function (index) {
                                 layer.close(index);
-                                $.post("../varietiesRate/deleteVarietiesRate", {exchangeName: ids.join(','),rateType: ids.join(',')}, function (msg) {
+                                $.post("/varietiesRate/deleteVarietiesRate2", {exchangeName: exchangeNames.join(','),rateType: rateTypes.join(',')}, function (msg) {
                                     table.reload('userTable');
                                     layer.msg('删除' + checkStatus.data.length + '条记录', {
                                         title: '提示',
@@ -260,7 +280,7 @@
       class="layui-view-body layui-content">
 <div>
     <!--表格-->
-    <table id="userTable" lay-filter="userTable"></table>
+    <table id="userTable" lay-filter="userTable" ></table>
     <!--工具条-->
     <div style="display: none;" id="barDemo">
         <a class="layui-btn layui-btn-xs" lay-event="edit"><i
