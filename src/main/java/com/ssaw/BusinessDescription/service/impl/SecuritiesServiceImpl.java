@@ -1,10 +1,12 @@
 package com.ssaw.BusinessDescription.service.impl;
 
 import com.ssaw.BusinessDescription.entity.Securities;
+import com.ssaw.BusinessDescription.entity.SecuritiesAndStock;
 import com.ssaw.BusinessDescription.entity.Stock;
 import com.ssaw.BusinessDescription.mapper.SecuritiesMapper;
 import com.ssaw.BusinessDescription.service.SecuritiesService;
 import com.ssaw.GlobalManagement.entity.UserInfo;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -23,17 +25,38 @@ import java.util.Map;
 public class SecuritiesServiceImpl implements SecuritiesService {
     @Resource
     SecuritiesMapper securitiesMapper;
-
+    //增加
     @Override
     public void insertSecurities(Securities securities) {
         securitiesMapper.insertSecurities(securities);
     }
 
+    /**
+     * 通过UserId删除用户的实现类方法
+     * @param securitiesId 要删除用户的ID
+     * @return 成功与否
+     */
     @Override
-    public void deleteSecurities(String securitiesId) {
-        securitiesMapper.deleteSecurities(securitiesId);
+    public boolean deleteSecurities(String securitiesId) {
+        //定义一个用户ID变量
+        int i = 0;
+        //判断传入的userId是否为null/空
+        if (securitiesId!=null&&!securitiesId.equals("")){
+            //通过Integer包装类将String类型转换成int基础数据类型
+            i=Integer.parseInt(securitiesId);
+        }
+        //调用Mapper执行删除，并接收影响条目数
+        int result = securitiesMapper.deleteSecurities(i);
+        //判断影响条目数是否不等于0
+        if (result!=0){
+            //不为0，返回成功
+            return true;
+        }
+        //为0，返回失败
+        return false;
     }
 
+    //修改
     @Override
     public void updateSecurities(Securities securities) {
         securitiesMapper.updateSecurities(securities);
@@ -66,7 +89,8 @@ public class SecuritiesServiceImpl implements SecuritiesService {
         //创建一个Map，用于存储过程的调用传值
         Map<String,Object> map = new HashMap<>();
         //传入存储过程需要查询的表名
-        map.put("p_tableName","securities");
+        String p_tableName="(select * from "+SysTableNameListUtil.SE+" se join "+SysTableNameListUtil.ST+" st on st.stockId=se.stockId)";
+        map.put("p_tableName", p_tableName);
         //传入查询条件
         map.put("p_condition","");
         //传入分页显示条数
@@ -80,12 +104,12 @@ public class SecuritiesServiceImpl implements SecuritiesService {
         //调用Mapper执行查询
         securitiesMapper.selectSecurities(map);
         //接收返回数据
-        List<Securities> Securities = (List<Securities>) map.get("p_cursor");
+        List<SecuritiesAndStock> Securities = (List<SecuritiesAndStock>) map.get("p_cursor");
         System.out.println("aa"+Securities);
         //接收返回总条数
         int v_count = (int) map.get("p_count");
         //将结果放入结果集Map
-        resultMap.put("Securities",Securities);
+        resultMap.put("SecuritiesAndStock",Securities);
         resultMap.put("count",v_count);
         //返回结果集Map
         System.out.printf(resultMap.toString());

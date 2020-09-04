@@ -1,5 +1,6 @@
 package com.ssaw.BusinessDescription.mapper;
 
+import com.ssaw.BusinessDescription.entity.Securities;
 import com.ssaw.BusinessDescription.entity.Stock;
 import com.ssaw.BusinessDescription.entity.VarietiesRate;
 import org.apache.ibatis.annotations.Mapper;
@@ -19,7 +20,7 @@ public interface StockMapper {
     /**
      * 查询所有
      */
-    public void selectStock(Map map);
+    public List<Securities> selectStock();
     /**
      * 根据父类查子类
      */

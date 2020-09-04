@@ -1,5 +1,6 @@
 package com.ssaw.BusinessDescription.service;
 
+import com.ssaw.BusinessDescription.entity.Securities;
 import com.ssaw.BusinessDescription.entity.Stock;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public interface StockService {
     /**
      * 查询所有
      */
-    public Map<String,Object> selectStock(String pageSize, String page);
+    public List<Securities> selectStock();
     /**
      * 增加父类
      * @param stock

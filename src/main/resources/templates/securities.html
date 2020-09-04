@@ -90,7 +90,7 @@
                     },
                     {field: 'issueDate', title: '发行日期'},
                     {field: 'delayDate', title: '延迟日期'},
-                    {field: 'stockId', title: '股票板块', sort: true},
+                    {field: 'stockName', title: '股票板块', sort: true},
                     {field: 'exchange', title: '交易所', sort: true,
                         templet:function (item) {
                             if (item.exchange=="1"){
@@ -177,11 +177,11 @@
                 });
                 return false;
             } else if (obj.event === 'delete') {
-                var name=obj.data.userName;
+                var name=obj.data.securitiesId;
                 layer.confirm('真的删除行么', function (index) {
                     $.ajax({
                         type: 'post',
-                        url: '../userInfo/deleteUserInfoByUserId?userId='+obj.data.userId,
+                        url: '../Securities/deleteSecurities?securitiesId='+obj.data.securitiesId,
                         success:function (object) {
                             if (object.msg==='success'){
                                 obj.del();
