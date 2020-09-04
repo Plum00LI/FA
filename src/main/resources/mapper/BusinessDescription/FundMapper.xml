@@ -16,7 +16,7 @@
         where fundId=#{fundId}
     </update>
     <delete id="deleteFund" parameterType="int">
-         delete from fund WHERE fundId=#{fundId}
+        delete from fund where fundId=#{fundId}
     </delete>
 <!--    <select id="selectFund" resultType="com.ssaw.BusinessDescription.entity.Fund">-->
 <!--        select fundId,fundName,fundType,managerId,trusteeBlank,initNetWorth,-->
