@@ -22,40 +22,40 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
     });
 
 
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#dateTime' //指定元素
-        });
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#dateTime' //指定元素
+    });
 
     //向世界问个好
     layer.msg('欢迎进入基金估值核算系统');
-        //新增提交
-        form.on('submit(addsubmit)', function (data) {
-            var formData = $('#addform').serialize();
-            $.post("../market/insertMarket", formData, function (msg) {
-                if (msg > 0) {
-                    table.reload('userTable');
-                    layer.closeAll();
-                    layer.msg('添加成功', {
-                        title: '提示',
-                        area: ['200px',
-                            '140px'],
-                        time: 0,
-                        btn: ['知道了']
-                    });
-                } else {
-                    layer.closeAll();
-                    layer.msg('添加失败', {
-                        title: '提示',
-                        area: ['200px',
-                            '140px'],
-                        time: 0,
-                        btn: ['知道了']
-                    });
-                }
-            });
-            return false;
+    //新增提交
+    form.on('submit(addsubmit)', function (data) {
+        var formData = $('#addform').serialize();
+        $.post("../market/insertMarket", formData, function (msg) {
+            if (msg > 0) {
+                table.reload('userTable');
+                layer.closeAll();
+                layer.msg('添加成功', {
+                    title: '提示',
+                    area: ['200px',
+                        '140px'],
+                    time: 0,
+                    btn: ['知道了']
+                });
+            } else {
+                layer.closeAll();
+                layer.msg('添加失败', {
+                    title: '提示',
+                    area: ['200px',
+                        '140px'],
+                    time: 0,
+                    btn: ['知道了']
+                });
+            }
         });
+        return false;
+    });
     //修改提交
     form.on('submit(editsubmit)', function (data) {
         var formData = $('#editform').serialize();
@@ -96,13 +96,16 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
         , cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'marketId', title: '行情ID', sort: true, fixed: 'left', totalRowText: '合计：'}
-                , {field: 'securitiesId', title: '证券编号'}
-                , {field: 'securitiesName', title: '证券名称'}
-                , {field: 'dateTime', title: '日期', sort: true}
-                , {field: 'openPrice', title: '开盘价格', sort: true, totalRow: true}
-                , {field: 'closingPrice', title: '闭市价格'}
-                , {field: 'desc', title: '备注'}
+                , {field: 'securitiesInventoryId', title: '证券库存Id', sort: true, fixed: 'left', totalRowText: '合计：'}
+                , {field: 'dateTime', title: '日期'}
+                , {field: 'securitiesId', title: '证券代码'}
+                , {field: 'securitiesName', title: '证券名称', sort: true}
+                , {field: 'fundId', title: '基金代码', sort: true, totalRow: true}
+                , {field: 'securityPeriodFlag', title: '是否从其他系统导入的期初数据  0：不是  1：是'}
+                , {field: 'securitiesNum', title: '数量'}
+                , {field: 'price', title: '单位成本'}
+                , {field: 'total', title: '总金额'}
+                , {field: 'securitiesInventoryDesc', title: '备注'}
                 , {field: '操作', minWidth: 165, align: 'center', toolbar: '#barDemo'}
             ]
         ]
@@ -126,35 +129,35 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
             case 'add':
                 var index = layer.open({
                     type: 1,
-                    title: '添加行情数据',
+                    title: '添加证券库存',
                     closeBtn: 1,
                     move: false,
                     content: $("#addContent"),
                     btn: []
                 });
                 form.render();
-               /* tableSelect.render({
-                    elem: '#demo',
-                    checkedKey: 'securitiesId',
-                    table: {
-                        url: 'securitiesController/selectAllSecurities',
-                        cols: [[
-                            { type: 'radio' },
-                            { field: 'securitiesId', title: '证券编号' },
-                            { field: 'securitiesName', title: '证券名称' },
-                            { field: 'issueDate', title: '发行日期'}
-                        ]]
-                    },
-                    done: function (elem, data) {
-                        var NEWJSON = []
-                        layui.each(data.data, function (index, item) {
-                            NEWJSON.push(item.securitiesName);
-                            console.log(item.securitiesId)
-                            $("#ss").val(item.securitiesId);
-                        })
-                        elem.val(NEWJSON.join(","))
-                    }
-                })*/
+                /* tableSelect.render({
+                     elem: '#demo',
+                     checkedKey: 'securitiesId',
+                     table: {
+                         url: 'securitiesController/selectAllSecurities',
+                         cols: [[
+                             { type: 'radio' },
+                             { field: 'securitiesId', title: '证券编号' },
+                             { field: 'securitiesName', title: '证券名称' },
+                             { field: 'issueDate', title: '发行日期'}
+                         ]]
+                     },
+                     done: function (elem, data) {
+                         var NEWJSON = []
+                         layui.each(data.data, function (index, item) {
+                             NEWJSON.push(item.securitiesName);
+                             console.log(item.securitiesId)
+                             $("#ss").val(item.securitiesId);
+                         })
+                         elem.val(NEWJSON.join(","))
+                     }
+                 })*/
                 //全屏
                 layer.full(index);
                 break;
@@ -164,22 +167,27 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                 var dateTime = $("#dateTime").val();
                 //表格的重新加载事件
                 table.reload('userTable', {
-                    method:'post'
+                    page: {
+                        curr: 1
+                    }
                     , where: {
                         'securitiesId': securitiesId
                         ,'dateTime':dateTime
                     }
-                    ,page: {
-                        curr: 1
-                    }
                 });
-
+                $('#securitiesId').val(securitiesId);
+                $('#dateTime').remove();
+                $('#searchbut').before('<input type="text" style="height: 38px;" id="dateTime" name="dateTime" readonly="readonly"  autocomplete="off" placeholder="请输入时间" class="layui-input">');
+                laydate.render({
+                    elem: '#dateTime', //指定元素
+                });
+                $('#dateTime').val(dateTime);
                 break;
             case 'deleteAll':
                 var data = checkStatus.data;
                 //    layer.alert(JSON.stringify(data));
                 if (data.length == 0) {
-                   layer.msg("请至少选择一条数据",)
+                    layer.msg("请至少选择一条数据",)
                 } else {
                     var ids = [];
                     for (var i = 0; i < data.length; i++) {

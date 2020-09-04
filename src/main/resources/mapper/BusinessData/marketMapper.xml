@@ -9,8 +9,11 @@
    <update id="updateMarket" parameterType="com.ssaw.BusinessData.entity.Market">
       update market set securitiesId=#{securitiesId,jdbcType=VARCHAR},dateTime=#{dateTime,jdbcType=VARCHAR},openPrice=#{openPrice},closingPrice=#{closingPrice},marketdesc=#{marketdesc,jdbcType=VARCHAR} where marketId=#{marketId,jdbcType=VARCHAR}
    </update>
-   <delete id="deleteMarket" parameterType="com.ssaw.BusinessData.entity.Market">
-      delete from market where marketId=#{marketId}
+   <delete id="deleteMarket" parameterType="java.util.List">
+      delete from market where marketId in
+      <foreach collection="list" item="marketId" open="(" separator="," close=")">
+         #{marketId}
+      </foreach>
    </delete>
    <resultMap id="marketMap" type="com.ssaw.BusinessData.entity.Market">
       <result property="marketId" column="marketId" javaType="String"></result>
