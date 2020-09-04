@@ -31,7 +31,7 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨日期</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择日期" name="end" id="start">
+                    <input class="layui-input"  autocomplete="off" placeholder="请选择日期" name="end" id="selectDate">
                 </div>
             </div>
             </div>
@@ -47,13 +47,13 @@
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨方向</label>
-            <div class="layui-inline layui-show-xs-block"  style="text-align: center">
-                <select name="cateid">
-                    <option>请选择调拨方向</option>
-                    <option>流入</option>
-                    <option>流出</option>
-                </select>
-            </div>
+                <div class="layui-inline layui-show-xs-block"  style="text-align: center">
+                    <select name="cateid">
+                        <option>请选择调拨方向</option>
+                        <option>流入</option>
+                        <option>流出</option>
+                    </select>
+                </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
@@ -74,7 +74,7 @@
 
             //执行一个laydate实例
             laydate.render({
-                elem: '#start',//指定元素
+                elem: '#selectDate',//指定元素
             });
             //执行一个laydate实例
             laydate.render({
@@ -148,15 +148,38 @@
                 cellMinWidth:60,
                 cols: [
                     [ //表头
-                    {type: 'checkbox', fixed: 'left'}
-                    ,{field: 'id', title: '现金账户', width:200,align:'center'}
-                    ,{field: 'username', title: '调拨类型', width:200,align:'center'}
-                    ,{field: 'experience', title: '调拨方向', width: 150,align:'center'}
-                    ,{field: 'sex', title: '金额', width:120,align:'center'}
-                    ,{field: 'score', title: '业务日期', width: 120,align:'center'}
-                    ,{field: 'city', title: '调拨日期', width:120,align:'center'}
-                    ,{field: 'right', title: '操作',width: 187, align:'center', toolbar: '#barDemo'}
-                ]
+                        {type: 'checkbox', fixed: 'left'}
+                        ,{field: 'bankTreasurerId', title: '资金调拨Id', width:150,align:'center',hide:true}
+                        ,{field: 'fundId', title: '基金Id', width:150,align:'center',hide:true}
+                        ,{field: 'accountId', title: '现金账户Id', width:120,align:'center',hide:true}
+                        ,{field: 'accountName', title: '现金账户名称', width:120,align:'center'}
+                        ,{field: 'allocatingType', title: '调拨类型', width:120,align:'center',
+                        templet:function (item) {
+                            if (item.procisionDays==1){
+                                return '存款利息';
+                            }else if (item.procisionDays==2){
+                                return '申购赎回清算款';
+                            }else if (item.procisionDays==3){
+                                return '买卖交易清算款';
+                            }
+                            return '债券利息'
+                        }
+                    }
+                        ,{field: 'flag', title: '调拨方向', width: 120,align:'center',
+                        templet:function (item) {
+                            if (item.allocatingType==1){
+                                return '流入';
+                            }
+                            return  '流出';
+                        }
+                    }
+                        ,{field: 'totalPrice', title: '调拨总数额', width: 150,align:'center'}
+                        ,{field: 'dateTime', title: '业务日期', width:120,align:'center'}
+                        ,{field: 'dbTime', title: '调拨日期', width:120,align:'center'}
+                        ,{field: 'businessId', title: '业务标号', width:120,align:'center',hide:true}
+                        ,{field: 'bankTreasurerDesc', title: '备注', width:120,align:'center'}
+                        ,{field: 'right', title: '操作',width: 187, align:'center', toolbar: '#barDemo'}
+                    ]
                 ]
             });
             //给工具条的按钮添加事件
@@ -284,6 +307,7 @@
 <div>
     <!--表格-->
     <table id="userTable" lay-filter="userTable"></table>
+
     <!--工具条-->
     <div style="display: none;" id="barDemo">
         <a class="layui-btn layui-btn-xs" lay-event="edit"><i
@@ -380,13 +404,13 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">现金账户</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择现金账户">
+                    <input class="layui-input"  autocomplete="off" placeholder="请选择现金账户" name="accountId">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨金额</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请输入调拨金额">
+                    <input class="layui-input"  autocomplete="off" placeholder="请输入调拨金额" name="totalPrice">
                 </div>
             </div>
         </div>
@@ -395,7 +419,7 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨类型</label>
                 <div class="layui-inline layui-show-xs-block" style="width: 185px;text-align: center">
-                    <select name="cateid">
+                    <select name="allocatingType">
                         <option>请选择调拨类型</option>
                         <option>存款利息</option>
                         <option>申购赎回清算款</option>
@@ -405,7 +429,7 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨方向</label>
                 <div class="layui-inline layui-show-xs-block" style="width: 185px;text-align: center">
-                    <select name="cateid">
+                    <select name="flag">
                         <option>请选择调拨方向</option>
                         <option>流入</option>
                         <option>流出</option>
@@ -418,15 +442,17 @@
             <div class="layui-inline layui-show-xs-block"  style="float: left">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨日期</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择调拨日期" name="end" id="up">
+                    <input class="layui-input"  autocomplete="off" placeholder="请选择调拨日期" name="dbTime" id="up">
                 </div>
             </div>
         </div>
         <br>
+        <br>
+        <br>
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center; width: 130px; height: 100px; line-height: 81px">备注</label>
             <div class="layui-inline layui-show-xs-block">
-                <textarea name="" required lay-verify="required" placeholder="备注" class="layui-textarea" style="width: 467px"></textarea>
+                <textarea name="bankTreasurerDesc" required lay-verify="required" placeholder="备注" class="layui-textarea" style="width: 467px"></textarea>
             </div>
         </div>
         <div style="position: absolute; bottom: 0px; left: 45%;">
@@ -439,7 +465,5 @@
         </div>
     </form>
 </div>
-
-
 </body>
 </html>
