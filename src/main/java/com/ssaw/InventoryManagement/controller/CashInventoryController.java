@@ -1,5 +1,7 @@
 package com.ssaw.InventoryManagement.controller;
 
+import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.InventoryManagement.entity.CashInventory;
 import com.ssaw.InventoryManagement.service.CashInventoryService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,14 +25,17 @@ public class CashInventoryController {
     @Resource
     CashInventoryService cashInventoryService;
 
+    @Resource
+    DbUtil dbUtil;
+
     /**
      * 分页查询
      * @return
      */
     @RequestMapping("/select")
-    public Map<String,Object> selectCashInventory(String page, String limit){
+    public Map<String,Object> selectCashInventory(String page, String limit,String accountName,String dateTime){
         //调用Service层执行查询，接收返回结果集Map
-        Map<String, Object> map =  cashInventoryService.selectCashInventory(limit,page);
+        Map<String, Object> map =  cashInventoryService.selectCashInventory(limit,page,accountName,dateTime);
         //从结果集中拿出结果
         List<CashInventory> cashInventoryList = (List<CashInventory>) map.get("cashInventory");
         int count = (int) map.get("count");
@@ -44,36 +49,24 @@ public class CashInventoryController {
         return json;
     }
 
-   /* *//**
-     * 查询所有
-     * @return
-     *//*
-    @RequestMapping("/selectAll")
-    public List<CashInventory> selectCashInventoryAll(){
-        List<CashInventory> cashInventoryList=cashInventoryService.selectCashInventoryAll();
-        return cashInventoryList;
-    }*/
-
     /**
-     * 增加现金库存
-     * @param datetime
-     * @param accountId
-     * @param cashBlance
-     * @param cashInventoryDesc
+     * 新增现金库存信息
+     * @param cashInventory
      * @return
      */
     @RequestMapping("/insert")
-    public int insertCashInventory(String datetime,String accountId,String cashInventoryDesc){
-//        double v_cashBlance = 0.0;
-//        if (cashBlance!=null&&!cashBlance.equals("")){
-//            v_cashBlance=Double.parseDouble(cashBlance);
-//        }
-//        CashInventory cashInventory = new CashInventory("C202009030001","4",v_cashBlance,accountId,datetime,10000,1,cashInventoryDesc);
-//        int i=cashInventoryService.insertCashInventory(cashInventory);
-
-        System.out.println(datetime);
-
-        return 0;
+    public int insertCashInventory(CashInventory cashInventory){
+        //现金库存Id
+        cashInventory.setCashInventoryId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.CI));
+        //基金Id
+        cashInventory.setFundId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
+        //证券数量 来自证券库存 写死 securitiesNum;
+        cashInventory.setSecuritiesNum(1000);
+        //是否从其他系统导入的期初数据  0：不是  1：是
+        cashInventory.setSecurityPeriodFlag(1);
+        System.out.println(cashInventory);
+        int i=cashInventoryService.insertCashInventory(cashInventory);
+        return i;
     }
 
     /**
@@ -93,7 +86,8 @@ public class CashInventoryController {
      * @return
      */
     @RequestMapping("/delete")
-    public int deleteCashInventory(int cashInventoryId){
+    public int deleteCashInventory(String cashInventoryId){
+        System.out.println(cashInventoryId);
         int i=cashInventoryService.deleteCashInventory(cashInventoryId);
         return i;
     }

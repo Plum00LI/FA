@@ -14,9 +14,9 @@ public class TaInventory {
     //FK 基金Id来自基金表
     private String fundId;
     //Ta数量
-    private int tanum;
+    private int taNum;
     //现金余额
-    private double tatotal;
+    private double taTotal;
     //统计日期
     private String dateTime;
     //是否从其他系统导入的期初数据  0：不是  1：是
@@ -24,16 +24,28 @@ public class TaInventory {
      //备注
     private String taInventoryDesc;
 
+    private String accountName;
 
     public TaInventory(){
 
     }
 
-    public TaInventory(String taInventoryId, String fundId, int tanum, double tatotal, String dateTime, int securityPeriodFlag, String taInventoryDesc) {
+    public TaInventory(String taInventoryId, String fundId, int taNum, double taTotal, String dateTime, int securityPeriodFlag, String taInventoryDesc, String accountName) {
         this.taInventoryId = taInventoryId;
         this.fundId = fundId;
-        this.tanum = tanum;
-        this.tatotal = tatotal;
+        this.taNum = taNum;
+        this.taTotal = taTotal;
+        this.dateTime = dateTime;
+        this.securityPeriodFlag = securityPeriodFlag;
+        this.taInventoryDesc = taInventoryDesc;
+        this.accountName = accountName;
+    }
+
+    public TaInventory(String taInventoryId, String fundId, int taNum, double taTotal, String dateTime, int securityPeriodFlag, String taInventoryDesc) {
+        this.taInventoryId = taInventoryId;
+        this.fundId = fundId;
+        this.taNum = taNum;
+        this.taTotal = taTotal;
         this.dateTime = dateTime;
         this.securityPeriodFlag = securityPeriodFlag;
         this.taInventoryDesc = taInventoryDesc;
@@ -44,12 +56,20 @@ public class TaInventory {
         return "TaInventory{" +
                 "taInventoryId='" + taInventoryId + '\'' +
                 ", fundId='" + fundId + '\'' +
-                ", tanum=" + tanum +
-                ", tatotal=" + tatotal +
+                ", taNum=" + taNum +
+                ", taTotal=" + taTotal +
                 ", dateTime='" + dateTime + '\'' +
                 ", securityPeriodFlag=" + securityPeriodFlag +
                 ", taInventoryDesc='" + taInventoryDesc + '\'' +
                 '}';
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
     public String getTaInventoryId() {
@@ -68,20 +88,20 @@ public class TaInventory {
         this.fundId = fundId;
     }
 
-    public int getTanum() {
-        return tanum;
+    public int getTaNum() {
+        return taNum;
     }
 
-    public void setTanum(int tanum) {
-        this.tanum = tanum;
+    public void setTaNum(int taNum) {
+        this.taNum = taNum;
     }
 
-    public double getTatotal() {
-        return tatotal;
+    public double getTaTotal() {
+        return taTotal;
     }
 
-    public void setTatotal(double tatotal) {
-        this.tatotal = tatotal;
+    public void setTaTotal(double taTotal) {
+        this.taTotal = taTotal;
     }
 
     public String getDateTime() {
@@ -107,6 +127,4 @@ public class TaInventory {
     public void setTaInventoryDesc(String taInventoryDesc) {
         this.taInventoryDesc = taInventoryDesc;
     }
-
-
 }
