@@ -5,6 +5,7 @@ import com.ssaw.BusinessData.mapper.DepositMapper;
 import com.ssaw.BusinessData.service.DepositService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 *@create:2020-09-01
 */
 @Service
+@Transactional
 public class DepositServiceImpl implements DepositService {
    @Resource
    DepositMapper depositMapper;

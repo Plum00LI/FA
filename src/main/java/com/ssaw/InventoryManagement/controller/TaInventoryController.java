@@ -1,5 +1,7 @@
 package com.ssaw.InventoryManagement.controller;
 
+import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.InventoryManagement.entity.TaInventory;
 import com.ssaw.InventoryManagement.service.TaInventoryService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,9 @@ public class TaInventoryController {
     @Resource
     TaInventoryService taInventoryService;
 
+    @Resource
+    DbUtil dbUtil;
+
     /**
      * 分页查询
      * @return
@@ -44,12 +49,20 @@ public class TaInventoryController {
     }
 
     /**
-     * 增加TA库存
+     * 增加TA库存信息
      * @param taInventory
      * @return
      */
     @RequestMapping("/insert")
     public int insertTaInventory(TaInventory taInventory){
+        //设置TA库存"100001"Id
+        taInventory.setTaInventoryId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.TI));
+        //是否为期初数据，0不是，1 是"ertyuio"
+        taInventory.setSecurityPeriodFlag(1);
+        //基金Id
+        taInventory.setFundId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
+
+        System.out.println(taInventory);
         int i=taInventoryService.insertTaInventory(taInventory);
         return i;
     }
@@ -61,6 +74,7 @@ public class TaInventoryController {
      */
     @RequestMapping("/update")
     public int updateTaInventory(TaInventory taInventory){
+        System.out.println(taInventory);
         int i=taInventoryService.updateTaInventory(taInventory);
         return i;
     }
@@ -71,7 +85,8 @@ public class TaInventoryController {
      * @return
      */
     @RequestMapping("/delete")
-    public int deleteTaInventory(int taInventoryId){
+    public int deleteTaInventory(String taInventoryId){
+        System.out.println(taInventoryId);
         int i=taInventoryService.deleteTaInventory(taInventoryId);
         return i;
     }

@@ -85,6 +85,14 @@
             laydate.render({
                 elem: '#start' //指定元素
             });
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#start1' //指定元素
+            });
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#start2' //指定元素
+            });
 
             //新增提交
             form.on('submit(addsubmit)', function(data){
@@ -118,6 +126,7 @@
             //修改提交
             form.on('submit(editsubmit)', function(data){
                 var formData=$('#editform').serialize();
+                alert("修改提交的数据：" + formData);
                 $.post("../updateTaTransaction",formData,function(msg){
                     if(msg>0){
                         table.reload('userTable');
@@ -153,6 +162,7 @@
                 cols: [
                     [ //表头
                     {type: 'checkbox', fixed: 'left'}
+                    ,{field: 'taTransactionId', title: '交易数据编号', width:110, align:'center'}
                     ,{field: 'fundId', title: '基金', width:110, align:'center'}
                     ,{field: 'accountId', title: '现金账户', width: 110, align:'center'}
                     ,{field: 'dateTime', title: '交易日期', width:110, align:'center'}
@@ -162,9 +172,31 @@
                     ,{field: 'actualMoney', title: '实际金额', width: 110, align:'center'}
                     ,{field: 'price', title: '单价', width: 110, align:'center'}
                     ,{field: 'cost', title: '费用', width: 110, align:'center'}
-                    ,{field: 'agencies', title: '代销机构' , width: 110, align:'center'}
-                    ,{field: 'transactionType',title:'类型' ,width: 110,align :'center'}
-                    ,{field: 'transactionStatus',title:'状态' ,width: 110,align :'center'}
+                    ,{field: 'agencies', title: '代销机构' , width: 110, align:'center' ,templet:function (item) {
+                            if (item.agencies=='1'){
+                                return '建设银行';
+                            }else if (item.agencies=='2'){
+                                return '工商银行';
+                            }else if (item.agencies=='3'){
+                                return '农业银行';
+                            }
+                        }}
+                    ,{field: 'transactionType',title:'类型' ,width: 110,align :'center',templet:function (item) {
+                            if (item.transactionType=='1'){
+                                return '认购';
+                            }else if (item.transactionType=='2'){
+                                return '申购';
+                            }else if (item.transactionType=='3'){
+                                return '赎回';
+                            }
+                        }}
+                    ,{field: 'transactionStatus',title:'状态' ,width: 110,align :'center',templet:function (item) {
+                            if(item.transactionStatus=='1'){
+                                return '已结算';
+                            }else  if(item.transactionStatus=='0'){
+                                return '未结算';
+                            }
+                        }}
                     ,{field: 'right', title: '操作',width: 150, align:'center', toolbar: '#barDemo'}
                     ]
                 ]
@@ -212,11 +244,11 @@
                         {
                             var ids=[];
                             for (var i = 0; i <data.length; i++) {
-                                ids.push(data[i].transactionId);
+                                ids.push(data[i].taTransactionId);
                             }
                             layer.confirm('真的删除行么',{icon: 2}, function(index){
                                 layer.close(index);
-                                $.post("../deleteTaTransaction", {transactionId:ids.join(',')},function(msg){
+                                $.post("../deleteTaTransaction", {taTransactionId:ids.join(',')},function(msg){
                                     table.reload('userTable');
                                     layer.msg('删除'+checkStatus.data.length+'条记录', {
                                         title:'提示',
@@ -233,12 +265,12 @@
             //给表格编辑，删除按钮添加点击事件
             table.on('tool(userTable)', function(obj) {
                 var data = obj.data;//得到删除行整行的数据
-                alert(data.transactionId);
+                alert(data.taTransactionId);
                 if (obj.event === 'del') {
 
                     layer.confirm('真的删除行么',{icon: 2}, function(index){
                         layer.close(index);
-                        $.post("../deleteTaTransaction", {transactionId:data.transactionId+""},function(msg){
+                        $.post("../deleteTaTransaction", {taTransactionId:data.taTransactionId+""},function(msg){
                             table.reload('userTable');
                         });
 
@@ -328,7 +360,7 @@
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易日期</label>
             <div class="layui-input-inline">
                 <input type="text" name="dateTime" lay-verify="required"
-                       autocomplete="off" placeholder="请输入日期" class="layui-input">
+                       autocomplete="off" placeholder="请输入日期" class="layui-input" id="start1">
             </div>
 
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">单价</label>
@@ -344,8 +376,8 @@
         <div class="layui-form-item" style="text-align: center;">
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">结算日期</label>
             <div class="layui-input-inline">
-                <input type="text" name="balanceDate" lay-verify="required"
-                       autocomplete="off" placeholder="请输入结算日期" class="layui-input">
+                <input type="text" name="dateTime" lay-verify="required"
+                       autocomplete="off" placeholder="请输入日期" class="layui-input" id="start2">
             </div>
 
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">代销机构</label>
@@ -411,12 +443,14 @@
     <form id="editform" lay-filter="editform"
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
+        <input type="hidden" name="taTransactionId"/>
+        <input type="hidden" name="fundId" />
 
         <div class="layui-form-item" style="text-align: center;">
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户</label>
             <div class="layui-input-inline">
                 <input class="layui-input"  autocomplete="off" placeholder="请输入账户名称"
-                       name="accountId" disabled="disabled">
+                       name="accountId" >
             </div>
 
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易类型</label>
@@ -509,10 +543,8 @@
                 </select>
 
             </div>
-
-
-
         </div>
+
         <div style="position: absolute; bottom: 0px; left: 45%;">
             <button class="layui-btn" lay-submit="" lay-filter="editsubmit" >
                 <i class="layui-icon">&#x1005;</i>修改

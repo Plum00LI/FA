@@ -11,10 +11,12 @@ import com.ssaw.TAManagement.entity.TaTransaction;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
+
 @Mapper
 public interface BondMapper {
     //查询
-    public List<TaTransaction> selectBond();
+   void selectBond(Map map);
     //增加
     public int insertBond(Bond bond);
     //删除

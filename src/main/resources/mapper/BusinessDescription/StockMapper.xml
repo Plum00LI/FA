@@ -24,7 +24,7 @@
         <result property="stockName" column="stockName" javaType="String"></result>
         <result property="stockDesc" column="stockDesc" javaType="String"></result>
     </resultMap>
-    <select id="selectStock" parameterType="java.util.Map" statementType="CALLABLE">
-        {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},#{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=INTEGER},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=stockMap})}
+    <select id="selectStock" resultMap="stockMap">
+            select stockParentId,stockName,stockDesc,stockId from stock
     </select>
 </mapper>

@@ -1,6 +1,8 @@
 package com.ssaw.TAManagement.controller;
 
 import com.ssaw.BusinessDescription.entity.Bond;
+import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.TAManagement.entity.TaTransaction;
 import com.ssaw.TAManagement.service.TatransactionService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,23 +25,27 @@ import java.util.Map;
 public class TatransactionController {
     @Resource
     TatransactionService tatransactionService;
+    @Resource
+    DbUtil dbUtil;
     @RequestMapping ("/insertTatTransaction")
     public int insertTatTransaction(TaTransaction taTransaction){
-        System.out.println("新增");
-        System.out.println(taTransaction);
+        taTransaction.setTaTransactionId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.TT));
+        taTransaction.setFundId("60001");
+        System.out.println("taTransaction=" + taTransaction);
         int i= tatransactionService.insertTatransaction(taTransaction);
         return i;
     }
     @RequestMapping("/deleteTaTransaction")
-    public void deleteTatransaction(){
+    public void deleteTatransaction(String taTransactionId){
         System.out.println("进来了");
-        tatransactionService.deleteTatransaction("1");
+        tatransactionService.deleteTatransaction(taTransactionId);
     }
     @RequestMapping("/updateTaTransaction")
     public int updataTatransaction(TaTransaction taTransaction){
         System.out.println("进来了");
-
+        System.out.println("修改时：" + taTransaction);
         int b = tatransactionService.updataTetransaction(taTransaction);
+
         return b;
     }
     @RequestMapping("/selectTaTransaction")

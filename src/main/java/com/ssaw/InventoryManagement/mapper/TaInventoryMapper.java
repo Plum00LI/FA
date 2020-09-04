@@ -41,5 +41,5 @@ public interface TaInventoryMapper {
      * @param taInventoryId
      * @return
      */
-    public int deleteTaInventory(int taInventoryId);
+    public int deleteTaInventory(List taInventoryId);
 }

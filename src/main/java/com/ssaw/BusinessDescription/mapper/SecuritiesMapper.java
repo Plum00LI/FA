@@ -1,10 +1,8 @@
 package com.ssaw.BusinessDescription.mapper;
 
 import com.ssaw.BusinessDescription.entity.Securities;
-import com.ssaw.BusinessDescription.entity.Stock;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,8 +27,9 @@ public interface SecuritiesMapper {
     /**
      * 删除
      *根据证券编号 securitiesId
+     * @param securitiesId
      */
-    public int deleteSecurities(String securitiesId);
+    public int deleteSecurities(int securitiesId);
     /**
      * 修改
      * 根据证券编号 securitiesId

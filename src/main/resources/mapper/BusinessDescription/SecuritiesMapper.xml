@@ -12,7 +12,7 @@
     <insert id="insertSecurities" parameterType="com.ssaw.BusinessDescription.entity.Securities">
         insert into securities(ecuritiesId,securitiesName,securitiesType,issueDate,delayDate,stockId,exchange,securitiesDesc) values (#{ecuritiesId},#{securitiesName},#{securitiesType},#{issueDate},#{delayDate},#{stockId},#{exchange},#{securitiesDesc})
     </insert>
-    <resultMap id="securitiesMap" type="com.ssaw.BusinessDescription.entity.Securities">
+    <resultMap id="securitiesMap" type="com.ssaw.BusinessDescription.entity.SecuritiesAndStock">
         <result property="securitiesId" column="securitiesId" javaType="String"></result>
         <result property="securitiesName" column="securitiesName" javaType="String"></result>
         <result property="securitiesType" column="securitiesType" javaType="Integer"></result>
@@ -21,6 +21,9 @@
         <result property="stockId" column="stockId" javaType="String"></result>
         <result property="exchange" column="exchange" javaType="Integer"></result>
         <result property="securitiesDesc" column="securitiesDesc" javaType="String"></result>
+        <result property="stockParentId" column="stockParentId" javaType="String"></result>
+        <result property="stockName" column="stockName" javaType="String"></result>
+        <result property="stockDesc" column="stockDesc" javaType="String"></result>
     </resultMap>
     <select id="selectSecurities" parameterType="java.util.Map" statementType="CALLABLE">
         {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},#{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=INTEGER},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=securitiesMap})}

@@ -3,7 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.CashManagement.mapper.BankTreasurerMapper">
-    <insert id="insertBankTreasurer"></insert>
+    <insert id="insertBankTreasurer">
+        insert into bankTreasurer(treasurerId,fundId,totalPrice,accountId,flag,dbTime,dateTime,businessId,allocatingType,bankTreasurerDesc)
+        values (#{treasurerId},#{fundId},#{totalPrice},#{accountId},#{flag},#{dbTime},#{dateTime},#{businessId},#{allocatingType},#{bankTreasurerDesc})
+    </insert>
     <update id="updateBankTreasurer">
         	UPDATE bankTreasurer SET accountId=#{accountId}, totalPrice=#{totalPrice},
 		allocatingType=#{allocatingType},flag=#{flag},dbTime = #{dbTime},

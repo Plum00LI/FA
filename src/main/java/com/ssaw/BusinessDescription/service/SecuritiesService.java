@@ -29,7 +29,7 @@ public interface SecuritiesService {
      * 单个删除
      *根据证券编号 securitiesId
      */
-    public void deleteSecurities(String securitiesId);
+    public boolean deleteSecurities(String securitiesId);
     /**
      * 修改
      * 根据证券编号 securitiesId
