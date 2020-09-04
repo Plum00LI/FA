@@ -30,9 +30,9 @@ public interface TaTransactionMapper {
      int insertTaTransaction(TaTransaction tatransaction);
     /**
      * 删除基金信息
-     * @param transactionId
+     * @param taTransactionId
      */
-     void deleteTaTransaction(String transactionId);
+     void deleteTaTransaction(String taTransactionId);
     /**
      * 修改基金信息
      * @param tatransaction

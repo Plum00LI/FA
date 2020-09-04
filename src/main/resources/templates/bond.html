@@ -25,11 +25,6 @@
 
     <script type="text/html" id="userToolBar">
         <div style="float:right;">
-            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm layui-bg-green" lay-event="add"><i
-                    class="layui-icon">&#xe654;</i>申购导入</button>
-
-            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm layui-bg-green" lay-event="add"><i
-                    class="layui-icon">&#xe654;</i>赎回导入</button>
             <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
                     class="layui-icon">&#xe654;</i>添加数据</button>
             <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll"><i
@@ -38,28 +33,17 @@
         <br/>
 
         <form class="layui-form layui-col-space5">
-            <label class="layui-form-label layui-bg-green" style="width: 90px;text-align: center">交易日期</label>
+            <label class="layui-form-label layui-bg-green" style="width: 100px;text-align: center">计息起始日</label>
 
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input"  autocomplete="off" placeholder="请输入选择日期" name="end" id="start" style="width: 170px;">
+                <input class="layui-input"  autocomplete="off" placeholder="请输入选择计息起始日" name="end" id="start" style="width: 170px;">
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 90px;text-align: center">结算类型</label>
+                <label class="layui-form-label layui-bg-green" style="width: 90px;text-align: center">债卷代码</label>
 
                 <div class="layui-inline layui-show-xs-block" style="width: 170px;">
                     <select name="cateid">
-                        <option placeholder="请选择"></option>
-                        <option>已结算</option>
-                        <option>未结算</option>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 90px;text-align: center">交易类型</label>
-
-                <div class="layui-inline layui-show-xs-block" style="width: 170px;">
-                    <select name="cateid">
-                        <option placeholder="请选择"></option>
+                        <option placeholder="请输入债卷代码"></option>
                         <option>申购</option>
                         <option>赎回</option>
                     </select>
@@ -84,14 +68,6 @@
             //执行一个laydate实例
             laydate.render({
                 elem: '#start' //指定元素
-            });
-            //执行一个laydate实例
-            laydate.render({
-                elem: '#start1' //指定元素
-            });
-            //执行一个laydate实例
-            laydate.render({
-                elem: '#start2' //指定元素
             });
 
             //新增提交
@@ -161,43 +137,19 @@
                 cellMinWidth:60,
                 cols: [
                     [ //表头
-                    {type: 'checkbox', fixed: 'left'}
-                    ,{field: 'taTransactionId', title: '交易数据编号', width:110, align:'center'}
-                    ,{field: 'fundId', title: '基金', width:110, align:'center'}
-                    ,{field: 'accountId', title: '现金账户', width: 110, align:'center'}
-                    ,{field: 'dateTime', title: '交易日期', width:110, align:'center'}
-                    ,{field: 'fundNum', title: '数量', width: 110, align:'center'}
-                    ,{field: 'balanceDate', title: '结算日期', width:110, align:'center'}
-                    ,{field: 'totalMoney', title: '总金额', width: 110, align:'center'}
-                    ,{field: 'actualMoney', title: '实际金额', width: 110, align:'center'}
-                    ,{field: 'price', title: '单价', width: 110, align:'center'}
-                    ,{field: 'cost', title: '费用', width: 110, align:'center'}
-                    ,{field: 'agencies', title: '代销机构' , width: 110, align:'center' ,templet:function (item) {
-                            if (item.agencies=='1'){
-                                return '建设银行';
-                            }else if (item.agencies=='2'){
-                                return '工商银行';
-                            }else if (item.agencies=='3'){
-                                return '农业银行';
-                            }
-                        }}
-                    ,{field: 'transactionType',title:'类型' ,width: 110,align :'center',templet:function (item) {
-                            if (item.transactionType=='1'){
-                                return '认购';
-                            }else if (item.transactionType=='2'){
-                                return '申购';
-                            }else if (item.transactionType=='3'){
-                                return '赎回';
-                            }
-                        }}
-                    ,{field: 'transactionStatus',title:'状态' ,width: 110,align :'center',templet:function (item) {
-                            if(item.transactionStatus=='1'){
-                                return '已结算';
-                            }else  if(item.transactionStatus=='0'){
-                                return '未结算';
-                            }
-                        }}
-                    ,{field: 'right', title: '操作',width: 150, align:'center', toolbar: '#barDemo'}
+                        {type: 'checkbox', fixed: 'left'}
+                        ,{field: 'securitiesId', title: '交易数据编号', width:130, align:'center'}
+                        ,{field: 'bondName', title: '基金', width:130, align:'center'}
+                        ,{field: 'drawStartDate', title: '现金账户', width: 130, align:'center'}
+                        ,{field: 'drawEndDate', title: '交易日期', width:130, align:'center'}
+                        ,{field: 'bondType', title: '数量', width: 130, align:'center'}
+                        ,{field: 'parRate', title: '结算日期', width:130, align:'center'}
+                        ,{field: 'bondRate', title: '总金额', width: 130, align:'center'}
+                        ,{field: 'bondRateAmount', title: '实际金额', width: 130, align:'center'}
+                        ,{field: 'payInterestNum', title: '单价', width: 130, align:'center'}
+                        ,{field: 'bondDesc', title: '费用', width: 130, align:'center'}
+
+                        ,{field: 'right', title: '操作',width: 150, align:'center', toolbar: '#barDemo'}
                     ]
                 ]
             });
@@ -321,118 +273,90 @@
     <form id="addform" lay-filter="addform"
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
-
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户</label>
-            <div class="layui-input-inline">
-                <input class="layui-input"  autocomplete="off" placeholder="请输入账户名称"
-                       name="accountId" >
+        <div>
+            <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">证卷编号</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <input class="layui-input"  autocomplete="off" placeholder="证卷编号">
+                </div>
             </div>
-
-            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易类型</label>
-            <div class="layui-input-inline">
-                <select name="transactionType">
-                    <option placeholder="请选择"></option>
-                    <option value="1">认购</option>
-                    <option value="2">申购</option>
-                    <option value="3">赎回</option>
-                </select>
+            <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">债卷名称</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <input class="layui-input"  autocomplete="off" placeholder="债卷名称">
+                </div>
             </div>
         </div>
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">数量</label>
-            <div class="layui-input-inline">
-                <input type="text" name="fundNum" lay-verify="required"
-                       autocomplete="off" placeholder="数量" class="layui-input">
+        <br>
+        <div>
+            <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">计息起始日</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <input class="layui-input"  autocomplete="off" placeholder="计息起始日">
+                </div>
             </div>
-
-            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">费用</label>
-            <div class="layui-input-inline">
-                <input type="text" name="cost" lay-verify="required"
-                       autocomplete="off" placeholder="请输入费用" class="layui-input">
-            </div>
-
-        </div>
-
-
-
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易日期</label>
-            <div class="layui-input-inline">
-                <input type="text" name="dateTime" lay-verify="required"
-                       autocomplete="off" placeholder="请输入日期" class="layui-input" id="start1">
-            </div>
-
-            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">单价</label>
-            <div class="layui-input-inline">
-                <input type="text" name="price" lay-verify="required"
-                       autocomplete="off" placeholder="请输入单价" class="layui-input">
-            </div>
-
-        </div>
-
-
-
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">结算日期</label>
-            <div class="layui-input-inline">
-                <input type="text" name="dateTime" lay-verify="required"
-                       autocomplete="off" placeholder="请输入日期" class="layui-input" id="start2">
-            </div>
-
-            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">代销机构</label>
-            <div class="layui-input-inline">
-                <select name="agencies">
-                    <option placeholder="请选择"></option>
-                    <option value="1">建设银行</option>
-                    <option value="2">工商银行</option>
-                    <option value="3">农业银行</option>
-                </select>
+            <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">计息结束日</label>
+                <div class="layui-inline layui-show-xs-block" style="width: 185px;text-align: center">
+                    <select name="cateid">
+                        <option>请选择调拨类型</option>
+                        <option>存款利息</option>
+                        <option>申购赎回清算款</option>
+                    </select>
+                </div>
             </div>
         </div>
-
-
-
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">总金额</label>
-            <div class="layui-input-inline">
-                <input type="text" name="totalMoney" lay-verify="required"
-                       autocomplete="off" placeholder="请输入总金额" class="layui-input">
+        <br>
+        <div>
+            <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">债卷类型</label>
+                <div class="layui-inline layui-show-xs-block" style="width: 185px;text-align: center">
+                    <select name="cateid">
+                        <option>请选择调拨方向</option>
+                        <option>流入</option>
+                        <option>流出</option>
+                    </select>
+                </div>
             </div>
-
-            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">实际金额</label>
-            <div class="layui-input-inline">
-                <input type="text" name="totalMoney" lay-verify="required"
-                       autocomplete="off" placeholder="请输入实际金额" class="layui-input">
+            <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">票面金额</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <input class="layui-input"  autocomplete="off" placeholder="基金规模" name="end" id="end">
+                </div>
             </div>
-
         </div>
-
-
-
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易状态</label>
-            <div class="layui-input-inline">
-                <select name="transactionStatus">
-                    <option placeholder="请选择"></option>
-                    <option value="1">已结算</option>
-                    <option value="0">未结算</option>
-            </select>
-
+        <br>
+        <div>
+            <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">债卷利息</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <input class="layui-input"  autocomplete="off" placeholder="债卷利息">
+                </div>
             </div>
-
-
-
+            <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">票面利率</label>
+                <div class="layui-inline layui-show-xs-block" style="width: 185px;text-align: center">
+                    <select name="cateid">
+                        <option>请选择调拨类型</option>
+                        <option>存款利息</option>
+                        <option>申购赎回清算款</option>
+                    </select>
+                </div>
+            </div>
         </div>
-
-
-
+        <br>
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label layui-bg-green" style="text-align: center; width: 130px; height: 100px; line-height: 81px">备注</label>
+            <div class="layui-inline layui-show-xs-block">
+                <textarea name="" required lay-verify="required" placeholder="备注" class="layui-textarea" style="width: 467px"></textarea>
+            </div>
+        </div>
         <div style="position: absolute; bottom: 0px; left: 45%;">
             <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
             <button class="layui-btn layui-bg-red cancel" type="button" onclick="quxiao()">
-                <i class="layui-icon" >&#x1006;</i>取消
+                <i class="layui-icon">&#x1006;</i>取消
             </button>
         </div>
     </form>
