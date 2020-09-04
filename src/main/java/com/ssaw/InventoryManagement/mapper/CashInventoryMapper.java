@@ -18,12 +18,25 @@ import java.util.Map;
 public interface CashInventoryMapper {
     //分页查询所有现金库存方法
     public void selectCashInventory(Map map);
-    //查询所有
-//    public List<CashInventory> selectCashInventoryAll();
 
+    /**
+     * 增加现金库存
+     * @param cashInventory 现金库存实体对象
+     * @return
+     */
     public int insertCashInventory(CashInventory cashInventory);
 
+    /**
+     * 修改现金库存信息
+     * @param cashInventory
+     * @return
+     */
     public int updateCashInventory(CashInventory cashInventory);
 
-    public int deleteCashInventory(int cashInventoryId);
+    /**
+     * 批量删除
+     * @param cashInventoryId id
+     * @return
+     */
+    public int deleteCashInventory(List cashInventoryId);
 }

@@ -4,6 +4,7 @@ import com.ssaw.CashManagement.entity.TransferMoney;
 import com.ssaw.CashManagement.mapper.TransferMoneyMapper;
 import com.ssaw.CashManagement.service.TransferMoneyService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 *@create:2020-09-01
 */
 @Service
+@Transactional
 public class TransferMoneyServiceImpl implements TransferMoneyService {
     @Resource
     TransferMoneyMapper transferMoneyMapper;

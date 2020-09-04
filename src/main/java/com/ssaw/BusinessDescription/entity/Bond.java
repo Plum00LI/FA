@@ -16,10 +16,10 @@ public class Bond {
     private double parRate;             //票面利率
     private double bondRate;            //债券利息
     private String bondRateAmount;      //票面金额
-    private int    payInterestNum;      //付息次数  1=1年一次  2=1年俩次 3=1年四次
-    private String bonddesc;                //备注
+    private int    payInterestNum ;      //付息次数  1=1年一次  2=1年俩次 3=1年四次
+    private String bondDesc;             //备注
 
-    public Bond(String securitiesId, String bondName, String drawStartDate, String drawEndDate, int bondType, double parRate, double bondRate, String bondRateAmount, int payInterestNum, String desc) {
+    public Bond(String securitiesId, String bondName, String drawStartDate, String drawEndDate, int bondType, double parRate, double bondRate, String bondRateAmount, int payInterestNum, String bondDesc) {
         this.securitiesId = securitiesId;
         this.bondName = bondName;
         this.drawStartDate = drawStartDate;
@@ -29,7 +29,7 @@ public class Bond {
         this.bondRate = bondRate;
         this.bondRateAmount = bondRateAmount;
         this.payInterestNum = payInterestNum;
-        this.bonddesc = desc;
+        this.bondDesc = bondDesc;
     }
 
     public  Bond(){}
@@ -107,11 +107,11 @@ public class Bond {
     }
 
     public String getDesc() {
-        return bonddesc;
+        return bondDesc;
     }
 
     public void setDesc(String desc) {
-        this.bonddesc = desc;
+        this.bondDesc = desc;
     }
 
     @Override
@@ -126,7 +126,7 @@ public class Bond {
                 ", bondRate=" + bondRate +
                 ", bondRateAmount='" + bondRateAmount + '\'' +
                 ", payInterestNum=" + payInterestNum +
-                ", desc='" + bonddesc + '\'' +
+                ", desc='" + bondDesc + '\'' +
                 '}';
     }
 }

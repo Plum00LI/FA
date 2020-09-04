@@ -6,6 +6,5 @@
     <insert id="insertTransferMoney"></insert>
     <update id="updateTransferMoney"></update>
     <delete id="deleteTransferMoney"></delete>
-
     <select id="selectTransferMoney" resultType="com.ssaw.CashManagement.entity.TransferMoney"></select>
 </mapper>

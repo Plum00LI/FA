@@ -43,5 +43,5 @@ public interface MarketService {
 
 
 
-    public Map<String,Object> selectMarketInfo(String pageSize, String page);
+    public Map<String,Object> selectMarketInfo(String pageSize, String page,String securitiesId,String dateTime);
 }

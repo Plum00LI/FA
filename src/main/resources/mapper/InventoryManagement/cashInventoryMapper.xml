@@ -2,18 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.InventoryManagement.mapper.CashInventoryMapper">
     <insert id="insertCashInventory" parameterType="com.ssaw.InventoryManagement.entity.CashInventory">
-        insert into cashInventory values (#{cashInventoryId},#{fundId},#{cashBlance},#{accountId},
-        #{dateTime},#{securitiesNum},#{cashInventoryDesc})
+        insert into cashInventory(cashInventoryId,fundId,cashBlance,accountId,dateTime,securitiesNum,securityPeriodFlag,cashInventoryDesc) values (#{cashInventoryId},#{fundId},#{cashBlance},#{accountId},
+        #{dateTime},#{securitiesNum},${securityPeriodFlag},#{cashInventoryDesc})
     </insert>
 
     <update id="updateCashInventory" parameterType="com.ssaw.InventoryManagement.entity.CashInventory">
-        update cashInventory set fundId=#{fundId},cashBlance=#{cashBlance},accountId=#{accountId},
-        dateTime=#{dateTime},securitiesNum=#{securitiesNum},securityPeriodFlag=#{securityPeriodFlag}
+        update cashInventory set cashBlance=#{cashBlance},accountId=#{accountId},
+        dateTime=#{dateTime},cashInventoryDesc=#{cashInventoryDesc}
          where cashInventoryId=#{cashInventoryId}
     </update>
 
-    <delete id="deleteCashInventory" parameterType="com.ssaw.InventoryManagement.entity.CashInventory">
-        delete from cashInventory where cashInventoryId=#{cashInventoryId}
+    <delete id="deleteCashInventory" parameterType="list">
+        delete from cashInventory where cashInventoryId in
+        <foreach collection="list" item="cashInventoryId" open="("
+                 separator="," close=")">
+            #{cashInventoryId}
+        </foreach>
     </delete>
 
 

@@ -9,7 +9,7 @@ package com.ssaw.BusinessData.entity;
  */
 
 /**表名transactionData
- * tradeId	Varchar2(50)	PK 交易的单子号(主键) T2020083100001
+ * transactionDataId	Varchar2(50)	PK 交易的单子号(主键) T2020083100001
  * dateTime	date	成交日期(交易成交的日期)
  * settlementDate	date	结算日期(交易结算的日期)
  * fundId	Varchar2(50)	FK 基金代码来自基金表

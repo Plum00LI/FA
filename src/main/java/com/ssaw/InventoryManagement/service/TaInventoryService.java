@@ -2,6 +2,7 @@ package com.ssaw.InventoryManagement.service;
 
 import com.ssaw.InventoryManagement.entity.TaInventory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import java.util.Map;
  * Author:   SYT
  */
 @Service
+
 public interface TaInventoryService {
     /**
      * 分页查询
@@ -43,5 +45,5 @@ public interface TaInventoryService {
      * @param taInventoryId
      * @return
      */
-    public int deleteTaInventory(int taInventoryId);
+    public int deleteTaInventory(String taInventoryId);
 }

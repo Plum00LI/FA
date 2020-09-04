@@ -49,4 +49,5 @@ public interface MarketMapper {
      */
       public Map<String,Object> selectMarketInfo(Map map);
 
+      int deleteMarket(List marketId);
 }

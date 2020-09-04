@@ -24,7 +24,7 @@
 
     <script src="../lib/layui/layui.js"></script>
     <!--工具条-->
-    <script type="text/html" id="userToolBar">
+    <script type="text/html" id="cashInventoryToolBar">
         <div style="float:right">
             <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
                     class="layui-icon">&#xe654;</i>添加数据</button>
@@ -43,7 +43,7 @@
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">统计日期</label>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input"  autocomplete="off" placeholder="请输入统计日期" name="datetime" id="datetime">
+                <input class="layui-input"  autocomplete="off" placeholder="请输入统计日期" name="dateTime" id="dateTime">
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
@@ -64,17 +64,44 @@
 
             //执行一个laydate实例
             laydate.render({
-                elem: '#datetime' //指定元素
+                elem: '#dateTime' //指定元素
             });
             laydate.render({
-                elem: '#datetime1' //指定元素
+                elem: '#dateTime1' //指定元素
             });
+            laydate.render({
+                elem: '#dateTime2' //指定元素
+            });
+
+            table.render({
+                elem: '#cashInventoryTable',
+                url: '../cashInventory/select',
+                count:0,
+                page: true,
+                height: 498,
+                toolbar: '#cashInventoryToolBar',//显示在表头的工具条
+                minLength:80,
+                cols: [
+                    [ //表头
+                        {type: 'checkbox', fixed: 'left'}
+                        ,{field: 'cashInventoryId', title: '现金库存ID'}
+                        ,{field: 'securitiesNum', title: '证券数量'}
+                        ,{field: 'accountId', title: '账户ID'}
+                        ,{field: 'accountName', title: '账户名'}
+                        ,{field: 'fundId', title: '基金ID'}
+                        ,{field: 'cashBlance', title: '现金余额'}
+                        ,{field: 'dateTime', title: '统计时间'}
+                        ,{field: 'right', title: '操作', toolbar:'#barDemo'}
+                    ]
+                ]
+            });
+
             //新增提交
             form.on('submit(addsubmit)', function(data){
                 var formData=$('#addform').serialize();
                 $.post("../cashInventory/insert",formData,function(msg){
                     if(msg>0){
-                        table.reload('userTable');
+                        table.reload('cashInventoryTable');
                         layer.closeAll();
                         layer.msg('添加成功',{
                             title : '提示',
@@ -99,9 +126,10 @@
             //修改提交
             form.on('submit(editsubmit)', function(data){
                 var formData=$('#editform').serialize();
+                alert("forData"+formData);
                 $.post("../cashInventory/update",formData,function(msg){
                     if(msg>0){
-                        table.reload('userTable');
+                        table.reload('cashInventoryTable');
                         layer.closeAll();
                         layer.msg('修改成功',{
                             title : '提示',
@@ -123,29 +151,9 @@
                 });
                 return false;
             });
-            table.render({
-                elem: '#cashInventoryTable',
-                url: '../cashInventory/select',
-                count:0,
-                page: true,
-                height: 498,
-                toolbar: '#userToolBar',//显示在表头的工具条
-                minLength:80,
-                cols: [
-                    [ //表头
-                    {type: 'checkbox', fixed: 'left'}
-                    ,{field: 'cashInventoryId', title: '现金库存ID'}
-                    ,{field: 'securitiesNum', title: '证券数量'}
-                    ,{field: 'accountId', title: '账户ID'}
-                    ,{field: 'fundId', title: '账户名'}
-                    ,{field: 'cashBlance', title: '现金余额'}
-                    ,{field: 'dateTime', title: '统计时间'}
-                    ,{field: 'right', title: '操作', toolbar:'#barDemo'}
-                ]
-                ]
-            });
+
             //给工具条的按钮添加事件
-            table.on('toolbar(userTable)',function (obj) {
+            table.on('toolbar(cashInventoryTable)',function (obj) {
                 //获取选中复选框的对象，
                 var checkStatus=table.checkStatus(obj.config.id);//得到表格选中行的ID
                 switch (obj.event) {
@@ -158,17 +166,7 @@
                             content:$("#addContent"),
                             btn:[]
                         });
-                        $.ajax({
-                            url:'../user/selectRole',
-                            dataType:'json',
-                            type:'post',
-                            success:function(obj){
-                                $.each(obj,function(index,item){
-                                    $('#roleId').append(new Option(item.roleName,item.roleId));//往下拉菜单里添加元素
-                                })
-                                form.render();//菜单渲染 把内容加载进去
-                            }
-                        })
+
                         form.render();
                         //全屏
                         layer.full(index);
@@ -177,7 +175,7 @@
                         alert("搜索");
                         var userName= $("#userName").val();
                         //表格的重新加载事件
-                        table.reload('userTable', {
+                        table.reload('cashInventoryTable', {
                             method: 'post'
                             , where: {
                                 'userName': userName
@@ -197,12 +195,12 @@
                         {
                             var ids=[];
                             for (var i = 0; i <data.length; i++) {
-                                ids.push(data[i].userId);
+                                ids.push(data[i].cashInventoryId);
                             }
                             layer.confirm('真的删除行么',{icon: 2}, function(index){
                                 layer.close(index);
-                                $.post("../user/deleteUser", {userId:ids.join(',')},function(msg){
-                                    table.reload('userTable');
+                                $.post("../cashInventory/delete", {cashInventoryId:ids.join(',')},function(msg){
+                                    table.reload('cashInventoryTable');
                                     layer.msg('删除'+checkStatus.data.length+'条记录', {
                                         title:'提示',
                                         area: ['200px', '140px'],
@@ -216,14 +214,14 @@
                 }
             });
             //给表格编辑，删除按钮添加点击事件
-            table.on('tool(userTable)', function(obj) {
+            table.on('tool(cashInventoryTable)', function(obj) {
                 var data = obj.data;//得到删除行整行的数据
                 alert(data.cashInventoryId);
                 if (obj.event === 'del') {
                     layer.confirm('真的删除行么',{icon: 2}, function(index){
                         layer.close(index);
-                        $.post("../user/deleteUser", {cashInventoryId:data.cashInventoryId+""},function(msg){
-                            table.reload('userTable');
+                        $.post("../cashInventory/delete", {cashInventoryId:data.cashInventoryId+""},function(msg){
+                            table.reload('cashInventoryTable');
                         });
 
                     });
@@ -239,21 +237,9 @@
                         area: ['500px', '400px'],
                         content:$('#editContent')
                     });
-                    $.ajax({
-                        url:'../cashInventory/update',
-                        dataType:'json',
-                        type:'post',
-                        success:function(obj){
-
-                            $.each(obj,function(index,item){
-                                $('#roleId_2').append(new Option(item.roleName,item.roleId));//往下拉菜单里添加元素
-                            })
-                            $("#roleId_2 option[value='"+data.roleId+"']").attr("selected", "selected");
-                            form.render();//菜单渲染 把内容加载进去
-                        }
-                    })
-                    form.render();
                     layer.full(index);
+                    form.render();
+
                 };
             })
 
@@ -267,7 +253,7 @@
       class="layui-view-body layui-content">
 <div>
     <!--表格-->
-    <table id="cashInventoryTable" lay-filter="userTable"></table>
+    <table id="cashInventoryTable" lay-filter="cashInventoryTable"></table>
     <!--工具条-->
     <div style="display: none;" id="barDemo">
         <a class="layui-btn layui-btn-xs" lay-event="edit"><i
@@ -281,18 +267,18 @@
 <div id="addContent" style="display: none; height: 100%; width:100%; text-align: center">
     <form id="addform" lay-filter="addform" class="layui-form layui-col-space5" style="margin: 50px auto; display: inline-block;">
         <div style="float: left;">
-        <div class="layui-inline layui-show-xs-block" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">日期</label>
-            <div class="layui-inline layui-show-xs-block">
-                <input type="text"  class="layui-input"  autocomplete="off" placeholder="日期" name="datetime" id="datetime1">
+            <div class="layui-inline layui-show-xs-block" style="text-align: center;">
+                <label class="layui-form-label layui-bg-green" style="text-align: center">日期</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <input type="text"  class="layui-input"  autocomplete="off" placeholder="日期" name="dateTime" id="dateTime1">
+                </div>
             </div>
-        </div>
-        <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">现金账户</label>
             <div class="layui-inline layui-show-xs-block">
-                <input type="text"  class="layui-input" placeholder="现金账户" name="accountId" id="accountId1">
+                <label class="layui-form-label layui-bg-green" style="text-align: center">现金账户</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <input type="text"  class="layui-input" placeholder="现金账户" name="accountId" id="accountId1">
+                </div>
             </div>
-        </div>
         </div>
         <br/>
         <br/>
@@ -311,14 +297,14 @@
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center; width: 130px; height: 81px; line-height: 81px">备注</label>
             <div class="layui-inline layui-show-xs-block">
-                <textarea name="cashInventoryDesc" required lay-verify="required" placeholder="请输入" class="layui-textarea" style="width: 467px"></textarea>
+                <textarea name="cashInventoryDesc" placeholder="请输入" class="layui-textarea" style="width: 467px"></textarea>
             </div>
         </div>
 
 
 
         <div style="position: absolute; bottom: 0px; left: 45%;">
-            <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
+            <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
             <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
@@ -338,13 +324,13 @@
             <div class="layui-inline layui-show-xs-block" style="text-align: center;">
                 <label class="layui-form-label layui-bg-green" style="text-align: center">日期</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input  type="text" class="layui-input"  autocomplete="off" placeholder="日期" name="datetime" id="datetime2">
+                    <input class="layui-input"  autocomplete="off" placeholder="日期" name="dateTime" id="dateTime2" disabled>
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="text-align: center">卡号</label>
+                <label class="layui-form-label layui-bg-green" style="text-align: center">现金账户ID</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input  type="text" class="layui-input" placeholder="卡号" name="accountId" id="accountId">
+                    <input  type="text" class="layui-input" placeholder="现金账户ID" name="accountId" id="accountId" readonly>
                 </div>
             </div>
         </div>
@@ -356,13 +342,13 @@
             <div class="layui-inline layui-show-xs-block" style="text-align: center;">
                 <label class="layui-form-label layui-bg-green" style="text-align: center">账户名称</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input  type="text" class="layui-input"  autocomplete="off" placeholder="账户名称" name="datetime" id="zhanghu">
+                    <input  type="text" class="layui-input" readonly autocomplete="off" placeholder="账户名称" name="accountName" id="accountName">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="text-align: center">余额</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input  type="text" class="layui-input" placeholder="余额" name="cashBlance" id="cashBlance">
+                    <input  type="text" class="layui-input" placeholder="余额" name="cashBlance" id="cashBlance" onkeyup = "if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"onafterpaste = "if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}">
                 </div>
             </div>
         </div>
@@ -373,8 +359,9 @@
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center; width: 130px; height: 101px; line-height: 81px">备注</label>
             <div class="layui-inline layui-show-xs-block">
-                <textarea name="" required lay-verify="required" placeholder="请输入" class="layui-textarea" style="width: 467px"></textarea>
+                <textarea name="cashInventoryDesc"  placeholder="请输入" class="layui-textarea" style="width: 467px"></textarea>
             </div>
+<!--         required lay-verify="required"   -->
         </div>
         <div style="position: absolute; bottom: 0px; left: 45%;">
             <button class="layui-btn" lay-submit="" lay-filter="editsubmit">

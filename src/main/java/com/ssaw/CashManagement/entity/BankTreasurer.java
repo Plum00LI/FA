@@ -8,7 +8,7 @@ package com.ssaw.CashManagement.entity;
 *@create:2020-09-01
 */
 public class BankTreasurer {
-    private String treasurerId;//资金调拨Id
+    private String bankTreasurerId;//资金调拨Id
     private String fundId;//基金编号
     private double totalPrice;//调拨总数额
     private String accountId;//现金账户Id
@@ -18,12 +18,14 @@ public class BankTreasurer {
     private String businessId;//业务标号
     private int allocatingType;//调拨类型
     private String bankTreasurerDesc;//备注
-
+    private String accountName;
     public BankTreasurer() {
     }
 
-    public BankTreasurer(String treasurerId, String fundId, double totalPrice, String accountId, int flag, String dbTime, String dateTime, String businessId, int allocatingType, String bankTreasurerDesc) {
-        this.treasurerId = treasurerId;
+
+
+    public BankTreasurer(String bankTreasurerId, String fundId, double totalPrice, String accountId, int flag, String dbTime, String dateTime, String businessId, int allocatingType, String bankTreasurerDesc) {
+        this.bankTreasurerId = bankTreasurerId;
         this.fundId = fundId;
         this.totalPrice = totalPrice;
         this.accountId = accountId;
@@ -35,12 +37,12 @@ public class BankTreasurer {
         this.bankTreasurerDesc = bankTreasurerDesc;
     }
 
-    public String getTreasurerId() {
-        return treasurerId;
+    public String getBankTreasurerId() {
+        return bankTreasurerId;
     }
 
-    public void setTreasurerId(String treasurerId) {
-        this.treasurerId = treasurerId;
+    public void setBankTreasurerId(String bankTreasurerId) {
+        this.bankTreasurerId = bankTreasurerId;
     }
 
     public String getFundId() {
@@ -115,10 +117,18 @@ public class BankTreasurer {
         this.bankTreasurerDesc = bankTreasurerDesc;
     }
 
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
     @Override
     public String toString() {
         return "BankTreasurer{" +
-                "treasurerId='" + treasurerId + '\'' +
+                "bankTreasurerId='" + bankTreasurerId + '\'' +
                 ", fundId='" + fundId + '\'' +
                 ", totalPrice=" + totalPrice +
                 ", accountId='" + accountId + '\'' +
@@ -128,6 +138,7 @@ public class BankTreasurer {
                 ", businessId='" + businessId + '\'' +
                 ", allocatingType=" + allocatingType +
                 ", bankTreasurerDesc='" + bankTreasurerDesc + '\'' +
+                ", accountName='" + accountName + '\'' +
                 '}';
     }
 }
