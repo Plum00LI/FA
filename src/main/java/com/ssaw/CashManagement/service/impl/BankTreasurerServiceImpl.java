@@ -4,7 +4,10 @@ import com.ssaw.BusinessDescription.entity.Account;
 import com.ssaw.CashManagement.entity.BankTreasurer;
 import com.ssaw.CashManagement.mapper.BankTreasurerMapper;
 import com.ssaw.CashManagement.service.BankTreasurerService;
+import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -19,11 +22,13 @@ import java.util.Map;
 *@create:2020-09-01
 */
 @Service
+@Transactional
 public class BankTreasurerServiceImpl implements BankTreasurerService {
     @Resource
     BankTreasurerMapper bankTreasurerMapper;
 
-
+    @Resource
+    DbUtil dbUtil;
     @Override
     public Map<String, Object> selectBankTreasurer(String pageSize, String page) {
         //创建一个结果集Map用于存放两个结果变量
@@ -44,8 +49,11 @@ public class BankTreasurerServiceImpl implements BankTreasurerService {
         }
         //创建一个Map 用于存款过程的调用传值
         Map<String,Object> map=new HashMap<>();
+        String p_tableName="(select * from " + SysTableNameListUtil.BT +" b join (select accountName from "+SysTableNameListUtil.A+" )  a on b.accountId=accountId)";
+
+        System.out.println(p_tableName);
         //传入存储过程需要查询的表名
-        map.put("p_tableName","bankTreasurer");
+        map.put("p_tableName",p_tableName);
         //传入查询的条件
         map.put("p_condition","");
         //传入分页显示条数

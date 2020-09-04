@@ -3,6 +3,8 @@ package com.ssaw.BusinessDescription.controller;
 import com.ssaw.BusinessDescription.entity.Account;
 import com.ssaw.BusinessDescription.mapper.AccountMapper;
 import com.ssaw.BusinessDescription.service.AccountService;
+import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,10 +30,12 @@ public class AccountController {
     @Resource
     AccountService accountService;
 
+    @Resource
+    DbUtil dbUtil;
     @RequestMapping("selectAccount")
-    public Map<String,Object> selectAccount(String page, String limit){
+    public Map<String,Object> selectAccount(String page, String limit,String accountName,String blankName){
         //调用Service层执行查询，接收返回结果集Map
-        Map<String, Object> map = accountService.selectAccount(limit, page);
+        Map<String, Object> map = accountService.selectAccount(limit, page,accountName,blankName);
         //从结果集中拿出结果
         List<Account> accountList= (List<Account>) map.get("accountList");
         int count= (int) map.get("count");
@@ -46,8 +50,8 @@ public class AccountController {
     }
     @RequestMapping("insertAccount")
     public int insertAccount(Account account){
-        account.setAccountId("3");
-        account.setFundId("2");
+        account.setAccountId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.A));
+        account.setFundId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
         int i = accountService.insertAccount(account);
         return i;
     }

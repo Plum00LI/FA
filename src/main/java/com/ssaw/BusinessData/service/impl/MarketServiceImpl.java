@@ -8,9 +8,11 @@ package com.ssaw.BusinessData.service.impl;/**
 import com.ssaw.BusinessData.entity.Market;
 import com.ssaw.BusinessData.mapper.MarketMapper;
 import com.ssaw.BusinessData.service.MarketService;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +42,13 @@ public class MarketServiceImpl implements MarketService {
 
     @Override
     public int deleteMarket(String marketId) {
-        return marketMapper.deleteMarket(marketId);
+        //切割字符串
+        String[] split = marketId.split(",");
+        ArrayList<Object> list=new ArrayList<>();
+        for (String id : split) {
+            list.add(id);
+        }
+        return marketMapper.deleteMarket(list);
     }
 
     @Override
@@ -50,7 +58,7 @@ public class MarketServiceImpl implements MarketService {
 
 
     @Override
-    public Map<String, Object> selectMarketInfo(String pageSize, String page) {
+    public Map<String, Object> selectMarketInfo(String pageSize, String page,String securitiesId,String dateTime) {
         //创建一个结果集Map,用于存放两个结果变量
         Map<String,Object> resultMap = new HashMap<>();
         //定义一个分页条数变量
@@ -68,12 +76,22 @@ public class MarketServiceImpl implements MarketService {
             m_page = Integer.parseInt(page);
         }
 
+        StringBuffer sqlWhere = new StringBuffer();
+        if (securitiesId!=null && !securitiesId.equals("")){
+            sqlWhere.append(" and securitiesId like '%"+securitiesId+"%'");
+        }
+
+        if (dateTime!=null && !dateTime.equals("")){
+            sqlWhere.append(" and dateTime like '%"+dateTime+"%'");
+        }
+        String tableName="(select * from " + SysTableNameListUtil.M +" m join (select securitiesName from "+SysTableNameListUtil.SE+" )  s on m.securitiesId=securitiesId)";
+        System.out.println("语句"+tableName);
         //创建一个Map,用来调用存储过程
         Map<String,Object> map = new HashMap<>();
         //传入存储过程要查询的表名
-        map.put("p_tableName","market");
+        map.put("p_tableName",tableName);
         //传入查询条件
-        map.put("p_condition","");
+        map.put("p_condition",sqlWhere.toString());
         //传入分页显示条数
         map.put("p_pageSize",m_pageSize);
         //传入分页页码
