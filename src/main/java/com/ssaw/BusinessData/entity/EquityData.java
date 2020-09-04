@@ -1,16 +1,16 @@
 package com.ssaw.BusinessData.entity;
 
-/**
+/*0.*
  * @program:权益数据模块
  * @Description:实体类
  * @author:孙浩
  * @create:2020-09-01
  */
+
 public class EquityData {
-    private String equityId;//权益ID（隐藏字段）
+    private String equityDataId;//权益ID（隐藏字段）
     private String dateTime;//业务日期
-    private int securityId;//证券Id
-    private String securityName;//证券名称
+    private String securityId;//证券Id
     private String equitiesRecord;//权益登记日
     private String equitiesExright;//权益除权日
     private String receivedDate;//到账日期
@@ -21,12 +21,11 @@ public class EquityData {
     public EquityData() {
     }
 
-    public EquityData(String equityId, String dateTime, int securityId, String securityName, String equitiesRecord,
+    public EquityData(String equityDataId, String dateTime, String securityId, String equitiesRecord,
                       String equitiesExright, String receivedDate, int equitiesType, int proportion, int disposeStatus) {
-        this.equityId = equityId;
+        this.equityDataId = equityDataId;
         this.dateTime = dateTime;
         this.securityId = securityId;
-        this.securityName = securityName;
         this.equitiesRecord = equitiesRecord;
         this.equitiesExright = equitiesExright;
         this.receivedDate = receivedDate;
@@ -35,12 +34,12 @@ public class EquityData {
         this.disposeStatus = disposeStatus;
     }
 
-    public String getEquityId() {
-        return equityId;
+    public String getEquityDataId() {
+        return equityDataId;
     }
 
-    public void setEquityId(String equityId) {
-        this.equityId = equityId;
+    public void setEquityDataId(String equityDataId) {
+        this.equityDataId = equityDataId;
     }
 
     public String getDateTime() {
@@ -51,20 +50,12 @@ public class EquityData {
         this.dateTime = dateTime;
     }
 
-    public int getSecurityId() {
+    public String getSecurityId() {
         return securityId;
     }
 
-    public void setSecurityId(int securityId) {
+    public void setSecurityId(String securityId) {
         this.securityId = securityId;
-    }
-
-    public String getSecurityName() {
-        return securityName;
-    }
-
-    public void setSecurityName(String securityName) {
-        this.securityName = securityName;
     }
 
     public String getEquitiesRecord() {
@@ -118,10 +109,9 @@ public class EquityData {
     @Override
     public String toString() {
         return "权益数据模块{" +
-                "权益ID=" + equityId +
+                "权益ID=" + equityDataId +
                 ", 业务日期='" + dateTime + '\'' +
                 ", 证券ID=" + securityId +
-                ", 证券名称='" + securityName + '\'' +
                 ", 登记日='" + equitiesRecord + '\'' +
                 ", 除权日='" + equitiesExright + '\'' +
                 ", 到账日='" + receivedDate + '\'' +

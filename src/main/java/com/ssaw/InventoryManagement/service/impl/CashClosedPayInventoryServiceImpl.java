@@ -5,8 +5,10 @@ import com.ssaw.InventoryManagement.entity.CashClosedPayInventory;
 import com.ssaw.InventoryManagement.mapper.CashClosedPayInventoryMapper;
 import com.ssaw.InventoryManagement.service.CashClosedPayInventoryService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,7 @@ import java.util.Map;
  * @create:2020-09-01
  */
 @Service
+@Transactional
 public class CashClosedPayInventoryServiceImpl implements CashClosedPayInventoryService {
     @Resource
     CashClosedPayInventoryMapper cashClosedPayInventoryMapper;
@@ -28,8 +31,16 @@ public class CashClosedPayInventoryServiceImpl implements CashClosedPayInventory
     }
 
     @Override
-    public void deleteCashClosedPayInventory(int crcsId) {
-        cashClosedPayInventoryMapper.deleteCashClosedPayInventory(crcsId);
+    public int deleteCashClosedPayInventory(String cashClosedPayInventoryId) {
+        //将id转为数据
+        String[] split = cashClosedPayInventoryId.split(",");
+        //创建存放id的集合
+        ArrayList<Object> cashClosedPayInventoryIdList = new ArrayList<>();
+        for (String id : split) {
+            //将id存入集合
+            cashClosedPayInventoryIdList.add(id);
+        }
+        return cashClosedPayInventoryMapper.deleteCashClosedPayInventory(cashClosedPayInventoryIdList);
     }
 
     @Override
@@ -55,6 +66,12 @@ public class CashClosedPayInventoryServiceImpl implements CashClosedPayInventory
             //通过Integer包装类将String类型转换成int基础数据类型
             v_page=Integer.parseInt(page);
         }
+
+
+
+
+
+
         //创建一个Map，用于存储过程的调用传值
         Map<String,Object> map = new HashMap<>();
         //传入存储过程需要的查询的表名

@@ -4,28 +4,31 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.InventoryManagement.mapper.CashClosedPayInventoryMapper">
     <insert id="insertCashClosedPayInventory">
-        insert into CashClosedPayInventory values (#{crcsId},#{businessDate},#{cashAccountName},#{fundId},#{fundName},#{businessType},#{businessStatus},#{initialSigns},#{toalMoney})
+        insert into CashClosedPayInventory values (#{cashClosedPayInventoryId},#{businessDate},#{cashAccountName},#{fundId}<!--#{fundName}-->,#{businessType},#{businessStatus},#{initialSigns},#{totalMoney})
     </insert>
 
     <update id="updateCashClosedPayInventory">
-        update CashClosedPayInventory set businessDate=#{businessDate},cashAccountName=#{cashAccountName},fundId=#{fundId},fundName=#{fundName},businessType=#{businessType},businessStatus=#{businessStatus},initialSigns=#{initialSigns},toalMoney=#{toalMoney} where crcsId=#{crcsId}
+        update CashClosedPayInventory set businessDate=#{businessDate},cashAccountName=#{cashAccountName},fundId=#{fundId}<!--fundName=#{fundName}-->,businessType=#{businessType},businessStatus=#{businessStatus},initialSigns=#{initialSigns},totalMoney=#{totalMoney} where cashClosedPayInventoryId=#{cashClosedPayInventoryId}
     </update>
 
-    <delete id="deleteCashClosedPayInventory">
-        delete from CashClosedPayInventory where crcsId=#{crcsId}
+    <delete id="deleteCashClosedPayInventory" parameterType="java.util.List">
+        delete from CashClosedPayInventory where cashClosedPayInventoryId in
+        <foreach collection="list" item="cashClosedPayInventoryId"
+                 open="(" separator="," close=")">
+            #{cashClosedPayInventoryId}
+        </foreach>
     </delete>
 
     <!--查询-->
     <resultMap id="cashClosedPayInventoryMap" type="com.ssaw.InventoryManagement.entity.CashClosedPayInventory">
-        <result property="crcsId" column="crcsId" javaType="String"></result>
+        <result property="cashClosedPayInventoryId" column="cashClosedPayInventoryId" javaType="String"></result>
         <result property="businessDate" column="businessDate" javaType="String"></result>
         <result property="cashAccountName" column="cashAccountName" javaType="String"></result>
         <result property="fundId" column="fundId" javaType="String"></result>
-        <result property="fundName" column="fundName" javaType="String"></result>
         <result property="businessType" column="businessType" javaType="Integer"></result>
         <result property="businessStatus" column="businessStatus" javaType="Integer"></result>
         <result property="initialSigns" column="initialSigns" javaType="Integer"></result>
-        <result property="toalMoney" column="toalMoney" javaType="Double"></result>
+        <result property="totalMoney" column="totalMoney" javaType="Double"></result>
     </resultMap>
 
     <select id="selectCashClosedPayInventory" parameterType="java.util.Map" statementType="CALLABLE">

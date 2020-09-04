@@ -1,6 +1,9 @@
 package com.ssaw.InventoryManagement.controller;
 
 import com.ssaw.BusinessData.entity.EquityData;
+import com.ssaw.GlobalManagement.util.DateTimeUtil;
+import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.InventoryManagement.entity.CashClosedPayInventory;
 import com.ssaw.InventoryManagement.service.CashClosedPayInventoryService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,18 +25,20 @@ public class CashClosedPayInventoryController {
     @Resource
     CashClosedPayInventoryService cashClosedPayInventoryService;
 
+    @Resource
+    DbUtil dbUtil;
     @RequestMapping("insertCashClosedPayInventory")
     public int insertCashClosedPayInventory(CashClosedPayInventory cashClosedPayInventory){
-        cashClosedPayInventory.setCrcsId("20200903");
+        cashClosedPayInventory.setCashClosedPayInventoryId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.CCPI));
         cashClosedPayInventory.setFundId("289289289");
-        cashClosedPayInventory.setFundName("一度教育基金");
         int j = cashClosedPayInventoryService.insertCashClosedPayInventory(cashClosedPayInventory);
         return j;
     }
 
     @RequestMapping("deleteCashClosedPayInventory")
-    public void deleteCashClosedPayInventory(int crcsId){
-        cashClosedPayInventoryService.deleteCashClosedPayInventory(crcsId);
+    public int deleteCashClosedPayInventory(String cashClosedPayInventoryId){
+        int j = cashClosedPayInventoryService.deleteCashClosedPayInventory(cashClosedPayInventoryId);
+        return j;
     }
 
     @RequestMapping("updateCashClosedPayInventory")

@@ -14,7 +14,7 @@ import java.util.Map;
 @Service
 public interface EquityDataService {
     public int insertEquityData(EquityData equityData);
-    public int  deleteEquityData(String  equityId);
+    public int  deleteEquityData(String equityDataId);
     public int updateEquityData(EquityData equityData);
-    public Map<String,Object> selectEquityData(String pageSize,String page);
+    public Map<String,Object> selectEquityData(String pageSize,String page,String equitiesType,String equitiesExright);
 }

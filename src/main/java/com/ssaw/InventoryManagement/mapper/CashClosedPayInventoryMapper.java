@@ -15,7 +15,7 @@ import java.util.Map;
 @Mapper
 public interface CashClosedPayInventoryMapper {
     public int insertCashClosedPayInventory(CashClosedPayInventory cashClosedPayInventory);
-    public void deleteCashClosedPayInventory(int crcsId);
+    public int deleteCashClosedPayInventory(List cashClosedPayInventoryId);
     public int updateCashClosedPayInventory(CashClosedPayInventory cashClosedPayInventory);
     public void selectCashClosedPayInventory(Map map);
 }

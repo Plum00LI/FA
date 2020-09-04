@@ -15,7 +15,7 @@ import java.util.Map;
 @Service
 public interface CashClosedPayInventoryService {
     public int insertCashClosedPayInventory(CashClosedPayInventory cashClosedPayInventory);
-    public void deleteCashClosedPayInventory(int crcsId);
+    public int deleteCashClosedPayInventory(String cashClosedPayInventoryId);
     public int updateCashClosedPayInventory(CashClosedPayInventory cashClosedPayInventory);
     public Map<String,Object> selectCashClosedPayInventory(String pageSize,String page);
 }

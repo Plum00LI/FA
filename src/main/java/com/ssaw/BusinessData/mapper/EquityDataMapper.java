@@ -1,8 +1,10 @@
 package com.ssaw.BusinessData.mapper;
 
 import com.ssaw.BusinessData.entity.EquityData;
+import com.ssaw.GlobalManagement.util.DbUtil;
 import org.apache.ibatis.annotations.Mapper;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +18,7 @@ import java.util.Map;
 @Mapper
 public interface EquityDataMapper {
     public int insertEquityData(EquityData equityData);
-    public int  deleteEquityData(List equityId);
+    public int  deleteEquityData(List equityDataId);
     public int updateEquityData(EquityData equityData);
     public void selectEquityData(Map map);
 }

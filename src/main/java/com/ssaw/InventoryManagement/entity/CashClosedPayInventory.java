@@ -8,38 +8,36 @@ package com.ssaw.InventoryManagement.entity;
  */
 
 public class CashClosedPayInventory {
-    private String crcsId;//现金应收应付库存Id（隐藏字段）
+    private String cashClosedPayInventoryId;//现金应收应付库存Id（隐藏字段）
     private String businessDate;//业务日期
     private String cashAccountName;//现金账户名称
     private String fundId;//基金ID（隐藏字段）
-    private String fundName;//基金名称（隐藏字段）
     private int businessType;//业务类型  1.管理费  2.托管费  3.存款利息  4.申购赎回费
     private int businessStatus;//业务状态   1.流入  -1.流出
     private int initialSigns;//期初标志  1.是   0.否
-    private double toalMoney;//总金额
+    private double totalMoney;//总金额
 
     public CashClosedPayInventory() {
     }
 
-    public CashClosedPayInventory(String crcsId, String businessDate, String cashAccountName, String fundId, String fundName,
-                                  int businessType, int businessStatus, int initialSigns, double toalMoney) {
-        this.crcsId = crcsId;
+    public CashClosedPayInventory(String cashClosedPayInventoryId, String businessDate, String cashAccountName,
+                                  String fundId, int businessType, int businessStatus, int initialSigns, double totalMoney) {
+        this.cashClosedPayInventoryId = cashClosedPayInventoryId;
         this.businessDate = businessDate;
         this.cashAccountName = cashAccountName;
         this.fundId = fundId;
-        this.fundName = fundName;
         this.businessType = businessType;
         this.businessStatus = businessStatus;
         this.initialSigns = initialSigns;
-        this.toalMoney = toalMoney;
+        this.totalMoney = totalMoney;
     }
 
-    public String getCrcsId() {
-        return crcsId;
+    public String getCashClosedPayInventoryId() {
+        return cashClosedPayInventoryId;
     }
 
-    public void setCrcsId(String crcsId) {
-        this.crcsId = crcsId;
+    public void setCashClosedPayInventoryId(String cashClosedPayInventoryId) {
+        this.cashClosedPayInventoryId = cashClosedPayInventoryId;
     }
 
     public String getBusinessDate() {
@@ -66,14 +64,6 @@ public class CashClosedPayInventory {
         this.fundId = fundId;
     }
 
-    public String getFundName() {
-        return fundName;
-    }
-
-    public void setFundName(String fundName) {
-        this.fundName = fundName;
-    }
-
     public int getBusinessType() {
         return businessType;
     }
@@ -98,26 +88,25 @@ public class CashClosedPayInventory {
         this.initialSigns = initialSigns;
     }
 
-    public double getToalMoney() {
-        return toalMoney;
+    public double getTotalMoney() {
+        return totalMoney;
     }
 
-    public void setToalMoney(double toalMoney) {
-        this.toalMoney = toalMoney;
+    public void setTotalMoney(double totalMoney) {
+        this.totalMoney = totalMoney;
     }
 
     @Override
     public String toString() {
         return "现金应收应付库存模块{" +
-                "现金应收应付库存ID='" + crcsId + '\'' +
+                "现金应收应付库存ID='" + cashClosedPayInventoryId + '\'' +
                 ", 业务日期='" + businessDate + '\'' +
                 ", 现金账户名称='" + cashAccountName + '\'' +
                 ", 基金ID=" + fundId +
-                ", 基金名称='" + fundName + '\'' +
                 ", 业务类型=" + businessType +
                 ", 业务状态=" + businessStatus +
                 ", 期初标志=" + initialSigns +
-                ", 总金额=" + toalMoney +
+                ", 总金额=" + totalMoney +
                 '}';
     }
 }

@@ -35,7 +35,7 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">业务类型</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <select name="businessType">
+                    <select name="businessType" id="businessType">
                         <option>请选择</option>
                         <option>管理费</option>
                         <option>托管费</option>
@@ -46,13 +46,12 @@
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">业务日期</label>
-
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请输入统计日期" name="businessDate" id="start">
+                    <input class="layui-input"  autocomplete="off" placeholder="请输入统计日期" name="businessDate" id="businessDate">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <button class="layui-btn" lay-event="search" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
             </div>
         </form>
     </script>
@@ -60,6 +59,7 @@
 
 
     <script type="text/javascript">
+
 
         layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             var layer = layui.layer;
@@ -71,7 +71,7 @@
 
             //执行一个laydate实例
             laydate.render({
-                elem: '#start' //指定元素
+                elem: '#businessDate' //指定元素
             });
 
             laydate.render({
@@ -79,15 +79,7 @@
             })
 
             laydate.render({
-                elem: '#equitiesRecord'
-            })
-
-            laydate.render({
-                elem: '#equitiesExright'
-            })
-
-            laydate.render({
-                elem: '#receivedDate'
+                elem: '#start3'
             })
 
             //新增提交
@@ -134,7 +126,7 @@
             //修改提交
             form.on('submit(editsubmit)', function(data){
                 var formData=$('#editform').serialize();
-                $.post("../user/updateUser",formData,function(msg){
+                $.post("../updateCashClosedPayInventory",formData,function(msg){
                     if(msg>0){
                         table.reload('userTable');
                         layer.closeAll();
@@ -168,8 +160,8 @@
                 cols: [
                     [ //表头
                     {type: 'checkbox', fixed: 'left'}
-                    ,{field: 'crcsId', title: '现金应收应付库存ID', width: 185, align:'center'}
                     ,{field: 'businessDate', title: '业务日期', width:182, align:'center'}
+                    ,{field: 'cashClosedPayInventoryId', title: '现金应收应付库存ID', width: 185, align:'center'}
                     ,{field: 'cashAccountName', title: '现金账户名称', width:185, align:'center'}
                     ,{field: 'fundId', title: '基金编号', width: 185, align:'center'}
                     ,{field: 'fundName', title: '基金名称', width:185, align:'center'}
@@ -181,8 +173,10 @@
                                 return '托管费';
                             }else if (item.businessType==3){
                                 return '存款利息';
+                            }else if (item.businessType==4){
+                                return '申购赎回费';
                             }
-                            return '申购赎回费';
+
                         }
                     }
                     ,{field: 'businessStatus', title: '业务状态', width: 180, align:'center',
@@ -201,7 +195,7 @@
                             return '否';
                         }
                     }
-                    ,{field: 'toalMoney', title: '总金额', width: 185, align:'center'}
+                    ,{field: 'totalMoney', title: '总金额', width: 185, align:'center'}
                     ,{title: 'operation', title: '操作', toolbar:'#barDemo', width: 180, align:'center'}
                 ]
                 ]
@@ -224,14 +218,18 @@
                         //全屏
                         layer.full(index);
                         break;
+
                     case 'search':
-                        alert("搜索");
-                        var userName= $("#userName").val();
+                        var businessType= $("#businessType").val();
+                        var businessDate= $("#businessDate").val();
                         //表格的重新加载事件
                         table.reload('userTable', {
                             method: 'post'
                             , where: {
-                                'userName': userName
+                                'businessType': businessType,
+                            }
+                            , where: {
+                                'businessDate': businessDate,
                             }
                             , page: {
                                 curr: 1
@@ -248,11 +246,11 @@
                         {
                             var ids=[];
                             for (var i = 0; i <data.length; i++) {
-                                ids.push(data[i].userId);
+                                ids.push(data[i].cashClosedPayInventoryId);
                             }
                             layer.confirm('真的删除行么',{icon: 2}, function(index){
                                 layer.close(index);
-                                $.post("../user/deleteUser", {userId:ids.join(',')},function(msg){
+                                $.post("../deleteCashClosedPayInventory", {cashClosedPayInventoryId:ids.join(',')},function(msg){
                                     table.reload('userTable');
                                     layer.msg('删除'+checkStatus.data.length+'条记录', {
                                         title:'提示',
@@ -270,11 +268,11 @@
             //给表格编辑，删除按钮添加点击事件
             table.on('tool(userTable)', function(obj) {
                 var data = obj.data;//得到删除行整行的数据
-                alert(data.userId);
+                alert(data.cashClosedPayInventoryId);
                 if (obj.event === 'del') {
                     layer.confirm('真的删除行么',{icon: 2}, function(index){
                         layer.close(index);
-                        $.post("../user/deleteUser", {userId:data.userId+""},function(msg){
+                        $.post("../deleteCashClosedPayInventory", {cashClosedPayInventoryId:data.cashClosedPayInventoryId+""},function(msg){
                             table.reload('userTable');
                         });
 
@@ -298,6 +296,7 @@
         function myclose() {
             parent.layer.closeAll();
         }
+
     </script>
 
 </head>
@@ -323,7 +322,7 @@
         <div class="layui-inline layui-show-xs-block" style="text-align: center;">
             <label class="layui-form-label layui-bg-green" style="text-align: center">期初状态</label>
             <div class="layui-inline layui-show-xs-block">
-                <select name="initialSigns" disabled="true">
+                <select name="initialSigns">
                     <option value="1">是</option>
                     <option value="0">否</option>
                 </select>
@@ -372,7 +371,7 @@
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">总金额</label>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入总金额" name="toalMoney">
+                <input class="layui-input" placeholder="请输入总金额" name="totalMoney">
             </div>
         </div>
         <br>
@@ -402,10 +401,14 @@
     <form id="editform" lay-filter="editform"
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
+        <div>
+            <input type="hidden" name="cashClosedPayInventoryId">
+            <input type="hidden" name="fundId">
+        </div>
         <div class="layui-inline layui-show-xs-block" style="text-align: center;">
             <label class="layui-form-label layui-bg-green" style="text-align: center">期初状态</label>
             <div class="layui-inline layui-show-xs-block">
-                <select name="initialSigns" disabled="true">
+                <select name="initialSigns">
                     <option value="1">是</option>
                     <option value="0">否</option>
                 </select>
@@ -433,7 +436,7 @@
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">业务日期</label>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入业务日期" name="businessDate" id="start2">
+                <input class="layui-input" placeholder="请输入业务日期" name="businessDate" id="start3">
             </div>
         </div>
         <br>
@@ -454,7 +457,7 @@
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">总金额</label>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入总金额" name="toalMoney">
+                <input class="layui-input" placeholder="请输入总金额" name="totalMoney">
             </div>
         </div>
         <br>
