@@ -33,8 +33,8 @@ public class TaInventoryController {
      * @return
      */
     @RequestMapping("/select")
-    public Map<String,Object> selectTaInventory(String page,String limit){
-        Map<String,Object> map=taInventoryService.selectTaInventory(limit,page);
+    public Map<String,Object> selectTaInventory(String page,String limit,String dateTime){
+        Map<String,Object> map=taInventoryService.selectTaInventory(limit,page,dateTime);
         //从结果集中拿出结果
         List<TaInventory> taInventoryList= (List<TaInventory>) map.get("taInventory");
         int count= (int) map.get("count");
