@@ -4,6 +4,7 @@ import com.ssaw.BusinessData.entity.Deposit;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 *@program:TescComment
@@ -14,7 +15,7 @@ import java.util.List;
 */
 @Mapper
 public interface DepositMapper {
-    public List<DepositMapper> selectDeposit();
+    public void selectDeposit(Map map);
     public int insertDeposit(Deposit deposit);
     public int deleteDeposit(int depositId);
 }

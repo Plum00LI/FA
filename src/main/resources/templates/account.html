@@ -4,7 +4,7 @@
     <title>现金账户页面</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+<!--<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />-->
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="../css/font.css">
@@ -27,6 +27,7 @@
                     class="layui-icon">&#xe640;</i>批量删除</button>
         </div>
         <br/>
+        <!--搜索条件-->
         <form class="layui-form layui-col-space5">
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户名称</label>
@@ -39,7 +40,7 @@
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">银行名称</label>
             <div class="layui-inline layui-show-xs-block"  style="text-align: center" >
                 <select id="blankName">
-                    <option>请选择</option>
+                    <option value="">请选择</option>
                     <option value="中国银行">中国银行</option>
                     <option value="建设银行">建设银行</option>
                     <option value="工商银行">工商银行</option>
@@ -80,6 +81,7 @@
             laydate.render({
                 elem: '#editend'//指定元素
             });
+            <!--加载表格的内容-->
             table.render({
                 elem: '#userTable',
                 url: '../selectAccount',
@@ -87,7 +89,8 @@
                 height: 498,
                 toolbar: '#userToolBar',//显示在表头的工具条
                 minLength:80,
-                cellMinWidth:60,
+                cellMinWidth:100,
+                height:'full-70',
                 cols: [
                     [ //表头
                         {type: 'checkbox', fixed: 'left'}
@@ -176,7 +179,7 @@
                 });
                 return false;
             });
-            //给工具条的按钮添加事件
+            //给工具条的按钮添加事件，增加删除功能
             table.on('toolbar(userTable)',function (obj) {
                 //获取选中复选框的对象，
                 var checkStatus=table.checkStatus(obj.config.id);//得到表格选中行的ID
@@ -262,12 +265,13 @@
                         area: ['500px', '400px'],
                         content:$('#editContent')
                     });
+                    form.render();
                     layer.full(index);
                 };
             })
         });
         function myclose() {
-            parent.layer.closeAll();
+            layer.closeAll();
         }
     </script>
 </head>

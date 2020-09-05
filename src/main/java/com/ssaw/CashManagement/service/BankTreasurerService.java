@@ -16,8 +16,8 @@ import java.util.Map;
 */
 @Service
 public interface BankTreasurerService {
-    public Map<String,Object> selectBankTreasurer(String pageSize,String page);
+    public Map<String,Object> selectBankTreasurer(String pageSize,String page,String allocatingType,String flag,String dbTime);
     public int insertBankTreasurer(BankTreasurer bankTreasurer);
     public int updateBankTreasurer(BankTreasurer bankTreasurer);
-    public int deleteBankTreasurer(int treasurerId);
+    public int deleteBankTreasurer(String bankTreasurerId);
 }
