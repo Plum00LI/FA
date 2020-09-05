@@ -49,10 +49,8 @@ public class VarietiesRateController {
     //删除方法
     @RequestMapping("deleteVarietiesRate")
     public void deleteVarietiesRate(int exchangeName, int rateType){
-
         System.out.println("进入删除controller了");
             varietiesRateService.deleteVarietiesRate(exchangeName,rateType);
-
     }
 
     //批量刪除
@@ -60,6 +58,7 @@ public class VarietiesRateController {
     public void deleteVarietiesRate2(String exchangeName, String rateType){
 
         System.out.println("进入批量删除controller了");
+
         varietiesRateService.deleteVarietiesRate2(exchangeName,rateType);
 
     }
@@ -68,9 +67,23 @@ public class VarietiesRateController {
     @RequestMapping("insertVarietiesRate")
     public int insertVarietiesRate(VarietiesRate varietiesRate){
         System.out.println("进入了增加controller了");
+        int n=varietiesRateService.selectVarietiesRate2(varietiesRate.getExchangeName(),varietiesRate.getRateType());
 
-        int i=varietiesRateService.insertVarietiesRate(varietiesRate);
-        return i;
+        System.out.println("getExchangeName="+varietiesRate.getExchangeName());
+        System.out.println("getRateType="+varietiesRate.getRateType());
+        System.out.println("flag="+n);
+        int i=0;
+        if(n>0){
+            i=varietiesRateService.insertVarietiesRate(varietiesRate);
+            System.out.println("i="+i);
+            return i;
+
+        }else {
+            System.out.println("添加失败");
+            return 0;
+        }
+
+
     }
     //修改controller
     @RequestMapping("updateVarietiesRate")
