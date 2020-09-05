@@ -2,6 +2,13 @@ server:
   port: 9121
   servlet:
     context-path: /
+  tomcat:
+    connection-timeout: 60000
+    uri-encoding: UTF-8
+    max-connections: 10000
+    threads:
+      min-spare: 10
+
 spring:
   thymeleaf:
     prefix: classpath:/templates/

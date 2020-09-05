@@ -130,7 +130,8 @@
                 toolbar: '#userToolBar',//显示在表头的工具条
                 minLength:80,
 
-                cols: [[ //表头
+                cols: [
+                    [ //表头
                     {type: 'checkbox', fixed: 'left'}
                     ,{field: 'seateId', title: '席位编号', width:100, align:'center'}
                     ,{field: 'seateName', title: '席位名称', width:250, align:'center'}
@@ -140,7 +141,8 @@
                     ,{field: 'seateAddress', title: '席位地址', width:140, align:'center'}
                     ,{field: 'desc', title: '备注', width: 400, align:'center'}
                     ,{field: 'operation', title: '操作', width: 150, align:'center'}
-                ]]
+                ]
+                ]
             });
             //给工具条的按钮添加事件
             table.on('toolbar(userTable)',function (obj) {

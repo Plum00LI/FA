@@ -31,8 +31,6 @@ public class ViewController {
     public String getPage(HttpServletRequest req){
         String requestURI = req.getRequestURI();
         int length = requestURI.length();
-        String resoues = requestURI.substring(6, length);
-        System.out.printf(resoues);
-        return resoues;
+        return requestURI.substring(6, length);
     }
 }

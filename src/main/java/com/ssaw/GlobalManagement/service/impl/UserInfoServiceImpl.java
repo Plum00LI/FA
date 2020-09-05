@@ -53,6 +53,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
         //创建一个Map，用于存储过程的调用传值
         Map<String,Object> map = new HashMap<>();
+        String s = "(select * from "+SysTableNameListUtil.UI+" ui join";
         //传入存储过程需要查询的表名
         map.put("p_tableName",SysTableNameListUtil.UI);
 

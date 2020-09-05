@@ -1,11 +1,11 @@
 {
   "homeInfo": {
     "title": "首页",
-    "href": "page/welcome-1.html?t=1"
+    "href": "page/welcome"
   },
   "logoInfo": {
     "title": "FA SSAW",
-    "image": "images/logo.png",
+    "image": "../images/logo.png",
     "href": ""
   },
   "menuInfo": [
@@ -23,7 +23,7 @@
           "child": [
             {
               "title": "基金设置",
-              "href": "page/welcome-1.html",
+              "href": "page/fund",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
@@ -41,31 +41,31 @@
             },
             {
               "title": "交易所品种费率",
-              "href": "page/welcome-3.html",
+              "href": "page/varietiesRate",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "证券信息设置",
-              "href": "page/welcome-3.html",
+              "href": "page/securities",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "债券信息设置",
-              "href": "page/welcome-3.html",
+              "href": "page/businessDescription",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "股票板块设置",
-              "href": "page/welcome-3.html",
+              "href": "page/stock",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "现金账户设置",
-              "href": "page/welcome-3.html",
+              "href": "page/account",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -79,25 +79,25 @@
           "child": [
             {
               "title": "交易数据",
-              "href": "page/welcome-1.html",
+              "href": "page/transactionData",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "权益数据",
-              "href": "page/welcome-2.html",
+              "href": "page/equityData",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "存款业务",
-              "href": "page/welcome-2.html",
+              "href": "page/deposit",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "行情数据",
-              "href": "page/welcome-2.html",
+              "href": "page/market",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
@@ -109,7 +109,7 @@
             },
             {
               "title": "现金应收应付",
-              "href": "page/welcome-2.html",
+              "href": "page/cashClosedPay",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -123,13 +123,13 @@
           "child": [
             {
               "title": "资金调拨",
-              "href": "page/welcome-1.html",
+              "href": "page/banktressurer",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "划款指令",
-              "href": "page/welcome-2.html",
+              "href": "page/transfermoney",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -143,7 +143,7 @@
           "child": [
             {
               "title": "TA交易数据",
-              "href": "page/welcome-1.html",
+              "href": "page/taManagement",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -177,7 +177,7 @@
             },
             {
               "title": "权益处理",
-              "href": "page/welcome-1.html",
+              "href": "page/equityDispose",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -191,7 +191,7 @@
           "child": [
             {
               "title": "库存统计",
-              "href": "page/welcome-1.html",
+              "href": "page/inventoryStatistics",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
@@ -203,7 +203,7 @@
             },
             {
               "title": "收益支付",
-              "href": "page/welcome-1.html",
+              "href": "page/incomePayment",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
@@ -215,7 +215,7 @@
             },
             {
               "title": "净值统计",
-              "href": "page/welcome-1.html",
+              "href": "page/valueStatistics",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -231,13 +231,13 @@
       "child": [
         {
           "title": "证券库存",
-          "href": "",
+          "href": "page/",
           "icon": "fa fa-meetup",
           "target": "_self"
         },
         {
           "title": "现金库存",
-          "href": "page/error.html",
+          "href": "page/cashInventory",
           "icon": "fa fa-superpowers",
           "target": "_self"
         },
@@ -249,13 +249,13 @@
         },
         {
           "title": "现金应收应付库存",
-          "href": "page/error.html",
+          "href": "page/cashClosedPayInventory",
           "icon": "fa fa-superpowers",
           "target": "_self"
         },
         {
           "title": "TA库存",
-          "href": "page/error.html",
+          "href": "page/taInventory",
           "icon": "fa fa-superpowers",
           "target": "_self"
         }
