@@ -4,12 +4,14 @@ import com.ssaw.BusinessDescription.entity.Account;
 import com.ssaw.CashManagement.entity.BankTreasurer;
 import com.ssaw.CashManagement.mapper.BankTreasurerMapper;
 import com.ssaw.CashManagement.service.BankTreasurerService;
+import com.ssaw.GlobalManagement.util.DateTimeUtil;
 import com.ssaw.GlobalManagement.util.DbUtil;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,11 +28,13 @@ import java.util.Map;
 public class BankTreasurerServiceImpl implements BankTreasurerService {
     @Resource
     BankTreasurerMapper bankTreasurerMapper;
-
     @Resource
     DbUtil dbUtil;
     @Override
-    public Map<String, Object> selectBankTreasurer(String pageSize, String page) {
+    public Map<String, Object> selectBankTreasurer(String pageSize, String page,String allocatingType,String flag,String dbTime) {
+        System.out.println(allocatingType);
+        System.out.println(flag);
+        System.out.println(dbTime);
         //创建一个结果集Map用于存放两个结果变量
         Map<String,Object> resultMap=new HashMap<>();
         //定义一个分页条数变量
@@ -54,8 +58,22 @@ public class BankTreasurerServiceImpl implements BankTreasurerService {
         System.out.println(p_tableName);
         //传入存储过程需要查询的表名
         map.put("p_tableName",p_tableName);
+        int v_allocatingType=0;
+        int v_flag=0;
+        StringBuffer sqlWhere=new StringBuffer();
+        if (allocatingType!=null && !allocatingType.equals("")){
+            v_allocatingType=Integer.parseInt(allocatingType);
+            sqlWhere.append(" and allocatingType =" +v_allocatingType);
+        }
+        if (flag!=null && !flag.equals("")){
+            v_flag=Integer.parseInt(flag);
+            sqlWhere.append(" and flag =" +v_flag);
+        }
+        if (dbTime!=null && !dbTime.equals("")){
+            sqlWhere.append(" and dbTime =" +dbTime);
+        }
         //传入查询的条件
-        map.put("p_condition","");
+        map.put("p_condition",sqlWhere.toString());
         //传入分页显示条数
         map.put("p_pageSize",v_pageSize);
         //传入分页页码
@@ -80,6 +98,9 @@ public class BankTreasurerServiceImpl implements BankTreasurerService {
 
     @Override
     public int insertBankTreasurer(BankTreasurer bankTreasurer) {
+        bankTreasurer.setBankTreasurerId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.BT));
+        bankTreasurer.setFundId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
+        bankTreasurer.setDateTime(DateTimeUtil.getSystemDateTime(DateTimeUtil.type13));
         return bankTreasurerMapper.insertBankTreasurer(bankTreasurer);
     }
 
@@ -89,7 +110,14 @@ public class BankTreasurerServiceImpl implements BankTreasurerService {
     }
 
     @Override
-    public int deleteBankTreasurer(int treasurerId) {
-        return bankTreasurerMapper.deleteBankTreasurer(treasurerId);
+    public int deleteBankTreasurer(String bankTreasurerId) {
+        String[] split = bankTreasurerId.split(",");
+        ArrayList<Object> bankTreasurerList=new ArrayList<>();
+        for (String id : split) {
+            bankTreasurerList.add(id);
+        }
+        return bankTreasurerMapper.deleteBankTreasurer(bankTreasurerList);
     }
+
+
 }

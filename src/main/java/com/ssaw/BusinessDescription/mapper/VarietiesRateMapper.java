@@ -23,4 +23,6 @@ public interface VarietiesRateMapper {
     public int insertVarietiesRate(VarietiesRate varietiesRate);
     //修改
     public int updateVarietiesRate(VarietiesRate varietiesRate);
+    //按条件查询
+    public List<VarietiesRate> selectVarietiesRate2(int exchangeName,int rateType);
 }

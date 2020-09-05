@@ -19,5 +19,5 @@ public interface BankTreasurerMapper {
     public void selectBankTreasurer(Map map);
     public int insertBankTreasurer(BankTreasurer bankTreasurer);
     public int updateBankTreasurer(BankTreasurer bankTreasurer);
-    public int deleteBankTreasurer(int treasurerId);
+    public int deleteBankTreasurer(List bankTreasurerId);
 }
