@@ -11,11 +11,9 @@
     <update id="updateAccount" parameterType="com.ssaw.BusinessDescription.entity.Account">
     update account set accountName=#{accountName},deposit=#{deposit},cardRate=#{cardRate},procisionDays=#{procisionDays},accountDesc=#{accountDesc} where accountId=#{accountId}
     </update>
-    <delete id="deleteAccount"
-        parameterType="list">
+    <delete id="deleteAccount" parameterType="list">
         delete from account where accountId in
-        <foreach collection="list" item="accountId" open="("
-                 separator="," close=")">
+        <foreach collection="list" item="accountId" open="(" separator="," close=")">
             #{accountId}
         </foreach>
     </delete>

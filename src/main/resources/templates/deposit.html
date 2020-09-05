@@ -29,18 +29,18 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center" >业务类型</label>
                 <div class="layui-inline layui-show-xs-block" style="text-align: center">
-                    <select name="cateid" >
-                        <option>请选择业务类型</option>
-                        <option>三天存款</option>
-                        <option>七天存款</option>
-                        <option>活期存款</option>
+                    <select name="businessType" id="businessType">
+                        <option value="">请选择业务类型</option>
+                        <option value="1">三天存款</option>
+                        <option value="2">七天存款</option>
+                        <option value="3">活期存款</option>
                     </select>
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">到期时间</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择日期" name="end" id="start">
+                    <input class="layui-input"  autocomplete="off" placeholder="请选择日期" name="endDate" id="selectEnd">
                 </div>
             </div>
             </div>
@@ -63,7 +63,7 @@
 
             //执行一个laydate实例
             laydate.render({
-                elem: '#start',//指定元素
+                elem: '#selectEnd',//指定元素
             });
             //执行一个laydate实例
             laydate.render({
@@ -135,6 +135,7 @@
                 toolbar: '#userToolBar',//显示在表头的工具条
                 minLength:80,
                 cellMinWidth:60,
+                height:'full-70',
                 cols: [
                     [ //表头
                     {field: 'id', title: '基金Id', width:110,align:'center'}
@@ -266,7 +267,7 @@
 
         });
         function myclose() {
-            parent.layer.closeAll();
+            layer.closeAll();
         }
     </script>
 </head>

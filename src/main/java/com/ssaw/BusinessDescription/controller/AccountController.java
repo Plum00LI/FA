@@ -62,7 +62,7 @@ public class AccountController {
         return i;
     }
     @RequestMapping("updateAccount")
-    public int deleteAccount(Account account){
+    public int updateAccount(Account account){
         System.out.println(account);
         int i = accountService.updateAccount(account);
         return i;
