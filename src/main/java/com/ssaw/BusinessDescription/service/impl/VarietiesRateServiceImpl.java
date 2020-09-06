@@ -134,4 +134,23 @@ public class VarietiesRateServiceImpl implements VarietiesRateService {
         int i = varietiesRateMapper.updateVarietiesRate(varietiesRate);
         return i;
     }
+    //按条件查询
+    @Override
+    public int selectVarietiesRate2(int exchangeName, int rateType) {
+        //
+     List<VarietiesRate> varietiesRateList=   varietiesRateMapper.selectVarietiesRate2(exchangeName, rateType);
+
+        if (varietiesRateList!=null&&varietiesRateList.size()>0) {
+            System.out.println("getExchangeName="+varietiesRateList.get(0).getExchangeName());
+            System.out.println("getRateType="+varietiesRateList.get(0).getRateType());
+            if(exchangeName==varietiesRateList.get(0).getExchangeName()&&rateType==varietiesRateList.get(0).getRateType()){
+                return 0;
+            }else {
+                return 1;
+            }
+        }else {
+            return 1;
+        }
+
+    }
 }

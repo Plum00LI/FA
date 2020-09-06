@@ -4,7 +4,7 @@
     <title>资金调拨页面</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+<!--<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />-->
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="../css/font.css">
@@ -29,34 +29,36 @@
         <br/>
         <form class="layui-form layui-col-space5">
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨日期</label>
-                <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择日期" name="end" id="selectDate">
-                </div>
-            </div>
-            </div>
-            <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨类型</label>
                 <div class="layui-inline layui-show-xs-block" style="text-align: center" >
-                    <select name="cateid">
-                        <option>请选择调拨类型</option>
-                        <option>存款利息</option>
-                        <option>申购赎回清算款</option>
+                    <select name="allocatingType" id="allocatingType">
+                        <option value="">请选择调拨类型</option>
+                        <option value="1">存款利息</option>
+                        <option value="2">申购赎回清算款</option>
+                        <option value="3">买卖交易清算款</option>
+                        <option value="4">债券利息</option>
                     </select>
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨方向</label>
                 <div class="layui-inline layui-show-xs-block"  style="text-align: center">
-                    <select name="cateid">
-                        <option>请选择调拨方向</option>
-                        <option>流入</option>
-                        <option>流出</option>
+                    <select name="flag" id="flag">
+                        <option value="">请选择调拨方向</option>
+                        <option value="1">流入</option>
+                        <option value="-1">流出</option>
                     </select>
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <button class="layui-btn"  lay-submit="" lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+            </div>
+            <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨日期</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <input class="layui-input"  autocomplete="off" placeholder="请选择日期" name="dbTime" id="selectDate">
+                </div>
+            </div>
             </div>
         </form>
     </script>
@@ -87,7 +89,7 @@
             //新增提交
             form.on('submit(addsubmit)', function(data){
                 var formData=$('#addform').serialize();
-                $.post("../user/insertUser",formData,function(msg){
+                $.post("../insertBankTreasurer",formData,function(msg){
                     if(msg>0){
                         table.reload('userTable');
                         layer.closeAll();
@@ -114,7 +116,7 @@
             //修改提交
             form.on('submit(editsubmit)', function(data){
                 var formData=$('#editform').serialize();
-                $.post("../user/updateUser",formData,function(msg){
+                $.post("../updateBankTreasurer",formData,function(msg){
                     if(msg>0){
                         table.reload('userTable');
                         layer.closeAll();
@@ -146,10 +148,11 @@
                 toolbar: '#userToolBar',//显示在表头的工具条
                 minLength:80,
                 cellMinWidth:60,
+                height:'full-70',
                 cols: [
                     [ //表头
                         {type: 'checkbox', fixed: 'left'}
-                        ,{field: 'bankTreasurerId', title: '资金调拨Id', width:150,align:'center',hide:true}
+                        ,{field: 'bankTreasurerId', title: '资金调拨Id', width:150,align:'center'}
                         ,{field: 'fundId', title: '基金Id', width:150,align:'center',hide:true}
                         ,{field: 'accountId', title: '现金账户Id', width:120,align:'center',hide:true}
                         ,{field: 'accountName', title: '现金账户名称', width:120,align:'center'}
@@ -196,29 +199,25 @@
                             content:$("#addContent"),
                             btn:[]
                         });
-                        $.ajax({
-                            url:'../user/selectRole',
-                            dataType:'json',
-                            type:'post',
-                            success:function(obj){
-                                $.each(obj,function(index,item){
-                                    $('#roleId').append(new Option(item.roleName,item.roleId));//往下拉菜单里添加元素
-                                })
-                                form.render();//菜单渲染 把内容加载进去
-                            }
-                        })
                         form.render();
                         //全屏
                         layer.full(index);
                         break;
                     case 'search':
                         alert("搜索");
-                        var userName= $("#userName").val();
+                        var allocatingType= $("#allocatingType").val();
+                        var flag= $("#flag").val();
+                        var dbTime= $("#selectDate").val();
+                        alert(allocatingType);
+                        alert(flag);
+                        alert(dbTime);
                         //表格的重新加载事件
                         table.reload('userTable', {
                             method: 'post'
                             , where: {
-                                'userName': userName
+                                'allocatingType': allocatingType,
+                                'flag': flag,
+                                'dbTime': dbTime
                             }
                             , page: {
                                 curr: 1
@@ -235,11 +234,11 @@
                         {
                             var ids=[];
                             for (var i = 0; i <data.length; i++) {
-                                ids.push(data[i].userId);
+                                ids.push(data[i].bankTreasurerId);
                             }
                             layer.confirm('真的删除行么',{icon: 2}, function(index){
                                 layer.close(index);
-                                $.post("../user/deleteUser", {userId:ids.join(',')},function(msg){
+                                $.post("../deleteBankTreasurer", {bankTreasurerId:ids.join(',')},function(msg){
                                     table.reload('userTable');
                                     layer.msg('删除'+checkStatus.data.length+'条记录', {
                                         title:'提示',
@@ -256,11 +255,11 @@
             //给表格编辑，删除按钮添加点击事件
             table.on('tool(userTable)', function(obj) {
                 var data = obj.data;//得到删除行整行的数据
-                alert(data.userId);
+                alert(data.bankTreasurerId);
                 if (obj.event === 'del') {
                     layer.confirm('真的删除行么',{icon: 2}, function(index){
                         layer.close(index);
-                        $.post("../user/deleteUser", {userId:data.userId+""},function(msg){
+                        $.post("../deleteBankTreasurer", {bankTreasurerId:data.bankTreasurerId+""},function(msg){
                             table.reload('userTable');
                         });
 
@@ -271,25 +270,12 @@
                     form.val('editform',$.parseJSON(JSON.stringify(data)));
                     var index = layer.open({
                         type: 1,
-                        title: '修改员工',
+                        title: '修改资金调拨信息',
                         closeBtn: 1,
                         move:false,
                         area: ['500px', '400px'],
                         content:$('#editContent')
                     });
-                    $.ajax({
-                        url:'../user/selectRole',
-                        dataType:'json',
-                        type:'post',
-                        success:function(obj){
-
-                            $.each(obj,function(index,item){
-                                $('#roleId_2').append(new Option(item.roleName,item.roleId));//往下拉菜单里添加元素
-                            })
-                            $("#roleId_2 option[value='"+data.roleId+"']").attr("selected", "selected");
-                            form.render();//菜单渲染 把内容加载进去
-                        }
-                    })
                     form.render();
                     layer.full(index);
                 };
@@ -298,7 +284,7 @@
 
         });
         function myclose() {
-            parent.layer.closeAll();
+            layer.closeAll();
         }
     </script>
 </head>
@@ -327,13 +313,13 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">业务编号</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请输入业务编号">
+                    <input class="layui-input"  autocomplete="off" placeholder="请输入业务编号" name="businessId">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">现金账户</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择现金账户">
+                    <input class="layui-input"  autocomplete="off" placeholder="请选择现金账户" name="accountId">
                 </div>
             </div>
         </div>
@@ -342,16 +328,18 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨金额</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请输入调拨金额">
+                    <input class="layui-input"  autocomplete="off" placeholder="请输入调拨金额" name="totalPrice">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨类型</label>
                 <div class="layui-inline layui-show-xs-block" style="width: 185px;text-align: center">
-                    <select name="cateid">
-                        <option>请选择调拨类型</option>
-                        <option>存款利息</option>
-                        <option>申购赎回清算款</option>
+                    <select name="allocatingType">
+                        <option value="">请选择调拨类型</option>
+                        <option value="1">存款利息</option>
+                        <option value="2">申购赎回清算款</option>
+                        <option value="3">买卖交易清算款</option>
+                        <option value="4">债券利息</option>
                     </select>
                 </div>
             </div>
@@ -361,17 +349,17 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨方向</label>
                 <div class="layui-inline layui-show-xs-block" style="width: 185px;text-align: center">
-                    <select name="cateid">
-                        <option>请选择调拨方向</option>
-                        <option>流入</option>
-                        <option>流出</option>
+                    <select name="flag">
+                        <option value="">请选择调拨方向</option>
+                        <option value="1">流入</option>
+                        <option value="-1">流出</option>
                     </select>
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨日期</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择调拨日期" name="end" id="end">
+                    <input class="layui-input"  autocomplete="off" placeholder="请选择调拨日期" name="dbTime" id="end">
                 </div>
             </div>
         </div>
@@ -379,7 +367,7 @@
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center; width: 130px; height: 100px; line-height: 81px">备注</label>
             <div class="layui-inline layui-show-xs-block">
-                <textarea name="" required lay-verify="required" placeholder="备注" class="layui-textarea" style="width: 467px"></textarea>
+                <textarea name="bankTreasurerDesc" required lay-verify="required" placeholder="备注" class="layui-textarea" style="width: 467px"></textarea>
             </div>
         </div>
         <div style="position: absolute; bottom: 0px; left: 45%;">
@@ -405,6 +393,7 @@
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">现金账户</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input"  autocomplete="off" placeholder="请选择现金账户" name="accountId">
+                    <input name="bankTreasurerId" type="hidden">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
@@ -420,9 +409,11 @@
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨类型</label>
                 <div class="layui-inline layui-show-xs-block" style="width: 185px;text-align: center">
                     <select name="allocatingType">
-                        <option>请选择调拨类型</option>
-                        <option>存款利息</option>
-                        <option>申购赎回清算款</option>
+                        <option value="">请选择调拨类型</option>
+                        <option value="1">存款利息</option>
+                        <option value="2">申购赎回清算款</option>
+                        <option value="3">买卖交易清算款</option>
+                        <option value="4">债券利息</option>
                     </select>
                 </div>
             </div>
@@ -430,9 +421,9 @@
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨方向</label>
                 <div class="layui-inline layui-show-xs-block" style="width: 185px;text-align: center">
                     <select name="flag">
-                        <option>请选择调拨方向</option>
-                        <option>流入</option>
-                        <option>流出</option>
+                        <option value="">请选择调拨方向</option>
+                        <option value="1">流入</option>
+                        <option value="-1">流出</option>
                     </select>
                 </div>
             </div>
