@@ -1,5 +1,7 @@
 package com.ssaw.GlobalManagement.service;
 
+import java.util.Map;
+
 /**
  * 系统菜单服务层接口
  * @type: interface
@@ -8,5 +10,5 @@ package com.ssaw.GlobalManagement.service;
  * @date: 2020/09/05
  */
 public interface SysMenuService {
-
+    public Map<String, Object> menu();
 }
