@@ -16,4 +16,7 @@ public interface UserInfoService {
 
     //通过UserId删除用户的服务类接口方法-待实现
     public boolean deleteUserInfoByUserId(String userId);
+
+    //判断用户登录
+    public int isLogin(String userName,String userPwd);
 }

@@ -2,9 +2,7 @@ package com.ssaw.InventoryManagement.service;
 
 import com.ssaw.InventoryManagement.entity.TaInventory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,7 +22,7 @@ public interface TaInventoryService {
      * @param page      页数
      * @return
      */
-    public Map<String,Object> selectTaInventory(String pageSize,String page);
+    public Map<String,Object> selectTaInventory(String pageSize,String page,String dateTime);
 
     /**
      * 增加

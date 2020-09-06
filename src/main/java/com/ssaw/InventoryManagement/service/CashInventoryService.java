@@ -25,7 +25,7 @@ public interface CashInventoryService {
      * @param page 页数
      * @return
      */
-    public Map<String,Object> selectCashInventory(String pageSize,String page,String accountName,String dateTime);
+    public Map<String,Object> selectCashInventory(String pageSize,String page,String accountId,String dateTime);
 
     /**
      * 增加

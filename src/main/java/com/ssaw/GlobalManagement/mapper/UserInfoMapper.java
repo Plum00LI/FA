@@ -20,4 +20,7 @@ public interface UserInfoMapper {
 
     //通过ID删除用户的UserMapper方法
     public int deleteUserInfoByUserId(int userId);
+
+    //判断用户登录
+    public int isLogin(String userName,String userPwd);
 }

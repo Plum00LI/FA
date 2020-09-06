@@ -16,6 +16,10 @@
     <select id="selectUserInfo" parameterType="java.util.Map" statementType="CALLABLE">
         {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},#{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=INTEGER},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=userInfoMap})}
     </select>
+    
+    <select id="isLogin" resultType="java.lang.Integer">
+        select count(*) from userInfo where userName=#{param1} and userPwd=#{param2}
+    </select>
 
     <delete id="deleteUserInfoByUserId" parameterType="int">
         delete from userInfo where userId=#{userId}

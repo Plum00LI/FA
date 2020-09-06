@@ -104,4 +104,16 @@ public class UserInfoServiceImpl implements UserInfoService {
         //为0，返回失败
         return false;
     }
+
+    /**
+     * 判断登录
+     * @param userName 用户名
+     * @param userPwd 用户密码
+     * @return 是否登录 0失败 1成功
+     */
+    @Override
+    public int isLogin(String userName, String userPwd) {
+        int status = userInfoMapper.isLogin(userName, userPwd);
+        return status;
+    }
 }
