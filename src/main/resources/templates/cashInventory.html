@@ -27,7 +27,7 @@
     <script type="text/html" id="cashInventoryToolBar">
         <div style="float:right">
             <input type="checkbox" lay-event="initialSigns" title="是否为期初数据" lay-filter="initialSigns">&nbsp&nbsp&nbsp&nbsp
-            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add" id="addBtn"><i
+            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add" id="addbtn"><i
                     class="layui-icon">&#xe654;</i>添加数据</button>
             <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll"><i
                     class="layui-icon">&#xe640;</i>批量删除</button>
@@ -99,10 +99,10 @@
             });
             //期初数据选中
             form.on('checkbox(initialSigns)', function(data){
-                var addbtn = document.getElementById('addBtn');
+                var addbtn = document.getElementById('addbtn');
                 if(data.elem.checked){
                     addbtn.classList.remove("layui-btn-disabled")
-                    addbtn.setAttribute("lay-event","addBtn")
+                    addbtn.setAttribute("lay-event","add")
 
                 }else{
                     addbtn.classList.add("layui-btn-disabled")
@@ -112,6 +112,7 @@
             //新增提交
             form.on('submit(addsubmit)', function(data){
                 var formData=$('#addform').serialize();
+                alert("增加");
                 $.post("../cashInventory/insert",formData,function(msg){
                     if(msg>0){
                         table.reload('cashInventoryTable');
