@@ -36,8 +36,7 @@ public class ValueStatisticsController {
     @RequestMapping("insertValueStatistics")
     @ResponseBody
     public Object insertValueStatistics(String valueStatisticsDate){
-        System.out.println(valueStatisticsDate);
-        System.out.println("进来了");
+
         //获取数据，封装到实体类
         ValueStatistics valueStatistics1=new ValueStatistics(valueStatisticsDate,1,"证券","","","","","","",-1);
         ValueStatistics valueStatistics2=new ValueStatistics(valueStatisticsDate,2,"股票","","","","","","",1);
