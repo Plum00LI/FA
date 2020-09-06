@@ -16,12 +16,11 @@
     <!--[if lt IE 9]-->
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-
     <link rel="stylesheet" href="../lib/layui/css/layui.css">
-
-
     <script src="../lib/layui/layui.js"></script>
-    <!--工具条-->
+
+
+    <!--头部工具-->
     <script type="text/html" id="userToolBar">
         <div style="float:right">
         <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
@@ -58,51 +57,44 @@
 
 
     <script type="text/javascript">
-
-        layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
+        layui.use(['element', 'form', 'table', 'layer', 'laydate', 'tableSelect'], function () {
             var layer = layui.layer;
             var $ = layui.$;
             var table = layui.table;
             var form = layui.form;
             var formSelects = layui.formSelects;
             var laydate = layui.laydate;
+            var tableSelect = layui.tableSelect;
 
-            //执行一个laydate实例
+            //执行一个laydate实例,显示日期
             laydate.render({
                 elem: '#equitiesExright3' //指定元素
             });
-
             laydate.render({
                 elem: '#start'
             });
-
             laydate.render({
                 elem: '#equitiesRecord'
             });
-
             laydate.render({
                 elem: '#equitiesExright'
             });
-
             laydate.render({
                 elem: '#receivedDate'
             });
-
             laydate.render({
                 elem: '#start2'
             });
-
             laydate.render({
                 elem: '#equitiesRecord2'
             });
-
             laydate.render({
                 elem: '#equitiesExright2'
             });
-
             laydate.render({
                 elem: '#receivedDate2'
             });
+
 
             //新增提交
             form.on('submit(addsubmit)', function(data){
@@ -131,6 +123,8 @@
                 });
                 return false;
             });
+
+
             //修改提交
             form.on('submit(editsubmit)', function(data){
 
@@ -160,6 +154,8 @@
                 });
                 return false;
             });
+
+            //表格渲染
             table.render({
                 elem: '#userTable',
                 url: '../selectEquityData',
@@ -173,7 +169,7 @@
                     ,{field: 'equityDataId', title: '权益编号', width:166, align:'center'}
                     ,{field: 'dateTime', title: '业务日期', width: 166, align:'center'}
                     ,{field: 'securityId', title: '证券ID', width:166, align:'center'}
-                    ,{field: 'securityName', title: '证券名称', width: 166, align:'center'}
+                    ,{field: 'securitiesName', title: '证券名称', width: 166, align:'center'}
                     ,{field: 'equitiesRecord', title: '权益登记日', width:166, align:'center'}
                     ,{field: 'equitiesExright', title: '权益除权日', width: 166, align:'center'}
                     ,{field: 'receivedDate', title: '到账日期', width: 166, align:'center'}
@@ -198,6 +194,33 @@
                 ]
                 ]
             });
+
+
+            //下拉选择器
+            tableSelect.render({
+                elem: '#securityName'
+                ,checkedKey: 'id'
+                ,table: {
+                    url: '../lib/layuimini/api/tableSelect.json'
+                    ,cols: [
+                        [
+                            {type: 'checkbox'},
+                            {field:'id', title:'证券ID'},
+                            {field:'username', title:'证券名称'},
+                            {field:'sex', title:'性别'}
+                        ]
+                    ]
+                }
+                ,done:function (elem,data) {
+                    var NEWJSON = []
+                    layui.each(data.data,function (index,item) {
+                        NEWJSON.push(item.username)
+                    })
+                    elem.val(NEWJSON.join(","))
+                }
+            })
+
+
             //给工具条的按钮添加事件
             table.on('toolbar(userTable)',function (obj) {
                 //获取选中复选框的对象，
@@ -217,6 +240,7 @@
                         layer.full(index);
                         break;
 
+                        //搜索按钮的条件查询
                     case 'search':
                         var equitiesExright= $("#equitiesExright").val();
                         var equitiesType= $("#equitiesType").val();
@@ -231,8 +255,9 @@
                                 curr: 1
                             }
                         });
-
                         break;
+
+                        //批量删除
                     case 'deleteAll':
                         var data = checkStatus.data;
                         if(data.length==0){
@@ -259,6 +284,8 @@
                         break;
                 }
             });
+
+
             //给表格编辑，删除按钮添加点击事件
             table.on('tool(userTable)', function(obj) {
                 var data = obj.data;//得到删除行整行的数据
@@ -272,8 +299,6 @@
                     });
                 } else if (obj.event === 'edit') {
                     form.val('editform',$.parseJSON(JSON.stringify(data)));
-
-
                     var index = layer.open({
                         type: 1,
                         title: '修改权益数据',
@@ -287,12 +312,18 @@
                 };
             })
         });
+
+
+        //取消按钮点击事件
         function myclose() {
             parent.layer.closeAll();
         }
 
+
     </script>
 </head>
+
+
 <body style="overflow: auto; background-color: white;"
       class="layui-view-body layui-content">
 <div>
@@ -315,7 +346,7 @@
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">证券名称</label>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入证券名称" name="securityName">
+                <input class="layui-input" placeholder="请输入证券名称" name="securityName" id="securityName">
             </div>
         </div>
 
