@@ -33,7 +33,7 @@ public class TaInventoryServiceImpl implements TaInventoryService {
      * @return
      */
     @Override
-    public Map<String, Object> selectTaInventory(String pageSize, String page) {
+    public Map<String, Object> selectTaInventory(String pageSize, String page ,String dateTime) {
         //创建一个结果集Map用于存放两个结果变量
         Map<String,Object> resultMap=new HashMap<>();
         //定义一个分页条数变量
@@ -50,12 +50,20 @@ public class TaInventoryServiceImpl implements TaInventoryService {
             //通过Integer包装类将String类型转换成int基础数据类型
             v_page=Integer.parseInt(page);
         }
+        String sql="";
+
+        System.out.println("dateTime"+dateTime);
+
+        if(dateTime!=null && !dateTime.equals("")){
+            sql=sql+" and dateTime='"+dateTime+"'";
+        }
+
         //创建一个Map，用于存储过程的调用传值
         Map<String,Object> map=new HashMap<>();
         //传入存储过程需要查询的表名
         map.put("p_tableName","taInventory");
         //传入查询条件
-        map.put("p_condition","");
+        map.put("p_condition",sql);
         //传入分页显示条数
         map.put("p_pageSize",v_pageSize);
         //传入分页页码

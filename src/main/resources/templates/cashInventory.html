@@ -26,7 +26,8 @@
     <!--工具条-->
     <script type="text/html" id="cashInventoryToolBar">
         <div style="float:right">
-            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
+            <input type="checkbox" lay-event="initialSigns" title="是否为期初数据" lay-filter="initialSigns">&nbsp&nbsp&nbsp&nbsp
+            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add" id="addbtn"><i
                     class="layui-icon">&#xe654;</i>添加数据</button>
             <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll"><i
                     class="layui-icon">&#xe640;</i>批量删除</button>
@@ -37,16 +38,16 @@
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户名称</label>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input"  autocomplete="off" placeholder="账户名称" name="name" id="name">
+                <input class="layui-input"  autocomplete="off" placeholder="账户名称" id="accountId">
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">统计日期</label>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input"  autocomplete="off" placeholder="请输入统计日期" name="dateTime" id="dateTime">
+                <input class="layui-input"  autocomplete="off" placeholder="请输入统计日期"  id="dateTime">
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <a class="layui-btn"  lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</a>
             </div>
         </form>
     </script>
@@ -63,6 +64,7 @@
             var laydate = layui.laydate;
 
             //执行一个laydate实例
+            //时间下拉表
             laydate.render({
                 elem: '#dateTime' //指定元素
             });
@@ -72,7 +74,7 @@
             laydate.render({
                 elem: '#dateTime2' //指定元素
             });
-
+            //数据表格
             table.render({
                 elem: '#cashInventoryTable',
                 url: '../cashInventory/select',
@@ -95,10 +97,22 @@
                     ]
                 ]
             });
+            //期初数据选中
+            form.on('checkbox(initialSigns)', function(data){
+                var addbtn = document.getElementById('addbtn');
+                if(data.elem.checked){
+                    addbtn.classList.remove("layui-btn-disabled")
+                    addbtn.setAttribute("lay-event","add")
 
+                }else{
+                    addbtn.classList.add("layui-btn-disabled")
+                    addbtn.setAttribute("lay-event","")
+                }
+            });
             //新增提交
             form.on('submit(addsubmit)', function(data){
                 var formData=$('#addform').serialize();
+                alert("增加");
                 $.post("../cashInventory/insert",formData,function(msg){
                     if(msg>0){
                         table.reload('cashInventoryTable');
@@ -172,23 +186,25 @@
                         layer.full(index);
                         break;
                     case 'search':
-                        alert("搜索");
-                        var userName= $("#userName").val();
+                        // alert("搜索");
+                        var accountId5= $("#accountId").val();
+                        var dateTime5= $("#dateTime").val();
+                        alert(dateTime5);
                         //表格的重新加载事件
-                        table.reload('cashInventoryTable', {
+                        table.reload('cashInventoryTable',{
                             method: 'post'
                             , where: {
-                                'userName': userName
+                                'accountId': accountId5,
+                                'dateTime': dateTime5
                             }
                             , page: {
                                 curr: 1
                             }
                         });
-
                         break;
                     case 'deleteAll':
                         var data = checkStatus.data;
-                        //    layer.alert(JSON.stringify(data));
+                           layer.alert(JSON.stringify(data));
                         if(data.length==0){
                             layer.msg("请至少选择一条数据",)
                         }else
@@ -245,7 +261,7 @@
 
         });
         function myclose() {
-            parent.layer.closeAll();
+            layer.closeAll();
         }
     </script>
 </head>
@@ -330,7 +346,7 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="text-align: center">现金账户ID</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input  type="text" class="layui-input" placeholder="现金账户ID" name="accountId" id="accountId" readonly>
+                    <input  type="text" class="layui-input" placeholder="现金账户ID" name="accountId"  readonly>
                 </div>
             </div>
         </div>

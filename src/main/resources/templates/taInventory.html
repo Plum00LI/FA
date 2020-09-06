@@ -26,7 +26,8 @@
     <!--工具条-->
     <script type="text/html" id="taInventoryToolBar">
         <div style="float:right">
-            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
+            <input type="checkbox" lay-event="initialSigns" title="是否为期初数据" lay-filter="initialSigns">&nbsp&nbsp&nbsp&nbsp
+            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add" id="addBtn"><i
                     class="layui-icon">&#xe654;</i>添加数据</button>
             <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll"><i
                     class="layui-icon">&#xe640;</i>批量删除</button>
@@ -37,10 +38,10 @@
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">统计日期</label>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input"  autocomplete="off" placeholder="请输入统计日期" name="dateTime" id="dateTime3">
+                <input class="layui-input"  autocomplete="off" placeholder="请输入统计日期"  id="dateTime">
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <a class="layui-btn"  lay-submit="" lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</a>
             </div>
         </form>
     </script>
@@ -65,6 +66,18 @@
             });
             laydate.render({
                 elem: '#dateTime3' //指定元素
+            });
+            // 期初数据选中
+            form.on('checkbox(initialSigns)', function(data){
+                var addbtn = document.getElementById('addBtn');
+                if(data.elem.checked){
+                    addbtn.classList.remove("layui-btn-disabled")
+                    addbtn.setAttribute("lay-event","add")
+
+                }else{
+                    addbtn.classList.add("layui-btn-disabled")
+                    addbtn.setAttribute("lay-event","")
+                }
             });
             //新增提交
             form.on('submit(addsubmit)', function(data){
@@ -94,6 +107,7 @@
                 });
                 return false;
             });
+
             //修改提交
             form.on('submit(editsubmit)', function(data){
                 var formData=$('#editform').serialize();
@@ -162,18 +176,18 @@
                         break;
                     case 'search':
                         alert("搜索");
-                        var userName= $("#userName").val();
+                        var dateTime= $("#dateTime").val();
+                        alert(dateTime);
                         //表格的重新加载事件
                         table.reload('taInventoryTable', {
                             method: 'post'
                             , where: {
-                                'userName': userName
+                                'dateTime': dateTime
                             }
                             , page: {
                                 curr: 1
                             }
                         });
-
                         break;
                     case 'deleteAll':
                         var data = checkStatus.data;
@@ -234,7 +248,7 @@
 
         });
         function myclose() {
-            parent.layer.closeAll();
+            layer.closeAll();
         }
     </script>
 </head>

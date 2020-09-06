@@ -11,6 +11,7 @@ public class EquityData {
     private String equityDataId;//权益ID（隐藏字段）
     private String dateTime;//业务日期
     private String securityId;//证券Id
+    private String securitiesName;//证券名称
     private String equitiesRecord;//权益登记日
     private String equitiesExright;//权益除权日
     private String receivedDate;//到账日期
@@ -19,6 +20,20 @@ public class EquityData {
     private int disposeStatus;//处理状态   0.未处理   1.已处理
 
     public EquityData() {
+    }
+
+    public EquityData(String equityDataId, String dateTime, String securityId, String securitiesName, String equitiesRecord,
+                      String equitiesExright, String receivedDate, int equitiesType, int proportion, int disposeStatus) {
+        this.equityDataId = equityDataId;
+        this.dateTime = dateTime;
+        this.securityId = securityId;
+        this.securitiesName = securitiesName;
+        this.equitiesRecord = equitiesRecord;
+        this.equitiesExright = equitiesExright;
+        this.receivedDate = receivedDate;
+        this.equitiesType = equitiesType;
+        this.proportion = proportion;
+        this.disposeStatus = disposeStatus;
     }
 
     public EquityData(String equityDataId, String dateTime, String securityId, String equitiesRecord,
@@ -56,6 +71,14 @@ public class EquityData {
 
     public void setSecurityId(String securityId) {
         this.securityId = securityId;
+    }
+
+    public String getSecuritiesName() {
+        return securitiesName;
+    }
+
+    public void setSecuritiesName(String securitiesName) {
+        this.securitiesName = securitiesName;
     }
 
     public String getEquitiesRecord() {

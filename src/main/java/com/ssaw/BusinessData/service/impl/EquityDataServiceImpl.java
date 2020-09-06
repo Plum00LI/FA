@@ -3,6 +3,7 @@ package com.ssaw.BusinessData.service.impl;
 import com.ssaw.BusinessData.entity.EquityData;
 import com.ssaw.BusinessData.mapper.EquityDataMapper;
 import com.ssaw.BusinessData.service.EquityDataService;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -79,10 +80,15 @@ public class EquityDataServiceImpl implements EquityDataService {
         }
 
 
+        String p_tableName = "(select * from " + SysTableNameListUtil.ED +" e " +
+                        "join (select securitiesName,securitiesId from "+SysTableNameListUtil.SE+" ) s " +
+                        "on e.SECURITYID=s.securitiesId)";
+
+
         //创建一个Map，用于存储过程的调用传值
         Map<String,Object> map = new HashMap<>();
         //传入存储过程需要的查询的表名
-        map.put("p_tableName","equityData");
+        map.put("p_tableName",p_tableName);
         //传入查询条件
         map.put("p_condition",sqlWhere.toString());
         //传入分页显示条数

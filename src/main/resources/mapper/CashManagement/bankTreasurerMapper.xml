@@ -4,20 +4,23 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.CashManagement.mapper.BankTreasurerMapper">
     <insert id="insertBankTreasurer">
-        insert into bankTreasurer(treasurerId,fundId,totalPrice,accountId,flag,dbTime,dateTime,businessId,allocatingType,bankTreasurerDesc)
-        values (#{treasurerId},#{fundId},#{totalPrice},#{accountId},#{flag},#{dbTime},#{dateTime},#{businessId},#{allocatingType},#{bankTreasurerDesc})
+        insert into bankTreasurer(bankTreasurerId,fundId,totalPrice,accountId,flag,dbTime,dateTime,businessId,allocatingType,bankTreasurerDesc)
+        values (#{bankTreasurerId},#{fundId},#{totalPrice},#{accountId},#{flag},#{dbTime},#{dateTime},#{businessId},#{allocatingType},#{bankTreasurerDesc})
     </insert>
     <update id="updateBankTreasurer">
-        	UPDATE bankTreasurer SET accountId=#{accountId}, totalPrice=#{totalPrice},
-		allocatingType=#{allocatingType},flag=#{flag},dbTime = #{dbTime},
-		bankTreasurerDesc = #{bankTreasurerDesc}  WHERE treasurerId=#{treasurerId}
+        	UPDATE bankTreasurer SET  accountId=#{accountId},
+		totalPrice=#{totalPrice},allocatingType=#{allocatingType},flag=#{flag},
+		dbTime=#{dbTime},bankTreasurerDesc=#{bankTreasurerDesc}  WHERE bankTreasurerId=#{bankTreasurerId}
     </update>
-    <delete id="deleteBankTreasurer">
-            delete from bankTreasurer where treasurerId=#{treasurerId}
+    <delete id="deleteBankTreasurer" parameterType="list">
+            delete from bankTreasurer where bankTreasurerId in
+            <foreach collection="list" item="bankTreasurerId" open="(" separator="," close=")">
+                #{bankTreasurerId}
+            </foreach>
     </delete>
 
     <resultMap id="bankTreasurerMap" type="com.ssaw.CashManagement.entity.BankTreasurer">
-        <result property="treasurerId" column="treasurerId" javaType="String"></result>
+        <result property="bankTreasurerId" column="bankTreasurerId" javaType="String"></result>
         <result property="fundId" column="fundId" javaType="String"></result>
         <result property="totalPrice" column="totalPrice" javaType="Double"></result>
         <result property="accountId" column="accountId" javaType="String"></result>

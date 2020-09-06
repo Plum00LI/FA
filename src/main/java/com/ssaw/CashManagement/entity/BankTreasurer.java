@@ -8,13 +8,13 @@ package com.ssaw.CashManagement.entity;
 *@create:2020-09-01
 */
 public class BankTreasurer {
-    private String bankTreasurerId;//资金调拨Id
-    private String fundId;//基金编号
+    private String bankTreasurerId;//资金调拨Id wu
+    private String fundId;//基金编号 wu
     private double totalPrice;//调拨总数额
     private String accountId;//现金账户Id
     private int flag;//调拨方向1代表流入-1代表流出
     private String dbTime;//调拨日期
-    private String dateTime;//业务日期
+    private String dateTime;//业务日期 wu
     private String businessId;//业务标号
     private int allocatingType;//调拨类型
     private String bankTreasurerDesc;//备注
@@ -22,7 +22,19 @@ public class BankTreasurer {
     public BankTreasurer() {
     }
 
-
+    public BankTreasurer(String bankTreasurerId, String fundId, double totalPrice, String accountId, int flag, String dbTime, String dateTime, String businessId, int allocatingType, String bankTreasurerDesc, String accountName) {
+        this.bankTreasurerId = bankTreasurerId;
+        this.fundId = fundId;
+        this.totalPrice = totalPrice;
+        this.accountId = accountId;
+        this.flag = flag;
+        this.dbTime = dbTime;
+        this.dateTime = dateTime;
+        this.businessId = businessId;
+        this.allocatingType = allocatingType;
+        this.bankTreasurerDesc = bankTreasurerDesc;
+        this.accountName = accountName;
+    }
 
     public BankTreasurer(String bankTreasurerId, String fundId, double totalPrice, String accountId, int flag, String dbTime, String dateTime, String businessId, int allocatingType, String bankTreasurerDesc) {
         this.bankTreasurerId = bankTreasurerId;

@@ -10,8 +10,10 @@ package com.ssaw.BusinessData.entity;
 public class Deposit {
     private String depositId;//存款业务Id
     private String fundId;//基金Id
-    private String outAccountId;//流出现金账户
-    private String inAccountId;//流入现金账户
+    private String outAccountId;//流出现金账户Id
+    private String outAccountName;//流出现金账户名称
+    private String inAccountId;//流入现金账户Id
+    private String intAccountName;//流入现金账户名称
     private int directionOfMoney;//资金调拨方向1代表流入-1代表流出
     private String businessDate;//业务时间
     private int businessType;//业务类型 1代表定期三天2代表七天3代表活期
@@ -22,6 +24,23 @@ public class Deposit {
     private String depositDesc;//备注
 
     public Deposit() {
+    }
+
+    public Deposit(String depositId, String fundId, String outAccountId, String outAccountName, String inAccountId, String intAccountName, int directionOfMoney, String businessDate, int businessType, double money, double interest, String endDate, int flag, String depositDesc) {
+        this.depositId = depositId;
+        this.fundId = fundId;
+        this.outAccountId = outAccountId;
+        this.outAccountName = outAccountName;
+        this.inAccountId = inAccountId;
+        this.intAccountName = intAccountName;
+        this.directionOfMoney = directionOfMoney;
+        this.businessDate = businessDate;
+        this.businessType = businessType;
+        this.money = money;
+        this.interest = interest;
+        this.endDate = endDate;
+        this.flag = flag;
+        this.depositDesc = depositDesc;
     }
 
     public Deposit(String depositId, String fundId, String outAccountId, String inAccountId, int directionOfMoney, String businessDate, int businessType, double money, double interest, String endDate, int flag, String depositDesc) {
@@ -37,6 +56,22 @@ public class Deposit {
         this.endDate = endDate;
         this.flag = flag;
         this.depositDesc = depositDesc;
+    }
+
+    public String getOutAccountName() {
+        return outAccountName;
+    }
+
+    public void setOutAccountName(String outAccountName) {
+        this.outAccountName = outAccountName;
+    }
+
+    public String getIntAccountName() {
+        return intAccountName;
+    }
+
+    public void setIntAccountName(String intAccountName) {
+        this.intAccountName = intAccountName;
     }
 
     public String getDepositId() {

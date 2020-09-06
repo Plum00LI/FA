@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 *@program:TescComment
@@ -17,7 +18,7 @@ import java.util.List;
 @Service
 @Transactional
 public interface DepositService {
-    public List<DepositMapper> selectDeposit();
+    public Map<String,Object> selectDeposit(String pageSize,String page);
     public int insertDeposit(Deposit deposit);
     public int deleteDeposit(int depositId);
 }
