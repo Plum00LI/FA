@@ -158,11 +158,11 @@
                         ,{field: 'accountName', title: '现金账户名称', width:120,align:'center'}
                         ,{field: 'allocatingType', title: '调拨类型', width:120,align:'center',
                         templet:function (item) {
-                            if (item.procisionDays==1){
+                            if (item.allocatingType==1){
                                 return '存款利息';
-                            }else if (item.procisionDays==2){
+                            }else if (item.allocatingType==2){
                                 return '申购赎回清算款';
-                            }else if (item.procisionDays==3){
+                            }else if (item.allocatingType==3){
                                 return '买卖交易清算款';
                             }
                             return '债券利息'
@@ -170,7 +170,7 @@
                     }
                         ,{field: 'flag', title: '调拨方向', width: 120,align:'center',
                         templet:function (item) {
-                            if (item.allocatingType==1){
+                            if (item.flag==1){
                                 return '流入';
                             }
                             return  '流出';

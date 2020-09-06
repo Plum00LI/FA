@@ -31,8 +31,8 @@
                 <div class="layui-inline layui-show-xs-block" style="text-align: center">
                     <select name="businessType" id="businessType">
                         <option value="">请选择业务类型</option>
-                        <option value="1">三天存款</option>
-                        <option value="2">七天存款</option>
+                        <option value="1">定期三天</option>
+                        <option value="2">定期七天</option>
                         <option value="3">活期存款</option>
                     </select>
                 </div>
@@ -129,7 +129,7 @@
             });
             table.render({
                 elem: '#userTable',
-                url: './selectUser',
+                url: '../selectDeposit',
                 page: true,
                 height: 498,
                 toolbar: '#userToolBar',//显示在表头的工具条
@@ -138,15 +138,44 @@
                 height:'full-70',
                 cols: [
                     [ //表头
-                    {field: 'id', title: '基金Id', width:110,align:'center'}
-                    ,{field: 'id', title: '流出账户Id', width:150,align:'center'}
-                    ,{field: 'username', title: '流出账户', width:165,align:'center'}
-                    ,{field: 'experience', title: '流入账户Id', width: 150,align:'center'}
-                    ,{field: 'sex', title: '流入账户', width:165,align:'center'}
-                    ,{field: 'score', title: '业务类型', width: 145,align:'center'}
-                    ,{field: 'city', title: '存款金额', width:160,align:'center'}
-                    ,{field: 'city', title: '到期日期', width:150,align:'center'}
-                    ,{field: 'city', title: '是否处理', width:145,align:'center'}
+                     {field: 'depositId', title: '存款业务Id', width:110,align:'center',hide:true}
+                    ,{field: 'fundId', title: '基金Id', width:110,align:'center',hide:true}
+                    ,{field: 'outAccountId', title: '流出账户Id', width:150,align:'center',hide:true}
+                    ,{field: 'outAccountName', title: '流出账户名称', width:165,align:'center'}
+                    ,{field: 'inAccountId', title: '流入账户Id', width: 150,align:'center',hide:true}
+                    ,{field: 'intAccountName', title: '流入账户名称', width:165,align:'center'}
+                    ,{field: 'money', title: '存款金额', width: 145,align:'center'}
+                     ,{field: 'interest', title: '所含利息', width:150,align:'center',hide:true}
+                    ,{field: 'businessType', title: '业务类型', width:160,align:'center',
+                        templet:function (item) {
+                            if (item.businessType==1){
+                                return '定期三天';
+                            }else if (item.businessType==2){
+                                return '定期七天';
+                            }
+                            return  '活期存款';
+                        }
+
+                    }
+                     ,{field: 'directionOfMoney', title: '调拨方向', width:150,align:'center',hide:true,
+                        templet:function (item) {
+                            if (item.directionOfMoney==1){
+                                return '流入';
+                            }
+                            return  '流出';
+                        }
+                    }
+                    ,{field: 'businessDate', title: '业务时间', width:150,align:'center',hide:true}
+                    ,{field: 'endDate', title: '到期日期', width:150,align:'center'}
+                    ,{field: 'flag', title: '是否处理', width:145,align:'center',
+                        templet:function (item) {
+                            if (item.flag==0){
+                                return '未办理';
+                            }
+                            return  '已办理';
+                        }
+
+                    }
                     ,{field: 'right', title: '操作',width: 180, align:'center', toolbar: '#barDemo'}
                 ]
                 ]
