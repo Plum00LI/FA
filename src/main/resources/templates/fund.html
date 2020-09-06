@@ -57,14 +57,15 @@
 
     <script type="text/javascript">
 
-        layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
+        layui.use([ 'element', 'form', 'table', 'layer','dynamicCondition','tableSelect','laydate'], function () {
             var layer = layui.layer;
             var $ = layui.$;
             var table = layui.table;
             var form = layui.form;
             var formSelects = layui.formSelects;
             var laydate = layui.laydate;
-
+            var dynamicCondition=layui.dynamicCondition;
+            var tableSelect = layui.tableSelect;
             //执行一个laydate实例
             laydate.render({
                 elem: '#start' //指定元素
@@ -159,8 +160,24 @@
                             if(item.fundType=='2') {return '封闭式';
                             } else if(item.fundType=='1'){ return '开放式';
                             }
-                        }}
+                        }},
+                        {
+                            field : 'provisionDays',
+                            title:'计提天数',
+                            hide:true,
+                            align: 'center',
+                            templet :function(items){
+                                if(items.provisionDays==1){
+                                    return '360';
+                                }
+                                if(items.provisionDays==2){
+                                    return '365';
+                                }
+                                return '366';
+                            }
+                        },
                     ,{field: 'operation', title: '操作' , width: 240, align:'center',toolbar:'#barDemo'}
+
                 ]
                 ]
             });
@@ -257,6 +274,9 @@
                 };
             })
         });
+
+
+
     </script>
 </head>
 <body style="overflow: auto; background-color: white;"
@@ -493,4 +513,5 @@
 
 
 </body>
+
 </html>

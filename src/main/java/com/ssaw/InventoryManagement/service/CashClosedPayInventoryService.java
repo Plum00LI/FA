@@ -17,5 +17,5 @@ public interface CashClosedPayInventoryService {
     public int insertCashClosedPayInventory(CashClosedPayInventory cashClosedPayInventory);
     public int deleteCashClosedPayInventory(String cashClosedPayInventoryId);
     public int updateCashClosedPayInventory(CashClosedPayInventory cashClosedPayInventory);
-    public Map<String,Object> selectCashClosedPayInventory(String pageSize,String page);
+    public Map<String,Object> selectCashClosedPayInventory(String pageSize,String page,String businessType,String businessDate);
 }

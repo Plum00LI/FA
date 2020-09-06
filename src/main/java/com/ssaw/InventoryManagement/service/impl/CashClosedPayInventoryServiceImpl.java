@@ -1,6 +1,7 @@
 package com.ssaw.InventoryManagement.service.impl;
 
 import com.ssaw.BusinessData.entity.EquityData;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.InventoryManagement.entity.CashClosedPayInventory;
 import com.ssaw.InventoryManagement.mapper.CashClosedPayInventoryMapper;
 import com.ssaw.InventoryManagement.service.CashClosedPayInventoryService;
@@ -49,7 +50,7 @@ public class CashClosedPayInventoryServiceImpl implements CashClosedPayInventory
     }
 
     @Override
-    public Map<String, Object> selectCashClosedPayInventory(String pageSize, String page) {
+    public Map<String, Object> selectCashClosedPayInventory(String pageSize, String page,String businessType,String businessDate) {
         //创建一个结果集Map用于存放两个结果变量
         Map<String, Object> resultMap = new HashMap<>();
         //定义一个分页条数变量
@@ -68,16 +69,28 @@ public class CashClosedPayInventoryServiceImpl implements CashClosedPayInventory
         }
 
 
+        int v_businessType = 0;
+        StringBuffer sqlWhere=new StringBuffer();
+        if(businessDate != null && !businessDate.equals("")){
+            sqlWhere.append(" AND businessDate LIKE  '%"+businessDate+"%'" );
+        }
+        if(businessType != null && !businessType.equals("")){
+            v_businessType=Integer.parseInt(businessType);
+            sqlWhere.append(" AND businessType LIKE  '%"+v_businessType+"%'" );
+        }
 
 
+        String v_tableName = "(select * from " + SysTableNameListUtil.CCPI +" c " +
+                              "join (select fundName,fundId from "+SysTableNameListUtil.F+" ) f " +
+                                "on c.fundId=f.fundId)";
 
 
         //创建一个Map，用于存储过程的调用传值
         Map<String,Object> map = new HashMap<>();
         //传入存储过程需要的查询的表名
-        map.put("p_tableName","cashClosedPayInventory");
+        map.put("p_tableName",v_tableName);
         //传入查询条件
-        map.put("p_condition","");
+        map.put("p_condition",sqlWhere.toString());
         //传入分页显示条数
         map.put("p_pageSize",v_pageSize);
         //传入分页页码

@@ -3,6 +3,7 @@ package com.ssaw.TAManagement.mapper;
 import com.ssaw.TAManagement.entity.TaTransaction;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,7 +33,7 @@ public interface TaTransactionMapper {
      * 删除基金信息
      * @param taTransactionId
      */
-     void deleteTaTransaction(String taTransactionId);
+     int  deleteTaTransaction(List taTransactionId);
     /**
      * 修改基金信息
      * @param tatransaction
