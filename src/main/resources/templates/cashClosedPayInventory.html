@@ -25,7 +25,7 @@
     <script type="text/html" id="userToolBar">
         <div style="float:right">
             <input type="checkbox" lay-event="initialSigns" title="是否为期初数据" lay-filter="initialSigns">&nbsp&nbsp&nbsp&nbsp
-            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm " lay-event="add" id="addbtn"><i
+            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm layui-btn-disabled" lay-event="add" id="addbtn"><i
                     class="layui-icon">&#xe654;</i>添加数据</button>
             <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll"><i
                     class="layui-icon">&#xe640;</i>批量删除</button>
@@ -36,11 +36,11 @@
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">业务类型</label>
                 <div class="layui-inline layui-show-xs-block">
                     <select name="businessType" id="businessType">
-                        <option>请选择</option>
-                        <option>管理费</option>
-                        <option>托管费</option>
-                        <option>存款利息</option>
-                        <option>申购赎回费</option>
+                        <option value="">请选择</option>
+                        <option value="1">管理费</option>
+                        <option value="2">托管费</option>
+                        <option value="3">存款利息</option>
+                        <option value="4">申购赎回费</option>
                     </select>
                 </div>
             </div>
@@ -227,8 +227,6 @@
                             method: 'post'
                             , where: {
                                 'businessType': businessType,
-                            }
-                            , where: {
                                 'businessDate': businessDate,
                             }
                             , page: {

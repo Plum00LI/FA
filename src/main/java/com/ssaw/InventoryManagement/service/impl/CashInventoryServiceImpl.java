@@ -38,7 +38,7 @@ public class CashInventoryServiceImpl implements CashInventoryService {
      * @return  查询的结果集Map
      */
     @Override
-    public Map<String, Object> selectCashInventory(String pageSize, String page,String accountName,String dateTime) {
+    public Map<String, Object> selectCashInventory(String pageSize, String page,String accountId,String dateTime) {
         //创建一个结果集Map用于存放两个结果变量
         Map<String,Object> resultMap=new HashMap<>();
         //定义一个分页条数变量
@@ -55,21 +55,31 @@ public class CashInventoryServiceImpl implements CashInventoryService {
             //通过Integer包装类将String类型转换成int基础数据类型
             v_page=Integer.parseInt(page);
         }
-        //定义变量确定条件
-        StringBuffer sqlWhere=new StringBuffer();
-        //账户名称
-        sqlWhere.append(" and accountName like '%"+accountName+"%'");
+        //输出测试
+        String sql="";
 
-
+        System.out.println("accountID+"+accountId);
+        System.out.println("dateTime"+dateTime);
+        //日期
+        if(dateTime!=null && !dateTime.equals("")){
+            sql=sql+" and dateTime='"+dateTime+"'";
+        }
+        //现金账户
+        if(accountId!=null && !accountId.equals("")){
+            sql=sql+" and accountId like '%"+accountId+"%'";
+        }
 
         //创建一个Map，用于存储过程的调用传值
         Map<String,Object> map=new HashMap<>();
-        String p_tableName="(select c.cashInventoryId,c.fundId,c.cashBlance,c.accountId,c.dateTime,c.securitiesNum,c.securityPeriodFlag,c.cashInventoryDesc,a.accountName "+
+        String p_tableName="( select c.cashInventoryId,c.fundId,c.cashBlance,c.accountId,c.dateTime,c.securitiesNum,c.securityPeriodFlag,c.cashInventoryDesc,a.accountName "+
         " from " + SysTableNameListUtil.CI+" c join "+SysTableNameListUtil.A +" a on c.accountId=a.accountId)";
+
+        System.out.println(sql);
+        System.out.println(p_tableName);
         //传入存储过程需要查询的表名
         map.put("p_tableName",p_tableName);
         //传入查询条件
-        map.put("p_condition","");
+        map.put("p_condition",sql);
         //传入分页显示条数
         map.put("p_pageSize",v_pageSize);
         //传入分页页码

@@ -16,7 +16,7 @@ import java.util.List;
  * @return
  */
 @Service
-
+@Transactional
 public interface ValueStatisticsService {
     /**
      * 净值统计新增统计方法

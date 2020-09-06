@@ -3,6 +3,8 @@ package com.ssaw.CashManagement.controller;
 import com.ssaw.BusinessDescription.entity.Account;
 import com.ssaw.CashManagement.entity.BankTreasurer;
 import com.ssaw.CashManagement.service.BankTreasurerService;
+import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,11 +24,13 @@ import java.util.Map;
 public class BankTreasurerController {
     @Resource
     BankTreasurerService bankTreasurerService;
+    @Resource
+    DbUtil dbUtil;
 
     @RequestMapping("selectBankTreasurer")
-    public Map<String,Object> selectAccount(String page, String limit){
+    public Map<String,Object> selectAccount(String page, String limit,String allocatingType,String flag,String dbTime){
         //调用Service层执行查询，接收返回结果集Map
-        Map<String, Object> map = bankTreasurerService.selectBankTreasurer(limit,page);
+        Map<String, Object> map = bankTreasurerService.selectBankTreasurer(limit,page,allocatingType,flag,dbTime);
         //从结果集中拿出结果
         List<BankTreasurer> bankTreasurerList= (List<BankTreasurer>) map.get("bankTreasurerList");
         int count= (int) map.get("count");
@@ -38,5 +42,22 @@ public class BankTreasurerController {
         json.put("data",bankTreasurerList);
         //返回数据
         return json;
+    }
+    @RequestMapping("insertBankTreasurer")
+    public int insertBankTreasurer(BankTreasurer bankTreasurer){
+        bankTreasurer.setBankTreasurerId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.BT));
+        bankTreasurer.setFundId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
+        int i = bankTreasurerService.insertBankTreasurer(bankTreasurer);
+        return i;
+    }
+    @RequestMapping("deleteBankTreasurer")
+    public int deleteBankTreasurer(String bankTreasurerId){
+        System.out.println(bankTreasurerId);
+        return  bankTreasurerService.deleteBankTreasurer(bankTreasurerId);
+    }
+    @RequestMapping("updateBankTreasurer")
+    public int deleteBankTreasurer(BankTreasurer bankTreasurer){
+        int i = bankTreasurerService.updateBankTreasurer(bankTreasurer);
+        return i;
     }
 }

@@ -136,9 +136,13 @@
                 toolbar: '#userToolBar',//显示在表头的工具条
                 minLength:80,
                 cellMinWidth:60,
+                height:'full-70',
                 cols: [
                     [ //表头
                     {type: 'checkbox', fixed: 'left'}
+                    ,{field: 'id', title: '划款指令Id', width:200,align:'center',hide:true}
+                    ,{field: 'id', title: '划款到的账户Id', width:200,align:'center',hide:true}
+                    ,{field: 'id', title: '划款到的账户银行', width:200,align:'center',hide:true}
                     ,{field: 'id', title: '划款账户', width:200,align:'center'}
                     ,{field: 'username', title: '接收账户', width:200,align:'center'}
                     ,{field: 'experience', title: '划款金额', width: 200,align:'center'}
@@ -264,7 +268,7 @@
 
         });
         function myclose() {
-            parent.layer.closeAll();
+            layer.closeAll();
         }
     </script>
 </head>
