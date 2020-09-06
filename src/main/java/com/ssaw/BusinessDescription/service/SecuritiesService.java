@@ -24,16 +24,20 @@ public interface SecuritiesService {
      * 增加
      * @param securities
      */
-    public void insertSecurities(Securities securities);
+    public int insertSecurities(Securities securities);
     /**
      * 单个删除
      *根据证券编号 securitiesId
      */
-    public boolean deleteSecurities(String securitiesId);
+    public void deleteSecurities(String securitiesId);
+    /**
+     * 批量删除
+     */
+    public void deleteSecurities2(String securitiesId);
     /**
      * 修改
-     * 根据证券编号 securitiesId
+     * 根据证券编号
      */
-    public void updateSecurities(Securities securities);
+    public int updateSecurities(Securities securities);
 
 }

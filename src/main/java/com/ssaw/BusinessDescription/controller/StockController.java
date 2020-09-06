@@ -30,12 +30,6 @@ public class StockController {
     @Resource
     StockService stockService;
 
-    @RequestMapping(value = "/insertStock")
-    public void insertStock(Fund fund) {
-        System.out.println("进来了");
-        Stock stock = new Stock("003", "000", "纺织业", "轻工业类");
-        stockService.insertStockParentMsg(stock);
-    }
 //查询
     @RequestMapping(value = "selectStock")
     public Map<String,Object> selectStock() {
@@ -49,5 +43,13 @@ public class StockController {
         return json;
 
     }
+    //增加
+    @RequestMapping(value = "insertStockParentMsg")
+    public int insertStockParentMsg(Stock stock){
+        System.out.println("进入控制层了");
+        int i = stockService.insertStockParentMsg(stock);
+        return i;
+    }
+
 }
 

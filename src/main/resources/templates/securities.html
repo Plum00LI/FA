@@ -1,203 +1,489 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>layui</title>
-    <meta name="renderer" content="webkit">
+    <!--阙魁  交易所品种费率页面-->
+    <title>交易所品种费率</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
-    <link rel="stylesheet" href="../lib/layuimini/css/public.css" media="all">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/xadmin.css">
+    <link rel="stylesheet" href="../css/theme9.css">
+    <script src="../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]-->
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+
+    <link rel="stylesheet" href="../lib/layui/css/layui.css">
+
+
+    <script src="../lib/layui/layui.js"></script>
+    <!--工具条-->
+    <script type="text/html" id="userToolBar">
+        <div style="float:right">
+            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
+                    class="layui-icon">&#xe654;</i>添加数据
+            </button>
+            <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll"><i
+                    class="layui-icon">&#xe640;</i>批量删除
+            </button>
+        </div>
+
+        <form class="layui-form layui-col-space5">
+            <div class="layui-form-item" style="text-align: center;">
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center"> 证券编号</label>
+                <div class="layui-input-inline">
+                    <input type="number" name="securitiesId" lay-verify="required"
+                           autocomplete="off" placeholder="" class="layui-input" id="securitiesId_3">
+                </div>
+                <!--            证券名称-->
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center"> 证券名称</label>
+                <div class="layui-input-inline">
+                    <input name="securitiesName" lay-verify="required"
+                           autocomplete="off" placeholder="" class="layui-input" id="securitiesName_3">
+                </div>
+            </div>
+            <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易所名称</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <select name="exchangeName" id="exchangeName_3">
+                        <option value="">请选择</option>
+                        <option value="1">上交所</option>
+                        <option value="2">深交所</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">债券类型</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <select name="rateType" id="rateType_3">
+                        <option value="">请选择</option>
+                        <option value="1">股票</option>
+                        <option value="2">债券</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline layui-show-xs-block">
+                <button class="layui-btn" lay-submit="" lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索
+                </button>
+            </div>
+        </form>
+    </script>
+
+
+    <script type="text/javascript">
+
+        layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
+            var layer = layui.layer;
+            var $ = layui.$;
+            var table = layui.table;
+            var form = layui.form;
+            var formSelects = layui.formSelects;
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#end' //指定元素
+            });
+
+            //新增提交
+            form.on('submit(addsubmit)', function (data) {
+                var formData = $('#addform').serialize();
+                $.post("/Securities/insertSecurities", formData, function (msg) {
+                    if (msg > 0) {
+                        table.reload('userTable');
+                        layer.closeAll();
+                        layer.msg('添加成功', {
+                            title: '提示',
+                            area: ['200px',
+                                '140px'],
+                            time: 0,
+                            btn: ['知道了']
+                        });
+                    } else {
+                        layer.closeAll();
+                        layer.msg('添加失败', {
+                            title: '提示',
+                            area: ['200px',
+                                '140px'],
+                            time: 0,
+                            btn: ['知道了']
+                        });
+                    }
+                });
+                return false;
+            });
+
+            //修改提交
+            form.on('submit(editsubmit)', function (data) {
+                var formData = $('#editform').serialize();
+                $.post("/Securities/updateSecurities", formData, function (msg) {
+                    if (msg > 0) {
+                        table.reload('userTable');
+                        layer.closeAll();
+                        layer.msg('修改成功', {
+                            title: '提示',
+                            area: ['200px',
+                                '140px'],
+                            time: 0,
+                            btn: ['知道了']
+                        });
+                    } else {
+                        layer.closeAll();
+                        layer.msg('修改失败', {
+                            title: '提示',
+                            area: ['200px',
+                                '140px'],
+                            time: 0,
+                            btn: ['知道了']
+                        });
+                    }
+                });
+                return false;
+            });
+
+            //查询
+            table.render({
+                elem: '#userTable',
+                url: '/Securities/selectSecurities',
+                toolbar: '#userToolBar',
+                defaultToolbar: ['filter', 'exports', 'print'],
+                height:'full-170',
+                cellMinWidth:60,
+                cols: [
+                    [
+                        {type: "checkbox", width: 50},
+                        {field: 'securitiesId', title: '证券编号', sort: true},
+                        {field: 'securitiesName', title: '证券名称'},
+                        {field: 'securitiesType', title: '证券类型', sort: true,
+                            templet:function (item) {
+                                if (item.securitiesType=="1"){
+                                    return '债券';
+                                }else if (item.securitiesType=="2"){
+                                    return '股票';
+                                }
+                            }
+                        },
+                        {field: 'issueDate', title: '发行日期'},
+                        {field: 'delayDate', title: '延迟日期'},
+                        {field: 'stockName', title: '股票板块', sort: true},
+                        {field: 'exchange', title: '交易所', sort: true,
+                            templet:function (item) {
+                                if (item.exchange=="1"){
+                                    return '上交所';
+                                }else if (item.exchange=="2"){
+                                    return '深交所';
+                                }
+                            }
+                        },
+                        {field: 'securitiesDesc', title: '备注', sort: true},
+                        {title: '操作', minWidth: 100, toolbar: '#barDemo', align: "center"}
+                    ]
+                ],
+                limits: [10, 15, 20, 25, 50, 100],
+                limit: 15,
+                page: true,
+                skin: 'line'
+            });
+
+            //给工具条的按钮添加事件
+            table.on('toolbar(userTable)', function (obj) {
+                //获取选中复选框的对象，
+                var checkStatus = table.checkStatus(obj.config.id);//得到表格选中行的ID
+                switch (obj.event) {
+                    case 'add':
+                        var index = layer.open({
+                            type: 1,
+                            title: '添加数据信息',
+                            closeBtn: 1,
+                            move: false,
+                            content: $("#addContent"),
+                            btn: []
+                        });
+                        form.render();
+                        //全屏
+                        layer.full(index);
+                        break;
+                    case 'search':
+                        alert("搜索");
+                        var securitiesIds = $("#securitiesId_3").val();
+                        var securitiesNames = $("#securitiesNames_3").val();
+                        var securitiesTypes = $("#exchangeName_3").val();
+                        var exchanges =  $("#rateType_3").val();
+                        //表格的重新加载事件
+                        table.reload('userTable', {
+                            method: 'post'
+                            , where: {
+                                'securitiesIds': securitiesIds,
+                                'securitiesNames': securitiesNames,
+                                'securitiesTypes': securitiesTypes,
+                                'exchanges': exchanges
+                            }
+                            , page: {
+                                curr: 1
+                            }
+                        });
+                        break;
+                    case 'deleteAll':
+                        var data = checkStatus.data;
+                        //    layer.alert(JSON.stringify(data));
+                        if (data.length == 0) {
+                            layer.msg("请至少选择一条数据",)
+                        } else {
+                            var securitiesIds = [];
+                            for (var i = 0; i < data.length; i++) {
+                                securitiesIds.push(data[i].securitiesId);
+                            }
+                            layer.confirm('真的删除行么', {icon: 2}, function (index) {
+                                layer.close(index);
+                                $.post("/Securities/deleteSecurities2", {securitiesId: securitiesIds.join(',')}, function (msg) {
+                                    table.reload('userTable');
+                                    layer.msg('删除' + checkStatus.data.length + '条记录', {
+                                        title: '提示',
+                                        area: ['200px', '140px'],
+                                        time: 0,
+                                        btn: ['知道了']
+                                    });
+                                });
+                            });
+                        }
+                        break;
+                }
+            });
+            //给表格编辑，删除按钮添加点击事件
+            table.on('tool(userTable)', function (obj) {
+                var data = obj.data;//得到删除行整行的数据
+                alert(data.securitiesId);
+                if (obj.event === 'del') {
+                    layer.confirm('真的删除行么', {icon: 2}, function (index) {
+                        layer.close(index);
+                        $.post("../Securities/deleteSecurities",{securitiesId: data.securitiesId}, function (msg) {
+                            table.reload('userTable');
+                        });
+
+                    });
+                } else if (obj.event === 'edit') {
+                    alert(JSON.stringify(data));
+                    form.val('editform', $.parseJSON(JSON.stringify(data)));
+                    var index = layer.open({
+                        type: 1,
+                        title: '修改证券信息',
+                        closeBtn: 1,
+                        move: false,
+                        area: ['500px', '400px'],
+                        content: $('#editContent')
+                    });
+
+                    form.render();
+                    layer.full(index);
+                };
+            })
+        });
+        function myclose() {
+            parent.layer.closeAll();
+        }
+    </script>
 </head>
-<body>
-<div class="layuimini-container">
-    <div class="layuimini-main">
-
-        <fieldset class="table-search-fieldset">
-            <legend>搜索信息</legend>
-            <div style="margin: 10px 10px 10px 10px">
-                <form class="layui-form layui-form-pane" action="">
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">证券编号</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="username" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">证券名称</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="city" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">证券类型</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="classify" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </fieldset>
-
-        <script type="text/html" id="toolbarDemo">
-            <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
-                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>
-            </div>
-        </script>
-
-        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
-
-        <script type="text/html" id="currentTableBar">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-        </script>
+<body style="overflow: auto; background-color: white;"
+      class="layui-view-body layui-content">
+<div>
+    <!--表格-->
+    <table id="userTable" lay-filter="userTable" ></table>
+    <!--工具条-->
+    <div style="display: none;" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit"><i
+                class="layui-icon">&#xe642;</i>编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                class="layui-icon">&#xe640;</i>删除</a>
 
     </div>
 </div>
-<script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-<script type="text/javascript">
-    layui.use(['form', 'table'], function () {
-        var $ = layui.jquery,
-            form = layui.form,
-            table = layui.table;
+<!--增加的div内容-->
+<div id="addContent"
+     style="display: none; height: 100%; height: 100%; text-align: center;">
+    <form id="addform" lay-filter="addform"
+          class="layui-form layui-form-pane"
+          style="margin: 30px auto; display: inline-block;">
+<!--        证券编号-->
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label layui-bg-green"> 证券编号</label>
+            <div class="layui-input-inline">
+                <input type="number" name="securitiesId" lay-verify="required"
+                       autocomplete="off" placeholder="" class="layui-input">
+            </div>
+<!--            证券名称-->
+            <label class="layui-form-label layui-bg-green"> 证券名称</label>
+            <div class="layui-input-inline">
+                <input name="securitiesName" lay-verify="required"
+                       autocomplete="off" placeholder="" class="layui-input">
+            </div>
+        </div>
 
-        table.render({
-            elem: '#currentTableId',
-            url: '/Securities/selectSecurities',
-            toolbar: '#toolbarDemo',
-            defaultToolbar: ['filter', 'exports', 'print'],
-            height:'full-170',
-            cellMinWidth:60,
-            cols: [
-                [
-                    {type: "checkbox", width: 50},
-                    {field: 'securitiesId', title: '证券编号', sort: true},
-                    {field: 'securitiesName', title: '证券名称'},
-                    {field: 'securitiesType', title: '证券类型', sort: true,
-                        templet:function (item) {
-                            if (item.securitiesType=="1"){
-                                return '债券';
-                            }else if (item.securitiesType=="2"){
-                                return '股票';
-                            }
-                        }
-                    },
-                    {field: 'issueDate', title: '发行日期'},
-                    {field: 'delayDate', title: '延迟日期'},
-                    {field: 'stockName', title: '股票板块', sort: true},
-                    {field: 'exchange', title: '交易所', sort: true,
-                        templet:function (item) {
-                            if (item.exchange=="1"){
-                                return '上交所';
-                            }else if (item.exchange=="2"){
-                                return '深交所';
-                            }
-                        }
-                    },
-                    {field: 'securitiesDesc', title: '备注', sort: true},
-                    {title: '操作', minWidth: 100, toolbar: '#currentTableBar', align: "center"}
-                ]
-            ],
-            limits: [10, 15, 20, 25, 50, 100],
-            limit: 15,
-            page: true,
-            skin: 'line'
-        });
+<!--            证券类型-->
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label layui-bg-green">证券类型</label>
+            <div class="layui-input-inline">
+                <select name="securitiesType" id="securitiesType">
+                    <option value="0">请选择</option>
+                    <option value="1">股票</option>
+                    <option value="2">债券</option>
+                </select>
+            </div>
+<!--        股票板块-->
+            <label class="layui-form-label layui-bg-green">股票板块</label>
+            <div class="layui-input-inline">
+                <select name="stockId" id="stockId">
+                    <option value="0">请选择</option>
+                    <option value="1">上交所</option>
+                    <option value="2">深交所</option>
+                </select>
+            </div>
+        </div>
 
-        // 监听搜索操作
-        form.on('submit(data-search-btn)', function (data) {
-            var result = JSON.stringify(data.field);
-            layer.alert(result, {
-                title: '最终的搜索信息'
-            });
+<!--        发行日期-->
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label layui-bg-green"> 发行日期</label>
+            <div class="layui-input-inline">
+                <input type="number" name="issueDate" lay-verify="required"
+                       autocomplete="off" placeholder="" class="layui-input">
+            </div>
+<!--        延迟日期-->
+            <label class="layui-form-label layui-bg-green">延迟日期</label>
+            <div class="layui-input-inline">
+                <select name="delayDate" id="delayDate">
+                    <option value="0">请选择</option>
+                    <option value="T+1">T+1</option>
+                    <option value="T+2">T+2</option>
+                    <option value="T+3">T+3</option>
+                    <option value="T+4">T+4</option>
+                </select>
+            </div>
+        </div>
 
-            //执行搜索重载
-            table.reload('currentTableId', {
-                page: {
-                    curr: 1
-                }
-                , where: {
-                    searchParams: result
-                }
-            }, 'data');
+<!--        交易所-->
+        <div class="layui-form-item" style="text-align: center;">
+            <label class="layui-form-label layui-bg-green">交易所</label>
+            <div class="layui-input-inline">
+                <select name="exchange" id="exchange">
+                    <option value="0">请选择</option>
+                    <option value="1">上交所</option>
+                    <option value="2">深交所</option>
+                </select>
+            </div>
+<!--         备注-->
+            <label class="layui-form-label layui-bg-green"> 备注</label>
+            <div class="layui-input-inline">
+                <input name="securitiesDesc" lay-verify="required"
+                       autocomplete="off" placeholder="" class="layui-input">
+            </div>
+        </div>
 
-            return false;
-        });
+        <div style="position: absolute; bottom: 0px; left: 45%;">
+            <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
+                <i class="layui-icon">&#x1005;</i>添加
+            </button>
+            <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
+                <i class="layui-icon">&#x1006;</i>取消
+            </button>
+        </div>
+    </form>
+</div>
 
-        /**
-         * toolbar监听事件
-         */
-        table.on('toolbar(currentTableFilter)', function (obj) {
-            if (obj.event === 'add') {  // 监听添加操作
-                var index = layer.open({
-                    title: '添加用户',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '../page/table/add.html',
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-            } else if (obj.event === 'delete') {  // 监听删除操作
-                var checkStatus = table.checkStatus('currentTableId')
-                    , data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
-            }
-        });
+<!--修改的div内容-->
+<div id="editContent"
+     style="display: none; height: 100%; height: 100%; text-align: center;">
+    <form id="editform" lay-filter="editform"
+          class="layui-form layui-form-pane"
+          style="margin: 30px auto; display: inline-block;">
+    <!--        证券编号-->
+    <div class="layui-form-item" style="text-align: center;">
+        <label class="layui-form-label layui-bg-green"> 证券编号</label>
+        <div class="layui-input-inline">
+            <input type="number" name="securitiesId" lay-verify="required"
+                   autocomplete="off" placeholder="" class="layui-input">
+        </div>
+        <!--            证券名称-->
+        <label class="layui-form-label layui-bg-green"> 证券名称</label>
+        <div class="layui-input-inline">
+            <input name="securitiesName" lay-verify="required"
+                   autocomplete="off" placeholder="" class="layui-input">
+        </div>
+    </div>
 
-        //监听表格复选框选择
-        table.on('checkbox(currentTableFilter)', function (obj) {
-            console.log(obj)
-        });
+    <!--            证券类型-->
+    <div class="layui-form-item" style="text-align: center;">
+        <label class="layui-form-label layui-bg-green">证券类型</label>
+        <div class="layui-input-inline">
+            <select name="securitiesType" id="securitiesType1">
+                <option value="0">请选择</option>
+                <option value="1">股票</option>
+                <option value="2">债券</option>
+            </select>
+        </div>
+        <!--        股票板块-->
+        <label class="layui-form-label layui-bg-green">股票板块</label>
+        <div class="layui-input-inline">
+            <select name="stockId" id="stockId1">
+                <option value="0">请选择</option>
+                <option value="1">上交所</option>
+                <option value="2">深交所</option>
+            </select>
+        </div>
+    </div>
 
-        table.on('tool(currentTableFilter)', function (obj) {
-            var data = obj.data;
-            if (obj.event === 'edit') {
+    <!--        发行日期-->
+    <div class="layui-form-item" style="text-align: center;">
+        <label class="layui-form-label layui-bg-green"> 发行日期</label>
+        <div class="layui-input-inline">
+            <input type="number" name="issueDate" lay-verify="required"
+                   autocomplete="off" placeholder="" class="layui-input">
+        </div>
+        <!--        延迟日期-->
+        <label class="layui-form-label layui-bg-green">延迟日期</label>
+        <div class="layui-input-inline">
+            <select name="delayDate" id="delayDate1">
+                <option value="0">请选择</option>
+                <option value="T+1">T+1</option>
+                <option value="T+2">T+2</option>
+                <option value="T+3">T+3</option>
+                <option value="T+4">T+4</option>
+            </select>
+        </div>
+    </div>
 
-                var index = layer.open({
-                    title: '编辑用户',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '../page/table/edit.html',
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-                return false;
-            } else if (obj.event === 'delete') {
-                var name=obj.data.securitiesId;
-                layer.confirm('真的删除行么', function (index) {
-                    $.ajax({
-                        type: 'post',
-                        url: '../Securities/deleteSecurities?securitiesId='+obj.data.securitiesId,
-                        success:function (object) {
-                            if (object.msg==='success'){
-                                obj.del();
-                                layer.msg("用户 "+name+" 删除成功");
-                            }else {
-                                layer.msg("用户 "+name+" 删除失败");
-                            }
-                        }
-                    })
-                    layer.close(index);
-                });
-            }
-        });
+    <!--        交易所-->
+    <div class="layui-form-item" style="text-align: center;">
+        <label class="layui-form-label layui-bg-green">交易所</label>
+        <div class="layui-input-inline">
+            <select name="exchange" id="exchange1">
+                <option value="0">请选择</option>
+                <option value="1">上交所</option>
+                <option value="2">深交所</option>
+            </select>
+        </div>
+        <!--         备注-->
+        <label class="layui-form-label layui-bg-green"> 备注</label>
+        <div class="layui-input-inline">
+            <input name="securitiesDesc" lay-verify="required"
+                   autocomplete="off" placeholder="" class="layui-input">
+        </div>
+    </div>
+        <div style="position: absolute; bottom: 0px; left: 45%;">
+            <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
+                <i class="layui-icon">&#x1005;</i>确认修改
+            </button>
+            <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
+                <i class="layui-icon">&#x1006;</i>取消
+            </button>
+        </div>
+    </form>
+</div>
 
-    });
-</script>
 
 </body>
 </html>

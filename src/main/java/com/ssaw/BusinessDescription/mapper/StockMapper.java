@@ -29,13 +29,8 @@ public interface StockMapper {
      * 增加父类
      * @param stock
      */
-    public void insertStockParentMsg(Stock stock);
+    public int insertStockParentMsg(Stock stock);
 
-    /**
-     * 增加子类
-     * @param stock
-     */
-    public void insertStockSonMsg(Stock stock);
     /**
      * 单个删除
      * 根据板块编号 stockId

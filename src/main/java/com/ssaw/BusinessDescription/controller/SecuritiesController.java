@@ -26,9 +26,14 @@ public class SecuritiesController {
     @Resource
     SecuritiesService securitiesService;
 
+  /*   'securitiesIds': securitiesIds, 证券id
+            'securitiesNames': securitiesNames, 证券名
+            'securitiesTypes': securitiesTypes,  交易所名
+            'exchanges': exchanges 债券类型
+            */
     //查询
     @RequestMapping("selectSecurities")
-    public Map<String,Object> selectSecurities(String page, String limit){
+    public Map<String,Object> selectSecurities(String page, String limit,String securitiesIds,String securitiesNames,int securitiesTypes,int exchanges){
         //调用Service层执行查询，接收返回结果集Map
         Map<String, Object> map = securitiesService.selectSecurities(limit,page);
         System.out.printf(map.toString());
@@ -44,26 +49,48 @@ public class SecuritiesController {
         //返回数据
         return json;
     }
-    //删除
     /**
-     * ajax请求以securitiesId删除securities的控制层方法
-     * @param securitiesId 请求数据中的要删除securities的securitiesId
-     * @return 执行信息
+     *删除
      */
-    @RequestMapping("deleteSecuritiesId")
-    public Map<String,Object> deleteUserInfoByUserId(String securitiesId){
-        //调用Service层执行删除方法，并接收返回结果
-        boolean result = securitiesService.deleteSecurities(securitiesId);
-        //判断结果，响应数据
-        Map<String, Object> json = new HashMap<>();
-        if (result){
-            //成功返回msg信息success
-            json.put("msg","success");
-        }else {
-            //失败返回msg信息fail
-            json.put("msg","fail");
-        }
-        //返回数据
-        return json;
+    @RequestMapping("deleteSecurities")
+    public void deleteSecurities(String securitiesId ){
+        System.out.println("进入controller了");
+        securitiesService.deleteSecurities(securitiesId);
+    }
+    /**
+     * 批量删除
+     */
+    @RequestMapping("deleteSecurities2")
+    public void deleteSecurities2(String securitiesId ){
+        System.out.println("进入controller了");
+        securitiesService.deleteSecurities(securitiesId);
+    }
+
+    /**
+     * 增加
+     */
+    @RequestMapping("insertSecurities")
+    public int insertSecurities(Securities securities){
+        System.out.println("我是页面数据"+securities);
+        /*Securities securities1 = new Securities();
+        securities1.setSecuritiesId("2020502");
+        securities1.setDelayDate("T+1");
+        securities1.setExchange(1);
+        securities1.setIssueDate("2020/09/06");
+        securities1.setSecuritiesName("光顾国际");
+        securities1.setSecuritiesType(1);
+        securities1.setStockId("1");
+        securities1.setSecuritiesDesc("是得分啊");*/
+        int i=securitiesService.insertSecurities(securities);
+        System.out.println(i+"进con了");
+        return i;
+    }
+    /**
+     * 修改
+     */
+    @RequestMapping("updateSecurities")
+    public int updateSecurities(Securities securities){
+        int i=securitiesService.updateSecurities(securities);
+        return i;
     }
 }

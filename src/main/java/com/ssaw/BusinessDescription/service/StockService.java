@@ -25,19 +25,13 @@ public interface StockService {
      * 增加父类
      * @param stock
      */
-    public void insertStockParentMsg(Stock stock);
+    public int insertStockParentMsg(Stock stock);
     /**
      * 根据父类查子类
      */
     public List<Stock> selectSonStock(String stockId);
     /**
     /**
-     * 增加子类
-     * @param stock
-     */
-    public void insertStockSonMsg(Stock stock);
-    /**
-     * 单个删除
      * 根据板块编号 stockId
      */
     public void deleteStock(String stockId);

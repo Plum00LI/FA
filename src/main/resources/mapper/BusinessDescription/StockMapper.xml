@@ -7,10 +7,7 @@
             select stockParentId,stockName,stockDesc,stockId from stock where stockParentId=#{stockId}
         </select>
         <insert id="insertStockParentMsg" parameterType="com.ssaw.BusinessDescription.entity.Stock">
-            insert into stock(tockParentId,stockName,stockDesc,stockId) values (#{stockId},'000',#{stockName},#{stockDesc})
-        </insert>
-        <insert id="insertStockSonMsg" parameterType="com.ssaw.BusinessDescription.entity.Stock">
-            insert into stock(tockParentId,stockName,stockDesc,stockId) values (#{stockId},#{stockParentId},#{stockName},#{stockDesc})
+            insert into stock(stockId,stockParentId,stockName,stockDesc) values (#{stockId},#{stockParentId},#{stockName},#{stockDesc})
         </insert>
         <update id="updateStock" parameterType="com.ssaw.BusinessDescription.entity.Stock">
             update stock set stockParentId=#{stockParentId},stockName=#{stockName},stockDesc=#{stockDesc} where stockId=#{stockId}

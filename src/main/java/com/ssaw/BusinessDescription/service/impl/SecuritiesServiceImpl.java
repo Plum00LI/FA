@@ -25,41 +25,23 @@ import java.util.Map;
 public class SecuritiesServiceImpl implements SecuritiesService {
     @Resource
     SecuritiesMapper securitiesMapper;
-    //增加
+
+    /**
+     * 批量删除
+     * @param securitiesId
+     */
     @Override
-    public void insertSecurities(Securities securities) {
-        securitiesMapper.insertSecurities(securities);
+    public void deleteSecurities2(String securitiesId) {
+
     }
 
     /**
-     * 通过UserId删除用户的实现类方法
-     * @param securitiesId 要删除用户的ID
-     * @return 成功与否
+     * 删除
+     * @param securitiesId
      */
     @Override
-    public boolean deleteSecurities(String securitiesId) {
-        //定义一个用户ID变量
-        int i = 0;
-        //判断传入的userId是否为null/空
-        if (securitiesId!=null&&!securitiesId.equals("")){
-            //通过Integer包装类将String类型转换成int基础数据类型
-            i=Integer.parseInt(securitiesId);
-        }
-        //调用Mapper执行删除，并接收影响条目数
-        int result = securitiesMapper.deleteSecurities(i);
-        //判断影响条目数是否不等于0
-        if (result!=0){
-            //不为0，返回成功
-            return true;
-        }
-        //为0，返回失败
-        return false;
-    }
-
-    //修改
-    @Override
-    public void updateSecurities(Securities securities) {
-        securitiesMapper.updateSecurities(securities);
+    public void deleteSecurities(String securitiesId) {
+        securitiesMapper.deleteSecurities(securitiesId);
     }
 
     /**
@@ -114,5 +96,17 @@ public class SecuritiesServiceImpl implements SecuritiesService {
         //返回结果集Map
         System.out.printf(resultMap.toString());
         return resultMap;
+    }
+//添加
+    @Override
+    public int insertSecurities(Securities securities) {
+        int i = securitiesMapper.insertSecurities(securities);
+        return i;
+    }
+//修改
+    @Override
+    public int updateSecurities(Securities securities) {
+        int i = securitiesMapper.updateSecurities(securities);
+        return i;
     }
 }

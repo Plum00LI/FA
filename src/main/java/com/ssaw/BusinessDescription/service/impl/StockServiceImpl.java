@@ -29,27 +29,23 @@ public class StockServiceImpl implements StockService {
     public List<Securities> selectStock() {
         return stockMapper.selectStock();
     }
-
+    //查询
     @Override
     public List<Stock> selectSonStock(String stockId) {
         return stockMapper.selectSonStock(stockId);
     }
-
+//增加
     @Override
-    public void insertStockParentMsg(Stock stock) {
-        stockMapper.insertStockParentMsg(stock);
+    public int insertStockParentMsg(Stock stock) {
+        int i = stockMapper.insertStockParentMsg(stock);
+        return i;
     }
-
-    @Override
-    public void insertStockSonMsg(Stock stock) {
-        stockMapper.insertStockSonMsg(stock);
-    }
-
+//删除
     @Override
     public void deleteStock(String stockId) {
         stockMapper.deleteStock(stockId);
     }
-
+//改值
     @Override
     public void updateStock(Stock stock) {
         stockMapper.updateStock(stock);

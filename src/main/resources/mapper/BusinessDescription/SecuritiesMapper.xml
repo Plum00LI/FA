@@ -7,10 +7,10 @@
          delete from securities where securitiesId=#{securitiesId}
     </delete>
     <update id="updateSecurities" parameterType="com.ssaw.BusinessDescription.entity.Securities">
-        update securities set securitiesName=#{securitiesName},securitiesType=#{securitiesType},issueDate=#{issueDate},delayDate=#{delayDate},stockId=#{stockId},exchange=#{exchange},securitiesDesc=#{securitiesDesc} where ecuritiesId=#{ecuritiesId}
+        update securities set securitiesName=#{securitiesName},securitiesType=#{securitiesType},issueDate=#{issueDate},delayDate=#{delayDate},stockId=#{stockId},exchange=#{exchange},securitiesDesc=#{securitiesDesc} where securitiesId=#{securitiesId}
     </update>
     <insert id="insertSecurities" parameterType="com.ssaw.BusinessDescription.entity.Securities">
-        insert into securities(ecuritiesId,securitiesName,securitiesType,issueDate,delayDate,stockId,exchange,securitiesDesc) values (#{ecuritiesId},#{securitiesName},#{securitiesType},#{issueDate},#{delayDate},#{stockId},#{exchange},#{securitiesDesc})
+        insert into securities(securitiesId,securitiesName,securitiesType,issueDate,delayDate,stockId,exchange,securitiesDesc) values (#{securitiesId},#{securitiesName},#{securitiesType},#{issueDate},#{delayDate},#{stockId},#{exchange},#{securitiesDesc})
     </insert>
     <resultMap id="securitiesMap" type="com.ssaw.BusinessDescription.entity.SecuritiesAndStock">
         <result property="securitiesId" column="securitiesId" javaType="String"></result>

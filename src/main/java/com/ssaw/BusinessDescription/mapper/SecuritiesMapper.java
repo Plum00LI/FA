@@ -23,17 +23,17 @@ public interface SecuritiesMapper {
      * 增加
      * @param securities
      */
-    public void insertSecurities(Securities securities);
+    public int insertSecurities(Securities securities);
     /**
      * 删除
      *根据证券编号 securitiesId
      * @param securitiesId
      */
-    public int deleteSecurities(int securitiesId);
+    public void deleteSecurities(String securitiesId);
     /**
      * 修改
-     * 根据证券编号 securitiesId
+     * 根据证券编号
      */
-    public void updateSecurities(Securities securities);
+    public int updateSecurities(Securities securities);
 
 }
