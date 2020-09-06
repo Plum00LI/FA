@@ -18,6 +18,10 @@
     <select id="selectVarietiesRate" parameterType="java.util.Map" statementType="CALLABLE">
     {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},#{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=INTEGER},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=varietiesRateMap})}
     </select>
+    <!--按条件查询-->
+    <select id="selectVarietiesRate2"  resultType="com.ssaw.BusinessDescription.entity.VarietiesRate">
+        select exchangeName,rateType from varietiesRate where exchangeName=#{exchangeName} and rateType=#{rateType}
+    </select>
     <!--删除-->
     <delete id="deleteVarietiesRate" >
         delete from varietiesRate where exchangeName=#{exchangeName} and rateType=#{rateType}

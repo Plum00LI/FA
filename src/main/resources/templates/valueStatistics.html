@@ -35,15 +35,13 @@
                                         class="layui-btn layui-btn-sm" id="statisticsButton2">
                                     <i class="layui-icon">&#xe615;</i>查询
                                 </button>
-                                <button type="button" lay-event="search2"
-                                        class="layui-btn layui-btn-sm">
-                                    <i class="layui-icon">&#xe62f;</i>净值导出
-                                </button>
+
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
+
     </div>
         <div>
             <div class="layui-btn-group">
@@ -52,6 +50,11 @@
             </div>
             <table id="munu-table" class="layui-table" lay-filter="munu-table"></table>
         </div>
+        <script type="text/html" id="toolbarDemo2">
+            <div class="layui-btn-container">
+
+            </div>
+        </script>
  </div>
 </div>
 
@@ -81,6 +84,8 @@
             treeSpid: -1,
             treeIdName: 'projectId',
             treePidName: 'projectFatherId',
+            toolbar: '#toolbarDemo2',
+            defaultToolbar: ['filter', 'exports', 'print'],
             elem: '#munu-table',
             // url: '../lib/layuimini/api/test.json',
             url: '../ValueStatistics/selectValueStatistics?valueStatisticsDate='+$('#test12').val(),
@@ -116,6 +121,8 @@
                 treeSpid: -1,
                 treeIdName: 'projectId',
                 treePidName: 'projectFatherId',
+                toolbar: '#toolbarDemo2',
+                defaultToolbar: ['filter', 'exports', 'print'],
                 elem: '#munu-table',
                 // url: '../lib/layuimini/api/test.json',
                 url: '../ValueStatistics/insertValueStatistics?valueStatisticsDate='+$('#test12').val(),
@@ -144,6 +151,8 @@
                 treeSpid: -1,
                 treeIdName: 'projectId',
                 treePidName: 'projectFatherId',
+                toolbar: '#toolbarDemo2',
+                defaultToolbar: ['filter', 'exports', 'print'],
                 elem: '#munu-table',
                 // url: '../lib/layuimini/api/test.json',
                 url: '../ValueStatistics/selectValueStatistics?valueStatisticsDate='+$('#test12').val(),

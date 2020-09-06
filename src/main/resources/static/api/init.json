@@ -123,13 +123,13 @@
           "child": [
             {
               "title": "资金调拨",
-              "href": "page/banktressurer",
+              "href": "page/bankTreasurer",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "划款指令",
-              "href": "page/transfermoney",
+              "href": "page/transferMoney",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
