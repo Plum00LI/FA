@@ -48,9 +48,9 @@ public class CashClosedPayInventoryController {
     }
 
     @RequestMapping("selectCashClosedPayInventory")
-    public Map<String,Object> selectCashClosedPayInventory(String page,String limit){
+    public Map<String,Object> selectCashClosedPayInventory(String page,String limit,String businessType,String businessDate){
         //调用Service层执行查询，接收返回结果集Map
-        Map<String, Object> map = cashClosedPayInventoryService.selectCashClosedPayInventory(limit,page);
+        Map<String, Object> map = cashClosedPayInventoryService.selectCashClosedPayInventory(limit,page,businessType,businessDate);
         List<CashClosedPayInventory> cashClosedPayInventoryList = (List<CashClosedPayInventory>) map.get("cashClosedPayInventoryList");
         int count = (int) map.get("count");
         //以layui要求存储响应数据格式
