@@ -1,3 +1,7 @@
+function myclose() {
+    layer.closeAll();
+}
+
 layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], function () {
     var layer = layui.layer;
     var $ = layui.$;
@@ -5,6 +9,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
     var form = layui.form;
     var upload = layui.upload;
     var laydate = layui.laydate;
+   // var tableSelect = layui.tableSelect;
     var laypage = layui.laypage;
 
     //执行一个laydate实例
@@ -21,16 +26,15 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
         elem: '#endTime3'
     });
 
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#dateTime' //指定元素
-        });
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#dateTime' //指定元素
+    });
 
     //向世界问个好
     layer.msg('欢迎进入基金估值核算系统');
-        //新增提交
-        form.on('submit(addsubmit)', function (data) {
+    //新增提交
+    form.on('submit(addsubmit)', function (data) {
             var formData = $('#addform').serialize();
             $.post("../market/insertMarket", formData, function (msg) {
                 if (msg > 0) {
@@ -107,7 +111,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
             ]
         ]
     });
-
     //上传
     upload.render({
         elem: '#uploadDeepMarket'
@@ -133,28 +136,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                     btn: []
                 });
                 form.render();
-               /* tableSelect.render({
-                    elem: '#demo',
-                    checkedKey: 'securitiesId',
-                    table: {
-                        url: 'securitiesController/selectAllSecurities',
-                        cols: [[
-                            { type: 'radio' },
-                            { field: 'securitiesId', title: '证券编号' },
-                            { field: 'securitiesName', title: '证券名称' },
-                            { field: 'issueDate', title: '发行日期'}
-                        ]]
-                    },
-                    done: function (elem, data) {
-                        var NEWJSON = []
-                        layui.each(data.data, function (index, item) {
-                            NEWJSON.push(item.securitiesName);
-                            console.log(item.securitiesId)
-                            $("#ss").val(item.securitiesId);
-                        })
-                        elem.val(NEWJSON.join(","))
-                    }
-                })*/
                 //全屏
                 layer.full(index);
                 break;
@@ -252,6 +233,3 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
         }
     });
 });
-function myclose() {
-    parent.layer.closeAll();
-}
