@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 *@program: TescComment
@@ -34,7 +35,7 @@ public interface SecuritiesInventoryService {
      * @param securitiesInventoryId 证券库存Id
      * @return 返回一个int类型参数
      */
-    int deleteSecuritiesInventory(int securitiesInventoryId);
+    int deleteSecuritiesInventory(String securitiesInventoryId);
 
     /**
      * 修改
@@ -42,4 +43,12 @@ public interface SecuritiesInventoryService {
      * @return 返回一个int类型参数
      */
     int updateSecuritiesInventory(SecuritiesInventory stock);
+
+    /**
+     *
+     * @param pageSize 条数
+     * @param page 页码
+     * @return
+     */
+    Map<String,Object> selectSecuritiesInventoryInfo(String pageSize, String page,String accountId,String accountName);
 }
