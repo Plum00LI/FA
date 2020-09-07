@@ -1,9 +1,8 @@
-layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], function () {
+layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function () {
     var layer = layui.layer;
     var $ = layui.$;
     var table = layui.table;
     var form = layui.form;
-    var upload = layui.upload;
     var laydate = layui.laydate;
     var laypage = layui.laypage;
 
@@ -27,12 +26,24 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
         elem: '#dateTime' //指定元素
     });
 
+    form.on('checkbox(addCheck)', function(data){
+        var addbtn = document.getElementById('addbtn');
+        if(data.elem.checked){
+            addbtn.classList.remove("layui-btn-disabled")
+            addbtn.setAttribute("lay-event","add")
+
+        }else{
+            addbtn.classList.add("layui-btn-disabled")
+            addbtn.setAttribute("lay-event","")
+        }
+    });
+
     //向世界问个好
     layer.msg('欢迎进入基金估值核算系统');
     //新增提交
     form.on('submit(addsubmit)', function (data) {
         var formData = $('#addform').serialize();
-        $.post("../market/insertMarket", formData, function (msg) {
+        $.post("../securitiesInventory/insertSecuritiesInventory", formData, function (msg) {
             if (msg > 0) {
                 table.reload('userTable');
                 layer.closeAll();
@@ -59,7 +70,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
     //修改提交
     form.on('submit(editsubmit)', function (data) {
         var formData = $('#editform').serialize();
-        $.post("../market/updateMarket", formData, function (msg) {
+        $.post("../securitiesInventory/updateSecuritiesInventory", formData, function (msg) {
             if (msg > 0) {
                 table.reload('userTable');
                 layer.closeAll();
@@ -86,8 +97,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
     //执行一个 table 实例
     table.render({
         elem: '#userTable'
-        , url: '../market/selectMarketInfo' //数据接口
-        , title: '行情数据表'
+        , url: '../securitiesInventory/selectSecuritiesInventoryInfo' //数据接口
+        , title: '证券库存表'
         , page: true //开启分页
         , toolbar: '#toolbar1' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
         , totalRow: true //开启合计行
@@ -96,30 +107,20 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
         , cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'securitiesInventoryId', title: '证券库存Id', sort: true, fixed: 'left', totalRowText: '合计：'}
+                , {field: 'securitiesInventoryId', title: '证券库存Id', sort: false, fixed: 'left', totalRowText: '合计：'}
                 , {field: 'dateTime', title: '日期'}
                 , {field: 'securitiesId', title: '证券代码'}
                 , {field: 'securitiesName', title: '证券名称', sort: true}
-                , {field: 'fundId', title: '基金代码', sort: true, totalRow: true}
-                , {field: 'securityPeriodFlag', title: '是否从其他系统导入的期初数据  0：不是  1：是'}
+                , {field: 'accountId', title: '账户编号', sort: true}
+                , {field: 'accountName', title: '账户名称', sort: false}
+                , {field: 'fundId', title: '基金代码', sort: false, totalRow: true}
                 , {field: 'securitiesNum', title: '数量'}
                 , {field: 'price', title: '单位成本'}
                 , {field: 'total', title: '总金额'}
                 , {field: 'securitiesInventoryDesc', title: '备注'}
-                , {field: '操作', minWidth: 165, align: 'center', toolbar: '#barDemo'}
+                , {field: 'right',title:'操作', minWidth: 165, align: 'center', toolbar: '#barDemo'}
             ]
         ]
-    });
-
-    //上传
-    upload.render({
-        elem: '#uploadDeepMarket'
-        , url: 'https://httpbin.org/post' //改成您自己的上传接口
-        , done: function (res) {
-            layer.msg('上传成功');
-            layui.$('#test9').removeClass('layui-hide').find('img').attr('src', res.files.file);
-            console.log(res)
-        }
     });
     //给工具条的按钮添加事件
     table.on('toolbar(userTable)', function (obj) {
@@ -127,6 +128,11 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
         var checkStatus = table.checkStatus(obj.config.id);//得到表格选中行的ID
         switch (obj.event) {
             case 'add':
+                var checked = $("#addCheck").prop("checked");
+                if(checked == false) {
+                    layer.msg("只能添加期初数据");
+                    return false;
+                }else{
                 var index = layer.open({
                     type: 1,
                     title: '添加证券库存',
@@ -136,30 +142,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                     btn: []
                 });
                 form.render();
-                /* tableSelect.render({
-                     elem: '#demo',
-                     checkedKey: 'securitiesId',
-                     table: {
-                         url: 'securitiesController/selectAllSecurities',
-                         cols: [[
-                             { type: 'radio' },
-                             { field: 'securitiesId', title: '证券编号' },
-                             { field: 'securitiesName', title: '证券名称' },
-                             { field: 'issueDate', title: '发行日期'}
-                         ]]
-                     },
-                     done: function (elem, data) {
-                         var NEWJSON = []
-                         layui.each(data.data, function (index, item) {
-                             NEWJSON.push(item.securitiesName);
-                             console.log(item.securitiesId)
-                             $("#ss").val(item.securitiesId);
-                         })
-                         elem.val(NEWJSON.join(","))
-                     }
-                 })*/
                 //全屏
                 layer.full(index);
+                }
                 break;
             case 'search':
                 alert("搜索");
@@ -175,14 +160,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                         ,'dateTime':dateTime
                     }
                 });
-                $('#securitiesId').val(securitiesId);
-                $('#dateTime').remove();
-                $('#searchbut').before('<input type="text" style="height: 38px;" id="dateTime" name="dateTime" readonly="readonly"  autocomplete="off" placeholder="请输入时间" class="layui-input">');
-                laydate.render({
-                    elem: '#dateTime', //指定元素
-                });
-                $('#dateTime').val(dateTime);
-                break;
             case 'deleteAll':
                 var data = checkStatus.data;
                 //    layer.alert(JSON.stringify(data));
@@ -191,11 +168,11 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                 } else {
                     var ids = [];
                     for (var i = 0; i < data.length; i++) {
-                        ids.push(data[i].marketId);
+                        ids.push(data[i].securitiesInventoryId);
                     }
                     layer.confirm('真的删除行么', {icon: 2}, function (index) {
                         layer.close(index);
-                        $.post("../market/deleteMarket", {marketId: ids.join(',')}, function (msg) {
+                        $.post("../deleteSecuritiesInventory", {securitiesInventoryId: ids.join(',')}, function (msg) {
                             table.reload('userTable');
                             layer.msg('删除' + checkStatus.data.length + '条记录', {
                                 title: '提示',
@@ -206,27 +183,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                         });
                     });
                 }
-                break;
-            case 'shangHai':
-                var index = layer.open({
-                    type: 1,
-                    title: '导入上海行情',
-                    closeBtn: 1,
-                    move:false,
-                    content:$('#uploadOnSeaMarket'),
-                    btn:[]
-                });
-                layer.full(index);
-                break;
-            case 'shenZhen':
-                var index = layer.open({
-                    type: 1,
-                    title: '导入深圳行情',
-                    closeBtn: 1,
-                    move:false,
-                    content:$('#uploadOnSeaMarket'),
-                    btn:[]
-                });
                 layer.full(index);
                 break;
         }
@@ -234,14 +190,13 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
     //给表格编辑，删除按钮添加点击事件
     table.on('tool(userTable)', function (obj) {
         var data = obj.data;//得到删除行整行的数据
-        alert(data.marketId);
+        alert(data.securitiesInventoryId);
         if (obj.event === 'del') {
             layer.confirm('真的删除行么', {icon: 2}, function (index) {
                 layer.close(index);
-                $.post("../market/deleteMarket", {marketId: data.marketId + ""}, function (msg) {
+                $.post("../securitiesInventory/deleteSecuritiesInventory", {securitiesInventoryId: data.securitiesInventoryId + ""}, function (msg) {
                     table.reload('userTable');
                 });
-
             });
         } else if (obj.event === 'edit') {
             alert(JSON.stringify(data));
@@ -261,5 +216,5 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
     });
 });
 function myclose() {
-    parent.layer.closeAll();
+    layer.closeAll();
 }
