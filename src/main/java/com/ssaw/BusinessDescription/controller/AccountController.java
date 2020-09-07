@@ -64,8 +64,7 @@ public class AccountController {
     @RequestMapping("updateAccount")
     public int updateAccount(Account account){
         System.out.println(account);
-        int i = accountService.updateAccount(account);
-        return i;
+        return accountService.updateAccount(account);
     }
 }
 

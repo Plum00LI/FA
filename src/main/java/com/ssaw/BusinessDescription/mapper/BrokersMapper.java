@@ -9,42 +9,15 @@ import java.util.Map;
 /**
  * @program:TescComment
  * @Description:持久层
- * @author:邓玺中
- * @create:2020-09-01
+ * @author:孙浩
+ * @create:2020-09-07
  */
 @Mapper
 public interface BrokersMapper {
-    /**
-     * 查询
-     *
-     * @param map
-     * @return
-     */
-    public void selectBrokers(Map map);
-
-    /**
-     * 删除
-     *
-     * @param brokersId
-     * @return
-     */
-    public int deleteBrokers(String brokersId);
-
-    /**
-     * 添加
-     *
-     * @param brokers
-     * @return
-     */
     public int insertBrokers(Brokers brokers);
-
-    /**
-     * 修改
-     *
-     * @param brokersId
-     * @return
-     */
-    public int updateBrokers(String brokersId);
+    public int deleteBrokers(List brokersId);
+    public int updateBrokers(Brokers brokers);
+    public void selectBrokers(Map map);
 }
 
 
