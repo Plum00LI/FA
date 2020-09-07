@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 *@program: TescComment
@@ -33,7 +34,7 @@ public interface SecuritiesInventoryMapper {
      * @param securitiesInventoryId 证券库存Id
      * @return 返回一个int类型参数
      */
-    int deleteSecuritiesInventory(int securitiesInventoryId);
+    int deleteSecuritiesInventory(String securitiesInventoryId);
 
     /**
      * 修改
@@ -41,4 +42,11 @@ public interface SecuritiesInventoryMapper {
      * @return 返回一个int类型参数
      */
     int updateSecuritiesInventory(SecuritiesInventory stock);
+
+    /**
+     * 分页查询
+     * @param map 结果集
+     * @return
+     */
+    void selectSecuritiesInventoryInfo(Map map);
 }

@@ -18,5 +18,18 @@
     <select id="selectSecuritiesInventory" resultType="com.ssaw.InventoryManagement.entity.SecuritiesInventory">
         select * from securitiesInventory
     </select>
+    <resultMap id="securitiesInventorytMap" type="com.ssaw.InventoryManagement.entity.SecuritiesInventory">
+        <result property="securitiesInventoryId" column="securitiesInventoryId" javaType="String"></result>
+        <result property="dateTime" column="dateTime" javaType="String"></result>
+        <result property="securitiesId" column="securitiesId" javaType="String"></result>
+        <result property="fundId" column="fundId" javaType="String"></result>
+        <result property="securitiesNum" column="securitiesNum" javaType="Integer"></result>
+        <result property="price" column="price" javaType="Double"></result>
+        <result property="total" column="total" javaType="Double"></result>
+        <result property="securitiesInventoryDesc" column="securitiesInventoryDesc" javaType="String"></result>
+    </resultMap>
+    <select id="selectSecuritiesInventoryInfo" parameterType="java.util.Map" statementType="CALLABLE">
+      {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},#{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=VARCHAR},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=securitiesInventorytMap})}
+   </select>
 
 </mapper>
