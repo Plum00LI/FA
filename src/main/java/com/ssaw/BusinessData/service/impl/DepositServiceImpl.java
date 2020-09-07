@@ -4,6 +4,7 @@ import com.ssaw.BusinessData.entity.Deposit;
 import com.ssaw.BusinessData.mapper.DepositMapper;
 import com.ssaw.BusinessData.service.DepositService;
 import com.ssaw.BusinessDescription.entity.Account;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,8 +48,9 @@ public class DepositServiceImpl implements DepositService {
         }
         //创建一个Map 用于存款过程的调用传值
         Map<String,Object> map=new HashMap<>();
+        String p_tableName="(select * from " + SysTableNameListUtil.DE +" d join (select accountName,accountId from "+SysTableNameListUtil.A+" )  a on d.inAccountId=a.accountId)";
         //传入存储过程需要查询的表名
-        map.put("p_tableName","account");
+        map.put("p_tableName",p_tableName);
         //传入查询的条件
         map.put("p_condition","");
         //传入分页显示条数

@@ -5,6 +5,7 @@ import com.ssaw.BusinessDescription.mapper.VarietiesRateMapper;
 import com.ssaw.BusinessDescription.service.VarietiesRateService;
 import com.ssaw.GlobalManagement.entity.UserInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ import java.util.Map;
  * @create:2020-09-01
  */
 @Service
+@Transactional
 public class VarietiesRateServiceImpl implements VarietiesRateService {
 
     @Resource

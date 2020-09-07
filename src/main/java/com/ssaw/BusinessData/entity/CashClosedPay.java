@@ -2,8 +2,9 @@ package com.ssaw.BusinessData.entity;
 
 /**
  * 现金应收应付表
- * @type:CashClosedPay
+ *
  * @version v1.0
+ * @type:CashClosedPay
  * @author:阙魁
  * @create:2020-09-01
  */
@@ -12,10 +13,16 @@ public class CashClosedPay {
     private String cashClosedPayId;
     //FK 基金信息表Id  fund表
     private String fundId;
+    // 基金名称 fundName
+    private String fundName;
     //FK 账户信息表ID  account表
-    private  String accountId;
+    private String accountId;
+    // 银行名称 accountName
+    private String accountName;
     //FK 证券信息表ID  securities表
     private String securitiesId;
+    //证券名称 securitiesName
+    private String securitiesName;
     //业务类型  1=“管理费”2=“托管费”3=“存款利息”4=“申购赎回款”
     private int serviceType;
     //金额
@@ -44,13 +51,40 @@ public class CashClosedPay {
         return "CashClosedPay{" +
                 "cashClosedPayId='" + cashClosedPayId + '\'' +
                 ", fundId='" + fundId + '\'' +
+                ", fundName='" + fundName + '\'' +
                 ", accountId='" + accountId + '\'' +
+                ", accountName='" + accountName + '\'' +
                 ", securitiesId='" + securitiesId + '\'' +
+                ", securitiesName='" + securitiesName + '\'' +
                 ", serviceType=" + serviceType +
                 ", amount=" + amount +
                 ", dateTime='" + dateTime + '\'' +
                 ", flag=" + flag +
                 '}';
+    }
+
+    public String getSecuritiesName() {
+        return securitiesName;
+    }
+
+    public void setSecuritiesName(String securitiesName) {
+        this.securitiesName = securitiesName;
+    }
+
+    public String getFundName() {
+        return fundName;
+    }
+
+    public void setFundName(String fundName) {
+        this.fundName = fundName;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
     public String getCashClosedPayId() {

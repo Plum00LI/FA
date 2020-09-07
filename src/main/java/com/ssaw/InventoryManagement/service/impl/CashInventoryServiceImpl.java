@@ -60,14 +60,15 @@ public class CashInventoryServiceImpl implements CashInventoryService {
 
         System.out.println("accountID+"+accountId);
         System.out.println("dateTime"+dateTime);
+        //现金账户
+        if(accountId!=null && !accountId.equals("")){
+            sql=sql+" and accountId ='"+accountId+"'";
+        }
         //日期
         if(dateTime!=null && !dateTime.equals("")){
             sql=sql+" and dateTime='"+dateTime+"'";
         }
-        //现金账户
-        if(accountId!=null && !accountId.equals("")){
-            sql=sql+" and accountId like '%"+accountId+"%'";
-        }
+
 
         //创建一个Map，用于存储过程的调用传值
         Map<String,Object> map=new HashMap<>();

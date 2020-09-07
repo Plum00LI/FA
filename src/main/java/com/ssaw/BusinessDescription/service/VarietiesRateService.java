@@ -15,7 +15,7 @@ import java.util.Map;
  * @create:2020-09-01
  */
 @Service
-@Transactional
+
 public interface VarietiesRateService {
     //查询与分页查询
     public Map<String,Object> selectVarietiesRate(String pageSize,String page,String exchangeName,String rateType);
