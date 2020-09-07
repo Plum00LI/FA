@@ -45,8 +45,6 @@ public class BankTreasurerController {
     }
     @RequestMapping("insertBankTreasurer")
     public int insertBankTreasurer(BankTreasurer bankTreasurer){
-        bankTreasurer.setBankTreasurerId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.BT));
-        bankTreasurer.setFundId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
         int i = bankTreasurerService.insertBankTreasurer(bankTreasurer);
         return i;
     }
