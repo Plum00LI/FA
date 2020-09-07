@@ -41,14 +41,17 @@ public class CashClosedPayController {
     @RequestMapping("updateCashClosedPay")
     public int updateCashClosedPay(CashClosedPay cashClosePay){
         System.out.println("进入了修改Controller");
+        System.out.println(cashClosePay.toString());
         int i = cashClosedPayService.updateCashClosedPay(cashClosePay);
         return i;
     };
     @RequestMapping("selectCashClosedPay")
-    public Map<String,Object> selectCashClosedPay(String page, String limit){
+    public Map<String,Object> selectCashClosedPay(String page, String limit,String dateTime,String serviceType){
         System.out.println("进入了查询Controller");
         //调用Service层 返回结果集map
-        Map<String,Object> map =cashClosedPayService.selectCashClosedPay(limit,page);
+        System.out.println(dateTime);
+        System.out.println(serviceType);
+        Map<String,Object> map =cashClosedPayService.selectCashClosedPay(limit,page,dateTime,serviceType);
         //从结果集中拿出结果
         //接收返回数据
         List<CashClosedPay> cashClosedPays= (List<CashClosedPay>) map.get("cashClosedPays");
@@ -60,6 +63,7 @@ public class CashClosedPayController {
         json.put("msg","");
         json.put("count",count);
         json.put("data",cashClosedPays);
+        System.out.println(cashClosedPays.toString());
         //返回数据
         return json;
     };

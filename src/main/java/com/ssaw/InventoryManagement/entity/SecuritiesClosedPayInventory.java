@@ -29,8 +29,12 @@ public class SecuritiesClosedPayInventory {
     private double totalPrice;
     private String securitiesClosedPayDesc;
     private int securityPeriodFlag;
+    //账户编号
+    private String accountId;
+    //账户名称
+    private String accountName;
 
-    public SecuritiesClosedPayInventory(String securitiesClosedPayInventoryId, String dateTime, String fundId, String securitiesId, int securitiesType, String flag, double totalPrice, String securitiesClosedPayDesc, int securityPeriodFlag) {
+    public SecuritiesClosedPayInventory(String securitiesClosedPayInventoryId, String dateTime, String fundId, String securitiesId, int securitiesType, String flag, double totalPrice, String securitiesClosedPayDesc, int securityPeriodFlag,String accountId,String accountName) {
         this.securitiesClosedPayInventoryId = securitiesClosedPayInventoryId;
         this.dateTime = dateTime;
         this.fundId = fundId;
@@ -40,21 +44,8 @@ public class SecuritiesClosedPayInventory {
         this.totalPrice = totalPrice;
         this.securitiesClosedPayDesc = securitiesClosedPayDesc;
         this.securityPeriodFlag = securityPeriodFlag;
-    }
-
-    @Override
-    public String toString() {
-        return "SecuritiesClosedPayInventory{" +
-                "securitiesClosedPayInventoryId='" + securitiesClosedPayInventoryId + '\'' +
-                ", dateTime='" + dateTime + '\'' +
-                ", fundId='" + fundId + '\'' +
-                ", securitiesId='" + securitiesId + '\'' +
-                ", securitiesType=" + securitiesType +
-                ", flag='" + flag + '\'' +
-                ", totalPrice=" + totalPrice +
-                ", securitiesClosedPayDesc='" + securitiesClosedPayDesc + '\'' +
-                ", securityPeriodFlag=" + securityPeriodFlag +
-                '}';
+        this.accountId = accountId;
+        this.accountName = accountName;
     }
 
     public String getSecuritiesClosedPayInventoryId() {
@@ -127,5 +118,38 @@ public class SecuritiesClosedPayInventory {
 
     public void setSecurityPeriodFlag(int securityPeriodFlag) {
         this.securityPeriodFlag = securityPeriodFlag;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
+    @Override
+    public String toString() {
+        return "SecuritiesClosedPayInventory{" +
+                "securitiesClosedPayInventoryId='" + securitiesClosedPayInventoryId + '\'' +
+                ", dateTime='" + dateTime + '\'' +
+                ", fundId='" + fundId + '\'' +
+                ", securitiesId='" + securitiesId + '\'' +
+                ", securitiesType=" + securitiesType +
+                ", flag='" + flag + '\'' +
+                ", totalPrice=" + totalPrice +
+                ", securitiesClosedPayDesc='" + securitiesClosedPayDesc + '\'' +
+                ", securityPeriodFlag=" + securityPeriodFlag +
+                ", accountId='" + accountId + '\'' +
+                ", accountName='" + accountName + '\'' +
+                '}';
     }
 }
