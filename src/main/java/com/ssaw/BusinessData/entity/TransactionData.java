@@ -33,47 +33,60 @@ package com.ssaw.BusinessData.entity;
  * desc	varchar2(50)	备注
  */
 public class TransactionData {
-    private String tradeId;
-    private String dateTime;
-    private String settlementDate;
-    private String fundId;
-    private String securitiesId;
-    private String brokersId;
-    private String seateId;
-    private double transactionDataMode;
-    private double status;
-    private double price;
-    private double num;
-    private String accountId;
-    private double netReceipts;
-    private double totalSum;
-    private double flag;
-    private double commission;
-    private double transfer;
-    private double brokerage;
-    private double stamp;
-    private double management;
-    private double security;
-    private String transactionDataDesc;
+    private String transactionDataId;         //PK 交易的单子号(主键) T2020083100001
+    private String accountName;                //现金账户
+    private String securitiesName;                //证券名称
+    private Double price;           //交易价格(单价)
+    private Double num;             //交易数量
+    private Double netReceipts;        //实收金额
+    private Double totalSum;        //交易总金额
+    private int transactionDataMode;//交易方式(1买入、2卖出，3分红，4送股)
+    private String dateTime;        //交易日期(交易成交的日期)
+    private String settlementDate;  //结算日期(交易结算的日期)
+    private int status;             //交易状态（0未结算，1已结算）
+    private String fundId;          //FK 基金代码   来自基金表
+    private String fundName;        //基金名称
+    private String securitiesId;    //FK 证券编号ID （证券表的ID）
+    private String brokersId;       //FK 券商ID(引用券商表的券商的ID)
+    private String brokersName;                  //券商名称
+    private String seateId;         //FK 席位Id(交易席位的Id)
+    private String seateName;                //席位名称
+    private String accountId;        //FK 来自现金账户ID
+    private String blankName;                 //银行名称
+    private int flag;              //交易标识,1流入，-1流出
+    private Double commission;        //佣金费用（券商）
+    private Double transfer;        //过户费（交易所）
+    private Double brokerage;        //经手费（交易所）
+    private Double stamp;            //印花税（上交国家的税）
+    private Double management;        //征管费（上交国家的税）
+    private Double security;        //证券利息
+    private String transactionDataDesc;            //备注
 
     public TransactionData() {
     }
 
-    public TransactionData(String dateTime, String settlementDate, String fundId, String securitiesId, String brokersId, String seateId, double transactionDataMode, double status, double price, double num, String accountId, double netReceipts, double totalSum, double flag, double commission,
-                           double transfer, double brokerage, double stamp, double management, double security, String transactionDataDesc) {
-        this.dateTime = dateTime;
-        this.settlementDate = settlementDate;
-        this.fundId = fundId;
-        this.securitiesId = securitiesId;
-        this.brokersId = brokersId;
-        this.seateId = seateId;
-        this.transactionDataMode = transactionDataMode;
-        this.status = status;
+    public TransactionData(String transactionDataId, String accountName, String securitiesName, Double price, Double num, Double netReceipts, Double totalSum, int transactionDataMode, String dateTime, String settlementDate, int status, String fundId, String fundName, String securitiesId, String brokersId, String brokersName, String seateId, String seateName, String accountId, String blankName, int flag, Double commission,
+                           Double transfer, Double brokerage, Double stamp, Double management, Double security, String transactionDataDesc) {
+        this.transactionDataId = transactionDataId;
+        this.accountName = accountName;
+        this.securitiesName = securitiesName;
         this.price = price;
         this.num = num;
-        this.accountId = accountId;
         this.netReceipts = netReceipts;
         this.totalSum = totalSum;
+        this.transactionDataMode = transactionDataMode;
+        this.dateTime = dateTime;
+        this.settlementDate = settlementDate;
+        this.status = status;
+        this.fundId = fundId;
+        this.fundName = fundName;
+        this.securitiesId = securitiesId;
+        this.brokersId = brokersId;
+        this.brokersName = brokersName;
+        this.seateId = seateId;
+        this.seateName = seateName;
+        this.accountId = accountId;
+        this.blankName = blankName;
         this.flag = flag;
         this.commission = commission;
         this.transfer = transfer;
@@ -84,22 +97,27 @@ public class TransactionData {
         this.transactionDataDesc = transactionDataDesc;
     }
 
-    public TransactionData(String tradeId, String dateTime, String settlementDate, String fundId, String securitiesId, String brokersId, String seateId, double transactionDataMode, double status, double price, double num, String accountId, double netReceipts, double totalSum, double flag, double commission,
-                           double transfer, double brokerage, double stamp, double management, double security, String transactionDataDesc) {
-        this.tradeId = tradeId;
-        this.dateTime = dateTime;
-        this.settlementDate = settlementDate;
-        this.fundId = fundId;
-        this.securitiesId = securitiesId;
-        this.brokersId = brokersId;
-        this.seateId = seateId;
-        this.transactionDataMode = transactionDataMode;
-        this.status = status;
+    public TransactionData(String accountName, String securitiesName, Double price, Double num, Double netReceipts, Double totalSum, int transactionDataMode, String dateTime, String settlementDate, int status, String fundId, String fundName, String securitiesId, String brokersId, String brokersName, String seateId, String seateName, String accountId, String blankName, int flag, Double commission,
+                           Double transfer, Double brokerage, Double stamp, Double management, Double security, String transactionDataDesc) {
+        this.accountName = accountName;
+        this.securitiesName = securitiesName;
         this.price = price;
         this.num = num;
-        this.accountId = accountId;
         this.netReceipts = netReceipts;
         this.totalSum = totalSum;
+        this.transactionDataMode = transactionDataMode;
+        this.dateTime = dateTime;
+        this.settlementDate = settlementDate;
+        this.status = status;
+        this.fundId = fundId;
+        this.fundName = fundName;
+        this.securitiesId = securitiesId;
+        this.brokersId = brokersId;
+        this.brokersName = brokersName;
+        this.seateId = seateId;
+        this.seateName = seateName;
+        this.accountId = accountId;
+        this.blankName = blankName;
         this.flag = flag;
         this.commission = commission;
         this.transfer = transfer;
@@ -110,12 +128,68 @@ public class TransactionData {
         this.transactionDataDesc = transactionDataDesc;
     }
 
-    public String getTradeId() {
-        return tradeId;
+    public String getTransactionDataId() {
+        return transactionDataId;
     }
 
-    public void setTradeId(String tradeId) {
-        this.tradeId = tradeId;
+    public void setTransactionDataId(String transactionDataId) {
+        this.transactionDataId = transactionDataId;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
+    public String getSecuritiesName() {
+        return securitiesName;
+    }
+
+    public void setSecuritiesName(String securitiesName) {
+        this.securitiesName = securitiesName;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Double getNum() {
+        return num;
+    }
+
+    public void setNum(Double num) {
+        this.num = num;
+    }
+
+    public Double getNetReceipts() {
+        return netReceipts;
+    }
+
+    public void setNetReceipts(Double netReceipts) {
+        this.netReceipts = netReceipts;
+    }
+
+    public Double getTotalSum() {
+        return totalSum;
+    }
+
+    public void setTotalSum(Double totalSum) {
+        this.totalSum = totalSum;
+    }
+
+    public int getTransactionDataMode() {
+        return transactionDataMode;
+    }
+
+    public void setTransactionDataMode(int transactionDataMode) {
+        this.transactionDataMode = transactionDataMode;
     }
 
     public String getDateTime() {
@@ -134,12 +208,28 @@ public class TransactionData {
         this.settlementDate = settlementDate;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public String getFundId() {
         return fundId;
     }
 
     public void setFundId(String fundId) {
         this.fundId = fundId;
+    }
+
+    public String getFundName() {
+        return fundName;
+    }
+
+    public void setFundName(String fundName) {
+        this.fundName = fundName;
     }
 
     public String getSecuritiesId() {
@@ -158,6 +248,14 @@ public class TransactionData {
         this.brokersId = brokersId;
     }
 
+    public String getBrokersName() {
+        return brokersName;
+    }
+
+    public void setBrokersName(String brokersName) {
+        this.brokersName = brokersName;
+    }
+
     public String getSeateId() {
         return seateId;
     }
@@ -166,36 +264,12 @@ public class TransactionData {
         this.seateId = seateId;
     }
 
-    public double getTransactionDataMode() {
-        return transactionDataMode;
+    public String getSeateName() {
+        return seateName;
     }
 
-    public void setTransactionDataMode(double transactionDataMode) {
-        this.transactionDataMode = transactionDataMode;
-    }
-
-    public double getStatus() {
-        return status;
-    }
-
-    public void setStatus(double status) {
-        this.status = status;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public double getNum() {
-        return num;
-    }
-
-    public void setNum(double num) {
-        this.num = num;
+    public void setSeateName(String seateName) {
+        this.seateName = seateName;
     }
 
     public String getAccountId() {
@@ -206,75 +280,67 @@ public class TransactionData {
         this.accountId = accountId;
     }
 
-    public double getNetReceipts() {
-        return netReceipts;
+    public String getBlankName() {
+        return blankName;
     }
 
-    public void setNetReceipts(double netReceipts) {
-        this.netReceipts = netReceipts;
+    public void setBlankName(String blankName) {
+        this.blankName = blankName;
     }
 
-    public double getTotalSum() {
-        return totalSum;
-    }
-
-    public void setTotalSum(double totalSum) {
-        this.totalSum = totalSum;
-    }
-
-    public double getFlag() {
+    public int getFlag() {
         return flag;
     }
 
-    public void setFlag(double flag) {
+    public void setFlag(int flag) {
         this.flag = flag;
     }
 
-    public double getCommission() {
+    public Double getCommission() {
         return commission;
     }
 
-    public void setCommission(double commission) {
+    public void setCommission(Double commission) {
         this.commission = commission;
     }
 
-    public double getTransfer() {
+    public Double getTransfer() {
         return transfer;
     }
 
-    public void setTransfer(double transfer) {
+    public void setTransfer(Double transfer) {
         this.transfer = transfer;
     }
 
-    public double getBrokerage() {
+    public Double getBrokerage() {
         return brokerage;
     }
 
-    public void setBrokerage(double brokerage) {
+    public void setBrokerage(Double brokerage) {
         this.brokerage = brokerage;
     }
 
-    public double getStamp() {
+    public Double getStamp() {
         return stamp;
     }
 
-    public void setStamp(double stamp) {
+    public void setStamp(Double stamp) {
         this.stamp = stamp;
     }
 
-    public double getManagement() {
+    public Double getManagement() {
         return management;
     }
 
-    public void setManagement(double management) {
+    public void setManagement(Double management) {
         this.management = management;
     }
 
-    public double getSecurity() {
+    public Double getSecurity() {
         return security;
     }
 
-    public void setSecurity(double security) {
+    public void setSecurity(Double security) {
         this.security = security;
     }
 
@@ -289,20 +355,26 @@ public class TransactionData {
     @Override
     public String toString() {
         return "TransactionData{" +
-                "tradeId='" + tradeId + '\'' +
-                ", dateTime='" + dateTime + '\'' +
-                ", settlementDate='" + settlementDate + '\'' +
-                ", fundId='" + fundId + '\'' +
-                ", securitiesId='" + securitiesId + '\'' +
-                ", brokersId='" + brokersId + '\'' +
-                ", seateId='" + seateId + '\'' +
-                ", transactionDataMode=" + transactionDataMode +
-                ", status=" + status +
+                "transactionDataId='" + transactionDataId + '\'' +
+                ", accountName='" + accountName + '\'' +
+                ", securitiesName='" + securitiesName + '\'' +
                 ", price=" + price +
                 ", num=" + num +
-                ", accountId='" + accountId + '\'' +
                 ", netReceipts=" + netReceipts +
                 ", totalSum=" + totalSum +
+                ", transactionDataMode=" + transactionDataMode +
+                ", dateTime='" + dateTime + '\'' +
+                ", settlementDate='" + settlementDate + '\'' +
+                ", status=" + status +
+                ", fundId='" + fundId + '\'' +
+                ", fundName='" + fundName + '\'' +
+                ", securitiesId='" + securitiesId + '\'' +
+                ", brokersId='" + brokersId + '\'' +
+                ", brokersName='" + brokersName + '\'' +
+                ", seateId='" + seateId + '\'' +
+                ", seateName='" + seateName + '\'' +
+                ", accountId='" + accountId + '\'' +
+                ", blankName='" + blankName + '\'' +
                 ", flag=" + flag +
                 ", commission=" + commission +
                 ", transfer=" + transfer +
