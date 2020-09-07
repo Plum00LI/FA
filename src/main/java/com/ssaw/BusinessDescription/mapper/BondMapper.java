@@ -9,18 +9,20 @@ package com.ssaw.BusinessDescription.mapper;
 import com.ssaw.BusinessDescription.entity.Bond;
 import com.ssaw.TAManagement.entity.TaTransaction;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 
 @Mapper
+
 public interface BondMapper {
     //查询
    void selectBond(Map map);
     //增加
     public int insertBond(Bond bond);
     //删除
-    public void  deleteBond(int securitiesId);
+    public int  deleteBond(List securitiesId);
     //修改
     public int updateBond(Bond bond);
 }

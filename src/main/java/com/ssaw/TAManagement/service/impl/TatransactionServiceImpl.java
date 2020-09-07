@@ -5,6 +5,7 @@ import com.ssaw.TAManagement.entity.TaTransaction;
 import com.ssaw.TAManagement.mapper.TaTransactionMapper;
 import com.ssaw.TAManagement.service.TatransactionService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.Map;
  */
 
 @Service
+@Transactional
 public class TatransactionServiceImpl implements TatransactionService {
     @Resource
     TaTransactionMapper taTransactionMapper;

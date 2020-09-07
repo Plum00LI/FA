@@ -16,14 +16,14 @@ import java.util.Map;
  * @date:2020-09-01
  */
 @Service
-@Transactional
+
 public interface BondService {
     //查询
-        Map<String,Object>selectBond(String pageSize, String page);
+        Map<String,Object>selectBond(String pageSize, String page,String securitiesId,String drawStartDate);
     //增加
     int insertBond(Bond bond);
     //删除
-     void  deleteBond(int securitiesId);
+     int  deleteBond(String securitiesId);
     //修改
      int updateBond(Bond bond);
 }

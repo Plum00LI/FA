@@ -5,17 +5,18 @@
 
 <mapper namespace="com.ssaw.BusinessDescription.mapper.BondMapper">
     <!--增加-->
-    <insert id="insertBond">
-        insert into Bond(securitiesId,bondName,drawStartDate,drawEndDate,bondType,parRate,bondRate,bondRateAmount,drawEndDate,bondDesc) values
-        (#{securitiesId},#{bondName},#{drawStartDate},#{drawEndDate},#{bondType},#{parRate},#{bondRate},#{bondRateAmount},#{drawEndDate},#{bondDesc)
+    <insert id="insertBond" parameterType="com.ssaw.BusinessDescription.entity.Bond">
+        insert into bond(securitiesId,bondName,drawStartDate,drawEndDate,bondType,parRate,bondRate,bondRateAmount,payInterestNum,bondDesc) values
+        (#{securitiesId},#{bondName},#{drawStartDate},#{drawEndDate},#{bondType},#{parRate},#{bondRate},#{bondRateAmount},#{payInterestNum},#{bondDesc})
     </insert>
     <!--修改-->
-    <update id="deleteBond">
-        update Bond set bondName=#{bondName},drawStartDate=#{drawStartDate},drawEndDate=#{drawEndDate},bondType=#{bondType},
-        parRate=#{parRate},bondRate#{bondRate},bondRateAmount=#{bondRateAmount},drawEndDate=#{drawEndDate},bondDesc=#{bondDesc} where  securitiesId=#{securitiesId}
+    <update id="updateBond" parameterType="com.ssaw.BusinessDescription.entity.Bond">
+    update bond set bondName=#{bondName},drawStartDate=#{drawStartDate},drawEndDate=#{drawEndDate},bondType=#{bondType},parRate=#{parRate},bondRate=#{bondRate},bondRateAmount=#{bondRateAmount},payInterestNum=#{payInterestNum},bondDesc=#{bondDesc}  where securitiesId=#{securitiesId}
     </update>
     <!--删除-->
-    <delete id="updateBond">  delete from Bond where securitiesId=#{securitiesId}</delete>
+    <delete id="deleteBond" parameterType="java.util.List">  delete from Bond where securitiesId in
+  <foreach collection="list" item="securitiesId" open="(" separator="," close=")">#{securitiesId}</foreach>
+  </delete>
     <resultMap id="BondMap" type="com.ssaw.BusinessDescription.entity.Bond">
         <result property="securitiesId" column="securitiesId" javaType="String"></result>
         <result property="bondName" column="bondName" javaType="String"></result>
@@ -25,13 +26,13 @@
         <result property="parRate" column="parRate" javaType="Double"></result>
         <result property="bondRate" column="bondRate" javaType="Double"></result>
         <result property="bondRateAmount" column="bondRateAmount" javaType="String"></result>
-        <result property="drawEndDate" column="drawEndDate" javaType="Integer"></result>
+        <result property="payInterestNum" column="payInterestNum" javaType="Integer"></result>
         <result property="bondDesc" column="bondDesc" javaType="String"></result>
 
     </resultMap>
         <!--查询-->
     <select id="selectBond" parameterType="java.util.Map" statementType="CALLABLE">
-        {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},#{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=INTEGER},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=fundMap})}
+        {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},#{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=INTEGER},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=BondMap})}
     </select>
 
 

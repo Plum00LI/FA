@@ -36,9 +36,10 @@ public class TatransactionController {
         return i;
     }
     @RequestMapping("/deleteTaTransaction")
-    public void deleteTatransaction(String taTransactionId){
+    public int deleteTatransaction(String taTransactionId){
         System.out.println("进来了");
-        tatransactionService.deleteTatransaction(taTransactionId);
+        int i = tatransactionService.deleteTatransaction(taTransactionId);
+        return i;
     }
     @RequestMapping("/updateTaTransaction")
     public int updataTatransaction(TaTransaction taTransaction){

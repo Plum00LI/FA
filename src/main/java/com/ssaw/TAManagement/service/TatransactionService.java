@@ -14,7 +14,7 @@ import java.util.Map;
  * @date:2020-09-01
  */
 @Service
-@Transactional
+
 public interface TatransactionService {
     //查询
     Map<String,Object> selectTatransaction(String pageSize, String page,String dateTime,String transactionStatus,String transactionType);

@@ -106,12 +106,12 @@ public class Bond {
         this.payInterestNum = payInterestNum;
     }
 
-    public String getDesc() {
+    public String getBondDesc() {
         return bondDesc;
     }
 
-    public void setDesc(String desc) {
-        this.bondDesc = desc;
+    public void setBondDesc(String bondDesc) {
+        this.bondDesc = bondDesc;
     }
 
     @Override
@@ -126,7 +126,7 @@ public class Bond {
                 ", bondRate=" + bondRate +
                 ", bondRateAmount='" + bondRateAmount + '\'' +
                 ", payInterestNum=" + payInterestNum +
-                ", desc='" + bondDesc + '\'' +
+                ", bondDesc='" + bondDesc + '\'' +
                 '}';
     }
 }
