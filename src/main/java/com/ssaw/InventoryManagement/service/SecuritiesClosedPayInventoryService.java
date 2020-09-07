@@ -2,6 +2,7 @@ package com.ssaw.InventoryManagement.service;
 
 import com.ssaw.InventoryManagement.entity.SecuritiesClosedPayInventory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -15,12 +16,17 @@ import java.util.Map;
  * Author:   SYT
  */
 @Service
+
 public interface SecuritiesClosedPayInventoryService {
     /**
-     * 按条件分页查询所有证券应收应付库存
-     * @param map
+     *
+     * @param pageSize  每页条数
+     * @param page    页数
+     * @param securitiesType    证券应收应付类型
+     * @param dateTime  日期
+     * @return
      */
-    public void selectSecuritiesClosedPayInventory(Map map);
+    public  Map<String,Object> selectSecuritiesClosedPayInventory(String pageSize,String page,String securitiesType,String dateTime);
 
     /**
      * 增加证券应收应付库存
@@ -41,5 +47,5 @@ public interface SecuritiesClosedPayInventoryService {
      * @param securitiesClosedPayInventoryId
      * @return
      */
-    public int deleteSecuritiesClosedPayInventory(List securitiesClosedPayInventoryId);
+    public int deleteSecuritiesClosedPayInventory(String securitiesClosedPayInventoryId);
 }
