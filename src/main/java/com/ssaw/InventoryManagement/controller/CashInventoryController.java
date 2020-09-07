@@ -35,7 +35,6 @@ public class CashInventoryController {
     @RequestMapping("/select")
     public Map<String,Object> selectCashInventory(String page, String limit,String accountId,String dateTime){
         //调用Service层执行查询，接收返回结果集Map
-
         Map<String, Object> map =  cashInventoryService.selectCashInventory(limit,page,accountId,dateTime);
 
         //从结果集中拿出结果

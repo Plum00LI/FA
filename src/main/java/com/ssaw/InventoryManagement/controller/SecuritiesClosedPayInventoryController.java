@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * ClassName:    SecuritiesClosedPayInventoryController
@@ -23,4 +24,9 @@ public class SecuritiesClosedPayInventoryController {
 
     @Resource
     DbUtil dbUtil;
+
+    @RequestMapping("/select")
+    public Map<String,Object> selectSecuritiesClosedPayInventory(String page, String limit,String securitiesType,String dateTime){
+         return null;
+    }
 }
