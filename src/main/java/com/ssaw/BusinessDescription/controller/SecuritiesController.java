@@ -33,19 +33,23 @@ public class SecuritiesController {
             */
     //查询
     @RequestMapping("selectSecurities")
-    public Map<String,Object> selectSecurities(String page, String limit,String securitiesIds,String securitiesNames,int securitiesTypes,int exchanges){
+    public Map<String,Object> selectSecurities(String page, String limit,String securitiesIds,String securitiesNames,String securitiesTypes,String exchanges){
+        System.out.println(page+limit);
+        System.out.println(securitiesIds);
+        System.out.println(securitiesNames);
+        System.out.println(securitiesTypes);
         //调用Service层执行查询，接收返回结果集Map
-        Map<String, Object> map = securitiesService.selectSecurities(limit,page);
+        Map<String, Object> map = securitiesService.selectSecurities(limit,page,securitiesIds,securitiesNames,securitiesTypes,exchanges);
         System.out.printf(map.toString());
         //从结果集中拿出结果
-        List<SecuritiesAndStock> SecuritiesList = (List<SecuritiesAndStock>) map.get("SecuritiesAndStock");
+        List<SecuritiesAndStock> securitiesList = (List<SecuritiesAndStock>) map.get("securities");
         int count = (int) map.get("count");
         //以layui要求存储响应数据格式
         Map<String, Object> json = new HashMap<>();
         json.put("code",0);
         json.put("msg","");
         json.put("count",count);
-        json.put("data",SecuritiesList);
+        json.put("data",securitiesList);
         //返回数据
         return json;
     }
@@ -53,17 +57,10 @@ public class SecuritiesController {
      *删除
      */
     @RequestMapping("deleteSecurities")
-    public void deleteSecurities(String securitiesId ){
+    public int deleteSecurities(String securitiesId ){
         System.out.println("进入controller了");
-        securitiesService.deleteSecurities(securitiesId);
-    }
-    /**
-     * 批量删除
-     */
-    @RequestMapping("deleteSecurities2")
-    public void deleteSecurities2(String securitiesId ){
-        System.out.println("进入controller了");
-        securitiesService.deleteSecurities(securitiesId);
+        int i = securitiesService.deleteSecurities(securitiesId);
+        return i;
     }
 
     /**
@@ -72,15 +69,6 @@ public class SecuritiesController {
     @RequestMapping("insertSecurities")
     public int insertSecurities(Securities securities){
         System.out.println("我是页面数据"+securities);
-        /*Securities securities1 = new Securities();
-        securities1.setSecuritiesId("2020502");
-        securities1.setDelayDate("T+1");
-        securities1.setExchange(1);
-        securities1.setIssueDate("2020/09/06");
-        securities1.setSecuritiesName("光顾国际");
-        securities1.setSecuritiesType(1);
-        securities1.setStockId("1");
-        securities1.setSecuritiesDesc("是得分啊");*/
         int i=securitiesService.insertSecurities(securities);
         System.out.println(i+"进con了");
         return i;

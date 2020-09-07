@@ -10,11 +10,14 @@
     </insert>
 
     <update id="updateCashClosedPay" parameterType="com.ssaw.BusinessData.entity.CashClosedPay">
-        update cashClosedPay set cashClosedPayId=#{cashClosedPayId},fundId=#{fundId},accountId=#{accountId},securitiesId=#{securitiesId},serviceType=#{serviceType},amount=#{amount},dateTime=#{dateTime},flag=#{flag}
+        update cashClosedPay set dateTime=#{dateTime},serviceType=#{serviceType},amount=#{amount},flag=#{flag} where cashClosedPayId=#{cashClosedPayId}
     </update>
 
-    <delete id="deleteCashClosedPay" parameterType="INTEGER">
-        delete from cashClosedPay where cashClosedPayId=#{cashClosedPayId}
+    <delete id="deleteCashClosedPay" parameterType="list">
+        delete from cashClosedPay where cashClosedPayId in
+        <foreach collection="list" item="cashClosedPayId" open="(" separator="," close=")">
+            #{cashClosedPayId}
+        </foreach>
     </delete>
 
     <select id="selectCashClosedPay" parameterType="java.util.Map" statementType="CALLABLE">
@@ -23,8 +26,11 @@
     <resultMap id="cashClosedPay_map" type="com.ssaw.BusinessData.entity.CashClosedPay">
         <result property="cashClosedPayId" column="cashClosedPayId" javaType="String"></result>
         <result property="fundId" column="fundId" javaType="String"></result>
+        <result property="fundName" column="fundName" javaType="String"></result>
         <result property="accountId" column="accountId" javaType="String"></result>
+        <result property="accountName" column="accountName" javaType="String"></result>
         <result property="securitiesId" column="securitiesId" javaType="String"></result>
+        <result property="securitiesName" column="securitiesName" javaType="String"></result>
         <result property="serviceType" column="serviceType" javaType="Integer"></result>
         <result property="amount" column="amount" javaType="Double"></result>
         <result property="dateTime" column="dateTime" javaType="String"></result>

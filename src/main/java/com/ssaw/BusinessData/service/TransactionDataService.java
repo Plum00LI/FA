@@ -2,6 +2,8 @@ package com.ssaw.BusinessData.service;
 
 import com.ssaw.BusinessData.entity.TransactionData;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 import java.util.List;
 /**
  * create by: 曾钦辉
@@ -22,9 +24,9 @@ public interface TransactionDataService {
 
     /**
      * 删除交易数据
-     * @param tradeId
+     * @param transactionDataId
      */
-    void deleteTransactionData(String tradeId);
+    int deleteTransactionData(String transactionDataId);
 
     /**
      *  修改交易数据
@@ -37,5 +39,5 @@ public interface TransactionDataService {
      * 查询交易数据
      * @return List<TransactionData>
      */
-    List<TransactionData> selectTransactionData();
+    HashMap selectTransactionData(int page,int limit,String end,String equityId);
 }

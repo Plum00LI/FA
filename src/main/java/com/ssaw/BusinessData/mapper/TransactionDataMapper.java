@@ -2,6 +2,8 @@ package com.ssaw.BusinessData.mapper;
 
 import com.ssaw.BusinessData.entity.TransactionData;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.HashMap;
 import java.util.List;
 /**
  * create by: 曾钦辉
@@ -22,9 +24,9 @@ public interface TransactionDataMapper {
 
     /**
      * 删除交易数据
-     * @param tradeId
+     * @param transactionDataId
      */
-    void deleteTransactionData(String tradeId);
+    int deleteTransactionData(String transactionDataId);
 
     /**
      *  修改交易数据
@@ -35,7 +37,7 @@ public interface TransactionDataMapper {
 
     /**
      * 查询交易数据
-     * @return List<TransactionData>
+     * @return
      */
-    List<TransactionData> selectTransactionData();
+     void selectTransactionData(HashMap hashMap);
 }
