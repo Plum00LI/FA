@@ -4,8 +4,10 @@ import com.ssaw.BusinessData.entity.TransactionData;
 import com.ssaw.BusinessData.mapper.TransactionDataMapper;
 import com.ssaw.BusinessData.service.TransactionDataService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 /**
  * create by: 曾钦辉
@@ -16,48 +18,47 @@ import java.util.List;
  * @return
  */
 @Service
+@Transactional
 public class TransactionDataServiceImpl implements TransactionDataService {
     @Resource
     TransactionDataMapper transactionDataMapper;
 
-    /**
-     * 增加serviceImpl方法
-     * @param transactionData
-     * @return i
-     */
+    @Override
+    public HashMap selectTransactionData(int page, int limit, String end, String equityId) {
+        StringBuffer sqlWhere=new StringBuffer();
+        if(end!=null && !end.equals("")){
+            sqlWhere.append(" AND end LIKE  '%"+end+"%'" );
+        }
+        if(equityId!=null && !equityId.equals("")){
+            sqlWhere.append(" AND securitiesId LIKE  '%"+equityId+"%'" );
+        }
+
+
+        HashMap tranMap = new HashMap();
+        String transactionData=" (select * from transactionData tr join securities se on tr.securitiesId=se.securitiesId join account ac on tr.accountId=ac.accountId join seate se on tr.seateId=se.seateId join brokers br on tr.brokersId=br.brokersId join fund f on tr.fundId = f.fundId) ";
+        tranMap.put("p_tableName", transactionData);
+        tranMap.put("p_condition",sqlWhere.toString());
+        tranMap.put("p_pageSize",limit);
+        tranMap.put("p_page",page);
+        tranMap.put("p_count",0);
+        tranMap.put("p_cursor",null);
+        transactionDataMapper.selectTransactionData(tranMap);
+        return tranMap;
+    }
+
     @Override
     public int insertTransactionData(TransactionData transactionData) {
-        int i = transactionDataMapper.insertTransactionData(transactionData);
-        return i ;
+        System.out.println(transactionData);
+        return transactionDataMapper.insertTransactionData(transactionData);
     }
 
-    /**
-     * 删除serviceImpl方法
-     * @param tradeId
-     */
     @Override
-    public void deleteTransactionData(String tradeId) {
-        transactionDataMapper.deleteTransactionData(tradeId);
+    public int deleteTransactionData(String transactionDataId) {
+        return transactionDataMapper.deleteTransactionData(transactionDataId);
     }
 
-    /**
-     * 修改serviceImpl方法
-     * @param transactionData
-     * @return i
-     */
     @Override
     public int updateTransactionData(TransactionData transactionData) {
-        int i = transactionDataMapper.updateTransactionData(transactionData);
-        return i;
-    }
-
-    /**
-     * 查询serviceImpl方法
-     * @return transactionDataList
-     */
-    @Override
-    public List<TransactionData> selectTransactionData() {
-        List<TransactionData> transactionDataList = transactionDataMapper.selectTransactionData();
-        return transactionDataList;
+        return transactionDataMapper.updateTransactionData(transactionData);
     }
 }

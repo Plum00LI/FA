@@ -27,7 +27,7 @@ public class FundController {
     FundService fundService;
 
 
-    @RequestMapping(value = "/insertFund")
+    @RequestMapping(value = "insertFund")
     public int insertFund(Fund fund) {
         System.out.println("进来了");
 
@@ -36,7 +36,7 @@ public class FundController {
         return i;
     }
 
-    @RequestMapping(value = "/deleteFund")
+    @RequestMapping(value = "deleteFund")
     public void deleteFund(String fundId) {
         System.out.println("进来了");
 
@@ -44,7 +44,7 @@ public class FundController {
 
     }
 
-    @RequestMapping(value = "/updateFund")
+    @RequestMapping(value = "updateFund")
     public int updateFund(Fund fund) {
         System.out.println("进来了");
         int i = fundService.updateFund(fund);
@@ -52,7 +52,7 @@ public class FundController {
         return i;
     }
 
-    @RequestMapping(value = "/selectFund")
+    @RequestMapping(value = "selectFund")
     public Map<String, Object> selectFund(String page, String limit,String fundId,String fundType) {
         System.out.println("查询进来了");
         Map<String, Object> map = fundService.selectFund(limit, page,fundId,fundType);

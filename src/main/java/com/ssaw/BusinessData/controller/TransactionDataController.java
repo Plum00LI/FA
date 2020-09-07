@@ -2,13 +2,13 @@ package com.ssaw.BusinessData.controller;
 
 import com.ssaw.BusinessData.entity.TransactionData;
 import com.ssaw.BusinessData.service.TransactionDataService;
-import com.ssaw.BusinessDescription.entity.Fund;
+import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,38 +23,38 @@ import java.util.List;
 public class TransactionDataController {
     @Resource
     TransactionDataService transactionDataService;
-    @RequestMapping(value = "/insertTransactionData")
-    public int insertTransactionData(){
-        System.out.println("进来了");
-        TransactionData transactionData=new TransactionData("1","1","1","1","1",
-                "1","1",1,1, 1,1,"1",1,1,
-                1,1,1,1,1,1,1,"1");
-        int i= transactionDataService.insertTransactionData(transactionData);
-        System.out.println(i);
-        return i;
+
+    @Resource
+    DbUtil dbUtil;
+    @RequestMapping("selectTransactionData")
+    public HashMap selectTransactionData(int page, int limit, String end, String equityId){
+        HashMap hashMap = transactionDataService.selectTransactionData(page, limit,end,equityId);
+        int count = (int) hashMap.get("p_count");
+        List<TransactionData> transactionDataList = (List<TransactionData>) hashMap.get("p_cursor");
+        System.out.println("总条数："+count);
+        System.out.println("page="+page+",limit="+limit+",end="+end+",equityId="+equityId);
+        HashMap tranMap = new HashMap();
+        tranMap.put("count",count);
+        tranMap.put("code",0);
+        tranMap.put("msg","");
+        tranMap.put("data",transactionDataList);
+        System.out.println("基金大小"+transactionDataList.size());
+        return tranMap;
     }
-    @RequestMapping(value = "/deleteTransactionData")
-    public void deleteTransactionData(){
-        System.out.println("进来了");
-        transactionDataService.deleteTransactionData("1");
+    @RequestMapping("insertTransactionData")
+    public int insertTransactionData(TransactionData transactionData){
+        transactionData.setTransactionDataId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.TD));
+        System.out.println(transactionData);
+        return transactionDataService.insertTransactionData(transactionData);
     }
-    @RequestMapping(value = "/updateTransactionData")
-    public int updateTransactionData(){
-        System.out.println("进来了");
-        TransactionData transactionData=new TransactionData("1","2","3","1","1",
-                "1","1",1,1, 1,1,"1",1,1,
-                1,1,1,1,1,1,1,"1");
-        int i= transactionDataService.updateTransactionData(transactionData);
-        System.out.println(i);
-        return i;
+
+    @RequestMapping("deleteTransactionData")
+    public int deleteTransactionData(String transactionDataId){
+        return transactionDataService.deleteTransactionData(transactionDataId);
     }
-    @RequestMapping(value = "/selectTransactionData")
-    public List<TransactionData> selectTransactionData(){
-        System.out.println("进来了");
-        List<TransactionData> transactionDataList = transactionDataService.selectTransactionData();
-        for (TransactionData transactionData : transactionDataList) {
-            System.out.println(transactionData);
-        }
-        return transactionDataList;
+
+    @RequestMapping("updateTransactionData")
+    public int updateTransactionData(TransactionData transactionData){
+        return transactionDataService.updateTransactionData(transactionData);
     }
 }
