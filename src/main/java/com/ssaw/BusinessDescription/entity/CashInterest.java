@@ -1,6 +1,7 @@
 package com.ssaw.BusinessDescription.entity;
 
 /**
+ * 收益计提
  * 现金计息实体类
  */
 public class CashInterest {
@@ -17,4 +18,137 @@ public class CashInterest {
     cashBlance 	                Number(16,4)                                not null ,                   现金余额
     dateTime                    varchar2(10)                                not null ,                      统计日期
     */
+    private String accountId;
+    private  String fundId;
+    private  String cashInventoryId;
+    private  String blankName;
+    private  String accountName;
+    private int deposit;
+    private double cardRate;
+    private int procisionDays;
+    private  String openTime;
+    private double cashBlance;
+    private  String dateTime;
+
+    public CashInterest() {
+    }
+
+    public CashInterest(String accountId, String fundId, String cashInventoryId, String blankName, String accountName, int deposit, double cardRate, int procisionDays, String openTime, double cashBlance, String dateTime) {
+        this.accountId = accountId;
+        this.fundId = fundId;
+        this.cashInventoryId = cashInventoryId;
+        this.blankName = blankName;
+        this.accountName = accountName;
+        this.deposit = deposit;
+        this.cardRate = cardRate;
+        this.procisionDays = procisionDays;
+        this.openTime = openTime;
+        this.cashBlance = cashBlance;
+        this.dateTime = dateTime;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getFundId() {
+        return fundId;
+    }
+
+    public void setFundId(String fundId) {
+        this.fundId = fundId;
+    }
+
+    public String getCashInventoryId() {
+        return cashInventoryId;
+    }
+
+    public void setCashInventoryId(String cashInventoryId) {
+        this.cashInventoryId = cashInventoryId;
+    }
+
+    public String getBlankName() {
+        return blankName;
+    }
+
+    public void setBlankName(String blankName) {
+        this.blankName = blankName;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
+    public int getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(int deposit) {
+        this.deposit = deposit;
+    }
+
+    public double getCardRate() {
+        return cardRate;
+    }
+
+    public void setCardRate(double cardRate) {
+        this.cardRate = cardRate;
+    }
+
+    public int getProcisionDays() {
+        return procisionDays;
+    }
+
+    public void setProcisionDays(int procisionDays) {
+        this.procisionDays = procisionDays;
+    }
+
+    public String getOpenTime() {
+        return openTime;
+    }
+
+    public void setOpenTime(String openTime) {
+        this.openTime = openTime;
+    }
+
+    public double getCashBlance() {
+        return cashBlance;
+    }
+
+    public void setCashBlance(double cashBlance) {
+        this.cashBlance = cashBlance;
+    }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "CashInterest{" +
+                "accountId='" + accountId + '\'' +
+                ", fundId='" + fundId + '\'' +
+                ", cashInventoryId='" + cashInventoryId + '\'' +
+                ", blankName='" + blankName + '\'' +
+                ", accountName='" + accountName + '\'' +
+                ", deposit=" + deposit +
+                ", cardRate=" + cardRate +
+                ", procisionDays=" + procisionDays +
+                ", openTime='" + openTime + '\'' +
+                ", cashBlance=" + cashBlance +
+                ", dateTime='" + dateTime + '\'' +
+                '}';
+    }
 }

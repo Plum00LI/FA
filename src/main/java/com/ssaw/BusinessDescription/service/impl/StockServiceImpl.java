@@ -24,30 +24,49 @@ public class StockServiceImpl implements StockService {
     @Resource
     StockMapper stockMapper;
 
-    //查询
+    /**查询所有
+     * @return
+     */
     @Override
     public List<Securities> selectStock() {
         return stockMapper.selectStock();
     }
-    //查询
+    /**查询
+     * 证券信息引用
+     * */
     @Override
     public List<Stock> selectSonStock() {
         return stockMapper.selectSonStock();
     }
-//增加
+
+    /**增加
+     * @param stock
+     * @return
+     */
     @Override
-    public int insertStockParentMsg(Stock stock) {
-        int i = stockMapper.insertStockParentMsg(stock);
+    public int insertStock(Stock stock) {
+        int i = stockMapper.insertStock(stock);
         return i;
     }
 //删除
     @Override
-    public void deleteStock(String stockId) {
-        stockMapper.deleteStock(stockId);
+    public int deleteStock(String stockId) {
+
+        int i = stockMapper.deleteStock(stockId);
+        return i;
     }
 //改值
     @Override
-    public void updateStock(Stock stock) {
-        stockMapper.updateStock(stock);
+    public int updateStock(Stock stock) {
+
+        int i = stockMapper.updateStock(stock);
+        return i;
+    }
+    /**
+     * 查询父类
+     */
+    @Override
+    public List<Stock> selectParentStock() {
+        return stockMapper.selectParentStock();
     }
 }

@@ -18,14 +18,12 @@ import java.util.Map;
 public interface SecuritiesMapper {
     /**
      * 按条件查询 分页查询
-     *
      * @return 条件查询的集合
      */
     public void selectSecurities(Map map);
 
     /**
      * 增加
-     *
      * @param securities
      */
     public int insertSecurities(Securities securities);
@@ -33,7 +31,6 @@ public interface SecuritiesMapper {
     /**
      * 删除
      * 根据证券编号 securitiesId
-     *
      * @param securitiesId
      */
     public int deleteSecurities(List securitiesId);
