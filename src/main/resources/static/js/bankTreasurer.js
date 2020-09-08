@@ -23,19 +23,17 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         elem: '#userTable',
         url: '../selectBankTreasurer',
         page: true,
-        height: 498,
         toolbar: '#userToolBar',//显示在表头的工具条
-        minLength:80,
         cellMinWidth:60,
         height:'full-70',
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
-                ,{field: 'bankTreasurerId', title: '资金调拨Id', width:150,align:'center'}
-                ,{field: 'fundId', title: '基金Id', width:150,align:'center',hide:true}
-                ,{field: 'accountId', title: '现金账户Id', width:120,align:'center',hide:true}
-                ,{field: 'accountName', title: '现金账户名称', width:120,align:'center'}
-                ,{field: 'allocatingType', title: '调拨类型', width:150,align:'center',
+                ,{field: 'bankTreasurerId', title: '资金调拨Id',align:'center'}
+                ,{field: 'fundId', title: '基金Id',align:'center',hide:true}
+                ,{field: 'accountId', title: '现金账户Id',align:'center',hide:true}
+                ,{field: 'accountName', title: '现金账户名称',align:'center'}
+                ,{field: 'allocatingType', title: '调拨类型',align:'center',
                 templet:function (item) {
                     if (item.allocatingType==1){
                         return '存款利息';
@@ -43,11 +41,15 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                         return '申购赎回清算款';
                     }else if (item.allocatingType==3){
                         return '买卖交易清算款';
+                    }else if (item.allocatingType==4){
+                        return '债券利息'
+                    }else if (item.allocatingType==5){
+                        return '存款业务'
                     }
-                    return '债券利息'
+                    return '两费'
                 }
             }
-                ,{field: 'flag', title: '调拨方向', width: 120,align:'center',
+                ,{field: 'flag', title: '调拨方向' ,align:'center',
                 templet:function (item) {
                     if (item.flag==1){
                         return '流入';
@@ -55,11 +57,11 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     return  '流出';
                 }
             }
-                ,{field: 'totalPrice', title: '调拨总数额', width: 150,align:'center'}
-                ,{field: 'dateTime', title: '业务日期', width:120,align:'center'}
-                ,{field: 'dbTime', title: '调拨日期', width:120,align:'center'}
-                ,{field: 'businessId', title: '业务标号', width:120,align:'center',hide:true}
-                ,{field: 'bankTreasurerDesc', title: '备注', width:120,align:'center'}
+                ,{field: 'totalPrice', title: '调拨总数额',align:'center'}
+                ,{field: 'dateTime', title: '业务日期',align:'center'}
+                ,{field: 'dbTime', title: '调拨日期',align:'center'}
+                ,{field: 'businessId', title: '业务标号',align:'center',hide:true}
+                ,{field: 'bankTreasurerDesc', title: '备注',align:'center'}
                 ,{field: 'right', title: '操作',width: 187, align:'center', toolbar: '#barDemo'}
             ]
         ]
