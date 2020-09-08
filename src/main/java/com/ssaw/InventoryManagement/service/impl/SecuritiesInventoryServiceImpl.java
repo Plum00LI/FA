@@ -50,7 +50,7 @@ public class SecuritiesInventoryServiceImpl implements SecuritiesInventoryServic
     }
 
     @Override
-    public Map<String, Object> selectSecuritiesInventoryInfo(String pageSize, String page,String accountId,String accountName) {
+    public Map<String, Object> selectSecuritiesInventoryInfo(String pageSize, String page,String securitiesId,String securitiesName) {
         //创建一个结果集Map,用于存放两个结果变量
         Map<String, Object> resultMap = new HashMap<>();
         //定义一个分页条数变量
@@ -69,22 +69,22 @@ public class SecuritiesInventoryServiceImpl implements SecuritiesInventoryServic
         }
 
         StringBuffer sqlWhere = new StringBuffer();
-        if (accountId!=null && !accountId.equals("")){
-            sqlWhere.append(" and accountId like '%"+accountId+"%'");
+        if (securitiesId!=null && !securitiesId.equals("")){
+            sqlWhere.append(" and securitiesId like '%"+securitiesId+"%'");
         }
 
-        if (accountName!=null && !accountName.equals("")){
-            sqlWhere.append(" and accountName like '%"+accountName+"%'");
+        if (securitiesName!=null && !securitiesName.equals("")){
+            sqlWhere.append(" and securitiesName like '%"+securitiesName+"%'");
         }
-        String tableName="(select * from " + SysTableNameListUtil.SI +" s join (select accountName from "+SysTableNameListUtil.A+" )  a on s.accountId=accountId)";
+        String tableName="(select * from " + SysTableNameListUtil.SI +" s join (select securitiesName from "+SysTableNameListUtil.SE+" )  e on s.securitiesId=securitiesId)";
         System.out.println("语句"+tableName);
 
         //创建一个Map,用来调用存储过程
         Map<String, Object> map = new HashMap<>();
         //传入存储过程要查询的表名
-        map.put("p_tableName", "securitiesInventory");
+        map.put("p_tableName", tableName);
         //传入查询条件
-        map.put("p_condition", "");
+        map.put("p_condition", sqlWhere.toString());
         //传入分页显示条数
         map.put("p_pageSize", s_pageSize);
         //传入分页页码

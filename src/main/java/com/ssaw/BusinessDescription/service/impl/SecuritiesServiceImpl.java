@@ -113,7 +113,7 @@ public class SecuritiesServiceImpl implements SecuritiesService {
         //接收返回总条数
         int v_count = (int) map.get("p_count");
         //将结果放入结果集Map
-        resultMap.put("securities",objects);
+        resultMap.put("securities",securities);
         resultMap.put("count",v_count);
         //返回结果集Map
         System.out.println("业务逻辑返回的=" + resultMap.get("securities"));
