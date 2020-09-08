@@ -27,9 +27,9 @@ public interface StockService {
      */
     public int insertStockParentMsg(Stock stock);
     /**
-     * 根据父类查子类
+     * 查子类
      */
-    public List<Stock> selectSonStock(String stockId);
+    public List<Stock> selectSonStock();
     /**
     /**
      * 根据板块编号 stockId
