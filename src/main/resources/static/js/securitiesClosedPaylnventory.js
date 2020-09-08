@@ -30,13 +30,16 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
-                ,{field: 'cashInventoryId', title: '现金库存ID'}
-                ,{field: 'securitiesNum', title: '证券数量'}
-                ,{field: 'accountId', title: '账户ID'}
-                ,{field: 'accountName', title: '账户名'}
-                ,{field: 'fundId', title: '基金ID'}
-                ,{field: 'cashBlance', title: '现金余额'}
-                ,{field: 'dateTime', title: '统计时间'}
+                ,{field: 'securitiesClosedPayInventoryId', title: '证券应收应付存库Id'}
+                ,{field: 'accountId', title: '现金账户ID'}
+                ,{field: 'accountName', title: '现金账户名称'}
+                ,{field: 'dateTime', title: '业务日期'}
+                ,{field: 'fundId', title: '基金信息表ID'}
+                ,{field: 'securitiesId', title: '证券信息表ID'}
+                ,{field: 'securitiesType', title: '证券应收应付类型'}
+                ,{field: 'totalPrice', title: '总金额'}
+                ,{field: 'securitiesClosedPayDesc', title: '备注'}
+                ,{field: 'securityPeriodFlag', title: '期初标志'}
                 ,{field: 'right', title: '操作', toolbar:'#barDemo'}
             ]
         ]
