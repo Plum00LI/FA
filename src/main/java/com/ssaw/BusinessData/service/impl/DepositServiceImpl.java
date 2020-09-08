@@ -29,7 +29,7 @@ public class DepositServiceImpl implements DepositService {
 
 
     @Override
-    public Map<String, Object> selectDeposit(String pageSize, String page) {
+    public Map<String, Object> selectDeposit(String pageSize, String page,String businessType,String endDate) {
         //创建一个结果集Map用于存放两个结果变量
         Map<String,Object> resultMap=new HashMap<>();
         //定义一个分页条数变量
@@ -52,7 +52,14 @@ public class DepositServiceImpl implements DepositService {
         //传入存储过程需要查询的表名
         map.put("p_tableName",p_tableName);
         //传入查询的条件
-        map.put("p_condition","");
+        StringBuffer sqlWhere=new StringBuffer();
+        if (businessType!=null && !businessType.equals("")){
+            sqlWhere.append(" and businessType="+businessType);
+        }
+        if (endDate!=null && !endDate.equals("")){
+            sqlWhere.append(" and endDate='"+endDate+"'");
+        }
+        map.put("p_condition",sqlWhere.toString());
         //传入分页显示条数
         map.put("p_pageSize",v_pageSize);
         //传入分页页码

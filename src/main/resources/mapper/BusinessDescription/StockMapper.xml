@@ -3,8 +3,8 @@
                 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.BusinessDescription.mapper.StockMapper">
-        <select id="selectSonStock" resultType="com.ssaw.BusinessDescription.entity.Stock" parameterType="String">
-            select stockParentId,stockName,stockDesc,stockId from stock where stockParentId=#{stockId}
+        <select id="selectSonStock" resultType="com.ssaw.BusinessDescription.entity.Stock" resultMap="stockMap">
+            select stockParentId,stockName,stockDesc,stockId from stock where stockParentId!='000'
         </select>
         <insert id="insertStockParentMsg" parameterType="com.ssaw.BusinessDescription.entity.Stock">
             insert into stock(stockId,stockParentId,stockName,stockDesc) values (#{stockId},#{stockParentId},#{stockName},#{stockDesc})

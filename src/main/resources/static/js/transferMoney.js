@@ -24,22 +24,20 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         elem: '#userTable',
         url: '../selectBankTreasurer',
         page: true,
-        height: 498,
         toolbar: '#userToolBar',//显示在表头的工具条
-        minLength:80,
         cellMinWidth:60,
         height:'full-70',
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
-                ,{field: 'id', title: '划款指令Id', width:200,align:'center',hide:true}
-                ,{field: 'id', title: '划款到的账户Id', width:200,align:'center',hide:true}
-                ,{field: 'id', title: '划款到的账户银行', width:200,align:'center',hide:true}
-                ,{field: 'id', title: '划款账户', width:200,align:'center'}
-                ,{field: 'username', title: '接收账户', width:200,align:'center'}
-                ,{field: 'experience', title: '划款金额', width: 200,align:'center'}
-                ,{field: 'sex', title: '划款日期', width:140,align:'center'}
-                ,{field: 'score', title: '到账日期', width: 140,align:'center'}
+                ,{field: 'id', title: '划款指令Id',align:'center',hide:true}
+                ,{field: 'id', title: '划款到的账户Id',align:'center',hide:true}
+                ,{field: 'id', title: '划款到的账户银行',align:'center',hide:true}
+                ,{field: 'id', title: '划款账户',align:'center'}
+                ,{field: 'username', title: '接收账户',align:'center'}
+                ,{field: 'experience', title: '划款金额',align:'center'}
+                ,{field: 'sex', title: '划款日期',align:'center'}
+                ,{field: 'score', title: '到账日期',align:'center'}
                 ,{field: 'right', title: '操作',width: 187, align:'center', toolbar: '#barDemo'}
             ]
         ]

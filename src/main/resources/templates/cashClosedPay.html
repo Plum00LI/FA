@@ -85,7 +85,7 @@
             <div class="layui-inline layui-show-xs-block" style="width: 195px">
                 <input class="layui-input" placeholder="请选择银行名称" name="accountName" id="insertAccountName">
                 <input name="accountId" type="hidden" id="insertAccountId">
-                <input name="cashClosedPayId" type="hidden" id="insertCashClosedPayId">
+                <input name="fundId" type="hidden" id="insertFundId">
             </div>
         </div>
         <div class="layui-inline layui-show-xs-block">
@@ -127,7 +127,7 @@
         </div>
         <br>
         <div style="position: absolute; bottom: 0px; left: 45%;">
-            <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
+            <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
             <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
@@ -225,7 +225,7 @@ layui.use(['tableSelect'],function () {
             $.each(data.data, function (index, item) {
                 newJson.push(item.accountName);
                 $("#insertAccountId").val(item.accountId);//给隐藏域中的val赋值
-                $("#insertCashClosedPayId").val(item.cashClosedPayId)
+                $("#insertFundId").val(item.fundId)
             });
             elem.val(newJson.join(","));//给输入框里显示的值赋值
 
