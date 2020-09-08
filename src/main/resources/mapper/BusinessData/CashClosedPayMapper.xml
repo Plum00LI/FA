@@ -6,7 +6,7 @@
 <mapper namespace="com.ssaw.BusinessData.mapper.CashClosedPayMapper">
 
     <insert id="insertCashClosedPay" parameterType="com.ssaw.BusinessData.entity.CashClosedPay">
-        insert into cashClosedPay values (#{cashClosedPayId},#{fundId},#{accountId},#{securitiesId},#{serviceType},#{amount},#{dateTime},#{flag})
+        insert into cashClosedPay values (#{cashClosedPayId},#{fundId},#{accountId},#{serviceType},#{amount},#{dateTime},#{flag})
     </insert>
 
     <update id="updateCashClosedPay" parameterType="com.ssaw.BusinessData.entity.CashClosedPay">
@@ -29,8 +29,6 @@
         <result property="fundName" column="fundName" javaType="String"></result>
         <result property="accountId" column="accountId" javaType="String"></result>
         <result property="accountName" column="accountName" javaType="String"></result>
-        <result property="securitiesId" column="securitiesId" javaType="String"></result>
-        <result property="securitiesName" column="securitiesName" javaType="String"></result>
         <result property="serviceType" column="serviceType" javaType="Integer"></result>
         <result property="amount" column="amount" javaType="Double"></result>
         <result property="dateTime" column="dateTime" javaType="String"></result>
