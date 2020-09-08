@@ -87,6 +87,7 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 		height: 498,
 		toolbar: '#userToolBar',//显示在表头的工具条
 		minLength:80,
+		cellMinWidth:60,
 		cols: [
 			[ //表头
 				{type: 'checkbox', field: 'left'}
