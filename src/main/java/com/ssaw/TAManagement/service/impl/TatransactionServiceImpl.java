@@ -1,6 +1,5 @@
 package com.ssaw.TAManagement.service.impl;
 
-import com.ssaw.BusinessDescription.entity.Fund;
 import com.ssaw.TAManagement.entity.TaTransaction;
 import com.ssaw.TAManagement.mapper.TaTransactionMapper;
 import com.ssaw.TAManagement.service.TatransactionService;
@@ -81,8 +80,8 @@ public class TatransactionServiceImpl implements TatransactionService {
         //将结果放入结果集Map
         resultMap.put("taTransactionList",transactionList);
         resultMap.put("count",v_count);
-        String p_condition = (String) map.get("p_condition");
-        System.out.println(p_condition);
+        /*String p_condition = (String) map.get("p_condition");
+        System.out.println(p_condition);*/
         //返回结果集Map
         System.out.println(v_count);
         System.out.println(transactionList);

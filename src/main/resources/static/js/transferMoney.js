@@ -22,24 +22,26 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //表格加载
     table.render({
         elem: '#userTable',
-        url: '../selectBankTreasurer',
+        url: '../selectTransferMoney',
         page: true,
-        height: 498,
         toolbar: '#userToolBar',//显示在表头的工具条
-        minLength:80,
         cellMinWidth:60,
         height:'full-70',
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
-                ,{field: 'id', title: '划款指令Id', width:200,align:'center',hide:true}
-                ,{field: 'id', title: '划款到的账户Id', width:200,align:'center',hide:true}
-                ,{field: 'id', title: '划款到的账户银行', width:200,align:'center',hide:true}
-                ,{field: 'id', title: '划款账户', width:200,align:'center'}
-                ,{field: 'username', title: '接收账户', width:200,align:'center'}
-                ,{field: 'experience', title: '划款金额', width: 200,align:'center'}
-                ,{field: 'sex', title: '划款日期', width:140,align:'center'}
-                ,{field: 'score', title: '到账日期', width: 140,align:'center'}
+                ,{field: 'transferMoneyId', title: '划款指令Id',align:'center',hide:true}
+                ,{field: 'foundId', title: '基金Id',align:'center',hide:true}
+                ,{field: 'outAccount', title: '划款账户Id',align:'center',hide:true}
+                ,{field: 'outBlankName', title: '划款账户的银行名称',align:'center',hide:true}
+                ,{field: 'inAccountId', title: '划款到的账户Id',align:'center',hide:true}
+                ,{field: 'inBlankName', title: '划款到的账户的银行名称',align:'center',hide:true}
+                ,{field: 'outAccountName', title: '划款账户',align:'center'}
+                ,{field: 'inAccountName', title: '接收账户',align:'center'}
+                ,{field: 'money', title: '划款金额',align:'center'}
+                ,{field: 'crossSectionDate', title: '划款日期',align:'center'}
+                ,{field: 'accountingDate', title: '到账日期',align:'center'}
+                ,{field: 'purpose', title: '划款的用途',align:'center'}
                 ,{field: 'right', title: '操作',width: 187, align:'center', toolbar: '#barDemo'}
             ]
         ]

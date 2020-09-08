@@ -23,22 +23,20 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         elem: '#userTable',
         url: '../selectDeposit',
         page: true,
-        height: 498,
         toolbar: '#userToolBar',//显示在表头的工具条
-        minLength:80,
         cellMinWidth:60,
         height:'full-70',
         cols: [
             [ //表头
-                {field: 'depositId', title: '存款业务Id', width:110,align:'center',hide:true}
-                ,{field: 'fundId', title: '基金Id', width:110,align:'center',hide:true}
-                ,{field: 'outAccountId', title: '流出账户Id', width:150,align:'center',hide:true}
-                ,{field: 'outAccountName', title: '流出账户名称', width:165,align:'center'}
-                ,{field: 'inAccountId', title: '流入账户Id', width: 150,align:'center',hide:true}
-                ,{field: 'intAccountName', title: '流入账户名称', width:165,align:'center'}
-                ,{field: 'money', title: '存款金额', width: 145,align:'center'}
-                ,{field: 'interest', title: '所含利息', width:150,align:'center',hide:true}
-                ,{field: 'businessType', title: '业务类型', width:160,align:'center',
+                {field: 'depositId', title: '存款业务Id',align:'center',hide:true}
+                ,{field: 'fundId', title: '基金Id',align:'center',hide:true}
+                ,{field: 'outAccountId', title: '流出账户Id',align:'center',hide:true}
+                ,{field: 'outAccountName', title: '流出账户名称',align:'center'}
+                ,{field: 'inAccountId', title: '流入账户Id',align:'center',hide:true}
+                ,{field: 'intAccountName', title: '流入账户名称',align:'center'}
+                ,{field: 'money', title: '存款金额',align:'center'}
+                ,{field: 'interest', title: '所含利息',align:'center',hide:true}
+                ,{field: 'businessType', title: '业务类型',align:'center',
                 templet:function (item) {
                     if (item.businessType==1){
                         return '定期三天';
@@ -49,7 +47,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 }
 
             }
-                ,{field: 'directionOfMoney', title: '调拨方向', width:150,align:'center',hide:true,
+                ,{field: 'directionOfMoney', title: '调拨方向',align:'center',hide:true,
                 templet:function (item) {
                     if (item.directionOfMoney==1){
                         return '流入';
@@ -57,9 +55,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     return  '流出';
                 }
             }
-                ,{field: 'businessDate', title: '业务时间', width:150,align:'center',hide:true}
-                ,{field: 'endDate', title: '到期日期', width:150,align:'center'}
-                ,{field: 'flag', title: '是否处理', width:145,align:'center',
+                ,{field: 'businessDate', title: '业务时间',align:'center',hide:true}
+                ,{field: 'endDate', title: '到期日期',align:'center'}
+                ,{field: 'flag', title: '是否处理',align:'center',
                 templet:function (item) {
                     if (item.flag==0){
                         return '未办理';
@@ -158,12 +156,14 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 break;
             case 'search':
                 alert("搜索");
-                var userName= $("#userName").val();
+                var businessType= $("#businessType").val();
+                var endDate= $("#selectEnd").val();
                 //表格的重新加载事件
                 table.reload('userTable', {
                     method: 'post'
                     , where: {
-                        'userName': userName
+                        'businessType': businessType,
+                        'endDate': endDate,
                     }
                     , page: {
                         curr: 1

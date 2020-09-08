@@ -100,21 +100,20 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         elem: '#userTable',
         url: '../selectEquityData',
         page: true,
-        height: 500,
         toolbar: '#userToolBar',//显示在表头的工具条
-        minLength:80,
+        cellMinWidth: 50,
         height:'full-70',
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
-                ,{field: 'equityDataId', title: '权益编号', width:166, align:'center'}
-                ,{field: 'dateTime', title: '业务日期', width: 166, align:'center'}
-                ,{field: 'securityId', title: '证券ID', width:166, align:'center'}
-                ,{field: 'securitiesName', title: '证券名称', width: 166, align:'center'}
-                ,{field: 'equitiesRecord', title: '权益登记日', width:166, align:'center'}
-                ,{field: 'equitiesExright', title: '权益除权日', width: 166, align:'center'}
-                ,{field: 'receivedDate', title: '到账日期', width: 166, align:'center'}
-                ,{field: 'equitiesType', title: '权益类型', width: 166, align: 'center',
+                ,{field: 'equityDataId', title: '权益编号', align:'center', hide: true}
+                ,{field: 'dateTime', title: '业务日期', align:'center', hide: true}
+                ,{field: 'securityId', title: '证券ID', align:'center'}
+                ,{field: 'securitiesName', title: '证券名称', align:'center'}
+                ,{field: 'equitiesRecord', title: '权益登记日', align:'center'}
+                ,{field: 'equitiesExright', title: '权益除权日', align:'center'}
+                ,{field: 'receivedDate', title: '到账日期', align:'center'}
+                ,{field: 'equitiesType', title: '权益类型', align: 'center',
                 templet:function (item) {
                     if (item.equitiesType==1){
                         return '送股';
@@ -122,8 +121,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
                 }
             }
-                ,{field: 'proportion', title: '比例(%)', width: 166, align:'center'}
-                ,{field: 'disposeStatus', title: '处理状态', width: 166, align:'center',
+                ,{field: 'proportion', title: '比例(%)', align:'center'}
+                ,{field: 'disposeStatus', title: '处理状态', align:'center',
                 templet:function (item) {
                     if (item.disposeStatus==0){
                         return '未处理';
@@ -131,7 +130,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     return '已处理';
                 }
             }
-                ,{title: 'operation', title: '操作' , toolbar:'#barDemo', width: 166, align:'center'}
+                ,{title: 'operation', title: '操作' , toolbar:'#barDemo', align:'center'}
             ]
         ]
     });

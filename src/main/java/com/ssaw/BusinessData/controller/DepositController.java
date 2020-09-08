@@ -33,9 +33,9 @@ public class DepositController {
     @Resource
     DbUtil dbUtil;
     @RequestMapping("selectDeposit")
-    public Map<String,Object> selectDeposit(String page, String limit){
+    public Map<String,Object> selectDeposit(String page, String limit,String businessType,String endDate){
         //调用Service层执行查询，接收返回结果集Map
-        Map<String, Object> map = depositService.selectDeposit(limit,page);
+        Map<String, Object> map = depositService.selectDeposit(limit,page,businessType,endDate);
         //从结果集中拿出结果
         List<Deposit> depositList= (List<Deposit>) map.get("depositList");
         int count= (int) map.get("count");
