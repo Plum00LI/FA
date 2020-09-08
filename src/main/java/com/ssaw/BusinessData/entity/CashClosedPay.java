@@ -19,10 +19,6 @@ public class CashClosedPay {
     private String accountId;
     // 银行名称 accountName
     private String accountName;
-    //FK 证券信息表ID  securities表
-    private String securitiesId;
-    //证券名称 securitiesName
-    private String securitiesName;
     //业务类型  1=“管理费”2=“托管费”3=“存款利息”4=“申购赎回款”
     private int serviceType;
     //金额
@@ -35,11 +31,10 @@ public class CashClosedPay {
     public CashClosedPay() {
     }
 
-    public CashClosedPay(String cashClosedPayId, String fundId, String accountId, String securitiesId, int serviceType, double amount, String dateTime, int flag) {
+    public CashClosedPay(String cashClosedPayId, String fundId, String accountId, int serviceType, double amount, String dateTime, int flag) {
         this.cashClosedPayId = cashClosedPayId;
         this.fundId = fundId;
         this.accountId = accountId;
-        this.securitiesId = securitiesId;
         this.serviceType = serviceType;
         this.amount = amount;
         this.dateTime = dateTime;
@@ -54,37 +49,11 @@ public class CashClosedPay {
                 ", fundName='" + fundName + '\'' +
                 ", accountId='" + accountId + '\'' +
                 ", accountName='" + accountName + '\'' +
-                ", securitiesId='" + securitiesId + '\'' +
-                ", securitiesName='" + securitiesName + '\'' +
                 ", serviceType=" + serviceType +
                 ", amount=" + amount +
                 ", dateTime='" + dateTime + '\'' +
                 ", flag=" + flag +
                 '}';
-    }
-
-    public String getSecuritiesName() {
-        return securitiesName;
-    }
-
-    public void setSecuritiesName(String securitiesName) {
-        this.securitiesName = securitiesName;
-    }
-
-    public String getFundName() {
-        return fundName;
-    }
-
-    public void setFundName(String fundName) {
-        this.fundName = fundName;
-    }
-
-    public String getAccountName() {
-        return accountName;
-    }
-
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
     }
 
     public String getCashClosedPayId() {
@@ -103,6 +72,14 @@ public class CashClosedPay {
         this.fundId = fundId;
     }
 
+    public String getFundName() {
+        return fundName;
+    }
+
+    public void setFundName(String fundName) {
+        this.fundName = fundName;
+    }
+
     public String getAccountId() {
         return accountId;
     }
@@ -111,12 +88,12 @@ public class CashClosedPay {
         this.accountId = accountId;
     }
 
-    public String getSecuritiesId() {
-        return securitiesId;
+    public String getAccountName() {
+        return accountName;
     }
 
-    public void setSecuritiesId(String securitiesId) {
-        this.securitiesId = securitiesId;
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
     public int getServiceType() {
