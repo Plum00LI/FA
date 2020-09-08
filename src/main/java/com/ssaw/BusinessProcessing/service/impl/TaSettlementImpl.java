@@ -2,8 +2,7 @@ package com.ssaw.BusinessProcessing.service.impl;
 
 import com.ssaw.BusinessProcessing.entity.TaSettlement;
 import com.ssaw.BusinessProcessing.mapper.TaSettlementMapper;
-import com.ssaw.BusinessProcessing.service.TaSettlementServise;
-import com.ssaw.TAManagement.entity.TaTransaction;
+import com.ssaw.BusinessProcessing.service.TaSettlementService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,11 +19,11 @@ import java.util.Map;
  */
 @Service
 @Transactional
-public class TaSettlementImpl implements TaSettlementServise {
+public class TaSettlementImpl implements TaSettlementService {
     @Resource
     TaSettlementMapper taSettlementMapper;
     @Override
-    public Map<String, Object> selectTatransaction(String pageSize, String page, String dateTime, String transactionType) {
+    public Map<String, Object> selectTaSettlement(String pageSize, String page, String dateTime, String transactionType) {
         //创建一个结果集Map用于存放两个结果变量
         Map<String, Object> resultMap = new HashMap<>();
         //定义一个分页条数变量
@@ -70,7 +69,7 @@ public class TaSettlementImpl implements TaSettlementServise {
         //接收返回总条数
         int v_count = (int) map.get("p_count");
         //将结果放入结果集Map
-        resultMap.put("taTransactionList",TaSettlementList);
+        resultMap.put("taSettlementList",TaSettlementList);
         resultMap.put("count",v_count);
         String p_condition = (String) map.get("p_condition");
         System.out.println(p_condition);

@@ -5,6 +5,7 @@ import com.ssaw.CashManagement.entity.TransferMoney;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 *@program:TescComment
@@ -15,8 +16,8 @@ import java.util.List;
 */
 @Mapper
 public interface TransferMoneyMapper {
-    public List<TransferMoney> selectTransferMoney();
-    public int insertTransferMoney();
-    public int updateTransferMoney();
+    public void selectTransferMoney(Map map);
+    public int insertTransferMoney(TransferMoney transferMoney);
+    public int updateTransferMoney(TransferMoney transferMoney);
     public int deleteTransferMoney();
 }

@@ -9,5 +9,5 @@ package com.ssaw.DayEndProcessing.service;
  * Author:   SYT
  */
 public interface InventoryStatisticsService {
-
+    
 }

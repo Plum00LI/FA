@@ -11,9 +11,9 @@ import java.util.Map;
  * @create:2020-09-01
  */
 @Service
-public interface TaSettlementServise {
+public interface TaSettlementService {
     /**
      * 查询
      */
-    Map<String,Object> selectTatransaction(String pageSize, String page, String dateTime,String transactionType);
+    Map<String,Object> selectTaSettlement(String pageSize, String page, String dateTime,String transactionType);
 }

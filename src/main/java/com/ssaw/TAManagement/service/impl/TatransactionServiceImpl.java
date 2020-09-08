@@ -80,8 +80,8 @@ public class TatransactionServiceImpl implements TatransactionService {
         //将结果放入结果集Map
         resultMap.put("taTransactionList",transactionList);
         resultMap.put("count",v_count);
-        String p_condition = (String) map.get("p_condition");
-        System.out.println(p_condition);
+        /*String p_condition = (String) map.get("p_condition");
+        System.out.println(p_condition);*/
         //返回结果集Map
         System.out.println(v_count);
         System.out.println(transactionList);

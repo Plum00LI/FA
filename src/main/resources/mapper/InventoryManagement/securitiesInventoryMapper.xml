@@ -3,8 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.InventoryManagement.mapper.SecuritiesInventoryMapper">
-    <insert id="insertSecuritiesInventory" parameterType="int">
-        insert into securitiesInventory values (#{securitiesInventoryId},#{dateTime},#{securitiesId},#{securitiesName},#{fundId},#{securityPeriodFlag},#{securitiesNum},#{price},#{total},#{desc})
+    <insert id="insertSecuritiesInventory" parameterType="com.ssaw.InventoryManagement.entity.SecuritiesInventory">
+        insert into securitiesInventory values (#{securitiesInventoryId,jdbcType=VARCHAR},#{dateTime,jdbcType=VARCHAR},#{securitiesId,jdbcType=VARCHAR},#{securitiesName,jdbcType=VARCHAR},#{securityPeriodFlag},#{securitiesNum},#{price},#{total},#{securitiesInventoryDesc,jdbcType=VARCHAR})
     </insert>
 
     <update id="updateSecuritiesInventory" parameterType="int">

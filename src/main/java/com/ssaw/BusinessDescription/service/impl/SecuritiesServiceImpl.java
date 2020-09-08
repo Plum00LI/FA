@@ -103,15 +103,15 @@ public class SecuritiesServiceImpl implements SecuritiesService {
         securitiesMapper.selectSecurities(map);
         //接收返回数据
         List<SecuritiesAndStock> securities = (List<SecuritiesAndStock>) map.get("p_cursor");
-        /*
-        List objects = new ArrayList();
+
+       /* List objects = new ArrayList();
         for (SecuritiesAndStock security : securities) {
             String stockParentId = security.getStockParentId();
             if (stockParentId!="000"){
                 objects.add(stockParentId);
             }
-        }
-        */
+        }*/
+
         //接收返回总条数
         int v_count = (int) map.get("p_count");
         //将结果放入结果集Map
