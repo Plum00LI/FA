@@ -1,6 +1,8 @@
 package com.ssaw.InventoryManagement.controller;
 
 import com.ssaw.BusinessData.entity.Market;
+import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.InventoryManagement.entity.SecuritiesInventory;
 import com.ssaw.InventoryManagement.service.SecuritiesInventoryService;
 import org.springframework.stereotype.Controller;
@@ -29,6 +31,11 @@ public class SecuritiesInventoryController {
     @Resource
     SecuritiesInventoryService securitiesInventoryService;
 
+    //调用工具类
+    @Resource
+    DbUtil dbUtil;
+
+
     @RequestMapping("selectSecuritiesInventory")
     public HashMap selectSecuritiesInventoryService(){
         System.out.println("证券库存查询控制器");
@@ -42,6 +49,14 @@ public class SecuritiesInventoryController {
         return hashMap;
     }
 
+    /**
+     * 分页查询
+     * @param page 页码
+     * @param limit 每页条数
+     * @param accountId 账户ID
+     * @param securitiesName 证券名称
+     * @return
+     */
     @RequestMapping("selectSecuritiesInventoryInfo")
     public Map<String,Object> selectSecuritiesInventoryInfo(String page, String limit,String accountId,String securitiesName){
         System.out.println("行情数据分页查询控制器");
@@ -58,10 +73,16 @@ public class SecuritiesInventoryController {
         return hashMap;
     }
 
-    @RequestMapping(value = "insertSecuritiesInventory",method = {RequestMethod.GET,RequestMethod.POST})
-    public int insertSecuritiesInventory(@ModelAttribute SecuritiesInventory securitiesInventory){
-        int i = securitiesInventoryService.insertSecuritiesInventory(securitiesInventory);
-        return i;
+    /**
+     * 增加
+     * @param securitiesInventory 证券库存实体类
+     * @return
+     */
+    @RequestMapping("insertSecuritiesInventory")
+    public int insertSecuritiesInventory(SecuritiesInventory securitiesInventory){
+        System.out.println("增加的方法");
+        securitiesInventory.setSecuritiesInventoryId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.SI));
+        return securitiesInventoryService.insertSecuritiesInventory(securitiesInventory);
     }
 
     @RequestMapping(value = "updateSecuritiesInventory",method = {RequestMethod.GET,RequestMethod.POST})
