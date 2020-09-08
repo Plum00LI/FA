@@ -116,18 +116,17 @@
                 elem: '#userTable',
                 url: '../selectBrokers',
                 page: true,
-                height: 500,
                 toolbar: '#userToolBar',//显示在表头的工具条
-                minLength:80,
+                cellMinWidth: 50,
                 height:'full-70',
                 cols: [
                     [ //表头
                         {type: 'checkbox', fixed: 'left'}
-                        ,{field: 'brokersId', title: '券商编号', width:326, align:'center'}
-                        ,{field: 'brokersName', title: '业务日期', width: 326, align:'center'}
-                        ,{field: 'brokersInstructions', title: '证券ID', width:326, align:'center'}
-                        ,{field: 'brokersDesc', title: '证券名称', width: 326, align:'center'}
-                        ,{title: 'operation', title: '操作' , toolbar:'#barDemo', width: 329  , align:'center'}
+                        ,{field: 'brokersId', title: '券商编号', align:'center'}
+                        ,{field: 'brokersName', title: '业务日期', align:'center'}
+                        ,{field: 'brokersInstructions', title: '证券ID', align:'center'}
+                        ,{field: 'brokersDesc', title: '证券名称', align:'center'}
+                        ,{title: 'operation', title: '操作' , toolbar:'#barDemo', align:'center'}
                     ]
                 ]
             });
