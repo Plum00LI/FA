@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 *@program:TescComment
@@ -15,8 +16,8 @@ import java.util.List;
 */
 @Service
 public interface TransferMoneyService {
-    public List<TransferMoney> selectTransferMoney();
-    public int insertTransferMoney();
-    public int updateTransferMoney();
+    public Map<String,Object> selectTransferMoney(String pageSize,String page);
+    public int insertTransferMoney(TransferMoney transferMoney);
+    public int updateTransferMoney(TransferMoney transferMoney);
     public int deleteTransferMoney();
 }

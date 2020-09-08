@@ -91,19 +91,18 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         elem: '#userTable',
         url: '../selectCashClosedPayInventory',
         page: true,
-        height: 500,
         toolbar: '#userToolBar',//显示在表头的工具条
-        minLength:80,
-        height:'full-70',
+        cellMinWidth: 50,
+        height:'full-50',
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
-                ,{field: 'businessDate', title: '业务日期', width:182, align:'center'}
-                ,{field: 'cashClosedPayInventoryId', title: '现金应收应付库存ID', width: 185, align:'center'}
-                ,{field: 'cashAccountName', title: '现金账户名称', width:185, align:'center'}
-                ,{field: 'fundId', title: '基金编号', width: 185, align:'center'}
-                ,{field: 'fundName', title: '基金名称', width:185, align:'center'}
-                ,{field: 'businessType', title: '业务类型', width: 180, align:'center',
+                ,{field: 'businessDate', title: '业务日期', align:'center'}
+                ,{field: 'cashClosedPayInventoryId', title: '现金应收应付库存ID', align:'center', hide:true}
+                ,{field: 'cashAccountName', title: '现金账户名称', align:'center'}
+                ,{field: 'fundId', title: '基金编号', align:'center', hide:true}
+                ,{field: 'fundName', title: '基金名称', align:'center', hide:true}
+                ,{field: 'businessType', title: '业务类型', align:'center',
                 templet:function (item) {
                     if (item.businessType==1){
                         return '管理费';
@@ -117,7 +116,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 
                 }
             }
-                ,{field: 'businessStatus', title: '业务状态', width: 180, align:'center',
+                ,{field: 'businessStatus', title: '业务状态', align:'center',
                 templet:function (item) {
                     if (item.businessStatus==1){
                         return '流入';
@@ -125,7 +124,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     return '流出';
                 }
             }
-                ,{field: 'initialSigns', title: '期初标志', width: 180, align:'center',
+                ,{field: 'initialSigns', title: '期初标志', align:'center',
                 templet:function (item) {
                     if (item.initialSigns==1){
                         return '是';
@@ -133,8 +132,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     return '否';
                 }
             }
-                ,{field: 'totalMoney', title: '总金额', width: 185, align:'center'}
-                ,{title: 'operation', title: '操作', toolbar:'#barDemo', width: 180, align:'center'}
+                ,{field: 'totalMoney', title: '总金额', align:'center'}
+                ,{title: 'operation', title: '操作', toolbar:'#barDemo', align:'center'}
             ]
         ]
     });
