@@ -1,10 +1,10 @@
 package com.ssaw.CashManagement.controller;
 
-import com.ssaw.BusinessDescription.entity.Account;
 import com.ssaw.CashManagement.entity.BankTreasurer;
+import com.ssaw.CashManagement.entity.TransferMoney;
 import com.ssaw.CashManagement.service.BankTreasurerService;
+import com.ssaw.CashManagement.service.TransferMoneyService;
 import com.ssaw.GlobalManagement.util.DbUtil;
-import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,42 +21,41 @@ import java.util.Map;
  * @create:2020-09-01
  */
 @RestController
-public class BankTreasurerController {
+public class TransferMoneyController {
     @Resource
-    BankTreasurerService bankTreasurerService;
+    TransferMoneyService transferMoneyService;
     @Resource
     DbUtil dbUtil;
 
-    @RequestMapping("selectBankTreasurer")
-    public Map<String,Object> selectAccount(String page, String limit,String allocatingType,String flag,String dbTime){
+    @RequestMapping("selectTransferMoney")
+    public Map<String,Object> selectAccount(String page, String limit){
         //调用Service层执行查询，接收返回结果集Map
-        Map<String, Object> map = bankTreasurerService.selectBankTreasurer(limit,page,allocatingType,flag,dbTime);
-        System.out.println(dbTime);
+        Map<String, Object> map = transferMoneyService.selectTransferMoney(limit,page);
         //从结果集中拿出结果
-        List<BankTreasurer> bankTreasurerList= (List<BankTreasurer>) map.get("bankTreasurerList");
+        List<TransferMoney> transferMoneyList= (List<TransferMoney>) map.get("transferMoneyList");
         int count= (int) map.get("count");
         //以layui要求存储响应数据格式
         Map<String,Object> json=new HashMap<>();
         json.put("code",0);
         json.put("msg","");
         json.put("count",count);
-        json.put("data",bankTreasurerList);
+        json.put("data",transferMoneyList);
         //返回数据
         return json;
     }
-    @RequestMapping("insertBankTreasurer")
-    public int insertBankTreasurer(BankTreasurer bankTreasurer){
-        int i = bankTreasurerService.insertBankTreasurer(bankTreasurer);
+    @RequestMapping("insertTransferMoney")
+    public int insertTransferMoney(TransferMoney transferMoney){
+        int i = transferMoneyService.insertTransferMoney(transferMoney);
         return i;
     }
-    @RequestMapping("deleteBankTreasurer")
+/*    @RequestMapping("deleteTransferMoney")
     public int deleteBankTreasurer(String bankTreasurerId){
         System.out.println(bankTreasurerId);
         return  bankTreasurerService.deleteBankTreasurer(bankTreasurerId);
-    }
-    @RequestMapping("updateBankTreasurer")
-    public int updateBankTreasurer(BankTreasurer bankTreasurer){
-        int i = bankTreasurerService.updateBankTreasurer(bankTreasurer);
+    }*/
+    @RequestMapping("updateTransferMoney")
+    public int updateTransferMoney(TransferMoney transferMoney){
+        int i = transferMoneyService.updateTransferMoney(transferMoney);
         return i;
     }
 }
