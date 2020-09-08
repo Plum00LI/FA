@@ -31,8 +31,8 @@ public class StockServiceImpl implements StockService {
     }
     //查询
     @Override
-    public List<Stock> selectSonStock(String stockId) {
-        return stockMapper.selectSonStock(stockId);
+    public List<Stock> selectSonStock() {
+        return stockMapper.selectSonStock();
     }
 //增加
     @Override

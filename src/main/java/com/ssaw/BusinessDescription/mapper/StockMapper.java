@@ -22,9 +22,9 @@ public interface StockMapper {
      */
     public List<Securities> selectStock();
     /**
-     * 根据父类查子类
+     * 查子类
      */
-    public List<Stock> selectSonStock(String stockId);
+    public List<Stock> selectSonStock();
     /**
      * 增加父类
      * @param stock

@@ -24,9 +24,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             url: '../cashInventory/select',
             count:0,
             page: true,
-            height: 498,
+            height: 'full-70',
             toolbar: '#cashInventoryToolBar',//显示在表头的工具条
-            minLength:80,
             cols: [
                 [ //表头
                     {type: 'checkbox', fixed: 'left'}
@@ -135,7 +134,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     var accountId5= $("#searchAccountId").val();
                     var dateTime5= $("#dateTime").val();
                     // alert(dateTime5);
-                    alert(accountId5);
+                    // alert(accountId5);
                     //表格的重新加载事件
                     table.reload('cashInventoryTable',{
                         method: 'post'
@@ -146,6 +145,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                         , page: {
                             curr: 1
                         }
+                    });
+                    laydate.render({
+                        elem: '#dateTime' //指定元素
                     });
                     break;
                 case 'deleteAll':

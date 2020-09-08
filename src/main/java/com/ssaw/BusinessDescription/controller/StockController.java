@@ -50,6 +50,18 @@ public class StockController {
         int i = stockService.insertStockParentMsg(stock);
         return i;
     }
+//查询子类
+    @RequestMapping(value = "selectSonStock")
+    public Map<String,Object> selectSonStock() {
+        List<Stock> securitiesList = stockService.selectSonStock();
+        Map<String, Object> json = new HashMap<>();
+        json.put("code",0);
+        json.put("msg","");
+        json.put("count",null);
+        json.put("data",securitiesList);
+        //返回数据
+        return json;
 
+    }
 }
 

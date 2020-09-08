@@ -44,6 +44,7 @@ public class TransactionDataController {
     @RequestMapping("insertTransactionData")
     public int insertTransactionData(TransactionData transactionData){
         transactionData.setTransactionDataId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.TD));
+        System.out.println(transactionData.getFundId());
         System.out.println(transactionData);
         return transactionDataService.insertTransactionData(transactionData);
     }

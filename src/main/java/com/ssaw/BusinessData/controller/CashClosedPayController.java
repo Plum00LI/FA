@@ -3,6 +3,8 @@ package com.ssaw.BusinessData.controller;
 
 import com.ssaw.BusinessData.entity.CashClosedPay;
 import com.ssaw.BusinessData.service.CashClosedPayService;
+import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,10 +27,13 @@ import java.util.Map;
 public class CashClosedPayController {
     @Resource
     CashClosedPayService cashClosedPayService;
+    @Resource
+    DbUtil dbUtil;
 
     @RequestMapping("insertCashClosedPay")
     public int insertCash(CashClosedPay cashClosedPay){
         System.out.println("进入了新增Controller");
+        cashClosedPay.setCashClosedPayId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.CCP));
         int i = cashClosedPayService.insertCashClosedPay(cashClosedPay);
         return i;
     };

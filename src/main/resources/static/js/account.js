@@ -27,20 +27,18 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         elem: '#userTable',
         url: '../selectAccount',
         page: true,
-        height: 498,
         toolbar: '#userToolBar',//显示在表头的工具条
-        minLength:80,
-        cellMinWidth:100,
+        cellMinWidth:60,
         height:'full-70',
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
-                ,{field: 'accountId', title: '现金账户Id', width:200,align:'center',hide:true}
-                ,{field: 'fundId', title: '基金Id', width:200,align:'center',hide:true}
-                ,{field: 'blankCardCode', title: '银行卡号', width:200,align:'center'}
-                ,{field: 'accountName', title: '账户名称', width:200,align:'center'}
-                ,{field: 'blankName', title: '银行名称', width: 150,align:'center'}
-                ,{field: 'deposit', title: '存款类型', width:120,align:'center',
+                ,{field: 'accountId', title: '现金账户Id',align:'center',hide:true}
+                ,{field: 'fundId', title: '基金Id',align:'center',hide:true}
+                ,{field: 'blankCardCode', title: '银行卡号',align:'center'}
+                ,{field: 'accountName', title: '账户名称',align:'center'}
+                ,{field: 'blankName', title: '银行名称',align:'center'}
+                ,{field: 'deposit', title: '存款类型',align:'center',
                 templet:function (item) {
                     if (item.deposit==1){
                         return '活期';
@@ -48,8 +46,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     return  '定期';
                 }
             }
-                ,{field: 'cardRate', title: '卡号利率%', width: 120,align:'center'}
-                ,{field: 'procisionDays', title: '计息期间', width:120,align:'center',
+                ,{field: 'cardRate', title: '卡号利率%',align:'center'}
+                ,{field: 'procisionDays', title: '计息期间',align:'center',
                 templet:function (item) {
                     if (item.procisionDays==1){
                         return '360天';
@@ -59,9 +57,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     return '366天'
                 }
             }
-                ,{field: 'openTime', title: '开户时间', width: 120,align:'center'}
-                ,{field: 'endTime', title: '结束时间', width: 120,align:'center'}
-                ,{field: 'accountDesc', title: '备注', width: 120,align:'center'}
+                ,{field: 'openTime', title: '开户时间',align:'center'}
+                ,{field: 'endTime', title: '结束时间',align:'center'}
+                ,{field: 'accountDesc', title: '备注',align:'center'}
                 ,{field: 'right', title: '操作',width: 187, align:'center', toolbar: '#barDemo'}
             ]
         ]

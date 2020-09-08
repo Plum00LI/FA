@@ -222,13 +222,9 @@
                         layer.full(index);
                         break;
                     case 'search':
-                        alert("搜索");
                         var dateTime= $("#start").val();
                         var transactionStatus= $("#transactionStatus").val();
                         var transactionType=$("#transactionType").val();
-                        alert(dateTime);
-                        alert(transactionStatus);
-                        alert(transactionType);
                         //表格的重新加载事件
                         table.reload('userTable', {
                             method: 'post'
