@@ -21,14 +21,14 @@
 
     </div>
 </div>
+
 <div id="editTree">
     <form id="addform" lay-filter="editform"
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
 
-        <div id="funTree" lay-filter="funTree">
+        <div id="funTree" lay-filter="funTree"></div>
 
-</div>
         <div style="position: absolute; bottom: 0px; left: 45%; display: none"  id="buttonID">
             <button class="layui-btn" lay-submit="" lay-filter="addsubmit" >
                 <i class="layui-icon">&#x1005;</i>添加
@@ -84,7 +84,7 @@
                     $("#buttonID").css("display","block")
                     var roleId=obj.data.roleId;
                     $.ajax({
-                        // url:'./FunServlet?&roleId='+roleId,
+                        url:'../Fun/SelectFun?roleId='+roleId,
                         dataType:'json',
                         type:'post',
                         success:function(data) {
@@ -111,22 +111,22 @@
 
 
                     layer.full(index);
-                    form.on('submit(addsubmit)',function () {
-                        var checkedData = tree.getChecked('id'); //获取选中节点的数据
-                        var ids =[];
-                        $.each(checkedData,function (i,parent) {
-                            ids.push(parent.id);
-                            $.each(parent.children,function (i,child) {
-                                ids.push(child.id);
-                            });
-                        });
-                        var strIds=ids.join(",");
-                        $.ajax({
-                            // url:'./EndowServlet?strIds='+strIds,
-                            dataType:'json',
-                            type:'post',
-                        });
-                    });
+                    // form.on('submit(addsubmit)',function () {
+                    //     var checkedData = tree.getChecked('id'); //获取选中节点的数据
+                    //     var ids =[];
+                    //     $.each(checkedData,function (i,parent) {
+                    //         ids.push(parent.id);
+                    //         $.each(parent.children,function (i,child) {
+                    //             ids.push(child.id);
+                    //         });
+                    //     });
+                    //     var strIds=ids.join(",");
+                    //     $.ajax({
+                    //         // url:'./EndowServlet?strIds='+strIds,
+                    //         dataType:'json',
+                    //         type:'post',
+                    //     });
+                    // });
                     break;
             }
         });
