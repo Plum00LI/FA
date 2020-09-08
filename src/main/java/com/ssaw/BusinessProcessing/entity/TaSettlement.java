@@ -9,15 +9,15 @@ package com.ssaw.BusinessProcessing.entity;
 public class TaSettlement {
     private String taTransactionId;      //PK , 交易数据编号 TA202008310001
     private String dateTime;           //交易日期
-    private String balanceDate;        //结算日期
+//    private String balanceDate;        //结算日期
     private String fundId;             //FK 基金Id来自基金表
     private double fundNum;            //交易数量
     private String accountId;          //FK 来自现金账户表 现金账户Id
     private double totalMoney;         //总金额
-    private double actualMoney;        //实际交易金额
+//    private double actualMoney;        //实际交易金额
     private double price;              //单价(昨日单位净值)
-    private double cost;               //费用
-    private int    agencies;           //代销机构1=建设银行  2=工商银行  3=农业银行
+//    private double cost;               //费用
+//    private int    agencies;           //代销机构1=建设银行  2=工商银行  3=农业银行
     private int    transactionType;    //1认购 2申购 3赎回
     private int    transactionStatus;  //1结算 0未结算
 
@@ -39,13 +39,13 @@ public class TaSettlement {
         this.dateTime = dateTime;
     }
 
-    public String getBalanceDate() {
-        return balanceDate;
-    }
-
-    public void setBalanceDate(String balanceDate) {
-        this.balanceDate = balanceDate;
-    }
+//    public String getBalanceDate() {
+//        return balanceDate;
+//    }
+//
+//    public void setBalanceDate(String balanceDate) {
+//        this.balanceDate = balanceDate;
+//    }
 
     public String getFundId() {
         return fundId;
@@ -79,13 +79,13 @@ public class TaSettlement {
         this.totalMoney = totalMoney;
     }
 
-    public double getActualMoney() {
-        return actualMoney;
-    }
-
-    public void setActualMoney(double actualMoney) {
-        this.actualMoney = actualMoney;
-    }
+//    public double getActualMoney() {
+//        return actualMoney;
+//    }
+//
+//    public void setActualMoney(double actualMoney) {
+//        this.actualMoney = actualMoney;
+//    }
 
     public double getPrice() {
         return price;
@@ -95,21 +95,21 @@ public class TaSettlement {
         this.price = price;
     }
 
-    public double getCost() {
-        return cost;
-    }
-
-    public void setCost(double cost) {
-        this.cost = cost;
-    }
-
-    public int getAgencies() {
-        return agencies;
-    }
-
-    public void setAgencies(int agencies) {
-        this.agencies = agencies;
-    }
+//    public double getCost() {
+//        return cost;
+//    }
+//
+//    public void setCost(double cost) {
+//        this.cost = cost;
+//    }
+//
+//    public int getAgencies() {
+//        return agencies;
+//    }
+//
+//    public void setAgencies(int agencies) {
+//        this.agencies = agencies;
+//    }
 
     public int getTransactionType() {
         return transactionType;
@@ -131,16 +131,16 @@ public class TaSettlement {
     public String toString() {
         return "TaTransaction{" +
                 "taTransactionId='" + taTransactionId + '\'' +
-                ", dateTime='" + dateTime + '\'' +
-                ", balanceDate='" + balanceDate + '\'' +
+                ",dateTime='" + dateTime + '\'' +
+//                ", balanceDate='" + balanceDate + '\'' +
                 ", fundId='" + fundId + '\'' +
                 ", fundNum=" + fundNum +
                 ", accountId='" + accountId + '\'' +
                 ", totalMoney=" + totalMoney +
-                ", actualMoney=" + actualMoney +
+//                ", actualMoney=" + actualMoney +
                 ", price=" + price +
-                ", cost=" + cost +
-                ", agencies=" + agencies +
+//                ", cost=" + cost +
+//                ", agencies=" + agencies +
                 ", transactionType=" + transactionType +
                 ", transactionStatus=" + transactionStatus +
                 '}';
