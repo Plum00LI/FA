@@ -8,29 +8,28 @@ package com.ssaw.InventoryManagement.entity;
  * Datetime:    2020/9/6   20:17
  * Author:   SYT
  */
-/*create table securitiesClosedPayInventory(
-        securitiesClosedPayInventoryId	  varchar2(50)                      not null ,               *//*证券存库Id 主键*//*
-        datetime	                varchar2(10)                            not null ,           *//*业务日期*//*
-        fundId	                    varchar2(50)                            not null ,               *//*FK 基金信息表Id      fund表*//*
-        securitiesId	            varchar2(50)                            not null ,          *//*FK 证券信息表ID  securities表*//*
-        securitiesType	            Number(1)                               not null ,          *//*证券应收应付类型 1=估值款 2=证券清算款 3=债券利息*//*
-        flag	                    varchar2(20)                            not null ,                  *//*业务日期*//*
-        tootaIPrice	                Number(16,4)                            not null ,           *//*总金额*//*
-        securitiesClosedPayDesc	    varchar2(50),               *//*备注*//*
-        securityPeriodFlag	        Number(1)                               not null       *//*期初标志 是否从其他系统导入得期初数据 0：不是 1：是*//*
-        );*/
+
 public class SecuritiesClosedPayInventory {
+    //证券应收应付存库Id
     private String securitiesClosedPayInventoryId;
-    private String dateTime;
-    private String fundId;
-    private String securitiesId;
-    private int securitiesType;
-    private String flag;
-    private double totalPrice;
-    private String securitiesClosedPayDesc;
-    private int securityPeriodFlag;
-    //账户编号
+    //现金账户ID
     private String accountId;
+    //业务日期
+    private String dateTime;
+    //基金信息表Id
+    private String fundId;
+    //证券信息表ID  securities表
+    private String securitiesId;
+    //证券应收应付类型 1=估值款 2=证券清算款 3=债券利息
+    private int securitiesType;
+    //业务状态 1流入，-1流出
+    private String flag;
+    //总金额*
+    private double totalPrice;
+    //备注
+    private String securitiesClosedPayDesc;
+    //期初标志 是否从其他系统导入得期初数据 0：不是 1：是
+    private int securityPeriodFlag;
     //账户名称
     private String accountName;
 
@@ -46,6 +45,32 @@ public class SecuritiesClosedPayInventory {
         this.securityPeriodFlag = securityPeriodFlag;
         this.accountId = accountId;
         this.accountName = accountName;
+    }
+
+    /**
+     *
+     * @param securitiesClosedPayInventoryId    证券应收应付存库Id
+     * @param accountId 现金账户ID
+     * @param dateTime  业务日期
+     * @param fundId    基金信息表Id
+     * @param securitiesId  证券信息表ID  securities表
+     * @param securitiesType    证券应收应付类型 1=估值款 2=证券清算款 3=债券利息
+     * @param flag  业务状态 1流入，-1流出
+     * @param totalPrice    总金额*
+     * @param securitiesClosedPayDesc   备注
+     * @param securityPeriodFlag    期初标志 是否从其他系统导入得期初数据 0：不是 1：是
+     */
+    public SecuritiesClosedPayInventory(String securitiesClosedPayInventoryId, String accountId, String dateTime, String fundId, String securitiesId, int securitiesType, String flag, double totalPrice, String securitiesClosedPayDesc, int securityPeriodFlag) {
+        this.securitiesClosedPayInventoryId = securitiesClosedPayInventoryId;
+        this.accountId = accountId;
+        this.dateTime = dateTime;
+        this.fundId = fundId;
+        this.securitiesId = securitiesId;
+        this.securitiesType = securitiesType;
+        this.flag = flag;
+        this.totalPrice = totalPrice;
+        this.securitiesClosedPayDesc = securitiesClosedPayDesc;
+        this.securityPeriodFlag = securityPeriodFlag;
     }
 
     public String getSecuritiesClosedPayInventoryId() {

@@ -70,7 +70,7 @@ public class BankTreasurerServiceImpl implements BankTreasurerService {
             sqlWhere.append(" and flag =" +v_flag);
         }
         if (dbTime!=null && !dbTime.equals("")){
-            sqlWhere.append(" and dbTime =" +dbTime);
+            sqlWhere.append(" and dbTime ='"+dbTime+"'");
         }
         //传入查询的条件
         map.put("p_condition",sqlWhere.toString());

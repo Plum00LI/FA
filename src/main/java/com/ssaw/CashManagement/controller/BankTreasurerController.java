@@ -31,6 +31,7 @@ public class BankTreasurerController {
     public Map<String,Object> selectAccount(String page, String limit,String allocatingType,String flag,String dbTime){
         //调用Service层执行查询，接收返回结果集Map
         Map<String, Object> map = bankTreasurerService.selectBankTreasurer(limit,page,allocatingType,flag,dbTime);
+        System.out.println(dbTime);
         //从结果集中拿出结果
         List<BankTreasurer> bankTreasurerList= (List<BankTreasurer>) map.get("bankTreasurerList");
         int count= (int) map.get("count");

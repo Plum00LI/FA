@@ -80,7 +80,7 @@ public class CashClosedPayServiceImpl implements CashClosedPayService {
         }
 //创建一个结果集用于接收数据库存储过程所需条件
         Map<String,Object> map = new HashMap<>();
-        String sqlSelect="(select * from cashClosedPay c join fund f on f.fundId=c.fundId join securities s on s.securitiesId=c.securitiesId join account a on a.accountId=c.accountId ) ";
+        String sqlSelect="(select * from cashClosedPay c join fund f on f.fundId=c.fundId join account a on a.accountId=c.accountId ) ";
         map.put("p_tableName",sqlSelect);
         map.put("p_condition",sqlWhere.toString());
         map.put("p_pageSize",v_pageSize);
