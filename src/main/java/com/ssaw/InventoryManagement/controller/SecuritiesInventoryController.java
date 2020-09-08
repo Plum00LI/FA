@@ -43,9 +43,9 @@ public class SecuritiesInventoryController {
     }
 
     @RequestMapping("selectSecuritiesInventoryInfo")
-    public Map<String,Object> selectSecuritiesInventoryInfo(String page, String limit,String accountId,String accountName){
+    public Map<String,Object> selectSecuritiesInventoryInfo(String page, String limit,String accountId,String securitiesName){
         System.out.println("行情数据分页查询控制器");
-        Map<String,Object> map = securitiesInventoryService.selectSecuritiesInventoryInfo(limit,page,accountId,accountName);
+        Map<String,Object> map = securitiesInventoryService.selectSecuritiesInventoryInfo(limit,page,accountId,securitiesName);
         List<SecuritiesInventory> securitiesInventoryList = (List<SecuritiesInventory>) map.get("securitiesInventoryList");
         int count = (int) map.get("count");
         //以layui要求存储响应数据格式

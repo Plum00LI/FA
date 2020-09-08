@@ -31,7 +31,6 @@ public class EquityDataController {
     public int insertEquityData(EquityData equityData){
         equityData.setEquityDataId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.ED));
         equityData.setDateTime(DateTimeUtil.getSystemDateTime(DateTimeUtil.type13));
-        equityData.setSecurityId("600988");
         int i = equityDataService.insertEquityData(equityData);
         return i;
     }

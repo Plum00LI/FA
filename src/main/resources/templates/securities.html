@@ -41,13 +41,6 @@
                     <input name="securitiesId" lay-verify="required"
                            autocomplete="off" placeholder="" class="layui-input" id="securitiesId_3">
                 </div>
-                <!--            证券名称-->
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center"> 证券名称</label>
-                <div class="layui-input-inline">
-                    <input name="securitiesName" lay-verify="required"
-                           autocomplete="off" placeholder="" class="layui-input" id="securitiesName_3">
-                </div>
-            </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易所名称</label>
                 <div class="layui-inline layui-show-xs-block">
@@ -215,11 +208,9 @@
         <!--        股票板块-->
         <label class="layui-form-label layui-bg-green">股票板块</label>
         <div class="layui-input-inline">
-            <select name="stockId" id="stockId1">
-                <option value="0">请选择</option>
-                <option value="1">上交所</option>
-                <option value="2">深交所</option>
-            </select>
+            <input name="securitiesName" lay-verify="required" id="addStockName2"
+                   autocomplete="off" placeholder="" class="layui-input">
+            <input type="hidden" id="addStockId" name="stockId">
         </div>
     </div>
 
@@ -270,6 +261,7 @@
         </div>
     </form>
 </div>
+<!--新增下拉表格-->
 <script src="../js/securities.js"></script>
 <script type="text/javascript">
     layui.use([ 'tableSelect'], function () {
@@ -280,7 +272,41 @@
             elem:'#addStockName',
             checkedKey:'stockName',
             table:{
-                url:'../Stock/selectStock',
+                url:'../Stock/selectSonStock',
+                cols:[
+                    [   {type:'radio'},
+                        {field:'stockName',title:'股票名称'},
+                        {field: 'stockId',title: '股票Id'}
+                    ]
+                ]
+            },
+            done:function (elem,data) {
+                //elem:返回之前input对象；data:表格返回的选中的数据 []
+                var newJson=[];
+                //遍历选中的数据
+                $.each(data.data,function (index,item) {
+                    newJson.push(item.stockName);
+                    console.log(item.stockId)
+                    $("#addAccountId").val(item.stockId);//给隐藏域中的val赋值
+                });
+                elem.val(newJson.join(","));//给输入框里显示的值赋值
+
+            }
+        })
+    })
+</script>
+<!--修改下拉表格-->
+<script src="../js/securities.js"></script>
+<script type="text/javascript">
+    layui.use([ 'tableSelect'], function () {
+        var $=layui.jquery,
+            tableSelect=layui.tableSelect;
+        //增加得下拉表格
+        tableSelect.render({
+            elem:'#addStockName2',
+            checkedKey:'stockName',
+            table:{
+                url:'../Stock/selectSonStock',
                 cols:[
                     [   {type:'radio'},
                         {field:'stockName',title:'股票名称'},
