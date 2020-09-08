@@ -157,12 +157,13 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             case 'search':
                 alert("搜索");
                 var businessType= $("#businessType").val();
-                var businessType= $("#businessType").val();
+                var endDate= $("#selectEnd").val();
                 //表格的重新加载事件
                 table.reload('userTable', {
                     method: 'post'
                     , where: {
-                        'userName': userName
+                        'businessType': businessType,
+                        'endDate': endDate,
                     }
                     , page: {
                         curr: 1
