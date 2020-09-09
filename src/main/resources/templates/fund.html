@@ -190,7 +190,7 @@
             <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
-            <button class="layui-btn layui-bg-red cancel" type="button">
+            <button class="layui-btn layui-bg-red cancel" type="button"onclick="myclose()">
                 <i class="layui-icon">&#x1006;</i>取消
             </button>
         </div>
@@ -239,18 +239,14 @@
         <div class="layui-form-item" style="text-align: center;">
             <label class="layui-form-label layui-bg-green" style="width: 140px;"> 基金管理公司 </label>
             <div class="layui-input-inline">
-                <input type="text" name="managerName" placeholder="基金管理公司" autocomplete="off" class="layui-input"
-                       id="fundcompany2">
-                <input type="text" style="display: none;" name="managerId" placeholder="基金管理公司" autocomplete="off"
-                       class="layui-input" id="fundcompany012">
+                <input type="text"  name="managerId" placeholder="基金管理公司" autocomplete="off"
+                       class="layui-input" id="managerId2">
 
             </div>
             <label class="layui-form-label layui-bg-green" style="width: 140px;margin-left: 50px;">基金托管银行</label>
             <div class="layui-input-inline">
-                <input type="text" name="trusteeName" placeholder="基金托管银行" autocomplete="off" class="layui-input"
-                       id="fundbank2">
-                <input type="text" style="display: none;" name="trusteeBlank" placeholder="基金托管银行" autocomplete="off"
-                       class="layui-input" id="fundbank012">
+                <input type="text" name="trusteeBlank" placeholder="基金托管银行" autocomplete="off" class="layui-input"
+                       id="trusteeBlank2">
 
             </div>
         </div>
@@ -311,7 +307,7 @@
             <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
                 <i class="layui-icon">&#x1005;</i>修改
             </button>
-            <button class="layui-btn layui-bg-red cancel" type="button">
+            <button class="layui-btn layui-bg-red cancel" type="button"onclick="myclose()">
                 <i class="layui-icon">&#x1006;</i>取消
             </button>
         </div>
@@ -324,7 +320,7 @@
             table = layui.table,
             form = layui.form,
             tableSelect = layui.tableSelect;
-
+        //新增托管人下拉表格
         tableSelect.render({
             elem: '#trusteeBlank',
             checkedKey: 'trusteeId',
@@ -346,6 +342,7 @@
                 elem.val(NEWJSON.join(","))
             }
         });
+        //新增管理人下拉表格
         // managerId
         // 管理人id
         // managerCompany
@@ -354,6 +351,56 @@
         // 管理费率
         tableSelect.render({
             elem: '#managerId',
+            checkedKey: 'managerId',
+            table: {
+                url: '../selectManager',
+                cols: [
+                    [
+                        {type: 'radio'},
+                        {field: 'managerId', align: 'center', title: '管理人id'},
+                        {field: 'managerCompany', align: 'center', title: '管理人名称'},
+                        {field: 'managerFee', align: 'center', title: '管理费率'}
+                    ]]
+            },
+            done: function (elem, data) {
+                var NEWJSON = [];
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.managerCompany)
+                });
+                elem.val(NEWJSON.join(","))
+            }
+        });
+        //修改托管人下拉表格
+        tableSelect.render({
+            elem: '#trusteeBlank2',
+            checkedKey: 'trusteeId',
+            table: {
+                url: '../selectTrustee',
+                cols: [
+                    [
+                        {type: 'radio'},
+                        {field: 'trusteeId', align: 'center', title: '托管人ID'},
+                        {field: 'trusteeCompany', align: 'center', title: '托管公司'},
+                        {field: 'trusteeDesc', align: 'center', title: '托管费率'}
+                    ]]
+            },
+            done: function (elem, data) {
+                var NEWJSON = [];
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.trusteeCompany)
+                });
+                elem.val(NEWJSON.join(","))
+            }
+        });
+        //修改管理人下拉表格
+        // managerId
+        // 管理人id
+        // managerCompany
+        // 管理人名称
+        // managerFee
+        // 管理费率
+        tableSelect.render({
+            elem: '#managerId2',
             checkedKey: 'managerId',
             table: {
                 url: '../selectManager',
