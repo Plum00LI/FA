@@ -15,5 +15,5 @@ public interface BrokersService {
     public int insertBrokers(Brokers brokers);
     public int deleteBrokers(String brokersId);
     public int updateBrokers(Brokers brokers);
-    public Map<String,Object> selectBrokers(String pageSize, String page);
+    public Map<String,Object> selectBrokers(String pageSize, String page, String brokersName);
 }

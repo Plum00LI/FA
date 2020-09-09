@@ -105,7 +105,7 @@
                 <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit="" lay-filter="settlement">结算</button>
+                <button class="layui-btn"  lay-submit="settlement" lay-filter="settlement">结算</button>
             </div>
         </form>
 
@@ -115,7 +115,7 @@
 <div class="layui-tab" lay-filter="test">
     <ul class="layui-tab-title" style="border-bottom-color: #009688">
         <li class="layui-this" lay-id="1">未结算</li>
-        <li lay-id="2">已结算</li>
+        <li lay-id="2" onclick="my()">已结算</li>
     </ul>
     <div class="layui-tab-content">
         <div class="layui-tab-item layui-show">
@@ -141,8 +141,9 @@
         element.on('tab(test)', function(elem){
             location.hash = 'test='+ $(this).attr('lay-id');
         });
-
     });
+
+
 </script>
 </body>
 </html>
