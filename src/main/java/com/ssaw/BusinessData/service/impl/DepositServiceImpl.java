@@ -48,9 +48,9 @@ public class DepositServiceImpl implements DepositService {
         }
         //创建一个Map 用于存款过程的调用传值
         Map<String,Object> map=new HashMap<>();
-        String p_tableName="(select * from " + SysTableNameListUtil.DE +" d join (select accountName,accountId from "+SysTableNameListUtil.A+" )  a on d.inAccountId=a.accountId)";
         //传入存储过程需要查询的表名
-        map.put("p_tableName",p_tableName);
+
+        map.put("p_tableName","(select deposit.*,account.accountName outAccountName, (select accountName from account where accountId=deposit.inAccountId) inAccountName from deposit join account on deposit.outAccountId = account.accountId)");
         //传入查询的条件
         StringBuffer sqlWhere=new StringBuffer();
         if (businessType!=null && !businessType.equals("")){

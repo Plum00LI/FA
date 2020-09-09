@@ -33,7 +33,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 ,{field: 'outAccountId', title: '流出账户Id',align:'center',hide:true}
                 ,{field: 'outAccountName', title: '流出账户名称',align:'center'}
                 ,{field: 'inAccountId', title: '流入账户Id',align:'center',hide:true}
-                ,{field: 'intAccountName', title: '流入账户名称',align:'center'}
+                ,{field: 'inAccountName', title: '流入账户名称',align:'center'}
                 ,{field: 'money', title: '存款金额',align:'center'}
                 ,{field: 'interest', title: '所含利息',align:'center',hide:true}
                 ,{field: 'businessType', title: '业务类型',align:'center',
