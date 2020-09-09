@@ -12,89 +12,85 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     });
 
     laydate.render({
-        elem: '#start'
+        elem: '#dateTime'
     })
 
     laydate.render({
-        elem: '#equitiesRecord'
+        elem: '#dateTime'
     })
 
     laydate.render({
-        elem: '#equitiesExright'
+        elem: '#dateTime1'
     })
 
     laydate.render({
-        elem: '#receivedDate'
+        elem: '#settlementDate'
     })
-
     laydate.render({
-        elem: '#start2'
-    })
-
-    laydate.render({
-        elem: '#receivedDate2'
+        elem: '#settlementDate1'
     })
 
 
     //新增提交
-    form.on('submit(addSubmit)', function (data) {
-        var formData = $('#addform').serialize();
-        $.post("../insertTransactionData", formData, function (msg) {
-            if (msg > 0) {
+    form.on('submit(addsubmit)', function(data){
+        var formData=$('#addform').serialize();
+        $.post("../insertTransactionData",formData,function(msg){
+            if(msg>0){
                 table.reload('userTable');
                 layer.closeAll();
-                layer.msg('添加成功', {
-                    title: '提示',
-                    area: ['200px',
-                        '140px'],
-                    time: 0,
-                    btn: ['知道了']
+                layer.msg('添加成功',{
+                    title : '提示',
+                    area : [ '200px',
+                        '140px' ],
+                    time : 0,
+                    btn : [ '知道了' ]
                 });
-            } else {
+            }else{
                 layer.closeAll();
-                layer.msg('添加失败', {
-                    title: '提示',
-                    area: ['200px',
-                        '140px'],
-                    time: 0,
-                    btn: ['知道了']
+                layer.msg('添加失败',{
+                    title : '提示',
+                    area : [ '200px',
+                        '140px' ],
+                    time : 0,
+                    btn : [ '知道了' ]
                 });
             }
         });
         return false;
     });
     //修改提交
-    form.on('submit(editsubmit)', function (data) {
-        var formData = $('#editform').serialize();
-        $.post("../user/updateUser", formData, function (msg) {
-            if (msg > 0) {
+    form.on('submit(editsubmit)', function(data){
+        var formData=$('#editform').serialize();
+        $.post("../updateTransactionData",formData,function(msg){
+            if(msg>0){
                 table.reload('userTable');
                 layer.closeAll();
-                layer.msg('修改成功', {
-                    title: '提示',
-                    area: ['200px',
-                        '140px'],
-                    time: 0,
-                    btn: ['知道了']
+                layer.msg('修改成功',{
+                    title : '提示',
+                    area : [ '200px',
+                        '140px' ],
+                    time : 0,
+                    btn : [ '知道了' ]
                 });
-            } else {
+            }else{
                 layer.closeAll();
-                layer.msg('修改失败', {
-                    title: '提示',
-                    area: ['200px',
-                        '140px'],
-                    time: 0,
-                    btn: ['知道了']
+                layer.msg('修改失败',{
+                    title : '提示',
+                    area : [ '200px',
+                        '140px' ],
+                    time : 0,
+                    btn : [ '知道了' ]
                 });
             }
         });
         return false;
     });
+
     table.render({
         elem: '#userTable',
         url: '../selectTransactionData',
         page: true,
-        height: 498,
+        height: 'full-55',
         toolbar: '#userToolBar',//显示在表头的工具条
         minLength: 80,
         cellMinWidth:60,
@@ -135,52 +131,54 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
                 }
             }
-                , {field: 'fundId', title: '基金代码', width: 150, align: 'center',hide:true}
-                , {field: 'fundName', title: '基金名称', width: 150, align: 'center',hide:true}
-                , {field: 'securitiesId', title: '证券Id', width: 150, align: 'center',hide:true}
-                , {field: 'brokersId', title: '券商Id', width: 150, align: 'center',hide:true}
-                , {field: 'brokersName', title: '券商名称', width: 150, align: 'center',hide:true}
-                , {field: 'seateId', title: '席位Id', width: 150, align: 'center',hide:true}
-                , {field: 'seateName', title: '席位名称', width: 150, align: 'center',hide:true}
-                , {field: 'accountId', title: '现金账户ID', width: 150, align: 'center',hide:true}
-                , {field: 'blankName', title: '银行名称', width: 100, align: 'center',hide:true}
-                , {field: 'flag', title: '交易标识,1流入，-1流出', width: 150, align: 'center',hide:true}
-                , {field: 'commission', title: '佣金费用（券商）', width: 150, align: 'center',hide:true}
-                , {field: 'transfer', title: '过户费（交易所）', width: 150, align: 'center',hide:true}
-                , {field: 'brokerage', title: '经手费（交易所）', width: 150, align: 'center',hide:true}
-                , {field: 'stamp', title: '印花税（上交国家的税）', width: 150, align: 'center',hide:true}
-                , {field: 'management', title: '征管费（上交国家的税）', width: 150, align: 'center',hide:true}
-                , {field: 'security', title: '证券利息', width: 150, align: 'center',hide:true}
+                , {field: 'fundId', title: '基金代码', width: 130, align: 'center',hide:true}
+                , {field: 'fundName', title: '基金名称', width: 130, align: 'center',hide:true}
+                , {field: 'securitiesId', title: '证券Id', width: 130, align: 'center',hide:true}
+                , {field: 'brokersId', title: '券商Id', width: 130, align: 'center',hide:true}
+                , {field: 'brokersName', title: '券商名称', width: 130, align: 'center',hide:true}
+                , {field: 'seateId', title: '席位Id', width: 130, align: 'center',hide:true}
+                , {field: 'seateName', title: '席位名称', width: 130, align: 'center',hide:true}
+                , {field: 'accountId', title: '现金账户ID', width: 130, align: 'center',hide:true}
+                , {field: 'blankName', title: '银行名称', width: 130, align: 'center',hide:true}
+                , {field: 'flag', title: '交易标识,1流入，-1流出', width: 130, align: 'center',hide:true}
+                , {field: 'commission', title: '佣金费用（券商）', width: 130, align: 'center',hide:true}
+                , {field: 'transfer', title: '过户费（交易所）', width: 130, align: 'center',hide:true}
+                , {field: 'brokerage', title: '经手费（交易所）', width: 130, align: 'center',hide:true}
+                , {field: 'stamp', title: '印花税（上交国家的税）', width: 130, align: 'center',hide:true}
+                , {field: 'management', title: '征管费（上交国家的税）', width: 130, align: 'center',hide:true}
+                , {field: 'security', title: '证券利息', width: 130, align: 'center',hide:true}
                 ,{field: 'operation', title: '操作' , width: 150, align:'center',toolbar:'#barDemo'}
             ]
         ]
     });
     //给工具条的按钮添加事件
-    table.on('toolbar(userTable)', function (obj) {
+    table.on('toolbar(userTable)',function (obj) {
         //获取选中复选框的对象，
-        var checkStatus = table.checkStatus(obj.config.id);//得到表格选中行的ID
+        var checkStatus=table.checkStatus(obj.config.id);//得到表格选中行的ID
         switch (obj.event) {
             case 'add':
-                var index = layer.open({
+                var index=layer.open({
                     type: 1,
-                    title: '添加交易数据',
+                    title: '添加数据信息',
                     closeBtn: 1,
-                    move: false,
-                    content: $("#addContent"),
-                    btn: []
+                    move:false,
+                    area: ['893px','600px'],
+                    content:$("#addContent"),
+                    btn:[]
                 });
                 form.render();
-                //全屏
-                layer.full(index);
+                //全屏弹窗 layer.full(index);
                 break;
             case 'search':
                 alert("搜索");
-                var userName = $("#userName").val();
+                var dateTime= $("#end").val();
+                var securitiesName= $("#equityId").val();
                 //表格的重新加载事件
                 table.reload('userTable', {
                     method: 'post'
                     , where: {
-                        'userName': userName
+                        'dateTime': dateTime,
+                        'securitiesName': securitiesName
                     }
                     , page: {
                         curr: 1
@@ -188,72 +186,38 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 });
 
                 break;
-            case 'deleteAll':
-                var data = checkStatus.data;
-                //    layer.alert(JSON.stringify(data));
-                if (data.length == 0) {
-                    layer.msg("请至少选择一条数据",)
-                } else {
-                    var ids = [];
-                    for (var i = 0; i < data.length; i++) {
-                        ids.push(data[i].userId);
-                    }
-                    layer.confirm('真的删除行么', {icon: 2}, function (index) {
-                        layer.close(index);
-                        $.post("../user/deleteUser", {userId: ids.join(',')}, function (msg) {
-                            table.reload('userTable');
-                            layer.msg('删除' + checkStatus.data.length + '条记录', {
-                                title: '提示',
-                                area: ['200px', '140px'],
-                                time: 0,
-                                btn: ['知道了']
-                            });
-                        });
-                    });
-                }
-                break;
         }
     });
     //给表格编辑，删除按钮添加点击事件
-    table.on('tool(userTable)', function (obj) {
-        var data = obj.data;//得到删除行整行的数据
-        alert(data.userId);
+    table.on('tool(userTable)', function(obj) {
+        var data = obj.data;//得到行整行的数据
+        alert(data.transactionDataId);
         if (obj.event === 'del') {
-            layer.confirm('真的删除行么', {icon: 2}, function (index) {
+            layer.confirm('真的删除行么',{icon: 2}, function(index){
                 layer.close(index);
-                $.post("../user/deleteUser", {userId: data.userId + ""}, function (msg) {
+                $.post("../deleteTransactionData", {transactionDataId:data.transactionDataId+""},function(msg){
                     table.reload('userTable');
                 });
 
             });
         } else if (obj.event === 'edit') {
-            alert(JSON.stringify(data));
-
-            form.val('editform', $.parseJSON(JSON.stringify(data)));
+            //alert(JSON.stringify(data));
+            form.val('editform',$.parseJSON(JSON.stringify(data)));
             var index = layer.open({
                 type: 1,
-                title: '修改权益数据',
+                title: '修改交易数据',
                 closeBtn: 1,
-                move: false,
-                area: ['500px', '400px'],
-                content: $('#editContent')
+                move:false,
+                area: ['893px','600px'],
+                content:$('#editContent')
             });
-            $.ajax({
-                url: '../user/selectRole',
-                dataType: 'json',
-                type: 'post',
-                success: function (obj) {
-
-                    $.each(obj, function (index, item) {
-                        $('#roleId_2').append(new Option(item.roleName, item.roleId));//往下拉菜单里添加元素
-                    })
-                    $("#roleId_2 option[value='" + data.roleId + "']").attr("selected", "selected");
-                    form.render();//菜单渲染 把内容加载进去
-                }
-            })
             form.render();
-            layer.full(index);
-        }
-        ;
+            //全屏弹窗 layer.full(index);
+        };
     })
 });
+
+//取消事件
+function myclose() {
+    layer.closeAll();
+}

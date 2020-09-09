@@ -29,7 +29,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         page: true,
         toolbar: '#userToolBar',//显示在表头的工具条
         cellMinWidth:60,
-        height:'full-70',
+        height:'full-55',
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
@@ -60,7 +60,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 ,{field: 'openTime', title: '开户时间',align:'center'}
                 ,{field: 'endTime', title: '结束时间',align:'center'}
                 ,{field: 'accountDesc', title: '备注',align:'center'}
-                ,{field: 'right', title: '操作',width: 187, align:'center', toolbar: '#barDemo'}
+                ,{field: 'right', title: '操作',width: 187, align:'center', toolbar: '#barDemo',fixed: 'right'}
             ]
         ]
     });

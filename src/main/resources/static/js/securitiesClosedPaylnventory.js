@@ -24,7 +24,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         url: '../securitiesClosedPayInventory/select',
         count:0,
         page: true,
-        height: 498,
+        height: 'full-55',
         toolbar: '#securitiesClosedPayInventoryToolBar',//显示在表头的工具条
         minLength:80,
         cols: [
@@ -40,7 +40,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 ,{field: 'totalPrice', title: '总金额'}
                 ,{field: 'securitiesClosedPayDesc', title: '备注'}
                 ,{field: 'securityPeriodFlag', title: '期初标志'}
-                ,{field: 'right', title: '操作', toolbar:'#barDemo'}
+                ,{field: 'right', title: '操作', toolbar:'#barDemo',fixed: 'right'}
             ]
         ]
     });

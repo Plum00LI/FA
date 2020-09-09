@@ -29,7 +29,7 @@ public class BrokersController {
 
     @RequestMapping("insertBrokers")
     public int insertBrokers(Brokers brokers){
-
+        brokers.setBrokersId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.B));
         int i = brokersService.insertBrokers(brokers);
         return i;
     }
@@ -46,9 +46,9 @@ public class BrokersController {
     }
 
     @RequestMapping("selectBrokers")
-    public Map<String,Object> selectBrokers(String page,String limit){
+    public Map<String,Object> selectBrokers(String page,String limit,String brokersName){
         //调用Service层执行查询，接收返回结果集Map
-        Map<String, Object> map = brokersService.selectBrokers(limit,page);
+        Map<String, Object> map = brokersService.selectBrokers(limit,page,brokersName);
         List<Brokers> brokersList = (List<Brokers>) map.get("brokersList");
         int count = (int) map.get("count");
         //以layui要求存储响应数据格式

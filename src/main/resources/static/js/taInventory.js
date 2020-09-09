@@ -90,9 +90,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         elem: '#taInventoryTable',
         url: '../taInventory/select',
         page: true,
-        height: 498,
+        height: 'full-55',
         toolbar: '#taInventoryToolBar',//显示在表头的工具条
-        minLength:80,
+        minLength:60,
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
@@ -101,7 +101,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 ,{field: 'taNum', title: '数量'}
                 ,{field: 'taTotal', title: '金额'}
                 ,{field: 'taInventoryDesc', title: '备注'}
-                ,{field: 'classify', title: '操作', toolbar:'#barDemo'}
+                ,{field: 'classify', title: '操作', toolbar:'#barDemo',fixed: 'right'}
             ]
         ]
     });

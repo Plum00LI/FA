@@ -50,7 +50,7 @@ public class BrokersServiceImpl implements BrokersService {
     }
 
     @Override
-    public Map<String, Object> selectBrokers(String pageSize, String page) {
+    public Map<String, Object> selectBrokers(String pageSize, String page, String brokersName) {
         //创建一个结果集Map用于存放两个结果变量
         Map<String, Object> resultMap = new HashMap<>();
         //定义一个分页条数变量
@@ -68,12 +68,21 @@ public class BrokersServiceImpl implements BrokersService {
             v_page=Integer.parseInt(page);
         }
 
+
+        //条件查询
+        StringBuffer sqlWhere=new StringBuffer();
+        if(brokersName != null && !brokersName.equals("")){
+            sqlWhere.append(" AND brokersName LIKE  '%"+brokersName+"%'" );
+        }
+
+
+
         //创建一个Map，用于存储过程的调用传值
         Map<String,Object> map = new HashMap<>();
         //传入存储过程需要的查询的表名
         map.put("p_tableName","brokers");
         //传入查询条件
-        map.put("p_condition","");
+        map.put("p_condition", sqlWhere.toString());
         //传入分页显示条数
         map.put("p_pageSize",v_pageSize);
         //传入分页页码
@@ -93,6 +102,8 @@ public class BrokersServiceImpl implements BrokersService {
         resultMap.put("brokersList",brokersList);
         resultMap.put("count",v_count);
         System.out.println(resultMap.get("brokersList"));
+        String p_condition = (String) map.get("p_condition");
+        System.out.println(p_condition);
         System.out.println(resultMap);
         //返回结果集Map
         return resultMap;

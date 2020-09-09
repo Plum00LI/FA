@@ -23,7 +23,7 @@ public class SecuritiesClosedPayInventory {
     //证券应收应付类型 1=估值款 2=证券清算款 3=债券利息
     private int securitiesType;
     //业务状态 1流入，-1流出
-    private String flag;
+    private int flag;
     //总金额*
     private double totalPrice;
     //备注
@@ -32,9 +32,13 @@ public class SecuritiesClosedPayInventory {
     private int securityPeriodFlag;
     //账户名称
     private String accountName;
+    public SecuritiesClosedPayInventory(){
 
-    public SecuritiesClosedPayInventory(String securitiesClosedPayInventoryId, String dateTime, String fundId, String securitiesId, int securitiesType, String flag, double totalPrice, String securitiesClosedPayDesc, int securityPeriodFlag,String accountId,String accountName) {
+    }
+
+    public SecuritiesClosedPayInventory(String securitiesClosedPayInventoryId, String accountId, String dateTime, String fundId, String securitiesId, int securitiesType, int flag, double totalPrice, String securitiesClosedPayDesc, int securityPeriodFlag, String accountName) {
         this.securitiesClosedPayInventoryId = securitiesClosedPayInventoryId;
+        this.accountId = accountId;
         this.dateTime = dateTime;
         this.fundId = fundId;
         this.securitiesId = securitiesId;
@@ -43,10 +47,8 @@ public class SecuritiesClosedPayInventory {
         this.totalPrice = totalPrice;
         this.securitiesClosedPayDesc = securitiesClosedPayDesc;
         this.securityPeriodFlag = securityPeriodFlag;
-        this.accountId = accountId;
         this.accountName = accountName;
     }
-
     /**
      *
      * @param securitiesClosedPayInventoryId    证券应收应付存库Id
@@ -60,7 +62,7 @@ public class SecuritiesClosedPayInventory {
      * @param securitiesClosedPayDesc   备注
      * @param securityPeriodFlag    期初标志 是否从其他系统导入得期初数据 0：不是 1：是
      */
-    public SecuritiesClosedPayInventory(String securitiesClosedPayInventoryId, String accountId, String dateTime, String fundId, String securitiesId, int securitiesType, String flag, double totalPrice, String securitiesClosedPayDesc, int securityPeriodFlag) {
+    public SecuritiesClosedPayInventory(String securitiesClosedPayInventoryId, String accountId, String dateTime, String fundId, String securitiesId, int securitiesType, int flag, double totalPrice, String securitiesClosedPayDesc, int securityPeriodFlag) {
         this.securitiesClosedPayInventoryId = securitiesClosedPayInventoryId;
         this.accountId = accountId;
         this.dateTime = dateTime;
@@ -79,6 +81,14 @@ public class SecuritiesClosedPayInventory {
 
     public void setSecuritiesClosedPayInventoryId(String securitiesClosedPayInventoryId) {
         this.securitiesClosedPayInventoryId = securitiesClosedPayInventoryId;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 
     public String getDateTime() {
@@ -113,11 +123,11 @@ public class SecuritiesClosedPayInventory {
         this.securitiesType = securitiesType;
     }
 
-    public String getFlag() {
+    public int getFlag() {
         return flag;
     }
 
-    public void setFlag(String flag) {
+    public void setFlag(int flag) {
         this.flag = flag;
     }
 
@@ -145,14 +155,6 @@ public class SecuritiesClosedPayInventory {
         this.securityPeriodFlag = securityPeriodFlag;
     }
 
-    public String getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
-    }
-
     public String getAccountName() {
         return accountName;
     }
@@ -165,15 +167,15 @@ public class SecuritiesClosedPayInventory {
     public String toString() {
         return "SecuritiesClosedPayInventory{" +
                 "securitiesClosedPayInventoryId='" + securitiesClosedPayInventoryId + '\'' +
+                ", accountId='" + accountId + '\'' +
                 ", dateTime='" + dateTime + '\'' +
                 ", fundId='" + fundId + '\'' +
                 ", securitiesId='" + securitiesId + '\'' +
                 ", securitiesType=" + securitiesType +
-                ", flag='" + flag + '\'' +
+                ", flag=" + flag +
                 ", totalPrice=" + totalPrice +
                 ", securitiesClosedPayDesc='" + securitiesClosedPayDesc + '\'' +
                 ", securityPeriodFlag=" + securityPeriodFlag +
-                ", accountId='" + accountId + '\'' +
                 ", accountName='" + accountName + '\'' +
                 '}';
     }
