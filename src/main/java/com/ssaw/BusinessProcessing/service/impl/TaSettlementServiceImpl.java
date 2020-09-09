@@ -19,11 +19,11 @@ import java.util.Map;
  */
 @Service
 @Transactional
-public class TaSettlementImpl implements TaSettlementService {
+public class TaSettlementServiceImpl implements TaSettlementService {
     @Resource
     TaSettlementMapper taSettlementMapper;
     @Override
-    public Map<String, Object> selectTaSettlement(String pageSize, String page, String dateTime, String transactionType) {
+    public Map<String, Object> selectTaSettlement(String pageSize, String page, String dateTime, String transactionType, String status) {
         //创建一个结果集Map用于存放两个结果变量
         Map<String, Object> resultMap = new HashMap<>();
         //定义一个分页条数变量
@@ -47,6 +47,9 @@ public class TaSettlementImpl implements TaSettlementService {
 
         if(transactionType!=null&&!transactionType.equals("")){
             sqlWhere.append(" AND transactionType LIKE  '%"+transactionType+"%'" );
+        }
+        if (status!=null && status.equals("")){
+            sqlWhere.append(" AND status LIKE  '%"+status+"%'" );
         }
         //创建一个Map，用于存储过程的调用传值
         Map<String,Object> map = new HashMap<>();
@@ -81,4 +84,4 @@ public class TaSettlementImpl implements TaSettlementService {
     }
 
 
-    }
+}
