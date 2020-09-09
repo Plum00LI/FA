@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <title>table下拉选择器</title>
@@ -11,9 +11,13 @@
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
-        <form class="layui-form" action="" style="padding: 20px">
+        <form class="layui-form" action="#" method="get" style="padding: 20px">
             <div class="layui-input-inline">
                 <input type="text" name="" placeholder="请输入" autocomplete="off" class="layui-input" id="demo">
+                <input type="hidden" name="id" id="userId">
+                <div th:text="${session.fundId}"></div>
+                <input type="" name="fundId" th:value="${session.fundId}">
+                <input type="submit" value="commit">
             </div>
         </form>
     </div>
@@ -45,7 +49,8 @@
             ,done:function (elem,data) {
                 var NEWJSON = []
                 layui.each(data.data,function (index,item) {
-                    NEWJSON.push(item.username)
+                    NEWJSON.push(item.username);
+                    $("#userId").val(item.id);
             })
             elem.val(NEWJSON.join(","))
             }
