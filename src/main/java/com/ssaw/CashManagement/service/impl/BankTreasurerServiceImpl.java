@@ -53,7 +53,7 @@ public class BankTreasurerServiceImpl implements BankTreasurerService {
         }
         //创建一个Map 用于存款过程的调用传值
         Map<String,Object> map=new HashMap<>();
-        String p_tableName="(select * from " + SysTableNameListUtil.BT +" b join (select accountName from "+SysTableNameListUtil.A+" )  a on b.accountId=accountId)";
+        String p_tableName="(select * from " + SysTableNameListUtil.BT +" b join (select accountName,accountId from "+SysTableNameListUtil.A+" )  a on b.accountId=a.accountId)";
 
         System.out.println(p_tableName);
         //传入存储过程需要查询的表名
@@ -100,7 +100,8 @@ public class BankTreasurerServiceImpl implements BankTreasurerService {
     public int insertBankTreasurer(BankTreasurer bankTreasurer) {
         bankTreasurer.setBankTreasurerId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.BT));
         bankTreasurer.setFundId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
-        bankTreasurer.setDateTime(DateTimeUtil.getSystemDateTime(DateTimeUtil.type13));
+        String date=DateTimeUtil.getSystemDateTime("yyyy-MM-dd");
+        bankTreasurer.setDateTime(date);
         return bankTreasurerMapper.insertBankTreasurer(bankTreasurer);
     }
 

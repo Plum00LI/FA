@@ -25,7 +25,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         page: true,
         toolbar: '#userToolBar',//显示在表头的工具条
         cellMinWidth:60,
-        height:'full-70',
+        height:'full-55',
         cols: [
             [ //表头
                 {field: 'depositId', title: '存款业务Id',align:'center',hide:true}
@@ -66,14 +66,14 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 }
 
             }
-                ,{field: 'right', title: '操作',width: 180, align:'center', toolbar: '#barDemo'}
+                ,{field: 'right', title: '操作',width: 180, align:'center', toolbar: '#barDemo',fixed: 'right'}
             ]
         ]
     });
     //新增提交
     form.on('submit(addsubmit)', function(data){
         var formData=$('#addform').serialize();
-        $.post("../user/insertUser",formData,function(msg){
+        $.post("../insertDeposit",formData,function(msg){
             if(msg>0){
                 table.reload('userTable');
                 layer.closeAll();
@@ -87,33 +87,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             }else{
                 layer.closeAll();
                 layer.msg('添加失败',{
-                    title : '提示',
-                    area : [ '200px',
-                        '140px' ],
-                    time : 0,
-                    btn : [ '知道了' ]
-                });
-            }
-        });
-        return false;
-    });
-    //修改提交
-    form.on('submit(editsubmit)', function(data){
-        var formData=$('#editform').serialize();
-        $.post("../user/updateUser",formData,function(msg){
-            if(msg>0){
-                table.reload('userTable');
-                layer.closeAll();
-                layer.msg('修改成功',{
-                    title : '提示',
-                    area : [ '200px',
-                        '140px' ],
-                    time : 0,
-                    btn : [ '知道了' ]
-                });
-            }else{
-                layer.closeAll();
-                layer.msg('修改失败',{
                     title : '提示',
                     area : [ '200px',
                         '140px' ],
@@ -139,17 +112,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     area:['700px','500px'],
                     btn:[]
                 });
-                $.ajax({
-                    url:'../user/selectRole',
-                    dataType:'json',
-                    type:'post',
-                    success:function(obj){
-                        $.each(obj,function(index,item){
-                            $('#roleId').append(new Option(item.roleName,item.roleId));//往下拉菜单里添加元素
-                        })
-                        form.render();//菜单渲染 把内容加载进去
-                    }
-                })
                 form.render();
                 //全屏
                 //layer.full(index);
@@ -211,19 +173,29 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 
             });
         } else if (obj.event === 'edit') {
-            alert(JSON.stringify(data));
-
-            form.val('editform',$.parseJSON(JSON.stringify(data)));
-            var index = layer.open({
-                type: 1,
-                title: '修改员工',
-                closeBtn: 1,
-                move:false,
-                area:['700px','500px'],
-                content:$('#editContent')
-            });
-            form.render();
-            //layer.full(index);
+            if (data.flag==1){
+                layer.msg('已处理不可重复操作');
+            }else if (endDateHaoMiao>nowTimeHaoMiao && data.businessType!=3){
+                layer.msg('存款未到期无法处理');
+            }else{
+                layer.confirm('确认对此存款进行到期处理?',{icon: 1}, function(index){
+                    layer.close(index);
+                    $.post("deposit/expireDeposit", {ids:data.depositId,
+                            totalPrice:data.money,
+                            outAccountId:data.outAccountId,
+                            fundId:data.fundId,
+                            inAccountId:data.inAccountId
+                        }
+                        ,function(msg){
+                            if(msg){
+                                layer.msg('已处理');
+                            }else{
+                                layer.msg('出现一个错误处理失败');
+                            }
+                        });
+                    removeDate();
+                });
+            }
         };
     })
 
