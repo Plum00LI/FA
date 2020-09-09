@@ -49,8 +49,9 @@ public class TaSettlementServiceImpl implements TaSettlementService {
             sqlWhere.append(" AND transactionType LIKE  '%"+transactionType+"%'" );
         }
         if (status!=null && status.equals("")){
-            sqlWhere.append(" AND status LIKE  '%"+status+"%'" );
+            sqlWhere.append(" AND status =  "+status );
         }
+
         //创建一个Map，用于存储过程的调用传值
         Map<String,Object> map = new HashMap<>();
         //传入存储过程需要查询的表名
@@ -79,7 +80,7 @@ public class TaSettlementServiceImpl implements TaSettlementService {
         //返回结果集Map
         System.out.println(v_count);
         System.out.println(TaSettlementList);
-        System.out.println(sqlWhere.toString());
+        System.out.println("查询结果为"+sqlWhere.toString());
         return resultMap;
     }
 

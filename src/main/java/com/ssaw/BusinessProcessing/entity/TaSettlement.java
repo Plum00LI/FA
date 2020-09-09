@@ -7,7 +7,7 @@ package com.ssaw.BusinessProcessing.entity;
  * @create:2020-09-01
  */
 public class TaSettlement {
-    private String taTransactionId;      //PK , 交易数据编号 TA202008310001
+//    private String taTransactionId;      //PK , 交易数据编号 TA202008310001
     private String dateTime;           //交易日期
     //    private String balanceDate;        //结算日期
     private String fundId;             //FK 基金Id来自基金表
@@ -23,13 +23,13 @@ public class TaSettlement {
 
     public TaSettlement(){}
 
-    public String getTaTransactionId() {
-        return taTransactionId;
-    }
-
-    public void setTaTransactionId(String taTransactionId) {
-        this.taTransactionId = taTransactionId;
-    }
+//    public String getTaTransactionId() {
+//        return taTransactionId;
+//    }
+//
+//    public void setTaTransactionId(String taTransactionId) {
+//        this.taTransactionId = taTransactionId;
+//    }
 
     public String getDateTime() {
         return dateTime;
@@ -130,7 +130,7 @@ public class TaSettlement {
     @Override
     public String toString() {
         return "TaTransaction{" +
-                "taTransactionId='" + taTransactionId + '\'' +
+//                "taTransactionId='" + taTransactionId + '\'' +
                 ",dateTime='" + dateTime + '\'' +
 //                ", balanceDate='" + balanceDate + '\'' +
                 ", fundId='" + fundId + '\'' +

@@ -23,7 +23,7 @@ public class TaSettlementController {
     DbUtil dbUtil;
     @RequestMapping("selectTaSettlement")
     public Map<String, Object> selectTaSettlement(String limit,String page,String dateTime,String transactionType,String status) {
-        System.out.println("进来查询了");
+        System.out.println("进来查询了" + status);
         Map<String,Object> map=taSettlementService.selectTaSettlement(limit,page,dateTime,transactionType,status);
         List<TaSettlement> taSettlementList= (List<TaSettlement>) map.get("taSettlementList");
         int count= (int) map.get("count");
@@ -34,6 +34,7 @@ public class TaSettlementController {
         json.put("count",count);
         json.put("data",taSettlementList);
         System.out.println("结果集+"+taSettlementList);
+
         //返回数据
         return json;
     }
