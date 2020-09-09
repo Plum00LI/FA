@@ -27,25 +27,25 @@ public class TransactionDataController {
     @Resource
     DbUtil dbUtil;
     @RequestMapping("selectTransactionData")
-    public HashMap selectTransactionData(int page, int limit, String end, String equityId){
-        HashMap hashMap = transactionDataService.selectTransactionData(page, limit,end,equityId);
+    public HashMap selectTransactionData(int page,int limit,String dateTime,String securitiesName){
+        HashMap hashMap = transactionDataService.selectTransactionData(page,limit,dateTime,securitiesName);
         int count = (int) hashMap.get("p_count");
         List<TransactionData> transactionDataList = (List<TransactionData>) hashMap.get("p_cursor");
         System.out.println("总条数："+count);
-        System.out.println("page="+page+",limit="+limit+",end="+end+",equityId="+equityId);
+        System.out.println("page="+page+",limit="+limit+",dateTime="+dateTime+",securitiesName="+securitiesName);
         HashMap tranMap = new HashMap();
         tranMap.put("count",count);
         tranMap.put("code",0);
         tranMap.put("msg","");
         tranMap.put("data",transactionDataList);
-        System.out.println("基金大小"+transactionDataList.size());
+        System.out.println("数据"+transactionDataList);
+        System.out.println("交易："+transactionDataList.size());
         return tranMap;
     }
     @RequestMapping("insertTransactionData")
     public int insertTransactionData(TransactionData transactionData){
         transactionData.setTransactionDataId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.TD));
         System.out.println(transactionData.getFundId());
-        System.out.println(transactionData);
         return transactionDataService.insertTransactionData(transactionData);
     }
 

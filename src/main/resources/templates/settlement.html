@@ -10,81 +10,24 @@
     <link rel="stylesheet" href="../css/font.css">
     <link rel="stylesheet" href="../css/xadmin.css">
     <link rel="stylesheet" href="../css/theme9.css">
-    <script src="../lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../js/xadmin.js"></script>
+
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]-->
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 
-    <link rel="stylesheet" href="../lib/layui/css/layui.css">
+    <!--    <link rel="stylesheet" href="../lib/layui/css/layui.css">-->
+
+    <!--    static\lib\layuimini\lib\layui-v2.5.5\css\layui.css-->
+    <!--    static\lib\layuimini\css\public.css-->
+    <!--    static\lib\layuimini\lib\layui-v2.5.5\layui.js-->
+    <!--    static\lib\layuimini\js\lay-config.js-->
+    <link rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../lib/layuimini/css/public.css" media="all">
+    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../lib/layuimini/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
 
 
-    <script src="../lib/layui/layui.js"></script>
-
-    <script type="text/javascript">
-
-        layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
-            var layer = layui.layer;
-            var $ = layui.$;
-            var table = layui.table;
-            var form = layui.form;
-            var formSelects = layui.formSelects;
-            var laydate = layui.laydate;
-
-            //执行一个laydate实例
-            laydate.render({
-                elem: '#start' //指定元素
-
-            });
-            table.render({
-                elem: '#userTable',
-                url: './selectUser',
-                page: true,
-                height: 498,
-                minLength:80,
-                cols: [
-                    [ //表头
-                        {type: 'checkbox', fixed: 'left'}
-                        ,{field: 'equityId', title: '证券名称', width:110, align:'center'}
-                        ,{field: 'securityName', title: '券商名称', width: 110, align:'center'}
-                        ,{field: 'cashAccountName', title: '现金账户', width:110, align:'center'}
-                        ,{field: 'equitiesType', title: '交易单价', width: 110, align:'center'}
-                        ,{field: 'equitiesExright', title: '交易数量', width:110, align:'center'}
-                        ,{field: 'securityNum', title: '交易金额', width:110, align:'center'}
-                        ,{field: 'proportion', title: '实收金额', width:110, align:'center'}
-                        ,{field: 'settlementAmount', title: '交易类型', width:110, align:'center'}
-                        ,{field: 'securityNum', title: '交易日期', width:110, align:'center'}
-                        ,{field: 'proportion', title: '结算日期', width:110, align:'center'}
-                        ,{field: 'settlementAmount', title: '交易状态', width:110, align:'center'}
-                ]
-                ]
-            });
-            table.render({
-                elem: '#userTable2',
-                url: './selectUser',
-                page: true,
-                height: 498,
-                minLength:80,
-                cols: [
-                    [ //表头
-                    {type: 'checkbox', fixed: 'left'}
-                    ,{field: 'equityId', title: '证券名称', width:110, align:'center'}
-                    ,{field: 'securityName', title: '券商名称', width: 110, align:'center'}
-                    ,{field: 'cashAccountName', title: '现金账户', width:110, align:'center'}
-                    ,{field: 'equitiesType', title: '交易单价', width: 110, align:'center'}
-                    ,{field: 'equitiesExright', title: '交易数量', width:110, align:'center'}
-                    ,{field: 'securityNum', title: '交易金额', width:110, align:'center'}
-                    ,{field: 'proportion', title: '实收金额', width:110, align:'center'}
-                    ,{field: 'settlementAmount', title: '交易类型', width:110, align:'center'}
-                    ,{field: 'securityNum', title: '交易日期', width:110, align:'center'}
-                    ,{field: 'proportion', title: '结算日期', width:110, align:'center'}
-                    ,{field: 'settlementAmount', title: '交易状态', width:110, align:'center'}
-                ]
-                ]
-            });
-            });
-</script>
 </head>
 <body>
 
@@ -137,7 +80,7 @@
 </div>
 
 
-
+<script src="../js/settlement.js"></script>
 <script>
     layui.use('element', function(){
         var $ = layui.jquery

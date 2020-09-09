@@ -214,3 +214,7 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 	});
 
 });
+//取消事件
+function myclose() {
+	layer.closeAll();
+}
