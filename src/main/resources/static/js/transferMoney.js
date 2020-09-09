@@ -26,7 +26,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         page: true,
         toolbar: '#userToolBar',//显示在表头的工具条
         cellMinWidth:60,
-        height:'full-70',
+        height:'full-55',
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
@@ -42,7 +42,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 ,{field: 'crossSectionDate', title: '划款日期',align:'center'}
                 ,{field: 'accountingDate', title: '到账日期',align:'center'}
                 ,{field: 'purpose', title: '划款的用途',align:'center'}
-                ,{field: 'right', title: '操作',width: 187, align:'center', toolbar: '#barDemo'}
+                ,{field: 'right', title: '操作',width: 187, align:'center', toolbar: '#barDemo',fixed: 'right'}
             ]
         ]
     });

@@ -19,23 +19,23 @@
     <!--工具条-->
     <script type="text/html" id="userToolBar">
         <div style="float:right">
-            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
+            <button class="layui-btn  layui-btn-sm" style="background-color: #8c8c8c;color: #FFFFFF" lay-event="add"><i
                     class="layui-icon">&#xe654;</i>添加账户信息</button>
-            <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll"><i
-                    class="layui-icon">&#xe640;</i>批量删除</button>
+            <button class="layui-btn  layui-btn-sm" lay-event="deleteAll" style="background-color: #2c3e50;color: #FFFFFF"><i
+                    class="layui-icon" >&#xe640;</i>批量删除</button>
         </div>
         <br/>
         <!--搜索条件-->
         <form class="layui-form layui-col-space5">
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户名称</label>
+                <label class="layui-form-label" style="width: 110px;text-align: center;background-color: #8c8c8c;color: #FFFFFF">账户名称</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input"  autocomplete="off" placeholder="请输入账户名" id="accountName">
             </div>
 
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">银行名称</label>
+                <label class="layui-form-label" style="width: 110px;text-align: center;background-color: #8c8c8c;color: #FFFFFF">银行名称</label>
             <div class="layui-inline layui-show-xs-block"  style="text-align: center" >
                 <select id="blankName">
                     <option value="">请选择</option>
@@ -47,7 +47,9 @@
             </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit="" lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <button class="layui-btn"  lay-submit="" lay-event="search" lay-filter="sreach" style="background-color: #2c3e50;color: #FFFFFF"><i class="layui-icon">&#xe615;</i>搜索</button>
+            </div>
+            </div>
             </div>
         </form>
     </script>
@@ -65,9 +67,9 @@
     <table id="userTable" lay-filter="userTable"></table>
     <!--工具条-->
     <div style="display: none;" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="edit"><i
+        <a class="layui-btn layui-btn-xs" lay-event="edit" style="background-color: #8c8c8c;color: #FFFFFF"><i
                 class="layui-icon">&#xe642;</i>编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+        <a class="layui-btn  layui-btn-xs" lay-event="del" style="background-color: #2c3e50;color: #FFFFFF"><i
                 class="layui-icon">&#xe640;</i>删除</a>
     </div>
 </div>

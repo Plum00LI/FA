@@ -90,7 +90,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         elem: '#userTable',
         url: '../selectTransactionData',
         page: true,
-        height: 498,
+        height: 'full-55',
         toolbar: '#userToolBar',//显示在表头的工具条
         minLength: 80,
         cellMinWidth:60,
