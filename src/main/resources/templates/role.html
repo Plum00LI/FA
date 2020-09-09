@@ -27,13 +27,13 @@
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
 
-        <div id="funTree" lay-filter="funTree"></div>
+        <div id="funTree" lay-filter="funTree" ></div>
 
         <div style="position: absolute; bottom: 0px; left: 45%; display: none"  id="buttonID">
-            <button class="layui-btn" lay-submit="" lay-filter="addsubmit" >
+            <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="addsubmit" >
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
-            <button class="layui-btn layui-bg-red cancel" type="button">
+            <button class="layui-btn layui-bg-red cancel" type="button"  id="xy">
                 <i class="layui-icon">&#x1006;</i>取消
             </button>
         </div>
@@ -45,11 +45,14 @@
 <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 
 <script>
-    layui.use(['form', 'table','tree'], function () {
+
+    layui.use(['form', 'table','tree','layer'], function () {
+        var layer=layui.layer;
         var $ = layui.jquery,
             form = layui.form,
             tree = layui.tree,
             table = layui.table;
+
 
         table.render({
             elem: '#currentTableId',
@@ -59,7 +62,9 @@
                 layEvent: 'LAYTABLE_TIPS',
                 icon: 'layui-icon-tips'
             }],
-            cellMinWidth:250,
+            minLength:80,
+            cellMinWidth:60,
+            height:'full-55',
             cols: [
                 [
                 {type: "numbers", width: 50},
@@ -77,6 +82,7 @@
         // 监听搜索操作
         table.on('tool(currentTableFilter)',function (obj) {
 
+
             switch (obj.event) {
 
                 case 'edit':
@@ -88,8 +94,9 @@
                         dataType:'json',
                         type:'post',
                         success:function(data) {
-                            tree.render({
-                                elem: '#funTree'
+                                $("#funTree").css("display","block");
+                                tree.render({
+                                elem: $("#funTree")
                                 ,data:data
                                 ,showCheckbox: true  //是否显示复选框
                                 ,id: 'id'
@@ -102,15 +109,18 @@
 
                     var index=layer.open({
                         type: 1,
-                        title: '编辑权限',
-                        closeBtn: 1,
+                        title: false ,
+                        closeBtn: false,
                         move:false,
+                        area: ['90%', '80%'],
+                        shade: 0.8,
+
                         content:$("#editTree"),
                         btn:[]
                     });
 
 
-                    layer.full(index);
+
                     form.on('submit(addsubmit)',function () {
                         var checkedData = tree.getChecked('id'); //获取选中节点的数据
                         var ids =[];
@@ -131,10 +141,24 @@
                             type:'post',
                         });
                     });
+                    $('#xy').click(function () {
+                        alert(1);
+                        $("#buttonID").css("display","none");
+                        $("#funTree").css("display","none");
+
+                        layer.close(index)
+
+
+
+
+                    });
+
                     break;
             }
         });
 
 
     });
+
+
 </script>
