@@ -29,7 +29,7 @@ public class BrokersController {
 
     @RequestMapping("insertBrokers")
     public int insertBrokers(Brokers brokers){
-        brokers.setBrokersId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.B));
+
         int i = brokersService.insertBrokers(brokers);
         return i;
     }

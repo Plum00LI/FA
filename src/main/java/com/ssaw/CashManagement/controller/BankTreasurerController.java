@@ -55,7 +55,7 @@ public class BankTreasurerController {
         return  bankTreasurerService.deleteBankTreasurer(bankTreasurerId);
     }
     @RequestMapping("updateBankTreasurer")
-    public int deleteBankTreasurer(BankTreasurer bankTreasurer){
+    public int updateBankTreasurer(BankTreasurer bankTreasurer){
         int i = bankTreasurerService.updateBankTreasurer(bankTreasurer);
         return i;
     }

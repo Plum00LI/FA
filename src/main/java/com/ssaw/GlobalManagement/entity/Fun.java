@@ -15,12 +15,14 @@ public class Fun {
     private int id;
     private String title;
     private boolean checked;
+    private int endowId;
     private List<Fun> children=null;
 
-    public Fun(int id, String title, boolean checked, List<Fun> children) {
+    public Fun(int id, String title, boolean checked, int endowId, List<Fun> children) {
         this.id = id;
         this.title = title;
         this.checked = checked;
+        this.endowId = endowId;
         this.children = children;
     }
 
@@ -31,6 +33,13 @@ public class Fun {
         this.id = id;
         this.title = title;
         this.checked = checked;
+    }
+
+    public Fun(int id, String title, boolean checked, int endowId) {
+        this.id = id;
+        this.title = title;
+        this.checked = checked;
+        this.endowId = endowId;
     }
 
     public int getId() {
@@ -65,12 +74,21 @@ public class Fun {
         this.children = children;
     }
 
+    public int getEndowId() {
+        return endowId;
+    }
+
+    public void setEndowId(int endowId) {
+        this.endowId = endowId;
+    }
+
     @Override
     public String toString() {
         return "Fun{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", checked=" + checked +
+                ", endowId=" + endowId +
                 ", children=" + children +
                 '}';
     }

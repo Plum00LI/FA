@@ -254,13 +254,13 @@
         //新增证券下拉选择器
         tableSelect.render({
             elem: '#securityName'
-            , checkedKey: 'securityId'
+            , checkedKey: 'securitiesId'
             , table: {
-                url: '../selectEquityData'
+                url: '../Securities/selectSecurities'
                 , cols: [
                     [
                         {type: 'radio'},
-                        {field: 'securityId', title: '证券ID',width:250},
+                        {field: 'securitiesId', title: '证券ID',width:250},
                         {field: 'securitiesName', title: '证券名称',width: 250},
                     ]
                 ]
@@ -269,8 +269,8 @@
                 var NEWJSON = []
                 layui.each(data.data, function (index, item) {
                     NEWJSON.push(item.securitiesName)
-                    console.log(item.securityId)
-                    $("#securityId").val(item.securityId);
+                    console.log(item.securitiesId)
+                    $("#securityId").val(item.securitiesId);
                 })
                 elem.val(NEWJSON.join(","))
             }
@@ -306,7 +306,7 @@
             elem: '#securityName2'
             , checkedKey: 'securityId'
             , table: {
-                url: '../selectEquityData'
+                url: '../Securities/selectSecurities'
                 , cols: [
                     [
                         {type: 'radio'},

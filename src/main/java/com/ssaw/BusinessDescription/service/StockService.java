@@ -22,22 +22,27 @@ public interface StockService {
      */
     public List<Securities> selectStock();
     /**
-     * 增加父类
+     * 增加
      * @param stock
      */
-    public int insertStockParentMsg(Stock stock);
+    public int insertStock(Stock stock);
     /**
      * 查子类
+     * 证券信息引用
      */
     public List<Stock> selectSonStock();
     /**
-    /**
+     * 删除
      * 根据板块编号 stockId
      */
-    public void deleteStock(String stockId);
+    public int deleteStock(String stockId);
     /**
      * 修改
      * 根据板块编号 stockId
      */
-    public void updateStock(Stock stock);
+    public int updateStock(Stock stock);
+    /**
+     * 查询父类
+     */
+    public List<Stock> selectParentStock();
 }
