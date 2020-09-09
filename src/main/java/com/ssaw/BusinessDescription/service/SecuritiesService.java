@@ -1,8 +1,8 @@
 package com.ssaw.BusinessDescription.service;
 
 import com.ssaw.BusinessDescription.entity.Securities;
-import com.ssaw.BusinessDescription.entity.Stock;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.Map;
@@ -14,6 +14,7 @@ import java.util.Map;
  * @date 2020-09-01
  * @version 1.0
  */
+@Service
 public interface SecuritiesService {
     /**
      * 分页查询 调用存储过程
