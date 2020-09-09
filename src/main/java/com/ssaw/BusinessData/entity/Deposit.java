@@ -13,27 +13,26 @@ public class Deposit {
     private String outAccountId;//流出现金账户Id
     private String outAccountName;//流出现金账户名称
     private String inAccountId;//流入现金账户Id
-    private String intAccountName;//流入现金账户名称
-    private int directionOfMoney;//资金调拨方向1代表流入-1代表流出
+    private String inAccountName;//流入现金账户名称
+    private final int directionOfMoney=1;//资金调拨方向1代表流入-1代表流出
     private String businessDate;//业务时间
     private int businessType;//业务类型 1代表定期三天2代表七天3代表活期
     private double money;//存款金额
     private double interest;//所含利息
     private String endDate;//存款业务到期时间
-    private int flag;//到期办理标志0未办理1已办理
+    private  int flag;//到期办理标志0未办理1已办理
     private String depositDesc;//备注
 
     public Deposit() {
     }
 
-    public Deposit(String depositId, String fundId, String outAccountId, String outAccountName, String inAccountId, String intAccountName, int directionOfMoney, String businessDate, int businessType, double money, double interest, String endDate, int flag, String depositDesc) {
+    public Deposit(String depositId, String fundId, String outAccountId, String outAccountName, String inAccountId, String inAccountName, String businessDate, int businessType, double money, double interest, String endDate, int flag, String depositDesc) {
         this.depositId = depositId;
         this.fundId = fundId;
         this.outAccountId = outAccountId;
         this.outAccountName = outAccountName;
         this.inAccountId = inAccountId;
-        this.intAccountName = intAccountName;
-        this.directionOfMoney = directionOfMoney;
+        this.inAccountName = inAccountName;
         this.businessDate = businessDate;
         this.businessType = businessType;
         this.money = money;
@@ -43,12 +42,11 @@ public class Deposit {
         this.depositDesc = depositDesc;
     }
 
-    public Deposit(String depositId, String fundId, String outAccountId, String inAccountId, int directionOfMoney, String businessDate, int businessType, double money, double interest, String endDate, int flag, String depositDesc) {
+    public Deposit(String depositId, String fundId, String outAccountId, String inAccountId, String businessDate, int businessType, double money, double interest, String endDate, int flag, String depositDesc) {
         this.depositId = depositId;
         this.fundId = fundId;
         this.outAccountId = outAccountId;
         this.inAccountId = inAccountId;
-        this.directionOfMoney = directionOfMoney;
         this.businessDate = businessDate;
         this.businessType = businessType;
         this.money = money;
@@ -56,22 +54,6 @@ public class Deposit {
         this.endDate = endDate;
         this.flag = flag;
         this.depositDesc = depositDesc;
-    }
-
-    public String getOutAccountName() {
-        return outAccountName;
-    }
-
-    public void setOutAccountName(String outAccountName) {
-        this.outAccountName = outAccountName;
-    }
-
-    public String getIntAccountName() {
-        return intAccountName;
-    }
-
-    public void setIntAccountName(String intAccountName) {
-        this.intAccountName = intAccountName;
     }
 
     public String getDepositId() {
@@ -98,6 +80,14 @@ public class Deposit {
         this.outAccountId = outAccountId;
     }
 
+    public String getOutAccountName() {
+        return outAccountName;
+    }
+
+    public void setOutAccountName(String outAccountName) {
+        this.outAccountName = outAccountName;
+    }
+
     public String getInAccountId() {
         return inAccountId;
     }
@@ -106,12 +96,16 @@ public class Deposit {
         this.inAccountId = inAccountId;
     }
 
-    public int getDirectionOfMoney() {
-        return directionOfMoney;
+    public String getInAccountName() {
+        return inAccountName;
     }
 
-    public void setDirectionOfMoney(int directionOfMoney) {
-        this.directionOfMoney = directionOfMoney;
+    public void setInAccountName(String inAccountName) {
+        this.inAccountName = inAccountName;
+    }
+
+    public int getDirectionOfMoney() {
+        return directionOfMoney;
     }
 
     public String getBusinessDate() {

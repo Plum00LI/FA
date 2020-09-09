@@ -39,19 +39,19 @@
             });
             table.render({
                 elem: '#userTable',
-                url: './selectUser',
+                url: '../selectEquityDispose',
                 page: true,
                 height: 498,
                 minLength:80,
                 cols: [
                     [ //表头
                     {type: 'checkbox', fixed: 'left'}
-                    ,{field: 'equityId', title: '权益编号', width:150, align:'center'}
-                    ,{field: 'securityName', title: '证券名称', width: 150, align:'center'}
-                    ,{field: 'cashAccountName', title: '账户名称', width:150, align:'center'}
+                    ,{field: 'equityDataId', title: '权益编号', width:150, align:'center'}
+                    ,{field: 'securitiesName', title: '证券名称', width: 150, align:'center'}
+                    ,{field: 'accountName', title: '账户名称', width:150, align:'center'}
                     ,{field: 'equitiesType', title: '权益类型', width: 150, align:'center'}
                     ,{field: 'equitiesExright', title: '除权日期', width:150, align:'center'}
-                    ,{field: 'securityNum', title: '证券数量', width:150, align:'center'}
+                    ,{field: 'securitiesNum', title: '证券数量', width:150, align:'center'}
                     ,{field: 'proportion', title: '比例', width:150, align:'center'}
                     ,{field: 'settlementAmount', title: '结算金额', width:150, align:'center'}
                 ]
@@ -105,7 +105,7 @@
                 <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit="" lay-filter="settlement">结算</button>
+                <button class="layui-btn"  lay-submit="settleme nt" lay-filter="settlement" id="settlement">结算</button>
             </div>
         </form>
 
@@ -138,10 +138,17 @@
         var layid = location.hash.replace(/^#test=/, '');
         element.tabChange('test', layid);
 
+        //反结算和结算按钮
         element.on('tab(test)', function(elem){
             location.hash = 'test='+ $(this).attr('lay-id');
+            var submit = $(this).attr('lay-id')
+            if (submit == '2'){
+                $('#settlement').html("反结算")
+            }
+            if (submit == '1'){
+                $('#settlement').html("结算")
+            }
         });
-
     });
 </script>
 </body>

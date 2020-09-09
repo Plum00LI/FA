@@ -24,15 +24,15 @@
     <!--头部工具-->
     <script type="text/html" id="userToolBar">
         <div style="float:right">
-        <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
+        <button class="layui-btn layui-btn layui-btn-sm" lay-event="add" style="background-color: #8c8c8c; color: #ffffff"><i
                 class="layui-icon">&#xe654;</i>添加数据</button>
-        <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll"><i
+        <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll" style="background-color: #2c3e50; color: #ffffff"><i
                 class="layui-icon">&#xe640;</i>批量删除</button>
         </div>
         <br/>
         <form class="layui-form layui-col-space5">
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">权益类型</label>
+                <label class="layui-form-label" style="width: 110px; text-align: center; background-color: #8c8c8c; color: #ffffff">权益类型</label>
 
             <div class="layui-inline layui-show-xs-block">
                 <select name="equitiesType" id="equitiesType">
@@ -43,14 +43,14 @@
             </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center" >权益除权日</label>
+                <label class="layui-form-label" style="width: 110px;text-align: center; background-color: #8c8c8c; color: #ffffff" >权益除权日</label>
 
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input"  autocomplete="off" placeholder="请输入统计日期" name="end" id="equitiesExright">
             </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn" lay-event="search"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <button class="layui-btn" lay-event="search"  lay-submit="" lay-filter="sreach" style="background-color: #2c3e50; color: #ffffff"><i class="layui-icon">&#xe615;</i>搜索</button>
             </div>
         </form>
     </script>
@@ -64,9 +64,9 @@
     <table id="userTable" lay-filter="userTable"></table>
     <!--工具条-->
     <div style="display: none;" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="edit"><i
+        <a class="layui-btn layui-btn-xs" lay-event="edit" style="background-color: #8c8c8c; color: #ffffff"><i
                 class="layui-icon">&#xe642;</i>编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" style="background-color: #2c3e50; color: #ffffff"><i
                 class="layui-icon">&#xe640;</i>删除</a>
 
     </div>
@@ -79,13 +79,13 @@
         <input name="accountId" type="hidden" id="accountId">
         <input name="securityId" type="hidden" id="securityId">
         <div class="layui-inline layui-show-xs-block" style="float: left">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">账户名称</label>
+            <label class="layui-form-label" style="text-align: center; background-color: #8c8c8c; color: #ffffff">账户名称</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" placeholder="请输入账户名称" name="accountName" id="accountName">
             </div>
         </div>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">证券名称</label>
+            <label class="layui-form-label " style="text-align: center; background-color: #8c8c8c; color: #ffffff">证券名称</label>
             <div class="layui-inline layui-show-xs-block">
                 <input type="text" class="layui-input" placeholder="请输入证券名称" name="securityName" id="securityName">
             </div>
@@ -93,14 +93,14 @@
         <br>
         <br>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">权益登记日</label>
+            <label class="layui-form-label " style="text-align: center; background-color: #8c8c8c; color: #ffffff">权益登记日</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" placeholder="请输入登记日" name="equitiesRecord" id="equitiesRecord">
             </div>
         </div>
 
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">权益除权日</label>
+            <label class="layui-form-label " style="text-align: center; background-color: #8c8c8c; color: #ffffff">权益除权日</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" placeholder="请输入除权日" name="equitiesExright" id="equitiesExright2">
             </div>
@@ -108,14 +108,14 @@
         <br>
         <br>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">到账日</label>
+            <label class="layui-form-label " style="text-align: center; background-color: #8c8c8c; color: #ffffff">到账日</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" placeholder="请输入到账日" name="receivedDate" id="receivedDate">
             </div>
         </div>
 
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">权益类型</label>
+            <label class="layui-form-label " style="text-align: center; background-color: #8c8c8c; color: #ffffff">权益类型</label>
         <div class="layui-inline layui-show-xs-block" style="width: 182px">
             <select name="equitiesType">
                 <option>请选择</option>
@@ -127,14 +127,14 @@
         <br>
         <br>
         <div class="layui-inline layui-show-xs-block" style="float: left">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">比例(%)</label>
+            <label class="layui-form-label " style="text-align: center; background-color: #8c8c8c; color: #ffffff">比例(%)</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" placeholder="请输入比例,单位为%" name="proportion">
             </div>
         </div>
 
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">处理状态</label>
+            <label class="layui-form-label " style="text-align: center; background-color: #8c8c8c; color: #ffffff">处理状态</label>
             <div class="layui-inline layui-show-xs-block" style="width: 182px">
                 <select name="disposeStatus">
                     <option>请选择</option>
@@ -146,10 +146,10 @@
 
 
         <div style="position: absolute; bottom: 0px; margin-left: 200px">
-            <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
+            <button class="layui-btn " lay-submit="" lay-filter="addsubmit" style="background-color: #8c8c8c; color: #ffffff">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
-            <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
+            <button class="layui-btn cancel" type="button" onclick="myclose()" style="background-color: #2c3e50; color: #ffffff">
                 <i class="layui-icon">&#x1006;</i>取消
             </button>
         </div>
@@ -166,14 +166,14 @@
             <input name="accountId" type="hidden" id="accountId2">
         </div>
         <div class="layui-inline layui-show-xs-block" style="float: left">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">账户名称</label>
+            <label class="layui-form-label " style="text-align: center; background-color: #8c8c8c; color: #ffffff">账户名称</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" placeholder="请输入账户名称" name="accountName" id="accountName2">
             </div>
         </div>
 
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">证券名称</label>
+            <label class="layui-form-label " style="text-align: center; background-color: #8c8c8c; color: #ffffff">证券名称</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" placeholder="请输入证券名称" name="securityName" id="securityName2">
             </div>
@@ -181,14 +181,14 @@
         <br>
         <br>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">权益登记日</label>
+            <label class="layui-form-label " style="text-align: center; background-color: #8c8c8c; color: #ffffff">权益登记日</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" placeholder="请输入登记日" name="equitiesRecord" id="equitiesRecord2">
             </div>
         </div>
 
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">权益除权日</label>
+            <label class="layui-form-label " style="text-align: center; background-color: #8c8c8c; color: #ffffff">权益除权日</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" placeholder="请输入除权日" name="equitiesExright" id="equitiesExright3">
             </div>
@@ -196,14 +196,14 @@
         <br>
         <br>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">到账日</label>
+            <label class="layui-form-label " style="text-align: center; background-color: #8c8c8c; color: #ffffff">到账日</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" placeholder="请输入到账日" name="receivedDate" id="receivedDate2">
             </div>
         </div>
 
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">权益类型</label>
+            <label class="layui-form-label " style="text-align: center; background-color: #8c8c8c; color: #ffffff">权益类型</label>
             <div class="layui-inline layui-show-xs-block" style="width: 182px">
                 <select name="equitiesType">
                     <option>请选择</option>
@@ -215,14 +215,14 @@
         <br>
         <br>
         <div class="layui-inline layui-show-xs-block" style="float: left">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">比例(%)</label>
+            <label class="layui-form-label " style="text-align: center; background-color: #8c8c8c; color: #ffffff">比例(%)</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" placeholder="请输入比例,单位为%" name="proportion">
             </div>
         </div>
 
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">处理状态</label>
+            <label class="layui-form-label " style="text-align: center; background-color: #8c8c8c; color: #ffffff">处理状态</label>
             <div class="layui-inline layui-show-xs-block" style="width: 182px">
                 <select name="disposeStatus">
                     <option>请选择</option>
@@ -234,15 +234,17 @@
 
 
         <div style="position: absolute; bottom: 30px; margin-left: 200px">
-            <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
+            <button class="layui-btn" lay-submit="" lay-filter="editsubmit" style="background-color: #8c8c8c; color: #ffffff">
                 <i class="layui-icon">&#x1005;</i>编辑
             </button>
-            <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
+            <button class="layui-btn cancel" type="button" onclick="myclose()" style="background-color: #2c3e50; color: #ffffff">
                 <i class="layui-icon">&#x1006;</i>取消
             </button>
         </div>
     </form>
 </div>
+
+
 
 
 <!--下拉表格-->

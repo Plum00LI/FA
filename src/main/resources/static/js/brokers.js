@@ -1,41 +1,16 @@
-
-layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
+layui.use(['element', 'form', 'table', 'layer'], function () {
     var layer = layui.layer;
     var $ = layui.$;
     var table = layui.table;
     var form = layui.form;
     var formSelects = layui.formSelects;
-    var laydate = layui.laydate;
 
-    //执行一个laydate实例
-    laydate.render({
-        elem: '#dateTime' //指定元素
-    });
-    laydate.render({
-        elem: '#dateTime1' //指定元素
-    });
-    laydate.render({
-        elem: '#dateTime3' //指定元素
-    });
-    // 期初数据选中
-    form.on('checkbox(initialSigns)', function(data){
-        var addbtn = document.getElementById('addBtn');
-        if(data.elem.checked){
-            addbtn.classList.remove("layui-btn-disabled")
-            addbtn.setAttribute("lay-event","add")
-
-        }else{
-            addbtn.classList.add("layui-btn-disabled")
-            addbtn.setAttribute("lay-event","")
-        }
-    });
     //新增提交
     form.on('submit(addsubmit)', function(data){
         var formData=$('#addform').serialize();
-        alert("formData" + formData);
-        $.post("../taInventory/insert",formData,function(msg){
+        $.post("../insertBrokers",formData,function(msg){
             if(msg>0){
-                table.reload('taInventoryTable');
+                table.reload('userTable');
                 layer.closeAll();
                 layer.msg('添加成功',{
                     title : '提示',
@@ -58,13 +33,15 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         return false;
     });
 
+
     //修改提交
     form.on('submit(editsubmit)', function(data){
+
         var formData=$('#editform').serialize();
-        // alert("formData" + formData);
-        $.post("../taInventory/update",formData,function(msg){
+        alert(formData)
+        $.post("../updateBrokers",formData,function(msg){
             if(msg>0){
-                table.reload('taInventoryTable');
+                table.reload('userTable');
                 layer.closeAll();
                 layer.msg('修改成功',{
                     title : '提示',
@@ -86,27 +63,30 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         });
         return false;
     });
+
+    //表格渲染
     table.render({
-        elem: '#taInventoryTable',
-        url: '../taInventory/select',
+        elem: '#userTable',
+        url: '../selectBrokers',
         page: true,
-        height: 'full-55',
-        toolbar: '#taInventoryToolBar',//显示在表头的工具条
-        minLength:60,
+        toolbar: '#userToolBar',//显示在表头的工具条
+        cellMinWidth: 50,
+        height:'full-70',
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
-                ,{field: 'taInventoryId', title: 'TA库存ID'}
-                ,{field: 'dateTime', title: '统计日期'}
-                ,{field: 'taNum', title: '数量'}
-                ,{field: 'taTotal', title: '金额'}
-                ,{field: 'taInventoryDesc', title: '备注'}
-                ,{field: 'classify', title: '操作', toolbar:'#barDemo',fixed: 'right'}
+                ,{field: 'brokersId', title: '券商编号', align:'center'}
+                ,{field: 'brokersName', title: '券商名称', align:'center'}
+                ,{field: 'brokersInstructions', title: '券商说明', align:'center'}
+                ,{field: 'brokersDesc', title: '券商备注', align:'center'}
+                ,{title: 'operation', title: '操作' , toolbar:'#barDemo', align:'center'}
             ]
         ]
     });
+
+
     //给工具条的按钮添加事件
-    table.on('toolbar(taInventoryTable)',function (obj) {
+    table.on('toolbar(userTable)',function (obj) {
         //获取选中复选框的对象，
         var checkStatus=table.checkStatus(obj.config.id);//得到表格选中行的ID
         switch (obj.event) {
@@ -116,48 +96,47 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     title: '添加数据信息',
                     closeBtn: 1,
                     move:false,
-                    area:['800px','600px'],
                     content:$("#addContent"),
+                    area: ['800px', '500px'],
                     btn:[]
                 });
-
                 form.render();
                 //全屏
-                // layer.full(index);
+                //layer.full(index);
                 break;
+
+
+            //搜索按钮的条件查询
             case 'search':
-                alert("搜索");
-                var dateTime= $("#dateTime").val();
-                alert(dateTime);
+                var brokersName= $("#brokersName").val();
                 //表格的重新加载事件
-                table.reload('taInventoryTable', {
+                table.reload('userTable', {
                     method: 'post'
                     , where: {
-                        'dateTime': dateTime
+                        'brokersName': brokersName,
                     }
                     , page: {
                         curr: 1
                     }
                 });
-                laydate.render({
-                    elem: '#dateTime' //指定元素
-                });
                 break;
+
+
+            //批量删除
             case 'deleteAll':
                 var data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
                 if(data.length==0){
                     layer.msg("请至少选择一条数据",)
                 }else
                 {
                     var ids=[];
                     for (var i = 0; i <data.length; i++) {
-                        ids.push(data[i].taInventoryId);
+                        ids.push(data[i].brokersId);
                     }
                     layer.confirm('真的删除行么',{icon: 2}, function(index){
                         layer.close(index);
-                        $.post("../taInventory/delete", {taInventoryId:ids.join(',')},function(msg){
-                            table.reload('taInventoryTable');
+                        $.post("../deleteBrokers", {brokersId:ids.join(',')},function(msg){
+                            table.reload('userTable');
                             layer.msg('删除'+checkStatus.data.length+'条记录', {
                                 title:'提示',
                                 area: ['200px', '140px'],
@@ -170,36 +149,39 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 break;
         }
     });
+
+
     //给表格编辑，删除按钮添加点击事件
-    table.on('tool(taInventoryTable)', function(obj) {
+    table.on('tool(userTable)', function(obj) {
         var data = obj.data;//得到删除行整行的数据
-        // alert(data.taInventoryId);
         if (obj.event === 'del') {
             layer.confirm('真的删除行么',{icon: 2}, function(index){
                 layer.close(index);
-                $.post("../taInventory/delete", {taInventoryId:data.taInventoryId+""},function(msg){
-                    table.reload('taInventoryTable');
+                $.post("../deleteBrokers", {brokersId:data.brokersId+""},function(msg){
+                    table.reload('userTable');
                 });
 
             });
         } else if (obj.event === 'edit') {
-            alert(JSON.stringify(data));
-
             form.val('editform',$.parseJSON(JSON.stringify(data)));
             var index = layer.open({
                 type: 1,
-                title: '修改TA库存',
+                title: '修改券商设置',
                 closeBtn: 1,
                 move:false,
-                area: ['800px', '600px'],
+                area: ['800px', '500px'],
                 content:$('#editContent')
             });
             form.render();
+            //layer.full(index);
         };
     })
-
-
 });
+
+
+//取消按钮点击事件
 function myclose() {
     layer.closeAll();
 }
+
+
