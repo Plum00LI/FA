@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/theme9.css">
     <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../js/xadmin.js"></script>
+    <script src="../lib/layuimini/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 
@@ -81,13 +82,14 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">流出账户</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择流出账户">
+                    <input type="hidden" name="outAccountId" id="outAccountId"/>
+                    <input class="layui-input"  autocomplete="off" placeholder="请选择流出账户" name="blankCardCode" id="insertAccount">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户名称</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择账户名称">
+                    <input class="layui-input"  autocomplete="off" placeholder="请选择账户名称" name="outAccountName" id="outAccountName">
                 </div>
             </div>
         </div>
@@ -96,13 +98,13 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户银行</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择账户银行">
+                    <input class="layui-input"  autocomplete="off" placeholder="请选择账户银行" name="outBlankName" id="outBlankName">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">存款金额</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请输入存款金额">
+                    <input class="layui-input"  autocomplete="off" placeholder="请输入存款金额" name="money">
                 </div>
             </div>
         </div>
@@ -113,13 +115,14 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">流入账户</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择流入账户">
+                    <input type="hidden" name="inAccountId" id="inAccountId"/>
+                    <input class="layui-input"  autocomplete="off" placeholder="请选择流入账户" name="blankCardCode" id="insertAccount2">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户名称</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择账户名称">
+                    <input class="layui-input"  autocomplete="off" placeholder="请选择账户名称" name="inAccountName" id="inAccountName">
                 </div>
             </div>
         </div>
@@ -128,13 +131,13 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户银行</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择账户银行">
+                    <input class="layui-input"  autocomplete="off" placeholder="请选择账户银行" name="inBlankName" id="inBlankName">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center" >业务类型</label>
                 <div class="layui-inline layui-show-xs-block" style="text-align: center;width: 187px">
-                    <select name="cateid" >
+                    <select name="businessType" >
                         <option>请选择业务类型</option>
                         <option>三天存款</option>
                         <option>七天存款</option>
@@ -148,13 +151,13 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">业务日期</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择业务日期" name="end" id="end">
+                    <input class="layui-input"  autocomplete="off" placeholder="请选择业务日期" name="businessDate" id="end">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">到期日期</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择到期日期" name="end" id="up">
+                    <input class="layui-input"  autocomplete="off" placeholder="请选择到期日期" name="endDate" id="up">
                 </div>
             </div>
         </div>
@@ -170,6 +173,70 @@
 </div>
 <script src="../js/deposit.js"></script>
 <script type="text/javascript">
+    layui.use([ 'tableSelect'], function () {
+        var $=layui.jquery,
+            tableSelect=layui.tableSelect;
+        //增加得下拉表格
+        tableSelect.render({
+            elem:'#insertAccount',
+            checkedKey:'blankCardCode',
+            table:{
+                url:'../selectAccount',
+                cellMinWidth:60,
+
+                cols:[
+                    [   {type:'radio'},
+                        {field: 'blankCardCode',title: '银行卡号',width:250},
+                        {field:'accountName',title:'账户名称',width:250},
+                        {field:'blankName',title:'银行名称',width:250}
+                    ]
+                ]
+            },
+            done:function (elem,data) {
+                //elem:返回之前input对象；data:表格返回的选中的数据 []
+                var newJson=[];
+                //遍历选中的数据
+                $.each(data.data,function (index,item) {
+                    newJson.push(item.blankCardCode);
+                    $("#outAccountId").val(item.accountId);//给隐藏域中的val赋值
+                    $("#outAccountName").val(item.accountName);
+                    $("#outBlankName").val(item.blankName);
+                });
+                elem.val(newJson.join(","));//给输入框里显示的值赋值
+
+            }
+        })
+        //增加的第二个
+        tableSelect.render({
+            elem:'#insertAccount2',
+            checkedKey:'blankCardCode',
+            table:{
+                url:'../selectAccount',
+                cellMinWidth:60,
+
+                cols:[
+                    [   {type:'radio'},
+                        {field: 'blankCardCode',title: '银行卡号',width:250},
+                        {field:'accountName',title:'账户名称',width:250},
+                        {field:'blankName',title:'银行名称',width:250}
+                    ]
+                ]
+            },
+            done:function (elem,data) {
+                //elem:返回之前input对象；data:表格返回的选中的数据 []
+                var newJson=[];
+                //遍历选中的数据
+                $.each(data.data,function (index,item) {
+                    newJson.push(item.blankCardCode);
+                    $("#inAccountId").val(item.accountId);//给隐藏域中的val赋值
+                    $("#inAccountName").val(item.accountName);
+                    $("#inBlankName").val(item.blankName);
+                });
+                elem.val(newJson.join(","));//给输入框里显示的值赋值
+
+            }
+        })
+    })
 
 </script>
 </body>

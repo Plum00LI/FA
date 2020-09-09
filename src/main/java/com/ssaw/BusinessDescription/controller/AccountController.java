@@ -50,8 +50,9 @@ public class AccountController {
     }
     @RequestMapping("insertAccount")
     public int insertAccount(Account account){
+        //account.setAccountId("963258");
         account.setAccountId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.A));
-        account.setFundId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
+  /*      account.setFundId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));*/
         int i = accountService.insertAccount(account);
         return i;
     }
