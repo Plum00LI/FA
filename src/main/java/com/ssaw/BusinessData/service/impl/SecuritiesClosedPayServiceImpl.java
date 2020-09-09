@@ -35,7 +35,7 @@ public class SecuritiesClosedPayServiceImpl implements SecuritiesClosedPayServic
 
 
     @Override
-    public Map<String, Object> selectSecuritiesClosedPay(String pageSize, String page) {
+    public Map<String, Object> selectSecuritiesClosedPay(String pageSize, String page,String securitiesName,String securitiesId) {
         //创建一个结果集Map,用于存放两个结果变量
         Map<String, Object> resultMap = new HashMap<>();
         //定义一个分页条数变量
@@ -52,13 +52,25 @@ public class SecuritiesClosedPayServiceImpl implements SecuritiesClosedPayServic
             //强转为int类型
             s_page = Integer.parseInt(page);
         }
+        StringBuffer sqlWhere = new StringBuffer();
+
+        if (securitiesId!=null && !securitiesId.equals("")){
+            sqlWhere.append(" and securitiesId like '%"+securitiesId+"%'");
+        }
+
+        if (securitiesName!=null && !securitiesName.equals("")){
+            sqlWhere.append(" and securitiesName like '%"+securitiesName+"%'");
+        }
+
+        String tableName="(select * from " + SysTableNameListUtil.SCP +" s join (select securitiesName from "+SysTableNameListUtil.SE+" )  se on s.securitiesId=securitiesId)";
+        System.out.println("语句"+tableName);
 
         //创建一个Map,用来调用存储过程
         Map<String, Object> map = new HashMap<>();
         //传入存储过程要查询的表名
-        map.put("p_tableName", "securitiesClosedPay");
+        map.put("p_tableName", tableName);
         //传入查询条件
-        map.put("p_condition", "");
+        map.put("p_condition", sqlWhere.toString());
         //传入分页显示条数
         map.put("p_pageSize", s_pageSize);
         //传入分页页码
@@ -74,7 +86,7 @@ public class SecuritiesClosedPayServiceImpl implements SecuritiesClosedPayServic
         //接收返回总条数
         int m_count = (int) map.get("p_count");
         //将结果放入结果集Map
-        resultMap.put("securitiesInventoryList", securitiesClosedPayList);
+        resultMap.put("securitiesClosedPayList", securitiesClosedPayList);
         resultMap.put("count", m_count);
         //返回结果集Map
         return resultMap;

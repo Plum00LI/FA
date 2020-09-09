@@ -14,11 +14,15 @@ public class SecuritiesClosedPay {
     private Double amount;                      //金额
     private String dateTime;                    //日期
     private Integer flag;                        //流入1 流出-1
+    /**
+     * 证券名称
+     */
+    private String securitiesName;
 
     public SecuritiesClosedPay() {
     }
 
-    public SecuritiesClosedPay(String securitiesClosedPayId, String fundId, String accountId, String securitiesId, Integer serviceType, Double amount, String dateTime, Integer flag) {
+    public SecuritiesClosedPay(String securitiesClosedPayId, String fundId, String accountId, String securitiesId, Integer serviceType, Double amount, String dateTime, Integer flag,String securitiesName) {
         this.securitiesClosedPayId = securitiesClosedPayId;
         this.fundId = fundId;
         this.accountId = accountId;
@@ -27,6 +31,7 @@ public class SecuritiesClosedPay {
         this.amount = amount;
         this.dateTime = dateTime;
         this.flag = flag;
+        this.securitiesName = securitiesName;
     }
 
     public String getSecuritiesClosedPayId() {
@@ -93,6 +98,14 @@ public class SecuritiesClosedPay {
         this.flag = flag;
     }
 
+    public String getSecuritiesName() {
+        return securitiesName;
+    }
+
+    public void setSecuritiesName(String securitiesName) {
+        this.securitiesName = securitiesName;
+    }
+
     @Override
     public String toString() {
         return "SecuritiesClosedPay{" +
@@ -104,6 +117,7 @@ public class SecuritiesClosedPay {
                 ", amount=" + amount +
                 ", dateTime='" + dateTime + '\'' +
                 ", flag=" + flag +
+                ", securitiesName='" + securitiesName + '\'' +
                 '}';
     }
 }

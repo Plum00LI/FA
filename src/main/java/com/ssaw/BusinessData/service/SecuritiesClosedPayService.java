@@ -21,7 +21,7 @@ public interface SecuritiesClosedPayService {
      * @param
      * @return
      */
-    public Map<String,Object> selectSecuritiesClosedPay(String pageSize, String page);
+    public Map<String,Object> selectSecuritiesClosedPay(String pageSize, String page,String securitiesName,String securitiesId);
 
     /**
      * 增加
