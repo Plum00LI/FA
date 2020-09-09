@@ -39,8 +39,8 @@
 
             });
             table.render({
-                elem: '#userTable',
-                url: './selectUser',
+                elem: '#userTable1',
+                url: '../CashInterest/selectCashInterest',
                 page: true,
                 height: 498,
                 minLength:80,
@@ -48,13 +48,14 @@
                 cols: [
                     [ //表头
                     {type: 'checkbox', fixed: 'left'}
-                    ,{field: 'businessDate', title: '账户名称', width:210, align:'center'}
-                    ,{field: 'crcsId', title: '存款类型', width: 210, align:'center'}
-                    ,{field: 'cashAccountName', title: '业务类型', width:210, align:'center'}
-                    ,{field: 'fundId', title: '首付金额', width: 210, align:'center'}
-                    ,{field: 'fundName', title: '流入流出', width:210, align:'center'}
-                    ,{field: 'fundName', title: '导入数据', width:210, align:'center'}
-                    ,{field: 'fundName', title: '业务时间', width:210, align:'center'}
+                        ,{field: 'blankName', title: '银行名称', width:150, align:'center'}
+                        ,{field: 'accountName', title: '账户名字', width: 150, align:'center'}
+                        ,{field: 'cashBlance', title: '卡号余额（元）', width:150, align:'center'}
+                        ,{field: 'deposit', title: '存款类型', width: 150, align:'center'}
+                        ,{field: 'cardRate', title: '年利率（%）', width:150, align:'center'}
+                        ,{field: 'dateTime', title: '业务日期', width:150, align:'center'}
+                        ,{field: 'procisionDays', title: '计息时间', width:150, align:'center'}
+                        ,{field: 'cashMoney', title: '利息（元）', width:150, align:'center'}
                 ]
                 ]
             });
@@ -88,12 +89,14 @@
                 cols: [
                     [ //表头
                     {type: 'checkbox', fixed: 'left'}
-                    ,{field: 'businessDate', title: '账户名称', width:210, align:'center'}
-                    ,{field: 'crcsId', title: '业务类型', width: 210, align:'center'}
-                    ,{field: 'cashAccountName', title: '收支金额', width:210, align:'center'}
-                    ,{field: 'fundId', title: '流入流出', width: 210, align:'center'}
-                    ,{field: 'fundName', title: '导入数据', width:210, align:'center'}
-                    ,{field: 'fundName', title: '业务时间', width:210, align:'center'}
+                    ,{field: 'blankName', title: '银行名称', width:210, align:'center'}
+                    ,{field: 'accountName', title: '账户名字', width: 210, align:'center'}
+                    ,{field: 'cashBlance', title: '卡号余额（元）', width:210, align:'center'}
+                    ,{field: 'deposit', title: '存款类型', width: 210, align:'center'}
+                    ,{field: 'cardRate', title: '年利率（%）', width:210, align:'center'}
+                    ,{field: 'dateTime', title: '业务日期', width:210, align:'center'}
+                    ,{field: 'procisionDays', title: '计息时间', width:210, align:'center'}
+                    ,{field: 'cashMoney', title: '利息（元）', width:210, align:'center'}
                 ]
                 ]
             });
@@ -131,13 +134,13 @@
     <div class="layui-tab-content">
         <div class="layui-tab-item layui-show">
             <!--表格-->
-            <table id="userTable" lay-filter="userTable"></table>
+            <table id="userTable1" lay-filter="userTable1"></table>
         </div>
         <div class="layui-tab-item">
-            <table id="userTable2" lay-filter="userTable"></table>
+            <table id="userTable2" lay-filter="userTable2"></table>
         </div>
         <div class="layui-tab-item">
-            <table id="userTable3" lay-filter="userTable"></table>
+            <table id="userTable3" lay-filter="userTable3"></table>
         </div>
     </div>
 </div>

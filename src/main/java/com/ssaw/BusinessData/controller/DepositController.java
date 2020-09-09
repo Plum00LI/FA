@@ -50,6 +50,7 @@ public class DepositController {
     }
     @RequestMapping("insertDeposit")
     public int insertDeposit(Deposit deposit){
+        System.out.println(deposit);
         int i = depositService.insertDeposit(deposit);
         return i;
     }

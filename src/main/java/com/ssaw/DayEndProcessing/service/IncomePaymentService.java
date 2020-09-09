@@ -11,8 +11,13 @@ import java.util.Map;
  * @author:阙魁
  * @create:2020-09-08
  */
-@Service
+
 public interface IncomePaymentService {
     //现金利息收入的查询
     public Map<String,Object> selectCashInterestIncome(String pageSize,String page);
+    //债券利息收入的查询
+    public Map<String,Object> selectBondInterestIncome(String pageSize,String page);
+    //支付两费的查询
+    public Map<String,Object> selectPayTwoFees(String pageSize,String page);
+
 }

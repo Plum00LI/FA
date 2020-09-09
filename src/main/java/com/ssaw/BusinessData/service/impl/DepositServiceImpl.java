@@ -4,6 +4,11 @@ import com.ssaw.BusinessData.entity.Deposit;
 import com.ssaw.BusinessData.mapper.DepositMapper;
 import com.ssaw.BusinessData.service.DepositService;
 import com.ssaw.BusinessDescription.entity.Account;
+import com.ssaw.CashManagement.entity.BankTreasurer;
+import com.ssaw.CashManagement.mapper.BankTreasurerMapper;
+import com.ssaw.CashManagement.service.BankTreasurerService;
+import com.ssaw.GlobalManagement.util.DateTimeUtil;
+import com.ssaw.GlobalManagement.util.DbUtil;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +31,10 @@ import java.util.Map;
 public class DepositServiceImpl implements DepositService {
    @Resource
    DepositMapper depositMapper;
-
+   @Resource
+    BankTreasurerMapper bankTreasurerMapper;
+   @Resource
+    DbUtil dbUtil;
 
     @Override
     public Map<String, Object> selectDeposit(String pageSize, String page,String businessType,String endDate) {
@@ -84,6 +92,30 @@ public class DepositServiceImpl implements DepositService {
 
     @Override
     public int insertDeposit(Deposit deposit) {
+        deposit.setDepositId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.DE));
+        BankTreasurer bankTreasurer=new BankTreasurer();
+/*        //流出账户
+        bankTreasurer.setBankTreasurerId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.BT));
+        bankTreasurer.setFundId(deposit.getFundId());
+        bankTreasurer.setTotalPrice(deposit.getMoney());
+        bankTreasurer.setAccountId(deposit.getOutAccountId());
+        bankTreasurer.setAccountName(deposit.getOutAccountName());
+        //调拨日期为存款业务的业务时间
+        bankTreasurer.setDbTime(deposit.getBusinessDate());
+        //业务日期为当天的日期
+        String date=DateTimeUtil.getSystemDateTime("yyyy-MM-dd");
+        bankTreasurer.setDateTime(date);
+        bankTreasurer.setAllocatingType(5);
+        bankTreasurer.setBusinessId(deposit.getDepositId());
+        bankTreasurer.setBankTreasurerDesc("");
+        bankTreasurer.setFlag(-1);
+        bankTreasurerMapper.insertBankTreasurer(bankTreasurer);
+        //流入账户
+        bankTreasurer.setAccountId(deposit.getInAccountId());
+        bankTreasurer.setAccountName(deposit.getInAccountName());
+        bankTreasurer.setFlag(1);
+        bankTreasurerMapper.insertBankTreasurer(bankTreasurer);
+        System.out.println(bankTreasurer);*/
         return depositMapper.insertDeposit(deposit);
     }
 

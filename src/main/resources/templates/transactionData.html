@@ -269,14 +269,14 @@
         <div class="layui-inline layui-show-xs-block" style="text-align: center;">
             <label class="layui-form-label layui-bg-green" style="text-align: center">证券编号</label>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="证券ID" name="securitiesId">
+                <input class="layui-input" placeholder="证券ID" name="securitiesId" id="securitiesName2">
             </div>
         </div>
         &nbsp&nbsp&nbsp&nbsp&nbsp
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">账户编号</label>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="账户ID" name="accountId" >
+                <input class="layui-input" placeholder="账户ID" name="accountId" id="accountName2">
             </div>
         </div>
         <br>
@@ -284,14 +284,14 @@
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">券商名称</label>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="券商ID" name="brokersId">
+                <input class="layui-input" placeholder="券商ID" name="brokersId" id="brokersName2">
             </div>
         </div>
         &nbsp&nbsp&nbsp&nbsp&nbsp
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">席位名称</label>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="席位ID" name="seateId">
+                <input class="layui-input" placeholder="席位ID" name="seateId" id="seateName2">
             </div>
         </div>
         <br>
@@ -419,7 +419,7 @@
             form = layui.form,
             tableSelect = layui.tableSelect;
 
-        //证券下拉表单
+        //新增证券下拉表单
         tableSelect.render({
             elem: '#securitiesName'
             , checkedKey: 'securitiesName'
@@ -463,7 +463,7 @@
             }
         });
 
-        //现金账户下拉表单
+        //新增现金账户下拉表单
         tableSelect.render({
             elem: '#accountName'
             , checkedKey: 'accountName'
@@ -488,7 +488,7 @@
 
             }
         });
-        //券商下拉表单
+        //新增券商下拉表单
         tableSelect.render({
             elem:'#brokersName'
             ,checkedKey:'brokersName'
@@ -512,7 +512,7 @@
                     $("#brokersId").val(item.brokersId);
                 });
                 elem.val(NEWJSON.join(","));
-                //席位名称下拉表单
+                //新增席位名称下拉表单
                 tableSelect.render({
                     elem: '#seateName'
                     , checkedKey: 'seateName'
@@ -551,6 +551,138 @@
                 });
             }
             })
+        //修改证券下拉表单
+        tableSelect.render({
+            elem: '#securitiesName2'
+            , checkedKey: 'securitiesName'
+            , table: {
+                url: '../Securities/selectSecurities'
+                , cellMinWidth: 60
+                , cols: [
+                    [
+                        {type: 'checkbox'},
+                        {field: 'securitiesId', title: '证券id'},
+                        {field: 'securitiesName', title: '证券名称'},
+                        {
+                            field: 'securitiesType', title: '证券类型', templet: function (item) {
+                                if (item.securitiesType == '1') {
+                                    return '债券';
+                                } else if (item.securitiesType == '2') {
+                                    return '股票';
+                                }
+                            }
+                        },
+                        {
+                            field: 'securitiesType', title: '证券地址', templet: function (item) {
+                                if (item.securitiesType == '1') {
+                                    return '上交所';
+                                } else if (item.securitiesType == '2') {
+                                    return '深交所';
+                                }
+                            }
+                        }
+                    ]
+                ]
+            }
+            , done: function (elem, data) {
+                var NEWJSON = [];
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.securitiesName);
+                    $("#securitiesId").val(item.securitiesId);
+                })
+                elem.val(NEWJSON.join(","));
+
+            }
+        });
+
+        //修改现金账户下拉表单
+        tableSelect.render({
+            elem: '#accountName2'
+            , checkedKey: 'accountName'
+            , table: {
+                url: '../selectAccount'
+                , cellMinWidth: 60
+                , cols: [
+                    [
+                        {type: 'checkbox'},
+                        {field: 'accountId', title: '账户编号'},
+                        {field: 'accountName', title: '账户名称'}
+                    ]
+                ]
+            }
+            , done: function (elem, data) {
+                var NEWJSON = [];
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.accountName);
+                    $("#accountId").val(item.accountId);
+                })
+                elem.val(NEWJSON.join(","));
+
+            }
+        });
+        //修改券商下拉表单
+        tableSelect.render({
+            elem:'#brokersName2'
+            ,checkedKey:'brokersName'
+            ,table:{
+                url:'../selectBrokers'
+                ,cellMinWidth: 60
+                ,cols:[
+                    [
+                        {type:'checkbox'},
+                        {field:'brokersId',title:'券商编号'},
+                        {field: 'brokersName',title:'券商名称'},
+                        {field: 'brokersInstructions',title:'券商描述'}
+                    ]
+                ]
+            }
+            ,done:function (elem,data) {
+                alert("选中的数据：" + data);
+                var NEWJSON = [];
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.brokersName);
+                    $("#brokersId").val(item.brokersId);
+                });
+                elem.val(NEWJSON.join(","));
+                //修改席位名称下拉表单
+                tableSelect.render({
+                    elem: '#seateName2'
+                    , checkedKey: 'seateName'
+                    , table: {
+                        url: '../seateSelect?brokersId=' + $("#brokersId").val()
+                        , cellMinWidth: 60
+                        , cols: [
+                            [
+                                {type: 'checkbox'},
+                                {field: 'seateId', title: '席位编号'},
+                                {field: 'seateName', title: '席位名称'},
+                                {field: 'seateRate', title: '佣金利率'},
+                                {field: 'brokersId', title: '券商名称'},
+                                {
+                                    field: 'seateAddress', title: '地址', templet: function (item) {
+                                        if (item.seateAddress == '1') {
+                                            return '上交所';
+                                        } else if (item.seateAddress == '2') {
+                                            return '深交所';
+                                        }
+                                    }
+                                }
+
+                            ]
+                        ]
+                    }
+                    , done: function (elem, data) {
+                        var NEWJSON = [];
+                        layui.each(data.data, function (index, item) {
+                            NEWJSON.push(item.seateName);
+                            $("#seateId").val(item.seateId);
+                        })
+                        elem.val(NEWJSON.join(","));
+
+                    }
+                });
+            }
+        })
 
     });
 </script>

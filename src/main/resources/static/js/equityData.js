@@ -102,7 +102,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         page: true,
         toolbar: '#userToolBar',//显示在表头的工具条
         cellMinWidth: 50,
-        height:'full-70',
+        height:'full-55',
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
@@ -130,7 +130,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     return '已处理';
                 }
             }
-                ,{title: 'operation', title: '操作' , toolbar:'#barDemo', align:'center'}
+                ,{title: 'operation', title: '操作' , toolbar:'#barDemo', align:'center',fixed: 'right'}
             ]
         ]
     });
