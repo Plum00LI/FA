@@ -22,6 +22,12 @@
           "target": "_self",
           "child": [
             {
+              "title": "模板一",
+              "href": "page/example.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
               "title": "主页一",
               "href": "page/welcome-1.html",
               "icon": "fa fa-tachometer",

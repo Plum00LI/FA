@@ -3,60 +3,60 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.DayEndProcessing.mapper.CashInterestMapper">
-    <resultMap id="CashInterest" type="com.ssaw.DayEndProcessing.entity.CashInterest">
-        <result property="accountId" column="accountId" javaType="String"></result>
-        <result property="blankName" column="blankName" javaType="String"></result>
-        <result property="accountName" column="accountName" javaType="String"></result>
-        <result property="deposit" column="deposit" javaType="Integer"></result>
-        <result property="cardRate" column="cardRate" javaType="Double"></result>
-        <result property="procisionDays" column="procisionDays" javaType="Integer"></result>
-        <result property="openTime" column="openTime" javaType="String"></result>
-        <result property="cashBlance" column="cashBlance" javaType="Double"></result>
-        <result property="dateTime" column="dateTime" javaType="String"></result>
-        <result property="cashMoney" column="cashMoney" javaType="String"></result>
-    </resultMap>
-    <select id="selectCashInterest" resultMap="CashInterest" parameterType="String">
-            select round(ca.cashBlance*(a.cardRate/365/100),2) as cashMoney,
-            a.blankName,a.accountName,a.deposit,a.cardRate,a.procisionDays,ca.dateTime,ca.cashBlance
-            from (select * from cashInventory where dateTime=#{dateTime}) ca join account a on ca.fundId = a.fundId
-        </select>
-    <resultMap id="BondInterest" type="com.ssaw.DayEndProcessing.entity.BondInterest">
-        <result property="bondName" column="bondName" javaType="String"></result>
-        <result property="securitiesId" column="securitiesId" javaType="String"></result>
-        <result property="bondType" column="bondType" javaType="Integer"></result>
-        <result property="bondRateAmount" column="bondRateAmount" javaType="String"></result>
-        <result property="dateTime" column="dateTime" javaType="String"></result>
-        <result property="drawStartDate" column="drawStartDate" javaType="String"></result>
-        <result property="bondRate" column="bondRate" javaType="Double"></result>
-        <result property="securitiesNum" column="securitiesNum" javaType="Double"></result>
-        <result property="parRate" column="parRate" javaType="Double"></result>
-    </resultMap>
-    <select id="selectBondInterest" resultMap="BondInterest" parameterType="String">
-        select round(se.securitiesNum* (b.bondRate/365),2) as bondRate,
+<!--    <resultMap id="CashInterest" type="com.ssaw.DayEndProcessing.entity.CashInterest">-->
+<!--        <result property="accountId" column="accountId" javaType="String"></result>-->
+<!--        <result property="blankName" column="blankName" javaType="String"></result>-->
+<!--        <result property="accountName" column="accountName" javaType="String"></result>-->
+<!--        <result property="deposit" column="deposit" javaType="Integer"></result>-->
+<!--        <result property="cardRate" column="cardRate" javaType="Double"></result>-->
+<!--        <result property="procisionDays" column="procisionDays" javaType="Integer"></result>-->
+<!--        <result property="openTime" column="openTime" javaType="String"></result>-->
+<!--        <result property="cashBlance" column="cashBlance" javaType="Double"></result>-->
+<!--        <result property="dateTime" column="dateTime" javaType="String"></result>-->
+<!--        <result property="cashMoney" column="cashMoney" javaType="String"></result>-->
+<!--    </resultMap>-->
+<!--    <select id="selectCashInterest" resultMap="CashInterest" parameterType="String">-->
+<!--            select round(ca.cashBlance*(a.cardRate/365/100),2) as cashMoney,-->
+<!--            a.blankName,a.accountName,a.deposit,a.cardRate,a.procisionDays,ca.dateTime,ca.cashBlance-->
+<!--            from (select * from cashInventory where dateTime=#{dateTime}) ca join account a on ca.fundId = a.fundId-->
+<!--        </select>-->
+<!--    <resultMap id="BondInterest" type="com.ssaw.DayEndProcessing.entity.BondInterest">-->
+<!--        <result property="bondName" column="bondName" javaType="String"></result>-->
+<!--        <result property="securitiesId" column="securitiesId" javaType="String"></result>-->
+<!--        <result property="bondType" column="bondType" javaType="Integer"></result>-->
+<!--        <result property="bondRateAmount" column="bondRateAmount" javaType="String"></result>-->
+<!--        <result property="dateTime" column="dateTime" javaType="String"></result>-->
+<!--        <result property="drawStartDate" column="drawStartDate" javaType="String"></result>-->
+<!--        <result property="bondRate" column="bondRate" javaType="Double"></result>-->
+<!--        <result property="securitiesNum" column="securitiesNum" javaType="Double"></result>-->
+<!--        <result property="parRate" column="parRate" javaType="Double"></result>-->
+<!--    </resultMap>-->
+<!--    <select id="selectBondInterest" resultMap="BondInterest" parameterType="String">-->
+<!--        select round(se.securitiesNum* (b.bondRate/365),2) as bondRate,-->
 
-       b.securitiesId,se.da
-       teTime,se.fundId,b.bondName,b.parRate,(case when b.payInterestNum=1 then '一年一次' when b.payInterestNum=2 then '一年两次' else '一年三次' end)as payInterest ,b.drawStartDate
-from (select * from securitiesInventory where dateTime=#{dateTime})
-    se join bond b on se.securitiesId = b.securitiesId;
-    </select>
-    <resultMap id="TwoFeeInterest" type="com.ssaw.DayEndProcessing.entity.TwoFeeInterest">
-        <result property="fundName" column="fundName" javaType="String"></result>
-        <result property="fundId" column="fundId" javaType="String"></result>
-        <result property="managerRate" column="managerRate" javaType="Double"></result>
-        <result property="hostingRate" column="hostingRate" javaType="Double"></result>
-        <result property="propertyNetWorth" column="propertyNetWorth" javaType="Double"></result>
-        <result property="dateTime" column="dateTime" javaType="String"></result>
-        <result property="managerMoney" column="managerMoney" javaType="String"></result>
-        <result property="hostingMoney" column="hostingMoney" javaType="String"></result>
-    </resultMap>
-    <select id="selectTwoFeeInterest" resultMap="TwoFeeInterest" parameterType="String">
--- valueStatistics and fund
---          select round(ca.cashBlance*(a.cardRate/365/100),2) as cashMoney,
---             a.blankName,a.accountName,a.deposit,a.cardRate,a.procisionDays,ca.dateTime,ca.cashBlance
---             from (select * from cashInventory where dateTime=#{dateTime}) ca join account a on ca.fundId = a.fundId
---
---             select round()
---
---             from (select * from )
-    </select>
+<!--       b.securitiesId,se.da-->
+<!--       teTime,se.fundId,b.bondName,b.parRate,(case when b.payInterestNum=1 then '一年一次' when b.payInterestNum=2 then '一年两次' else '一年三次' end)as payInterest ,b.drawStartDate-->
+<!--from (select * from securitiesInventory where dateTime=#{dateTime})-->
+<!--    se join bond b on se.securitiesId = b.securitiesId;-->
+<!--    </select>-->
+<!--    <resultMap id="TwoFeeInterest" type="com.ssaw.DayEndProcessing.entity.TwoFeeInterest">-->
+<!--        <result property="fundName" column="fundName" javaType="String"></result>-->
+<!--        <result property="fundId" column="fundId" javaType="String"></result>-->
+<!--        <result property="managerRate" column="managerRate" javaType="Double"></result>-->
+<!--        <result property="hostingRate" column="hostingRate" javaType="Double"></result>-->
+<!--        <result property="propertyNetWorth" column="propertyNetWorth" javaType="Double"></result>-->
+<!--        <result property="dateTime" column="dateTime" javaType="String"></result>-->
+<!--        <result property="managerMoney" column="managerMoney" javaType="String"></result>-->
+<!--        <result property="hostingMoney" column="hostingMoney" javaType="String"></result>-->
+<!--    </resultMap>-->
+<!--    <select id="selectTwoFeeInterest" resultMap="TwoFeeInterest" parameterType="String">-->
+<!--valueStatistics and fund-->
+<!--         select round(ca.cashBlance*(a.cardRate/365/100),2) as cashMoney,-->
+<!--            a.blankName,a.accountName,a.deposit,a.cardRate,a.procisionDays,ca.dateTime,ca.cashBlance-->
+<!--            from (select * from cashInventory where dateTime=#{dateTime}) ca join account a on ca.fundId = a.fundId-->
+
+<!--            select round()-->
+
+<!--            from (select * from )-->
+<!--    </select>-->
 </mapper>
