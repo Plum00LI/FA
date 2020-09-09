@@ -13,37 +13,36 @@ public class Deposit {
     private String outAccountId;//流出现金账户Id
     private String outAccountName;//流出现金账户名称
     private String inAccountId;//流入现金账户Id
-    private String intAccountName;//流入现金账户名称
+    private String inAccountName;//流入现金账户名称
     private int directionOfMoney;//资金调拨方向1代表流入-1代表流出
     private String businessDate;//业务时间
     private int businessType;//业务类型 1代表定期三天2代表七天3代表活期
     private double money;//存款金额
     private double interest;//所含利息
     private String endDate;//存款业务到期时间
-    private int flag;//到期办理标志0未办理1已办理
+    private final int flag=1;//到期办理标志0未办理1已办理
     private String depositDesc;//备注
 
     public Deposit() {
     }
 
-    public Deposit(String depositId, String fundId, String outAccountId, String outAccountName, String inAccountId, String intAccountName, int directionOfMoney, String businessDate, int businessType, double money, double interest, String endDate, int flag, String depositDesc) {
+    public Deposit(String depositId, String fundId, String outAccountId, String outAccountName, String inAccountId, String inAccountName, int directionOfMoney, String businessDate, int businessType, double money, double interest, String endDate, String depositDesc) {
         this.depositId = depositId;
         this.fundId = fundId;
         this.outAccountId = outAccountId;
         this.outAccountName = outAccountName;
         this.inAccountId = inAccountId;
-        this.intAccountName = intAccountName;
+        this.inAccountName = inAccountName;
         this.directionOfMoney = directionOfMoney;
         this.businessDate = businessDate;
         this.businessType = businessType;
         this.money = money;
         this.interest = interest;
         this.endDate = endDate;
-        this.flag = flag;
         this.depositDesc = depositDesc;
     }
 
-    public Deposit(String depositId, String fundId, String outAccountId, String inAccountId, int directionOfMoney, String businessDate, int businessType, double money, double interest, String endDate, int flag, String depositDesc) {
+    public Deposit(String depositId, String fundId, String outAccountId, String inAccountId, int directionOfMoney, String businessDate, int businessType, double money, double interest, String endDate, String depositDesc) {
         this.depositId = depositId;
         this.fundId = fundId;
         this.outAccountId = outAccountId;
@@ -54,7 +53,6 @@ public class Deposit {
         this.money = money;
         this.interest = interest;
         this.endDate = endDate;
-        this.flag = flag;
         this.depositDesc = depositDesc;
     }
 
@@ -66,12 +64,12 @@ public class Deposit {
         this.outAccountName = outAccountName;
     }
 
-    public String getIntAccountName() {
-        return intAccountName;
+    public String getInAccountName() {
+        return inAccountName;
     }
 
-    public void setIntAccountName(String intAccountName) {
-        this.intAccountName = intAccountName;
+    public void setInAccountName(String inAccountName) {
+        this.inAccountName = inAccountName;
     }
 
     public String getDepositId() {
@@ -158,9 +156,6 @@ public class Deposit {
         return flag;
     }
 
-    public void setFlag(int flag) {
-        this.flag = flag;
-    }
 
     public String getDepositDesc() {
         return depositDesc;

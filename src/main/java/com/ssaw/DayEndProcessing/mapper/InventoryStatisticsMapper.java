@@ -9,4 +9,5 @@ package com.ssaw.DayEndProcessing.mapper;
  * Author:   SYT
  */
 public interface InventoryStatisticsMapper {
+
 }
