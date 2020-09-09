@@ -24,7 +24,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             url: '../cashInventory/select',
             count:0,
             page: true,
-            height: 'full-70',
+            height: 'full-55',
             toolbar: '#cashInventoryToolBar',//显示在表头的工具条
             cols: [
                 [ //表头
@@ -36,7 +36,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     ,{field: 'fundId', title: '基金ID'}
                     ,{field: 'cashBlance', title: '现金余额'}
                     ,{field: 'dateTime', title: '统计时间'}
-                    ,{field: 'right', title: '操作', toolbar:'#barDemo'}
+                    ,{field: 'right', title: '操作', toolbar:'#barDemo', fixed: 'right'}
                 ]
             ]
         });

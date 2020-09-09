@@ -107,7 +107,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                 , {field: 'openPrice', title: '开盘价格', sort: true, totalRow: true}
                 , {field: 'closingPrice', title: '闭市价格'}
                 , {field: 'desc', title: '备注'}
-                , {field: '操作', minWidth: 165, align: 'center', toolbar: '#barDemo'}
+                , {field: 'right', title:'操作', minWidth: 165, align: 'center', toolbar: '#barDemo'}
             ]
         ]
     });
