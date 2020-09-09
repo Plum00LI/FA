@@ -2,11 +2,9 @@ package com.ssaw.BusinessDescription.service.impl;
 
 import com.ssaw.BusinessDescription.entity.Securities;
 import com.ssaw.BusinessDescription.entity.SecuritiesAndStock;
-import com.ssaw.BusinessDescription.entity.Stock;
 import com.ssaw.BusinessDescription.mapper.SecuritiesMapper;
 import com.ssaw.BusinessDescription.service.SecuritiesService;
-import com.ssaw.GlobalManagement.entity.UserInfo;
-import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
+
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -124,7 +122,4 @@ public class SecuritiesServiceImpl implements SecuritiesService {
         int i = securitiesMapper.updateSecurities(securities);
         return i;
     }
-    /**
-     * 查询父类
-     */
 }

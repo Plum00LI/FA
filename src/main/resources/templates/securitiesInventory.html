@@ -103,25 +103,6 @@
                 </div>
             </div>
         </div>
-        <br/><br/>
-        <div class="layui-inline layui-show-xs-block">
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green">账户名称</label>
-                <div class="layui-inline layui-show-xs-block" style="float: left">
-                    <input type="text" class="layui-input" id="addAccountName"
-                           autocomplete="off" placeholder="请输入账户名称" name="accountName">
-                    <input type="hidden" name="accountId" id="addAccountId" />
-                </div>
-            </div>
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green">数量</label>
-                <div class="layui-inline layui-show-xs-block">
-                    <input type="number" step="1" min="0"  
-                           oninput="javascript:this.value=this.value.replace(/[^\d]/g,'')"
-                           class="layui-input" autocomplete="off" placeholder="请输入数量" name="closingPrice">
-                </div>
-            </div>
-        </div>
         <div class="layui-inline layui-show-xs-block"></div>
         <br/><br/>
         <div class="layui-inline layui-show-xs-block">
@@ -130,21 +111,29 @@
                 <div class="layui-inline layui-show-xs-block" style="float: left">
                     <input type="number" step="1" min="0"  
                            oninput="javascript:this.value=this.value.replace(/[^\d]/g,'')"
-                           class="layui-input" autocomplete="off" placeholder="请输入单位成本" name="closingPrice">
+                           class="layui-input" autocomplete="off" placeholder="请输入单位成本" name="price">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" >总金额</label>
-                <div class="layui-inline layui-show-xs-block" style="float: left">
-                    <input type="text" class="layui-input" autocomplete="off" placeholder="总金额" name="securitiesId">
+                <label class="layui-form-label layui-bg-green">数量</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <input type="number" step="1" min="0"  
+                           oninput="javascript:this.value=this.value.replace(/[^\d]/g,'')"
+                           class="layui-input" autocomplete="off" placeholder="请输入数量" name="securitiesNum">
                 </div>
             </div>
         </div>
         <br/><br/>
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label layui-bg-green" >总金额</label>
+            <div class="layui-inline layui-show-xs-block" style="float: left">
+                <input type="text" class="layui-input" autocomplete="off" placeholder="总金额" name="total">
+            </div>
+        </div>
         <div class="layui-inline layui-show-xs-block" style="float: left">
-            <label class="layui-form-label layui-bg-green" style="height: 100px;line-height: 100px">备注</label>
-            <div class="layui-inline layui-show-xs-block" >
-                <textarea rows="" class="layui-textarea"placeholder="备注" cols="" autocomplete="off" name="desc"></textarea>
+                <label class="layui-form-label layui-bg-green" style="height: 100px;line-height: 100px">备注</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <textarea class="layui-textarea"placeholder="备注" cols="" autocomplete="off" name="securitiesInventoryDesc"></textarea>
 
             </div>
         </div>
@@ -330,32 +319,6 @@
                     NEWJSON.push(item.securitiesName);
                     console.log(item.securitiesId)
                     $('#addSecuritiesId1').val(item.securitiesId);
-                })
-                elem.val(NEWJSON.join(","))
-            }
-        });
-        tableSelect.render({
-            elem: '#addAccountName1',	//定义输入框input对象 必填
-            checkedKey: 'accountName', //表格的唯一建值，非常重要，影响到选中状态 必填
-            table: {	//定义表格参数，与LAYUI的TABLE模块一致，只是无需再定义表格elem
-                url: '../selectAccount',
-                cols: [
-                    [
-                        {type: 'radio', field: 'securitiesId'},
-                        {field: 'accountId', title: '账户编号', align: 'center'},
-                        {field: 'accountName', title: '账户名称', align: 'center'},
-                        {field: 'blankCardCode', title: '银行卡号', align: 'center', width: 180}
-                    ]
-                ]
-            },
-            done: function (elem, data) {
-                //选择完后的回调，包含2个返回值 elem:返回之前input对象；data:表格返回的选中的数据 []
-                //拿到data[]后 就按照业务需求做想做的事情啦~比如加个隐藏域放ID...
-                var NEWJSON = []
-                layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.accountName);
-                    console.log(item.accountId)
-                    $('#addAccountId1').val(item.accountId);
                 })
                 elem.val(NEWJSON.join(","))
             }

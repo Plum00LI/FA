@@ -33,8 +33,8 @@
 
             });
             table.render({
-                elem: '#userTable2',
-                url: '../TaSettlement/selectTaSettlement',
+                elem: '#userTable',
+                url: '../TaSettlement/selectTaSettlement?status=0',
                 page: true,
                 height: 498,
                 minLength: 80,
@@ -70,7 +70,47 @@
                     ]
                 ]
             })
-            });
+
+            table.render({
+                elem: '#userTable2',
+                url: '../TaSettlement/selectTaSettlement?status=1',
+                page: true,
+                height: 498,
+                minLength: 80,
+                cols: [
+                    [ //表头
+                        {type: 'checkbox', fixed: 'left'}
+                        , {field: 'fundId', title: '基金', width: 176, align: 'center'}
+                        , {field: 'accountId', title: '现金账户', width: 176, align: 'center'}
+                        , {field: 'price', title: '单价', width: 176, align: 'center'}
+                        , {field: 'fundNum', title: '数量', width: 176, align: 'center'}
+                        , {field: 'totalMoney', title: '总金额', width: 176, align: 'center'}
+                        , {field: 'dateTime', title: '交易日期', width: 176, align: 'center'}
+                        , {
+                        field: 'transactionType', title: '类型', width: 176, align: 'center', templet: function (item) {
+                            if (item.transactionType == '1') {
+                                return '认购';
+                            } else if (item.transactionType == '2') {
+                                return '申购';
+                            } else if (item.transactionType == '3') {
+                                return '赎回';
+                            }
+                        }
+                    }
+                        , {
+                        field: 'transactionStatus', title: '状态', width: 176, align: 'center', templet: function (item) {
+                            if (item.transactionStatus == '1') {
+                                return '已结算';
+                            } else if (item.transactionStatus == '0') {
+                                return '未结算';
+                            }
+                        }
+                    }
+                    ]
+                ]
+
+            })
+        });
     </script>
 </head>
 <body>
@@ -118,11 +158,10 @@
             <table id="userTable" lay-filter="userTable"></table>
         </div>
         <div class="layui-tab-item">
-            <table id="userTable2" lay-filter="userTable"></table>
+            <table id="userTable2" lay-filter="userTable2"></table>
         </div>
     </div>
 </div>
-
 
 
 <script type="text/javascript">
@@ -130,11 +169,14 @@
         var $ = layui.jquery
         var element = layui.element;
         //Hash地址的定位
+
         var layid = location.hash.replace(/^#test=/, '');
+
         element.tabChange('test', layid);
 
         element.on('tab(test)', function(elem){
             location.hash = 'test='+ $(this).attr('lay-id');
+            // alert("location.hash" + location.hash);
         });
 
     });

@@ -152,7 +152,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 			case 'search':
 				alert("搜索");
 				var securitiesIds = $("#securitiesId_3").val();
-				var securitiesNames = $("#securitiesNames_3").val();
 				var securitiesTypes = $("#exchangeName_3").val();
 				var exchanges =  $("#rateType_3").val();
 				//表格的重新加载事件

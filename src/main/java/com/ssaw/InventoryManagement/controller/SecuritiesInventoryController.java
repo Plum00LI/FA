@@ -58,9 +58,9 @@ public class SecuritiesInventoryController {
      * @return
      */
     @RequestMapping("selectSecuritiesInventoryInfo")
-    public Map<String,Object> selectSecuritiesInventoryInfo(String page, String limit,String accountId,String securitiesName){
+    public Map<String,Object> selectSecuritiesInventoryInfo(String page, String limit,String accountId,String securitiesName,String fundId){
         System.out.println("行情数据分页查询控制器");
-        Map<String,Object> map = securitiesInventoryService.selectSecuritiesInventoryInfo(limit,page,accountId,securitiesName);
+        Map<String,Object> map = securitiesInventoryService.selectSecuritiesInventoryInfo(limit,page,accountId,securitiesName,fundId);
         List<SecuritiesInventory> securitiesInventoryList = (List<SecuritiesInventory>) map.get("securitiesInventoryList");
         int count = (int) map.get("count");
         //以layui要求存储响应数据格式
@@ -82,6 +82,7 @@ public class SecuritiesInventoryController {
     public int insertSecuritiesInventory(SecuritiesInventory securitiesInventory){
         System.out.println("增加的方法");
         securitiesInventory.setSecuritiesInventoryId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.SI));
+        System.out.println("添加="+securitiesInventory);
         return securitiesInventoryService.insertSecuritiesInventory(securitiesInventory);
     }
 

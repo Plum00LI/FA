@@ -28,16 +28,16 @@
     <script type="text/html" id="cashInventoryToolBar">
         <div style="float:right">
             <input type="checkbox" lay-event="initialSigns" title="是否为期初数据" lay-filter="initialSigns">&nbsp&nbsp&nbsp&nbsp
-            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add" id="addbtn"><i
+            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm layui-btn-disabled" lay-event="" id="addbtn" style="background-color: #8c8c8c;color: #FFFFFF"><i
                     class="layui-icon">&#xe654;</i>添加数据</button>
-            <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll"><i
+            <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll" style="background-color: #2c3e50;color: #FFFFFF"><i
                     class="layui-icon">&#xe640;</i>批量删除</button>
         </div>
         <br/>
         <form class="layui-form layui-col-space5">
 
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户名称</label>
+                <label class="layui-form-label layui-bg-blue" style="width: 110px;text-align: center">账户名称</label>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input"  autocomplete="off" placeholder="请选择现金账户" name="accountName" id="searchAccountName">
@@ -45,13 +45,13 @@
             </div>
 
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">统计日期</label>
+                <label class="layui-form-label " style="width: 110px;text-align: center ;background-color: #8c8c8c;color: #FFFFFF">统计日期</label>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input"  autocomplete="off" placeholder="请输入统计日期"  id="dateTime">
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <a class="layui-btn"  lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</a>
+                <a class="layui-btn "  lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</a>
             </div>
         </form>
     </script>
@@ -76,13 +76,13 @@
     <form id="addform" lay-filter="addform" class="layui-form layui-col-space5" style="margin: 50px auto; display: inline-block;">
         <div style="float: left;">
             <div class="layui-inline layui-show-xs-block" style="text-align: center;">
-                <label class="layui-form-label layui-bg-green" style="text-align: center">日期</label>
+                <label class="layui-form-label layui-bg-primary" style="text-align: center">日期</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input type="text"  class="layui-input"  autocomplete="off" placeholder="日期" name="dateTime" id="dateTime1">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="text-align: center">现金账户</label>
+                <label class="layui-form-label layui-bg-primary" style="text-align: center">现金账户</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input"  autocomplete="off" placeholder="请选择现金账户" name="accountName" id="insertAccountName">
                     <input type="hidden" name="accountId" id="insertAccountId"/>
@@ -94,7 +94,7 @@
         <br/>
         <br/>
         <div class="layui-inline layui-show-xs-block" style="float: left">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">余额</label>
+            <label class="layui-form-label layui-bg-primary" style="text-align: center">余额</label>
             <div class="layui-inline layui-show-xs-block">
                 <input type="text" class="layui-input" placeholder="余额" name="cashBlance" id="cashBlance1">
             </div>
@@ -104,7 +104,7 @@
         <br/>
         <br/>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center; width: 130px; height: 81px; line-height: 81px">备注</label>
+            <label class="layui-form-label layui-bg-primary" style="text-align: center; width: 130px; height: 81px; line-height: 81px">备注</label>
             <div class="layui-inline layui-show-xs-block">
                 <textarea name="cashInventoryDesc" placeholder="请输入" class="layui-textarea" style="width: 467px"></textarea>
             </div>
@@ -131,13 +131,13 @@
           style="margin: 30px auto; display: inline-block;">
         <div style="float: left;">
             <div class="layui-inline layui-show-xs-block" style="text-align: center;">
-                <label class="layui-form-label layui-bg-green" style="text-align: center">日期</label>
+                <label class="layui-form-label layui-bg-primary" style="text-align: center">日期</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input"  autocomplete="off" placeholder="日期" name="dateTime" id="dateTime2" disabled>
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="text-align: center">现金账户ID</label>
+                <label class="layui-form-label layui-bg-primary" style="text-align: center">现金账户ID</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input  type="text" class="layui-input" placeholder="现金账户ID" name="accountId"  readonly>
                 </div>
@@ -149,13 +149,13 @@
         <br/>
         <div style="float: left;">
             <div class="layui-inline layui-show-xs-block" style="text-align: center;">
-                <label class="layui-form-label layui-bg-green" style="text-align: center">账户名称</label>
+                <label class="layui-form-label layui-bg-primary" style="text-align: center">账户名称</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input  type="text" class="layui-input" readonly autocomplete="off" placeholder="账户名称" name="accountName" id="accountName1">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="text-align: center">余额</label>
+                <label class="layui-form-label layui-bg-primary" style="text-align: center">余额</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input  type="text" class="layui-input" placeholder="余额" name="cashBlance" id="cashBlance" onkeyup = "if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"onafterpaste = "if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}">
                 </div>
@@ -166,7 +166,7 @@
         <br/>
         <br/>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center; width: 130px; height: 101px; line-height: 81px">备注</label>
+            <label class="layui-form-label layui-bg-primary" style="text-align: center; width: 130px; height: 101px; line-height: 81px">备注</label>
             <div class="layui-inline layui-show-xs-block">
                 <textarea name="cashInventoryDesc"  placeholder="请输入" class="layui-textarea" style="width: 467px"></textarea>
             </div>

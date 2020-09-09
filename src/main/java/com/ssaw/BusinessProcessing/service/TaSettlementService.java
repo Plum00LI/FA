@@ -10,10 +10,9 @@ import java.util.Map;
  * @authod:洪彬峰
  * @create:2020-09-01
  */
-@Service
 public interface TaSettlementService {
     /**
      * 查询
      */
-    Map<String,Object> selectTaSettlement(String pageSize, String page, String dateTime,String transactionType);
+    Map<String,Object> selectTaSettlement(String pageSize, String page, String dateTime,String transactionType,String status);
 }

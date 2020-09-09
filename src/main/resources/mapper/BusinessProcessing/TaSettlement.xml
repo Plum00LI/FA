@@ -6,15 +6,14 @@
     <resultMap id="TasettlementMap" type="com.ssaw.BusinessProcessing.entity.TaSettlement">
         <result property="dateTime" column="dateTime" javaType="String"></result>
         <result property="fundId" column="fundId" javaType="String"></result>
-        <result property="fundNum" column="fundNum" javaType="DOUBLE"></result>
+        <result property="fundNum" column="fundNum" javaType="Double"></result>
         <result property="accountId" column="accountId" javaType="String"></result>
-        <result property="totalMoney" column="totalMoney" javaType="DOUBLE"></result>
+        <result property="totalMoney" column="totalMoney" javaType="Double"></result>
         <result property="price" column="price" javaType="DOUBLE"></result>
         <result property="transactionType" column="transactionType" javaType="Integer"></result>
         <result property="transactionStatus" column="transactionStatus" javaType="Integer"></result>
     </resultMap>
     <select id="selectTaSettlement" parameterType="java.util.Map" statementType="CALLABLE">
-    {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},#{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=INTEGER},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=TasettlementMap})}
-
+{call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},#{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=INTEGER},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=TasettlementMap})}
     </select>
 </mapper>
