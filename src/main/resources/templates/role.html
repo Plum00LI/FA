@@ -111,22 +111,26 @@
 
 
                     layer.full(index);
-                    // form.on('submit(addsubmit)',function () {
-                    //     var checkedData = tree.getChecked('id'); //获取选中节点的数据
-                    //     var ids =[];
-                    //     $.each(checkedData,function (i,parent) {
-                    //         ids.push(parent.id);
-                    //         $.each(parent.children,function (i,child) {
-                    //             ids.push(child.id);
-                    //         });
-                    //     });
-                    //     var strIds=ids.join(",");
-                    //     $.ajax({
-                    //         // url:'./EndowServlet?strIds='+strIds,
-                    //         dataType:'json',
-                    //         type:'post',
-                    //     });
-                    // });
+                    form.on('submit(addsubmit)',function () {
+                        var checkedData = tree.getChecked('id'); //获取选中节点的数据
+                        var ids =[];
+                        $.each(checkedData,function (i,parent) {
+                            ids.push(parent.id);
+                            $.each(parent.children,function (i,child) {
+                                ids.push(child.id);
+                                $.each(child.children,function (i,childSun) {
+                                    ids.push(childSun.id);
+                            });
+                            });
+                        });
+                        var strIds=ids.join(",");
+                        $.ajax({
+                            url:'../Endow/deInEndow?strIds='+strIds,
+                            data:'roldId='+roleId,
+                            dataType:'json',
+                            type:'post',
+                        });
+                    });
                     break;
             }
         });

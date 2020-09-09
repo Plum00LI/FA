@@ -24,18 +24,18 @@ public class TransactionDataServiceImpl implements TransactionDataService {
     TransactionDataMapper transactionDataMapper;
 
     @Override
-    public HashMap selectTransactionData(int page, int limit, String end, String equityId) {
+    public HashMap selectTransactionData(int page, int limit, String dateTime, String securitiesName) {
         StringBuffer sqlWhere=new StringBuffer();
-        if(end!=null && !end.equals("")){
-            sqlWhere.append(" AND end LIKE  '%"+end+"%'" );
+        if(dateTime!=null && !dateTime.equals("")){
+            sqlWhere.append(" AND dateTime LIKE  '%"+dateTime+"%'" );
         }
-        if(equityId!=null && !equityId.equals("")){
-            sqlWhere.append(" AND securitiesId LIKE  '%"+equityId+"%'" );
+        if(securitiesName!=null && !securitiesName.equals("")){
+            sqlWhere.append(" AND securitiesName LIKE  '%"+securitiesName+"%'" );
         }
 
 
         HashMap tranMap = new HashMap();
-        String transactionData=" (select * from transactionData tr join securities se on tr.securitiesId=se.securitiesId join account ac on tr.accountId=ac.accountId join seate se on tr.seateId=se.seateId join brokers br on tr.brokersId=br.brokersId join fund f on tr.fundId = f.fundId) ";
+        String transactionData=" (select * from transactionData tr left join securities se on tr.securitiesId=se.securitiesId left join account ac on tr.accountId=ac.accountId left join seate se on tr.seateId=se.seateId left join brokers br on tr.brokersId=br.brokersId left join fund f on tr.fundId = f.fundId) ";
         tranMap.put("p_tableName", transactionData);
         tranMap.put("p_condition",sqlWhere.toString());
         tranMap.put("p_pageSize",limit);

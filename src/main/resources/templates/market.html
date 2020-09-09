@@ -34,14 +34,14 @@
         <form id="searchform" lay-filter="searchform"
               class="layui-form layui-form-pane">
             <div class="layui-form-item" style="text-align: center;">
-                <label class="layui-form-label layui-bg-green"
+                <label class="layui-form-label layui-bg-blue"
                        style="width: 100px;text-align: center;float: left">证券编号</label>
                 <div class="layui-input-inline">
                     <input type="text"  id="securitiesId"
                            name="securitiesId" autocomplete="off" placeholder="请输入证券编号"
                            class="layui-input">
                 </div>
-                <label class="layui-form-label layui-bg-green"
+                <label class="layui-form-label layui-bg-blue"
                        style="width: 110px;text-align: center">日期</label>
                 <div class="layui-input-inline">
                     <input type="textarea" id="dateTime"
@@ -50,7 +50,7 @@
                     <span id="searchbut"></span>
                 </div>
                 <button style="position: absolute;height: 38px;text-align: center" type="button"
-                        lay-event="search" class="layui-btn layui-btn-sm">
+                        lay-event="search" class="layui-btn layui-btn-sm layui-bg-blue">
                     <i class="layui-icon">&#xe615;</i>搜索
                 </button>
             </div>
@@ -60,11 +60,11 @@
     <div style="margin-top:10px;"></div>
     <div class="layui-btn-container"
          style="position: absolute; right: 115px; top: 10px;">
-        <button class="layui-btn layui-btn-sm layui-btn" lay-event="shangHai">导入上海行情
+        <button class="layui-btn layui-btn-sm layui-btn layui-bg-blue" lay-event="shangHai">导入上海行情
         </button>
-        <button class="layui-btn layui-btn-sm layui-btn" lay-event="shenZhen">导入深圳行情
+        <button class="layui-btn layui-btn-sm layui-btn layui-bg-blue" lay-event="shenZhen">导入深圳行情
         </button>
-        <button class="layui-btn layui-btn-sm layui-btn-normal"
+        <button class="layui-btn layui-btn-sm layui-bg-blue"
                 lay-event="add">
             <i class="layui-icon">&#xe654;</i>添加行情
         </button>
@@ -76,7 +76,7 @@
 </div>
     <!--工具条-->
     <div style="display: none;" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="edit"><i
+        <a class="layui-btn layui-btn-xs layui-bg-blue" lay-event="edit"><i
                 class="layui-icon">&#xe642;</i>编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
                 class="layui-icon">&#xe640;</i>删除</a>
@@ -90,21 +90,21 @@
           style="margin: 30px auto; display: inline-block;">
         <input name="securitiesId" type="hidden" id="ss">
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green">证券编号</label>
+            <label class="layui-form-label layui-bg-blue">证券编号</label>
             <div class="layui-inline layui-show-xs-block" style="float: left">
                 <input type="text" class="layui-input" autocomplete="off" placeholder="请输入证券编号" lay-verify="required" id="securities">
             </div>
         </div>
         <br/><br/>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green">录入日期</label>
+            <label class="layui-form-label layui-bg-blue">录入日期</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" autocomplete="off" placeholder="请输入日期" name="dateTime" id="endTime1">
             </div>
         </div>
         <br/><br/>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green">开盘价格</label>
+            <label class="layui-form-label layui-bg-blue">开盘价格</label>
             <div class="layui-inline layui-show-xs-block" style="float: left">
                 <input type="number" class="layui-input" oninput="javascript:this.value=this.value.replace(/[^\d]/g,'')"
                        autocomplete="off" placeholder="请输入开盘价格" name="openPrice">
@@ -112,7 +112,7 @@
         </div>
         <br/><br/>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green">收盘价格</label>
+            <label class="layui-form-label layui-bg-blue">收盘价格</label>
             <div class="layui-inline layui-show-xs-block" style="float: left">
                 <input type="number" step="1" min="0"  
                        oninput="javascript:this.value=this.value.replace(/[^\d]/g,'')"
@@ -121,14 +121,14 @@
         </div>
         <br/><br/>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="height: 100px;line-height: 100px">描述</label>
+            <label class="layui-form-label layui-bg-blue" style="height: 100px;line-height: 100px">描述</label>
             <div class="layui-inline layui-show-xs-block" style="float: left">
-                <textarea rows="" class="layui-textarea" cols="" autocomplete="off" name="desc"></textarea>
+                <textarea rows="" class="layui-textarea" cols="" autocomplete="off" name="marketdesc"></textarea>
             </div>
         </div>
 
         <div style="position: absolute; bottom: 0px; left: 45%;">
-            <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
+            <button class="layui-btn layui-bg-blue" lay-submit="" lay-filter="addsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
             <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
@@ -145,21 +145,21 @@
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green">证券编号</label>
+            <label class="layui-form-label layui-bg-blue">证券编号</label>
             <div class="layui-inline layui-show-xs-block" style="float: left">
                 <input type="text" class="layui-input" autocomplete="off" placeholder="请输入证券编号" name="securitiesId">
             </div>
         </div>
         <br/><br/>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green">录入日期</label>
+            <label class="layui-form-label layui-bg-blue">录入日期</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" autocomplete="off" placeholder="请输入日期" name="dateTime" id="endTime3">
             </div>
         </div>
         <br/><br/>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green">开盘价格</label>
+            <label class="layui-form-label layui-bg-blue">开盘价格</label>
             <div class="layui-inline layui-show-xs-block" style="float: left">
                 <input type="number" class="layui-input" oninput="javascript:this.value=this.value.replace(/[^\d]/g,'')"
                        autocomplete="off" placeholder="请输入开盘价格" name="openPrice">
@@ -167,7 +167,7 @@
         </div>
         <br/><br/>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green">收盘价格</label>
+            <label class="layui-form-label layui-bg-blue">收盘价格</label>
             <div class="layui-inline layui-show-xs-block" style="float: left">
                 <input type="number" step="1" min="0"  
                        oninput="javascript:this.value=this.value.replace(/[^\d]/g,'')"
@@ -176,14 +176,14 @@
         </div>
         <br/><br/>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="height: 100px;line-height: 100px">描述</label>
+            <label class="layui-form-label layui-bg-blue" style="height: 100px;line-height: 100px">描述</label>
             <div class="layui-inline layui-show-xs-block" style="float: left">
                 <textarea rows="" class="layui-textarea" cols="" autocomplete="off" name="desc"></textarea>
             </div>
         </div>
 
         <div style="position: absolute; bottom: 0px; left: 45%;">
-            <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
+            <button class="layui-btn layui-bg-blue" lay-submit="" lay-filter="editsubmit">
                 <i class="layui-icon">&#x1005;</i>修改
             </button>
             <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
@@ -212,7 +212,7 @@
         </div>
     </div>
     <div>
-        <button type="button" class="layui-btn" id="test2">开始上传</button>
+        <button type="button" class="layui-btn layui-bg-blue" id="test2">开始上传</button>
         <span id="zx2"></span>
     </div>
 </div>

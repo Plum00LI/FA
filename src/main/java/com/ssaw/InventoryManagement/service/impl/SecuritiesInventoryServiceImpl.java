@@ -50,7 +50,7 @@ public class SecuritiesInventoryServiceImpl implements SecuritiesInventoryServic
     }
 
     @Override
-    public Map<String, Object> selectSecuritiesInventoryInfo(String pageSize, String page,String securitiesId,String securitiesName) {
+    public Map<String, Object> selectSecuritiesInventoryInfo(String pageSize, String page,String securitiesId,String securitiesName,String fundId) {
         //创建一个结果集Map,用于存放两个结果变量
         Map<String, Object> resultMap = new HashMap<>();
         //定义一个分页条数变量
@@ -70,13 +70,14 @@ public class SecuritiesInventoryServiceImpl implements SecuritiesInventoryServic
 
         StringBuffer sqlWhere = new StringBuffer();
         if (securitiesId!=null && !securitiesId.equals("")){
-            sqlWhere.append(" and securitiesId like '%"+securitiesId+"%'");
+            sqlWhere.append(" and e.securitiesId like '%"+securitiesId+"%'");
         }
 
-        if (securitiesName!=null && !securitiesName.equals("")){
-            sqlWhere.append(" and securitiesName like '%"+securitiesName+"%'");
+        if (fundId!=null && !fundId.equals("")){
+            sqlWhere.append(" and fundId like '%"+fundId+"%'");
         }
-        String tableName="(select * from " + SysTableNameListUtil.SI +" s join (select securitiesName from "+SysTableNameListUtil.SE+" )  e on s.securitiesId=securitiesId)";
+        String tableName="(select * from " + SysTableNameListUtil.SI +" s join (select securitiesName from "+SysTableNameListUtil.SE+" )  e on s.securitiesId=securitiesId)"
+                +"and s.fundId=funId";
         System.out.println("语句"+tableName);
 
         //创建一个Map,用来调用存储过程

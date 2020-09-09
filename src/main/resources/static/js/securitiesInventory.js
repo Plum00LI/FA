@@ -107,13 +107,11 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
         , cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'securitiesInventoryId', title: '证券库存Id', sort: false, fixed: 'left', totalRowText: '合计：'}
+                , {field: 'securitiesInventoryId', title: '证券库存Id',hide:true, fixed: 'left', totalRowText: '合计：'}
                 , {field: 'dateTime', title: '日期'}
                 , {field: 'securitiesId', title: '证券代码'}
                 , {field: 'securitiesName', title: '证券名称', sort: true}
-                , {field: 'accountId', title: '账户编号', sort: true}
-                , {field: 'accountName', title: '账户名称', sort: false}
-                , {field: 'fundId', title: '基金代码', sort: false, totalRow: true}
+                , {field: 'fundId', title: '基金代码',hide:true}
                 , {field: 'securitiesNum', title: '数量'}
                 , {field: 'price', title: '单位成本'}
                 , {field: 'total', title: '总金额'}
@@ -141,10 +139,10 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
                     content: $("#addContent"),
                     btn: []
                 });
+                }
                 form.render();
                 //全屏
                 layer.full(index);
-                }
                 break;
             case 'search':
                 alert("搜索");
@@ -172,7 +170,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
                     }
                     layer.confirm('真的删除行么', {icon: 2}, function (index) {
                         layer.close(index);
-                        $.post("../deleteSecuritiesInventory", {securitiesInventoryId: ids.join(',')}, function (msg) {
+                        $.post("../securitiesInventory/deleteSecuritiesInventory", {securitiesInventoryId: ids.join(',')}, function (msg) {
                             table.reload('userTable');
                             layer.msg('删除' + checkStatus.data.length + '条记录', {
                                 title: '提示',
