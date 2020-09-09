@@ -1,158 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html class="x-admin-sm">
+
 <head>
-    <meta charset="utf-8">
-    <title>layui</title>
+    <meta charset="UTF-8">
+    <title>库存统计</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
-    <link rel="stylesheet" href="../lib/layuimini/css/public.css" media="all">
-</head>
-<body>
-<div class="layuimini-container">
-    <div class="layuimini-main">
+    <!--        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />-->
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/xadmin.css">
+    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../lib/layuimini/js/lay-config.js?v=1.0.4" charset="utf-8"></script><!--下拉表格-->
+    <script type="text/javascript" src="../js/xadmin.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
 
+    <script type="text/html" id="userToolBar">
+        <div class="layui-card-body">
 
-        <script type="text/html" id="toolbarDemo">
-            <div class="layui-inline">
-                <label class="layui-form-label" style="width:100px">统计日期</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="classify" autocomplete="off" class="layui-input" id="datetime">
+            <form class="layui-form layui-col-space5" >
+                <div class="layui-inline layui-show-xs-block" id="barDemo">
+                    <button class="layui-btn layui-btn-sm" lay-event="add" style="width: 100px;float: left;height: 30px">日期</button>
                 </div>
-            </div>
-            <div class="layui-inline">
-                <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 统计</button>
-            </div>
-        </script>
+                <div class="layui-inline layui-show-xs-block">
+                    <input class="layui-input"  autocomplete="off" placeholder="选择日期" name="start" id="dateTime3">
+                </div>
 
-        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+                <div class="layui-inline layui-show-xs-block">
+                    <button class="layui-btn"  lay-filter="searchSubmit" lay-event="search">
+                        <i class="layui-icon">&#xe615;&nbsp;统计</i>
+                    </button>
 
-        <script type="text/html" id="currentTableBar">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-        </script>
+                </div>
 
-    </div>
-</div>
-<script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-<script>
-    layui.use(['form', 'table','laydate'], function () {
-        var $ = layui.jquery,
-            form = layui.form,
-            table = layui.table,
-            laydate = layui.laydate;
+            </form>
+        </div>
+    </script>
 
-        //日期
-        laydate.render({
-            elem: '#datetime'
-        });
-        table.render({
-            elem: '#currentTableId',
-            url: '../api/table.json',
-            toolbar: '#toolbarDemo',
-            cellMinWidth:60,
-            defaultToolbar: ['filter', 'exports', 'print', {
-                title: '提示',
-                layEvent: 'LAYTABLE_TIPS',
-                icon: 'layui-icon-tips'
-            }],
 
-            cols: [
-                [
-                {type: "checkbox", width: 50},
-                {field: 'inventoryId', width: 180, title: '库存编号', sort: true},
-                {field: 'inventoryName', width: 180, title: '库存名称'},
-                {field: 'fundId', width: 180, title: '基金代码', sort: true},
-                {field: 'operator', width: 180, title: '操作员'},
-                {field: 'datetime', title: '统计日期', minWidth: 180},
-                {field: 'haveStatisticalData', width: 180, title: '已统计数据', sort: true},
-                {field: 'stateOfStatistical', width:180, title: '统计状态', sort: true},
-            ]
-            ],
-            limits: [10, 15, 20, 25, 50, 100],
-            limit: 15,
-            page: true,
-            skin: 'line'
-        });
+</head>
+<body style="overflow: auto; background-color: white;"
+      class="layui-view-body layui-content">
+<!--表格-->
+<table id="userTable" lay-filter="userTable">
 
-        // 监听搜索操作
-        form.on('submit(data-search-btn)', function (data) {
-            var result = JSON.stringify(data.field);
-            layer.alert(result, {
-                title: '最终的搜索信息'
-            });
 
-            //执行搜索重载
-            table.reload('currentTableId', {
-                page: {
-                    curr: 1
-                }
-                , where: {
-                    searchParams: result
-                }
-            }, 'data');
-
-            return false;
-        });
-
-        /**
-         * toolbar监听事件
-         */
-        table.on('toolbar(currentTableFilter)', function (obj) {
-            if (obj.event === 'add') {  // 监听添加操作
-                var index = layer.open({
-                    title: '添加用户',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '../page/table/add.html',
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-            } else if (obj.event === 'delete') {  // 监听删除操作
-                var checkStatus = table.checkStatus('currentTableId')
-                    , data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
-            }
-        });
-
-        //监听表格复选框选择
-        table.on('checkbox(currentTableFilter)', function (obj) {
-            console.log(obj)
-        });
-
-        table.on('tool(currentTableFilter)', function (obj) {
-            var data = obj.data;
-            if (obj.event === 'edit') {
-
-                var index = layer.open({
-                    title: '编辑用户',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '../page/table/edit.html',
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-                return false;
-            } else if (obj.event === 'delete') {
-                layer.confirm('真的删除行么', function (index) {
-                    obj.del();
-                    layer.close(index);
-                });
-            }
-        });
-
-    });
-</script>
+</table>
 
 </body>
+<script src="../js/inventoryStatistics.js"></script>
+<script type="text/javascript">
+    </script>
+<script>var _hmt = _hmt || []; (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+    var s = document.getElementsByTagName("script")[0];
+
+})();</script>
 </html>
