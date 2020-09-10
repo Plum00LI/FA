@@ -51,4 +51,6 @@ public interface SecuritiesInventoryService {
      * @return
      */
     Map<String,Object> selectSecuritiesInventoryInfo(String pageSize, String page,String securitiesId,String securitiesName,String fundId);
+
+    void deleteSecuritiesInventoryDate(String dateTime);
 }

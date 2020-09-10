@@ -12,16 +12,16 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     });
     //执行一个laydate实例
     laydate.render({
-        elem: '#end'//指定元素
+        elem: '#date1'//指定元素
     });
     //执行一个laydate实例
     laydate.render({
-        elem: '#up'//指定元素
+        elem: '#date2'//指定元素
     });
     //表格加载
     table.render({
         elem: '#userTable',
-        url: '../selectDeposit',
+        url: '../deposit/selectDeposit',
         page: true,
         toolbar: '#userToolBar',//显示在表头的工具条
         cellMinWidth:60,
@@ -73,7 +73,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //新增提交
     form.on('submit(addsubmit)', function(data){
         var formData=$('#addform').serialize();
-        $.post("../insertDeposit",formData,function(msg){
+        $.post("../deposit/insertDeposit",formData,function(msg){
             if(msg>0){
                 table.reload('userTable');
                 layer.closeAll();
@@ -146,7 +146,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
                     layer.confirm('真的删除行么',{icon: 2}, function(index){
                         layer.close(index);
-                        $.post("../user/deleteUser", {userId:ids.join(',')},function(msg){
+                        $.post("../deposit/deleteUser", {userId:ids.join(',')},function(msg){
                             table.reload('userTable');
                             layer.msg('删除'+checkStatus.data.length+'条记录', {
                                 title:'提示',
@@ -163,15 +163,25 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //给表格编辑，删除按钮添加点击事件
     table.on('tool(userTable)', function(obj) {
         var data = obj.data;//得到删除行整行的数据
-        alert(data.userId);
+        var endDateHaoMiao = new Date(data.endDate).getTime();//获得到期日期的时间
+        var nowTimeHaoMiao = new Date().getTime();//获得当前日期的时间
         if (obj.event === 'del') {
-            layer.confirm('真的删除行么',{icon: 2}, function(index){
-                layer.close(index);
-                $.post("../user/deleteUser", {userId:data.userId+""},function(msg){
-                    table.reload('userTable');
+            if (data.flag==1){
+                layer.msg('已处理不可删除');
+            }else if (data.flag==0){
+                layer.confirm('真的删除行么',{icon: 2}, function(index){
+                    layer.close(index);
+                    $.post("../deposit/deleteDeposit", {depositId:data.depositId+""},function(msg){
+                        if(msg>0){
+                            layer.msg('删除成功');
+                        }else{
+                            layer.msg('出现一个错误删除失败');
+                        }
+                        table.reload('userTable');
+                    });
+                    removeDate();
                 });
-
-            });
+            }
         } else if (obj.event === 'edit') {
             if (data.flag==1){
                 layer.msg('已处理不可重复操作');
@@ -180,12 +190,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             }else{
                 layer.confirm('确认对此存款进行到期处理?',{icon: 1}, function(index){
                     layer.close(index);
-                    $.post("deposit/expireDeposit", {ids:data.depositId,
-                            totalPrice:data.money,
-                            outAccountId:data.outAccountId,
-                            fundId:data.fundId,
-                            inAccountId:data.inAccountId
-                        }
+                    $.post("../deposit/updateDeposit",data
                         ,function(msg){
                             if(msg){
                                 layer.msg('已处理');
@@ -193,12 +198,32 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                                 layer.msg('出现一个错误处理失败');
                             }
                         });
+                    table.reload('userTable');
                     removeDate();
                 });
             }
         };
     })
 
+
+    form.on('input(type)', function(data){
+        if($('#businessType2').val()==1){
+            day = 3;
+        }else if($('#businessType2').val()==2){
+            day = 7;
+        }
+        setTimeout(function () {
+            var date1=$('#date1').val().getTime();
+            date2 = date1+1000*60*60*24*day;
+            var endDate = new Date(date2);
+            var endYear = endDate.getFullYear();
+            var endMonth = endDate.getMonth()+1;
+            var endday = endDate.getDate();
+            var endTime = endYear+"-"+buling(endMonth)+"-"+buling(endday);
+            $('#date2').val(endTime);
+        }, 300);
+
+    });
 
 });
 function myclose() {

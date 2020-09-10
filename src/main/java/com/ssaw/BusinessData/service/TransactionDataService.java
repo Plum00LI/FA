@@ -39,5 +39,5 @@ public interface TransactionDataService {
      * 查询交易数据
      * @return List<TransactionData>
      */
-    HashMap selectTransactionData(int page,int limit,String end,String equityId);
+    HashMap selectTransactionData(int page,int limit,String dateTime,String securitiesName);
 }

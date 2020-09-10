@@ -81,8 +81,13 @@ public class CashClosedPayInventoryServiceImpl implements CashClosedPayInventory
 
 
         String v_tableName = "(select * from " + SysTableNameListUtil.CCPI +" c " +
-                              "join (select fundName,fundId from "+SysTableNameListUtil.F+" ) f " +
-                                "on c.fundId=f.fundId)";
+                "join (select fundName,fundId from "+SysTableNameListUtil.F+" ) f " +
+                "on c.fundId=f.fundId "+
+                "join (select accountId,accountName from "+SysTableNameListUtil.A+") a "+
+                "on c.accountId=a.accountId)";
+
+
+        
 
 
         //创建一个Map，用于存储过程的调用传值

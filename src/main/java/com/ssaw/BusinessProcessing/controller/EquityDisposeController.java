@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +25,7 @@ public class EquityDisposeController {
     EquityDisposeService equityDisposeService;
 
     @RequestMapping("selectEquityDispose")
-    public Map<String,Object> selectEquityDispose(String page,String limit){
+    public Map<String,Object> selectEquityDispose(String page, String limit){
         //调用Service层执行查询，接收返回结果集Map
         Map<String, Object> map = equityDisposeService.selectEquityDispose(limit,page);
         List<EquityDispose> equityDisposeList = (List<EquityDispose>) map.get("equityDisposeList");

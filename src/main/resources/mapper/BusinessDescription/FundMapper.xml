@@ -15,7 +15,7 @@
         setUpDate=#{setUpDate},fundDesc=#{fundDesc},accountId=#{accountId}
         where fundId=#{fundId}
     </update>
-    <delete id="deleteFund" parameterType="int">
+    <delete id="deleteFund" parameterType="String">
         delete from fund where fundId=#{fundId}
     </delete>
 <!--    <select id="selectFund" resultType="com.ssaw.BusinessDescription.entity.Fund">-->
@@ -24,7 +24,7 @@
 <!--        from fund-->
 <!--    </select>-->
     <resultMap id="fundMap" type="com.ssaw.BusinessDescription.entity.Fund">
-        <result property="fundId" column="fundId" javaType="Integer"></result>
+        <result property="fundId" column="fundId" javaType="String"></result>
         <result property="fundName" column="fundName" javaType="String"></result>
         <result property="fundType" column="fundType" javaType="DOUBLE"></result>
         <result property="managerId" column="managerId" javaType="String"></result>

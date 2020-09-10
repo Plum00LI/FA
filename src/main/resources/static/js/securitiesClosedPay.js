@@ -1,3 +1,7 @@
+function myclose() {
+    layer.closeAll();
+}
+
 layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     var layer = layui.layer;
     var $ = layui.$;
@@ -5,9 +9,12 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     var form = layui.form;
     var laydate = layui.laydate;
 
+
+
+
     //执行一个laydate实例
     laydate.render({
-        elem: '#end' //指定元素
+        elem: '#dateTime' //指定元素
     });
 
     laydate.render({
@@ -15,7 +22,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     })
 
     laydate.render({
-        elem: '#equitiesRecord'
+        elem: '#start1'
     })
 
     laydate.render({
@@ -55,6 +62,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     });
     //修改提交
     form.on('submit(editsubmit)', function(data){
+        alert("进来了")
         var formData=$('#editform').serialize();
         $.post("../securitiesClosedPay/updateSecuritiesClosedPay",formData,function(msg){
             if(msg>0){
@@ -80,6 +88,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         });
         return false;
     });
+
     table.render({
         elem: '#userTable',
         url: '../securitiesClosedPay/selectSecuritiesClosedPay',
@@ -91,7 +100,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         cols: [
             [ //表头
             {type: 'checkbox', fixed: 'left'}
-            ,{field: 'dateTime', title: '业务日期',fixed: 'left', align:'center'}
+            ,{field: 'securitiesClosedPayId', title: '证券应收应付编号',fixed: 'left', align:'center'}
+            ,{field: 'dateTime', title: '业务日期', align:'center'}
+            ,{field: 'fundId', title: '基金代码',align:'center',hide:true}
             ,{field: 'accountId', title: '银行账户编号',align:'center'}
             ,{field: 'securitiesId', title: '证券编号', align:'center'}
             ,{field: 'securitiesName', title: '证券名称', align:'center'}
@@ -118,6 +129,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             ]
         ]
     });
+
     //给工具条的按钮添加事件
     table.on('toolbar(userTable)',function (obj) {
         //获取选中复选框的对象，
@@ -160,11 +172,11 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 {
                     var ids=[];
                     for (var i = 0; i <data.length; i++) {
-                        ids.push(data[i].userId);
+                        ids.push(data[i].securitiesClosedPayId);
                     }
                     layer.confirm('真的删除行么',{icon: 2}, function(index){
                         layer.close(index);
-                        $.post("../securitiesClosedPay/deleteSecuritiesClosedPay", {userId:ids.join(',')},function(msg){
+                        $.post("../securitiesClosedPay/deleteSecuritiesClosedPay", {securitiesClosedPayId:ids.join(',')},function(msg){
                             table.reload('userTable');
                             layer.msg('删除'+checkStatus.data.length+'条记录', {
                                 title:'提示',
@@ -181,22 +193,21 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //给表格编辑，删除按钮添加点击事件
     table.on('tool(userTable)', function(obj) {
         var data = obj.data;//得到删除行整行的数据
-        alert(data.userId);
+        alert(data.securitiesClosedPayId);
         if (obj.event === 'del') {
             layer.confirm('真的删除行么',{icon: 2}, function(index){
                 layer.close(index);
-                $.post("../securitiesClosedPay/deleteSecuritiesClosedPay", {userId:data.userId+""},function(msg){
+                $.post("../securitiesClosedPay/deleteSecuritiesClosedPay", {securitiesClosedPayId:data.securitiesClosedPayId+""},function(msg){
                     table.reload('userTable');
                 });
 
             });
         } else if (obj.event === 'edit') {
             alert(JSON.stringify(data));
-
             form.val('editform',$.parseJSON(JSON.stringify(data)));
             var index = layer.open({
                 type: 1,
-                title: '修改权益数据',
+                title: '修改证券应收应付数据',
                 closeBtn: 1,
                 move:false,
                 area: ['500px', '400px'],

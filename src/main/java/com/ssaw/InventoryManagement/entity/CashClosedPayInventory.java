@@ -10,7 +10,8 @@ package com.ssaw.InventoryManagement.entity;
 public class CashClosedPayInventory {
     private String cashClosedPayInventoryId;//现金应收应付库存Id（隐藏字段）
     private String businessDate;//业务日期
-    private String cashAccountName;//现金账户名称
+    private String accountId;//账户ID
+    private String accountName;//现金账户名称
     private String fundId;//基金ID（隐藏字段）
     private String fundName;//基金名称
     private int businessType;//业务类型  1.管理费  2.托管费  3.存款利息  4.申购赎回费
@@ -21,25 +22,14 @@ public class CashClosedPayInventory {
     public CashClosedPayInventory() {
     }
 
-    public CashClosedPayInventory(String cashClosedPayInventoryId, String businessDate, String cashAccountName, String fundId,
+    public CashClosedPayInventory(String cashClosedPayInventoryId, String businessDate, String accountId, String accountName, String fundId,
                                   String fundName, int businessType, int businessStatus, int initialSigns, double totalMoney) {
         this.cashClosedPayInventoryId = cashClosedPayInventoryId;
         this.businessDate = businessDate;
-        this.cashAccountName = cashAccountName;
+        this.accountId = accountId;
+        this.accountName = accountName;
         this.fundId = fundId;
         this.fundName = fundName;
-        this.businessType = businessType;
-        this.businessStatus = businessStatus;
-        this.initialSigns = initialSigns;
-        this.totalMoney = totalMoney;
-    }
-
-    public CashClosedPayInventory(String cashClosedPayInventoryId, String businessDate, String cashAccountName,
-                                  String fundId, int businessType, int businessStatus, int initialSigns, double totalMoney) {
-        this.cashClosedPayInventoryId = cashClosedPayInventoryId;
-        this.businessDate = businessDate;
-        this.cashAccountName = cashAccountName;
-        this.fundId = fundId;
         this.businessType = businessType;
         this.businessStatus = businessStatus;
         this.initialSigns = initialSigns;
@@ -62,12 +52,20 @@ public class CashClosedPayInventory {
         this.businessDate = businessDate;
     }
 
-    public String getCashAccountName() {
-        return cashAccountName;
+    public String getAccountId() {
+        return accountId;
     }
 
-    public void setCashAccountName(String cashAccountName) {
-        this.cashAccountName = cashAccountName;
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
     public String getFundId() {
@@ -123,7 +121,8 @@ public class CashClosedPayInventory {
         return "现金应收应付库存模块{" +
                 "现金应收应付库存ID='" + cashClosedPayInventoryId + '\'' +
                 ", 业务日期='" + businessDate + '\'' +
-                ", 现金账户名称='" + cashAccountName + '\'' +
+                ", 账户ID='" + accountId + '\'' +
+                ", 现金账户名称='" + accountName + '\'' +
                 ", 基金ID=" + fundId +
                 ", 业务类型=" + businessType +
                 ", 业务状态=" + businessStatus +

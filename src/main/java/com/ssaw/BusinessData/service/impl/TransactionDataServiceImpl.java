@@ -3,6 +3,9 @@ package com.ssaw.BusinessData.service.impl;
 import com.ssaw.BusinessData.entity.TransactionData;
 import com.ssaw.BusinessData.mapper.TransactionDataMapper;
 import com.ssaw.BusinessData.service.TransactionDataService;
+import com.ssaw.BusinessDescription.entity.Fund;
+import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +25,8 @@ import java.util.List;
 public class TransactionDataServiceImpl implements TransactionDataService {
     @Resource
     TransactionDataMapper transactionDataMapper;
-
+    @Resource
+    DbUtil dbUtil;
     @Override
     public HashMap selectTransactionData(int page, int limit, String dateTime, String securitiesName) {
         StringBuffer sqlWhere=new StringBuffer();
@@ -48,7 +52,10 @@ public class TransactionDataServiceImpl implements TransactionDataService {
 
     @Override
     public int insertTransactionData(TransactionData transactionData) {
+        Fund fund=new Fund();
         System.out.println(transactionData);
+        transactionData.setFundId(fund.getFundId());
+        transactionData.setTransactionDataId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
         return transactionDataMapper.insertTransactionData(transactionData);
     }
 

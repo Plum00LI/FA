@@ -93,13 +93,13 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         page: true,
         toolbar: '#userToolBar',//显示在表头的工具条
         cellMinWidth: 50,
-        height:'full-50',
+        height:'full-55',
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
                 ,{field: 'businessDate', title: '业务日期', align:'center'}
                 ,{field: 'cashClosedPayInventoryId', title: '现金应收应付库存ID', align:'center', hide:true}
-                ,{field: 'cashAccountName', title: '现金账户名称', align:'center'}
+                ,{field: 'accountName', title: '现金账户名称', align:'center'}
                 ,{field: 'fundId', title: '基金编号', align:'center', hide:true}
                 ,{field: 'fundName', title: '基金名称', align:'center', hide:true}
                 ,{field: 'businessType', title: '业务类型', align:'center',

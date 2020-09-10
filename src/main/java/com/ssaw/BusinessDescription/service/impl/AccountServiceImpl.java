@@ -103,4 +103,10 @@ public class AccountServiceImpl implements AccountService {
         }
         return accountMapper.deleteAccount(accountList);
     }
+
+
+    @Override
+    public Account selectAccountById(String accountId) {
+        return accountMapper.selectAccountById(accountId);
+    }
 }

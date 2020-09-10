@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.BusinessData.mapper.DepositMapper">
-    <insert id="insertDeposit">
+    <insert id="insertDeposit" parameterType="com.ssaw.BusinessData.entity.Deposit">
         INSERT INTO deposit (depositId,fundId,outAccountId,inAccountId,directionOfMoney,
         businessDate,businessType,money,interest,endDate,flag,depositDesc) VALUES(#{depositId},#{fundId},#{outAccountId}
         ,#{inAccountId},#{directionOfMoney},#{businessDate},#{businessType},#{money},#{interest},#{endDate},#{flag},#{depositDesc,jdbcType=VARCHAR})
     </insert>
+    <update id="updateDeposit" parameterType="com.ssaw.BusinessData.entity.Deposit">
+        update deposit set fundId=#{fundId},outAccountId=#{outAccountId},inAccountId=#{inAccountId},
+        directionOfMoney=#{directionOfMoney},businessDate=#{businessDate},businessType=#{businessType},money=#{money},
+        interest=#{interest},endDate=#{endDate},flag=#{flag},depositDesc=#{depositDesc} where depositId=#{depositId}
+    </update>
     <delete id="deleteDeposit">
     delete from deposit where depositId=#{depositId}
     </delete>

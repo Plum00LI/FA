@@ -31,8 +31,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
                 ,{field: 'securitiesClosedPayInventoryId', title: '证券应收应付存库Id'}
-                ,{field: 'accountId', title: '现金账户ID'}
-                ,{field: 'accountName', title: '现金账户名称'}
                 ,{field: 'dateTime', title: '业务日期'}
                 ,{field: 'fundId', title: '基金信息表ID'}
                 ,{field: 'securitiesId', title: '证券信息表ID'}
