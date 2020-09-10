@@ -22,6 +22,7 @@ import java.util.Map;
  * @create:2020-09-05
  */
 @RestController
+@RequestMapping("/deposit")
 public class DepositController {
 
     /**
@@ -58,6 +59,11 @@ public class DepositController {
     public int deleteDeposit(int depositId){
         System.out.println(depositId);
         int i = depositService.deleteDeposit(depositId);
+        return i;
+    }
+    @RequestMapping("updateDeposit")
+    public int updateDeposit(Deposit deposit){
+        int i = depositService.insertDeposit(deposit);
         return i;
     }
 }

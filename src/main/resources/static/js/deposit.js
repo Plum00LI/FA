@@ -21,7 +21,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //表格加载
     table.render({
         elem: '#userTable',
-        url: '../selectDeposit',
+        url: '../deposit/selectDeposit',
         page: true,
         toolbar: '#userToolBar',//显示在表头的工具条
         cellMinWidth:60,
@@ -73,7 +73,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //新增提交
     form.on('submit(addsubmit)', function(data){
         var formData=$('#addform').serialize();
-        $.post("../insertDeposit",formData,function(msg){
+        $.post("../deposit/insertDeposit",formData,function(msg){
             if(msg>0){
                 table.reload('userTable');
                 layer.closeAll();
@@ -146,7 +146,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
                     layer.confirm('真的删除行么',{icon: 2}, function(index){
                         layer.close(index);
-                        $.post("../user/deleteUser", {userId:ids.join(',')},function(msg){
+                        $.post("../deposit/deleteUser", {userId:ids.join(',')},function(msg){
                             table.reload('userTable');
                             layer.msg('删除'+checkStatus.data.length+'条记录', {
                                 title:'提示',
@@ -163,11 +163,12 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //给表格编辑，删除按钮添加点击事件
     table.on('tool(userTable)', function(obj) {
         var data = obj.data;//得到删除行整行的数据
-        alert(data.userId);
+        var endDateHaoMiao = new Date(data.endDate).getTime();//获得到期日期的时间
+        var nowTimeHaoMiao = new Date().getTime();//获得当前日期的时间
         if (obj.event === 'del') {
             layer.confirm('真的删除行么',{icon: 2}, function(index){
                 layer.close(index);
-                $.post("../user/deleteUser", {userId:data.userId+""},function(msg){
+                $.post("../deposit/deleteUser", {userId:data.userId+""},function(msg){
                     table.reload('userTable');
                 });
 
@@ -180,12 +181,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             }else{
                 layer.confirm('确认对此存款进行到期处理?',{icon: 1}, function(index){
                     layer.close(index);
-                    $.post("deposit/expireDeposit", {ids:data.depositId,
-                            totalPrice:data.money,
-                            outAccountId:data.outAccountId,
-                            fundId:data.fundId,
-                            inAccountId:data.inAccountId
-                        }
+                    $.post("../deposit/updateDeposit"
                         ,function(msg){
                             if(msg){
                                 layer.msg('已处理');
@@ -193,7 +189,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                                 layer.msg('出现一个错误处理失败');
                             }
                         });
-                    removeDate();
+                    table.reload('userTable');
                 });
             }
         };

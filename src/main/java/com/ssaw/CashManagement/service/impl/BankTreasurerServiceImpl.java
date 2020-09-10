@@ -99,7 +99,6 @@ public class BankTreasurerServiceImpl implements BankTreasurerService {
     @Override
     public int insertBankTreasurer(BankTreasurer bankTreasurer) {
         bankTreasurer.setBankTreasurerId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.BT));
-        bankTreasurer.setFundId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
         String date=DateTimeUtil.getSystemDateTime("yyyy-MM-dd");
         bankTreasurer.setDateTime(date);
         return bankTreasurerMapper.insertBankTreasurer(bankTreasurer);

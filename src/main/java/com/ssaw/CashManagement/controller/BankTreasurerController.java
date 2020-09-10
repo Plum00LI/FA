@@ -21,6 +21,7 @@ import java.util.Map;
  * @create:2020-09-01
  */
 @RestController
+@RequestMapping("/bankTreasurer")
 public class BankTreasurerController {
     @Resource
     BankTreasurerService bankTreasurerService;

@@ -17,5 +17,6 @@ import java.util.Map;
 public interface DepositMapper {
     public void selectDeposit(Map map);
     public int insertDeposit(Deposit deposit);
+    public int updateDeposit(Deposit deposit);
     public int deleteDeposit(int depositId);
 }

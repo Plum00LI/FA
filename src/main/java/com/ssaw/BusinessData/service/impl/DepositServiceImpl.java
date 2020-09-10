@@ -94,7 +94,7 @@ public class DepositServiceImpl implements DepositService {
     public int insertDeposit(Deposit deposit) {
         deposit.setDepositId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.DE));
         BankTreasurer bankTreasurer=new BankTreasurer();
-/*        //流出账户
+        //流出账户
         bankTreasurer.setBankTreasurerId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.BT));
         bankTreasurer.setFundId(deposit.getFundId());
         bankTreasurer.setTotalPrice(deposit.getMoney());
@@ -115,8 +115,38 @@ public class DepositServiceImpl implements DepositService {
         bankTreasurer.setAccountName(deposit.getInAccountName());
         bankTreasurer.setFlag(1);
         bankTreasurerMapper.insertBankTreasurer(bankTreasurer);
-        System.out.println(bankTreasurer);*/
+        System.out.println(bankTreasurer);
         return depositMapper.insertDeposit(deposit);
+    }
+
+    @Override
+    public int updateDeposit(Deposit deposit) {
+        //存款业务的处理状态变为
+        deposit.setFlag(1);
+        //存款业务的到期处理 产生资金调拨 流入遍流出 流出变流入
+        BankTreasurer bankTreasurer=new BankTreasurer();
+        //流出账户
+        bankTreasurer.setBankTreasurerId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.BT));
+        bankTreasurer.setFundId(deposit.getFundId());
+        bankTreasurer.setTotalPrice(deposit.getMoney());
+        bankTreasurer.setAccountId(deposit.getOutAccountId());
+        bankTreasurer.setAccountName(deposit.getOutAccountName());
+        //调拨日期为存款业务的业务时间
+        bankTreasurer.setDbTime(deposit.getBusinessDate());
+        //业务日期为当天的日期
+        String date=DateTimeUtil.getSystemDateTime("yyyy-MM-dd");
+        bankTreasurer.setDateTime(date);
+        bankTreasurer.setAllocatingType(5);
+        bankTreasurer.setBusinessId(deposit.getDepositId());
+        bankTreasurer.setBankTreasurerDesc("");
+        bankTreasurer.setFlag(1);
+        bankTreasurerMapper.insertBankTreasurer(bankTreasurer);
+        //流入账户
+        bankTreasurer.setAccountId(deposit.getInAccountId());
+        bankTreasurer.setAccountName(deposit.getInAccountName());
+        bankTreasurer.setFlag(-1);
+        bankTreasurerMapper.insertBankTreasurer(bankTreasurer);
+        return depositMapper.updateDeposit(deposit);
     }
 
 
