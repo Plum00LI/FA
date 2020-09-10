@@ -12,11 +12,11 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     });
     //执行一个laydate实例
     laydate.render({
-        elem: '#end'//指定元素
+        elem: '#date1'//指定元素
     });
     //执行一个laydate实例
     laydate.render({
-        elem: '#up'//指定元素
+        elem: '#date2'//指定元素
     });
     //表格加载
     table.render({
@@ -166,13 +166,22 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         var endDateHaoMiao = new Date(data.endDate).getTime();//获得到期日期的时间
         var nowTimeHaoMiao = new Date().getTime();//获得当前日期的时间
         if (obj.event === 'del') {
-            layer.confirm('真的删除行么',{icon: 2}, function(index){
-                layer.close(index);
-                $.post("../deposit/deleteUser", {userId:data.userId+""},function(msg){
-                    table.reload('userTable');
+            if (data.flag==1){
+                layer.msg('已处理不可删除');
+            }else if (data.flag==0){
+                layer.confirm('真的删除行么',{icon: 2}, function(index){
+                    layer.close(index);
+                    $.post("../deposit/deleteDeposit", {depositId:data.depositId+""},function(msg){
+                        if(msg>0){
+                            layer.msg('删除成功');
+                        }else{
+                            layer.msg('出现一个错误删除失败');
+                        }
+                        table.reload('userTable');
+                    });
+                    removeDate();
                 });
-
-            });
+            }
         } else if (obj.event === 'edit') {
             if (data.flag==1){
                 layer.msg('已处理不可重复操作');
@@ -181,7 +190,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             }else{
                 layer.confirm('确认对此存款进行到期处理?',{icon: 1}, function(index){
                     layer.close(index);
-                    $.post("../deposit/updateDeposit"
+                    $.post("../deposit/updateDeposit",data
                         ,function(msg){
                             if(msg){
                                 layer.msg('已处理');
@@ -190,11 +199,31 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                             }
                         });
                     table.reload('userTable');
+                    removeDate();
                 });
             }
         };
     })
 
+
+    form.on('input(type)', function(data){
+        if($('#businessType2').val()==1){
+            day = 3;
+        }else if($('#businessType2').val()==2){
+            day = 7;
+        }
+        setTimeout(function () {
+            var date1=$('#date1').val().getTime();
+            date2 = date1+1000*60*60*24*day;
+            var endDate = new Date(date2);
+            var endYear = endDate.getFullYear();
+            var endMonth = endDate.getMonth()+1;
+            var endday = endDate.getDate();
+            var endTime = endYear+"-"+buling(endMonth)+"-"+buling(endday);
+            $('#date2').val(endTime);
+        }, 300);
+
+    });
 
 });
 function myclose() {

@@ -26,7 +26,7 @@ package com.ssaw.BusinessDescription.entity;
  * accountId  	varchar2(50)	FK 账户信息表
  */
 public class Fund {
-    private int fundId;
+    private String fundId;
     private String fundName;
     private double fundType;
     private String managerId;
@@ -59,7 +59,7 @@ public class Fund {
         this.accountId = accountId;
     }
 
-    public Fund(int fundId, String fundName, double fundType, String managerId, String trusteeBlank, double initNetWorth, double sizeOfThe,
+    public Fund(String fundId, String fundName, double fundType, String managerId, String trusteeBlank, double initNetWorth, double sizeOfThe,
                 double managerRate, double hostingRate, double provisionDays, String setUpDate, String fundDesc, String accountId) {
         this.fundId = fundId;
         this.fundName = fundName;
@@ -76,11 +76,11 @@ public class Fund {
         this.accountId = accountId;
     }
 
-    public int getFundId() {
+    public String getFundId() {
         return fundId;
     }
 
-    public void setFundId(int fundId) {
+    public void setFundId(String fundId) {
         this.fundId = fundId;
     }
 

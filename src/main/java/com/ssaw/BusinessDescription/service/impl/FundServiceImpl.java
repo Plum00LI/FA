@@ -48,15 +48,13 @@ public class FundServiceImpl implements FundService {
      */
     @Override
     public void deleteFund(String fundId) {
-        int v_fund=0;
         String[] split=new String[0];
         if (fundId!=null&&!fundId.equals("")){
             split= fundId.split(",");
 
         }
         for(int i=0;i<split.length;i++){
-            v_fund=Integer.parseInt(split[i]);
-            fundMapper.deleteFund(v_fund);
+            fundMapper.deleteFund(split[i]);
         }
 
 

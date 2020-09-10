@@ -22,7 +22,7 @@ import java.util.Map;
  * @create:2020-09-02
  */
 @RestController
-@RequestMapping("/account")
+@RequestMapping("account")
 public class AccountController {
 
     /**

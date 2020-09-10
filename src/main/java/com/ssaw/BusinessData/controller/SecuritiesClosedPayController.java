@@ -35,7 +35,7 @@ public class SecuritiesClosedPayController {
 
     @RequestMapping("selectSecuritiesClosedPay")
     public Map<String,Object> selectSecuritiesClosedPay(String page, String limit,String securitiesName,String securitiesId){
-        System.out.println("行情数据分页查询控制器");
+        System.out.println("证券应收应付分页查询控制器");
         Map<String,Object> map = securitiesClosedPayService.selectSecuritiesClosedPay(limit,page,securitiesName,securitiesId);
         List<SecuritiesClosedPay> securitiesClosedPayList = (List<SecuritiesClosedPay>) map.get("securitiesClosedPayList");
         int count = (int) map.get("count");
@@ -50,17 +50,19 @@ public class SecuritiesClosedPayController {
     }
 
     @RequestMapping("insertSecuritiesClosedPay")
-    @ResponseBody
     public int insertSecuritiesClosedPay(SecuritiesClosedPay securitiesClosedPay){
+        System.out.println("新增的控制类");
         securitiesClosedPay.setSecuritiesClosedPayId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.SCP));
-
         System.out.println("添加"+securitiesClosedPay);
-        return securitiesClosedPayService.insertSecuritiesClosedPay(securitiesClosedPay);
+        int i = securitiesClosedPayService.insertSecuritiesClosedPay(securitiesClosedPay);
+        System.out.println("证券应收应付新增的条数为"+i);
+        return i;
     }
 
 
-    @RequestMapping(value = "/updateSecuritiesClosedPay",method = {RequestMethod.GET,RequestMethod.POST})
-    public int updateSecuritiesClosedPay(@ModelAttribute SecuritiesClosedPay securitiesClosedPay){
+    @RequestMapping("updateSecuritiesClosedPay")
+    public int updateSecuritiesClosedPay(SecuritiesClosedPay securitiesClosedPay){
+        System.out.println("进入了修改的control");
         int i =securitiesClosedPayService.updateSecuritiesClosedPay(securitiesClosedPay);
         System.out.println("修改："+i);
         return i;

@@ -20,4 +20,5 @@ public interface BankTreasurerMapper {
     public int insertBankTreasurer(BankTreasurer bankTreasurer);
     public int updateBankTreasurer(BankTreasurer bankTreasurer);
     public int deleteBankTreasurer(List bankTreasurerId);
+    public int deleteBankTreasurerByDepositId(String depositId);
 }

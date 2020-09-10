@@ -28,10 +28,11 @@ public class IncomePaymentController {
     IncomePaymentService incomePaymentService;
 
     @RequestMapping("selectCashInterestIncome")
-    public Map<String, Object> selectCashInterestIncome(String page, String limit, String dateTime, String fundId) {
+    public Map<String, Object> selectCashInterestIncome(String page, String limit, String statDate, String fundId) {
         System.out.println("进入了现金利息收入查询controller");
+        System.out.println("时间："+statDate);
         //调用service层，返回结果集map
-        Map<String, Object> map = incomePaymentService.selectCashInterestIncome(limit, page);
+        Map<String, Object> map = incomePaymentService.selectCashInterestIncome(limit, page,statDate,fundId);
         //从结果集中拿出结果
         //接收返回数据
         List<CashInterestIncome> cashInterestIncomes= (List<CashInterestIncome>) map.get("cashInterestIncomes");
@@ -49,10 +50,10 @@ public class IncomePaymentController {
     }
 
     @RequestMapping("selectBondInterestIncome")
-    public Map<String, Object> selectBondInterestIncome(String page, String limit, String dateTime, String fundId) {
+    public Map<String, Object> selectBondInterestIncome(String page, String limit, String statDate, String fundId) {
         System.out.println("进入了债券利息收入查询controller");
         //调用service层，返回结果集map
-        Map<String, Object> map = incomePaymentService.selectBondInterestIncome(limit,page);
+        Map<String, Object> map = incomePaymentService.selectBondInterestIncome(limit,page,statDate,fundId);
         //从结果集中拿出结果
         //接收返回数据
         List<BondInterestIncome> bondInterestIncomes= (List<BondInterestIncome>) map.get("bondInterestIncomes");
@@ -70,10 +71,10 @@ public class IncomePaymentController {
     }
 
     @RequestMapping("selectPayTwoFees")
-    public Map<String, Object> selectPayTwoFees(String page, String limit, String dateTime, String fundId) {
+    public Map<String, Object> selectPayTwoFees(String page, String limit, String statDate, String fundId) {
         System.out.println("进入了支付两费查询controller");
         //调用service层，返回结果集map
-        Map<String, Object> map = incomePaymentService.selectPayTwoFees(limit,page);
+        Map<String, Object> map = incomePaymentService.selectPayTwoFees(limit,page,statDate,fundId);
         //从结果集中拿出结果
         //接收返回数据
         List<PayTwoFees> payTwoFees= (List<PayTwoFees>) map.get("payTwoFees");

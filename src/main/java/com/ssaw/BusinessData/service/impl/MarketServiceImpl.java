@@ -1,9 +1,4 @@
-package com.ssaw.BusinessData.service.impl;/**
- * @program: TescComment
- * @Description:实体类
- * @author: 瞿平
- * @create: 2020-09-01
- */
+package com.ssaw.BusinessData.service.impl;
 
 import com.ssaw.BusinessData.entity.Market;
 import com.ssaw.BusinessData.mapper.MarketMapper;
@@ -84,7 +79,7 @@ public class MarketServiceImpl implements MarketService {
         if (dateTime!=null && !dateTime.equals("")){
             sqlWhere.append(" and dateTime like '%"+dateTime+"%'");
         }
-        String tableName="(select * from " + SysTableNameListUtil.M +" m join (select securitiesName from "+SysTableNameListUtil.SE+" )  s on m.securitiesId=securitiesId)";
+        String tableName="(select * from " + SysTableNameListUtil.M +" m join (select securitiesName,securitiesId from "+SysTableNameListUtil.SE+" )  s on m.securitiesId=s.securitiesId)";
         System.out.println("语句"+tableName);
         //创建一个Map,用来调用存储过程
         Map<String,Object> map = new HashMap<>();

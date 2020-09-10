@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.InventoryManagement.mapper.SecuritiesInventoryMapper">
     <insert id="insertSecuritiesInventory" parameterType="com.ssaw.InventoryManagement.entity.SecuritiesInventory">
-        insert into securitiesInventory values (#{securitiesInventoryId,jdbcType=VARCHAR},#{dateTime,jdbcType=VARCHAR},#{securitiesId,jdbcType=VARCHAR},#{securitiesName,jdbcType=VARCHAR},#{securityPeriodFlag},#{securitiesNum},#{price},#{total},#{securitiesInventoryDesc,jdbcType=VARCHAR})
+        insert into securitiesInventory values (#{securitiesInventoryId,jdbcType=VARCHAR},#{fundId,jdbcType=VARCHAR},#{dateTime,jdbcType=VARCHAR},#{securitiesId,jdbcType=VARCHAR},#{securitiesName,jdbcType=VARCHAR},#{securityPeriodFlag},#{securitiesNum},#{price},#{total},#{securitiesInventoryDesc,jdbcType=VARCHAR})
     </insert>
 
     <update id="updateSecuritiesInventory" parameterType="com.ssaw.InventoryManagement.entity.SecuritiesInventory">
@@ -13,6 +13,9 @@
 
     <delete id="deleteSecuritiesInventory" parameterType="com.ssaw.InventoryManagement.entity.SecuritiesInventory">
         delete from securitiesInventory where securitiesInventoryId=#{securitiesInventoryId}
+    </delete>
+    <delete id="deleteSecuritiesInventoryDate"  parameterType="com.ssaw.InventoryManagement.entity.SecuritiesInventory">
+        delete from securitiesInventory where dateTime=#{dateTime}
     </delete>
 
     <select id="selectSecuritiesInventory" resultType="com.ssaw.InventoryManagement.entity.SecuritiesInventory">

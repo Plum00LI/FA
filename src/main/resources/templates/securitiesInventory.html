@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org/">
 <head>
     <title>证券库存</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -88,6 +88,7 @@
     <form id="addform" lay-filter="addform"
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
+        <input type="hidden" name="fundId" th:value="${session.fundId}">
         <div class="layui-inline layui-show-xs-block">
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green">日期</label>
@@ -96,9 +97,9 @@
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green">证券名称</label>
+                <label class="layui-form-label layui-bg-green">证券编号</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input type="text" class="layui-input" autocomplete="off" placeholder="请输入证券名称" name="securitiesName" id="addSecuritiesName">
+                    <input type="text" class="layui-input" autocomplete="off" placeholder="请输入证券编号" name="securitiesName" id="addSecuritiesName">
                     <input type="hidden" name="securitiesId" id="addSecuritiesId" />
                 </div>
             </div>
@@ -239,7 +240,7 @@
                 cols: [
                     [
                     {type:'radio',field : 'securitiesId'},
-                    { field: 'securitiesId', title: '证券代码',align: 'center'},
+                    { field: 'securitiesId', title: '证券编号',align: 'center'},
                     { field: 'securitiesName', title: '证券名称',align: 'center'},
                     { field: 'securitiesType', title: '证券类型',align: 'center',
                         templet :function(item){
@@ -257,8 +258,7 @@
                 //拿到data[]后 就按照业务需求做想做的事情啦~比如加个隐藏域放ID...
                 var NEWJSON = []
                 layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.securitiesName);
-                    console.log(item.securitiesId)
+                    NEWJSON.push(item.securitiesId);
                     $('#addSecuritiesId').val(item.securitiesId);
                 })
                 elem.val(NEWJSON.join(","))

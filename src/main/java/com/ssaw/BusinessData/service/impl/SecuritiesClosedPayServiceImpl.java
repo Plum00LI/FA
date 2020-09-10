@@ -4,6 +4,7 @@ import com.ssaw.BusinessData.entity.Market;
 import com.ssaw.BusinessData.entity.SecuritiesClosedPay;
 import com.ssaw.BusinessData.mapper.SecuritiesClosedPayMapper;
 import com.ssaw.BusinessData.service.SecuritiesClosedPayService;
+import com.ssaw.BusinessDescription.entity.Fund;
 import com.ssaw.GlobalManagement.util.DbUtil;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.InventoryManagement.entity.SecuritiesInventory;
@@ -12,6 +13,7 @@ import com.ssaw.InventoryManagement.service.SecuritiesInventoryService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,7 +64,7 @@ public class SecuritiesClosedPayServiceImpl implements SecuritiesClosedPayServic
             sqlWhere.append(" and securitiesName like '%"+securitiesName+"%'");
         }
 
-        String tableName="(select * from " + SysTableNameListUtil.SCP +" s join (select securitiesName from "+SysTableNameListUtil.SE+" )  se on s.securitiesId=securitiesId)";
+        String tableName="(select * from " + SysTableNameListUtil.SCP +" s join (select securitiesName,securitiesId from "+SysTableNameListUtil.SE+" )  e on s.securitiesId=e.securitiesId)";
         System.out.println("语句"+tableName);
 
         //创建一个Map,用来调用存储过程
@@ -99,7 +101,10 @@ public class SecuritiesClosedPayServiceImpl implements SecuritiesClosedPayServic
 
     @Override
     public int updateSecuritiesClosedPay(SecuritiesClosedPay securitiesClosedPay) {
-        return securitiesClosedPayMapper.updateSecuritiesClosedPay(securitiesClosedPay);
+        System.out.println("进入了修改impl");
+        int i = securitiesClosedPayMapper.updateSecuritiesClosedPay(securitiesClosedPay);
+        System.out.println("修改的方法"+i);
+        return i;
     }
 
     @Override

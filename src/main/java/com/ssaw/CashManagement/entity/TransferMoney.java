@@ -18,8 +18,25 @@ public class TransferMoney {
     private String outBlankName;//划款的账户的开户银行
     private String foundId;//基金Id
     private String purpose;//划款的用途
+    private String inAccountName;
+    private String outAccountName;
 
     public TransferMoney() {
+    }
+
+    public TransferMoney(String transferMoneyId, String inAccountId, String inBlankName, String crossSectionDate, String accountingDate, double money, String outAccount, String outBlankName, String foundId, String purpose, String inAccountName, String outAccountName) {
+        this.transferMoneyId = transferMoneyId;
+        this.inAccountId = inAccountId;
+        this.inBlankName = inBlankName;
+        this.crossSectionDate = crossSectionDate;
+        this.accountingDate = accountingDate;
+        this.money = money;
+        this.outAccount = outAccount;
+        this.outBlankName = outBlankName;
+        this.foundId = foundId;
+        this.purpose = purpose;
+        this.inAccountName = inAccountName;
+        this.outAccountName = outAccountName;
     }
 
     public TransferMoney(String transferMoneyId, String inAccountId, String inBlankName, String crossSectionDate, String accountingDate, double money, String outAccount, String outBlankName, String foundId, String purpose) {
@@ -113,6 +130,22 @@ public class TransferMoney {
 
     public void setPurpose(String purpose) {
         this.purpose = purpose;
+    }
+
+    public String getInAccountName() {
+        return inAccountName;
+    }
+
+    public void setInAccountName(String inAccountName) {
+        this.inAccountName = inAccountName;
+    }
+
+    public String getOutAccountName() {
+        return outAccountName;
+    }
+
+    public void setOutAccountName(String outAccountName) {
+        this.outAccountName = outAccountName;
     }
 
     @Override

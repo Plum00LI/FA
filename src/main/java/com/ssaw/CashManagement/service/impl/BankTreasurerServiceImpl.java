@@ -119,5 +119,10 @@ public class BankTreasurerServiceImpl implements BankTreasurerService {
         return bankTreasurerMapper.deleteBankTreasurer(bankTreasurerList);
     }
 
+    @Override
+    public int deleteBankTreasurerByDepositId(String depositId) {
+        return bankTreasurerMapper.deleteBankTreasurerByDepositId(depositId);
+    }
+
 
 }
