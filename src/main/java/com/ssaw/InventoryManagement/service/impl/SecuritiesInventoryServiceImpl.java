@@ -106,5 +106,15 @@ public class SecuritiesInventoryServiceImpl implements SecuritiesInventoryServic
         //返回结果集Map
         return resultMap;
     }
+
+    /**
+     * 根据日期删除
+     * @param dateTime
+     */
+    @Override
+    public void deleteSecuritiesInventoryDate(String dateTime) {
+        securitiesInventoryMapper.deleteSecuritiesInventoryDate(dateTime);
+    }
+
 }
 
