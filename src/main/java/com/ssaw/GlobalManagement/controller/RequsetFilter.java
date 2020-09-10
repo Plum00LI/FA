@@ -32,6 +32,7 @@ public class RequsetFilter implements Filter {
         ||req.getRequestURI().startsWith("/images")
         ||req.getRequestURI().startsWith("/js")
         ||req.getRequestURI().startsWith("/lib")
+        ||req.getRequestURI().startsWith("/selectFund")
         ){
             filterChain.doFilter(req,resp);
         }else if (session!=null
