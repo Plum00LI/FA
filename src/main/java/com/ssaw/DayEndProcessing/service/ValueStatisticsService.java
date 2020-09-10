@@ -31,11 +31,11 @@ public interface ValueStatisticsService {
      * @return
      */
 
-    public void deleteValueStatistics(String valueStatisticsDate);
+    public void deleteValueStatistics(String valueStatisticsDate,String fundId);
     /**
      * 净值统计查询方法
      * @Param: ValueStatistics
      * @return valueStatisticsList
      */
-    public List<ValueStatistics> selectValueStatistics(ValueStatistics valueStatistics);
+    public List<ValueStatistics> selectValueStatistics(String valueStatisticsDate,String fundId);
 }

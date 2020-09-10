@@ -29,12 +29,12 @@ public class ValueStatisticsServiceImpl implements ValueStatisticsService {
     }
 
     @Override
-    public void deleteValueStatistics(String valueStatisticsDate) {
-        valueStatisticsMapper.deleteValueStatistics(valueStatisticsDate);
+    public void deleteValueStatistics(String valueStatisticsDate,String fundId) {
+        valueStatisticsMapper.deleteValueStatistics(valueStatisticsDate,fundId);
     }
 
     @Override
-    public List<ValueStatistics> selectValueStatistics(ValueStatistics valueStatistics) {
-        return valueStatisticsMapper.selectValueStatistics(valueStatistics);
+    public List<ValueStatistics> selectValueStatistics(String valueStatisticsDate,String fundId) {
+        return valueStatisticsMapper.selectValueStatistics(valueStatisticsDate,fundId);
     }
 }

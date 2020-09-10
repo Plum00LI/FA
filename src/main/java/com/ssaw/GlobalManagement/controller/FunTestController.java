@@ -24,11 +24,11 @@ public class FunTestController {
     @Resource
     FunTestService funTestService;
 
-    @RequestMapping("Test")
+    @RequestMapping("SelectFunTest")
     @ResponseBody
     public List<FunTest> testFun(){
         System.out.println("进来了");
-        List<FunTest> funTestList = funTestService.selectPidFun(0,1);
+        List<FunTest> funTestList = funTestService.selectPidFun(0,3);
         for (FunTest funTest : funTestList) {
             System.out.println(funTest);
         }

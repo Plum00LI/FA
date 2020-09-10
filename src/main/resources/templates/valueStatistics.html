@@ -22,17 +22,17 @@
                       class="layui-form layui-form-pane">
                     <div class="layui-form">
                         <div class="layui-form-item">
-                            <label style="height: 32px;" class="layui-form-label ">统计日期</label>
+                            <label style="height: 32px;" class="layui-form-label">统计日期</label>
                             <div class="layui-inline">
                                 <input type="text" style="height: 32px;" class="layui-input" id="test12" name = "datetime">
                             </div>
                             <div class="layui-inline">
                                 <button type="button"
-                                        class="layui-btn layui-btn-normal search" id="statisticsButton" >
+                                        class="layui-btn layui-btn-sm search" id="statisticsButton" >
                                     <i class="layui-icon">&#xe615;</i>统计
                                 </button>
                                 <button type="button" lay-event="search1"
-                                        class="layui-btn layui-btn-normal" id="statisticsButton2">
+                                        class="layui-btn layui-btn-sm" id="statisticsButton2">
                                     <i class="layui-icon">&#xe615;</i>查询
                                 </button>
 
@@ -45,10 +45,10 @@
     </div>
         <div>
             <div class="layui-btn-group">
-                <button class="layui-btn layui-bg-red cancel" id="btn-expand">全部展开</button>
+                <button class="layui-btn" id="btn-expand">全部展开</button>
                 <button class="layui-btn layui-btn-normal" id="btn-fold">全部折叠</button>
             </div>
-            <table id="munu-table" class="layui-hide" lay-filter="munu-table"></table>
+            <table id="munu-table" class="layui-table" lay-filter="munu-table"></table>
         </div>
         <script type="text/html" id="toolbarDemo2">
             <div class="layui-btn-container">
@@ -80,9 +80,6 @@
         // 渲染表格
         layer.load(2);
         treetable.render({
-            minLength:80,
-            cellMinWidth:60,
-            height:'full-55',
             treeColIndex: 1,
             treeSpid: -1,
             treeIdName: 'projectId',
@@ -96,13 +93,13 @@
             cols: [
                 [
                     {type: 'checkbox'},
-                    {field: 'projectName', minWidth: 200, align: 'left', title: '项目名称'},
-                    {field: 'projectCode', width: 200, align: 'center',title: '项目代码'},
-                    {field: 'quantity', width: 200, align: 'center',title: '股数'},
-                    {field: 'peice', width: 200, align: 'center',title: '行情'},
-                    {field: 'cost', width: 200, align: 'center',title: '成本'},
-                    {field: 'marketValue', width: 200, align: 'center',title: '市值'},
-                    {field: 'valuation', width: 200, align: 'center',title: '估值增值'}
+                    {field: 'projectName', minWidth: 150, align: 'left', title: '项目名称'},
+                    {field: 'projectCode', width: 150, align: 'center',title: '项目代码'},
+                    {field: 'quantityint', width: 150, align: 'center',title: '股数'},
+                    {field: 'peice', width: 150, align: 'center',title: '行情'},
+                    {field: 'cost', width: 150, align: 'center',title: '成本'},
+                    {field: 'marketValue', width: 150, align: 'center',title: '市值'},
+                    {field: 'valuation', width: 150, align: 'center',title: '估值增值'}
 
                 ]
             ],
@@ -120,9 +117,6 @@
         });
         $('#statisticsButton').click(function(){
             treetable.render({
-                minLength:80,
-                cellMinWidth:60,
-                height:'full-55',
                 treeColIndex: 1,
                 treeSpid: -1,
                 treeIdName: 'projectId',
@@ -136,13 +130,13 @@
                 cols: [
                     [
                         {type: 'checkbox'},
-                        {field: 'projectName', minWidth: 200, align: 'left', title: '项目名称'},
-                        {field: 'projectCode', width: 200, align: 'center',title: '项目代码'},
-                        {field: 'quantity', width: 200, align: 'center',title: '股数'},
-                        {field: 'peice', width: 200, align: 'center',title: '行情'},
-                        {field: 'cost', width: 200, align: 'center',title: '成本'},
-                        {field: 'marketValue', width: 200, align: 'center',title: '市值'},
-                        {field: 'valuation', width: 200, align: 'center',title: '估值增值'}
+                        {field: 'projectName', minWidth: 150, align: 'left', title: '项目名称'},
+                        {field: 'projectCode', width: 150, align: 'center',title: '项目代码'},
+                        {field: 'quantityint', width: 150, align: 'center',title: '股数'},
+                        {field: 'peice', width: 150, align: 'center',title: '行情'},
+                        {field: 'cost', width: 150, align: 'center',title: '成本'},
+                        {field: 'marketValue', width: 150, align: 'center',title: '市值'},
+                        {field: 'valuation', width: 150, align: 'center',title: '估值增值'}
 
                     ]
                 ],
@@ -153,9 +147,6 @@
         })
         $('#statisticsButton2').click(function(){
             treetable.render({
-                minLength:80,
-                cellMinWidth:60,
-                height:'full-55',
                 treeColIndex: 1,
                 treeSpid: -1,
                 treeIdName: 'projectId',
@@ -169,13 +160,13 @@
                 cols: [
                     [
                         {type: 'checkbox'},
-                        {field: 'projectName', minWidth: 200, align: 'left', title: '项目名称'},
-                        {field: 'projectCode', width: 200, align: 'center',title: '项目代码'},
-                        {field: 'quantity', width: 200, align: 'center',title: '股数'},
-                        {field: 'peice', width: 200, align: 'center',title: '行情'},
-                        {field: 'cost', width: 200, align: 'center',title: '成本'},
-                        {field: 'marketValue', width: 200, align: 'center',title: '市值'},
-                        {field: 'valuation', width: 200, align: 'center',title: '估值增值'}
+                        {field: 'projectName', minWidth: 150, align: 'left', title: '项目名称'},
+                        {field: 'projectCode', width: 150, align: 'center',title: '项目代码'},
+                        {field: 'quantityint', width: 150, align: 'center',title: '股数'},
+                        {field: 'peice', width: 150, align: 'center',title: '行情'},
+                        {field: 'cost', width: 150, align: 'center',title: '成本'},
+                        {field: 'marketValue', width: 150, align: 'center',title: '市值'},
+                        {field: 'valuation', width: 150, align: 'center',title: '估值增值'}
 
                     ]
                 ],
