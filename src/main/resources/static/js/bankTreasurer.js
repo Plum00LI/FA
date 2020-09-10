@@ -137,7 +137,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 });
                 form.render();
                 //全屏
-                //layer.full(index);
+                layer.full(index);
                 break;
             case 'search':
                 //alert("搜索");

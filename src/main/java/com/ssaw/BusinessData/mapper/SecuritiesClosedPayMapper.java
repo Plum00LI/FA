@@ -1,6 +1,5 @@
 package com.ssaw.BusinessData.mapper;
 
-import com.ssaw.BusinessData.entity.Market;
 import com.ssaw.BusinessData.entity.SecuritiesClosedPay;
 import org.apache.ibatis.annotations.Mapper;
 

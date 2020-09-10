@@ -6,6 +6,7 @@ package com.ssaw.InventoryManagement.service.impl;/**
  */
 
 import com.ssaw.BusinessData.entity.Market;
+import com.ssaw.GlobalManagement.util.DbUtil;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.InventoryManagement.entity.SecuritiesInventory;
 import com.ssaw.InventoryManagement.mapper.SecuritiesInventoryMapper;
@@ -29,6 +30,9 @@ public class SecuritiesInventoryServiceImpl implements SecuritiesInventoryServic
     @Resource
     SecuritiesInventoryMapper securitiesInventoryMapper;
 
+    @Resource
+    DbUtil dbUtil;
+
     @Override
     public List<SecuritiesInventory> selectSecuritiesInventory() {
         return securitiesInventoryMapper.selectSecuritiesInventory();
@@ -36,7 +40,8 @@ public class SecuritiesInventoryServiceImpl implements SecuritiesInventoryServic
 
     @Override
     public int insertSecuritiesInventory(SecuritiesInventory securitiesInventory) {
-        return securitiesInventoryMapper.insertSecuritiesInventory(securitiesInventory);
+        securitiesInventory.setFundId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
+    return securitiesInventoryMapper.insertSecuritiesInventory(securitiesInventory);
     }
 
     @Override
@@ -70,14 +75,18 @@ public class SecuritiesInventoryServiceImpl implements SecuritiesInventoryServic
 
         StringBuffer sqlWhere = new StringBuffer();
         if (securitiesId!=null && !securitiesId.equals("")){
-            sqlWhere.append(" and e.securitiesId like '%"+securitiesId+"%'");
+            sqlWhere.append(" and securitiesId like '%"+securitiesId+"%'");
+        }
+
+        if (securitiesName!=null && !securitiesName.equals("")){
+            sqlWhere.append(" and securitiesName like '%"+securitiesName+"%'");
         }
 
         if (fundId!=null && !fundId.equals("")){
             sqlWhere.append(" and fundId like '%"+fundId+"%'");
         }
-        String tableName="(select * from " + SysTableNameListUtil.SI +" s join (select securitiesName from "+SysTableNameListUtil.SE+" )  e on s.securitiesId=securitiesId)"
-                +"and s.fundId=funId";
+        String tableName="(select * from " + SysTableNameListUtil.SI +" s join (select securitiesName，securitiesId from "+SysTableNameListUtil.SE+" )  e on s.securitiesId=e.securitiesId "
+                +"join (select fundId from "+SysTableNameListUtil.F+" )  f on s.fundId=f.fundId)";
         System.out.println("语句"+tableName);
 
         //创建一个Map,用来调用存储过程

@@ -10,10 +10,10 @@ public class SecuritiesClosedPay {
     private String fundId;                     // 基金信息表Id
     private String accountId;                   // 账户信息表ID
     private String securitiesId;                //证券信息表ID
-    private Integer serviceType;                 //业务类型 1=清算款 2=估值增值 3=债券利息
+    private int serviceType;                 //业务类型 1=清算款 2=估值增值 3=债券利息
     private Double amount;                      //金额
     private String dateTime;                    //日期
-    private Integer flag;                        //流入1 流出-1
+    private int flag;                        //流入1 流出-1
     /**
      * 证券名称
      */
@@ -66,11 +66,11 @@ public class SecuritiesClosedPay {
         this.securitiesId = securitiesId;
     }
 
-    public Integer getServiceType() {
+    public int getServiceType() {
         return serviceType;
     }
 
-    public void setServiceType(Integer serviceType) {
+    public void setServiceType(int serviceType) {
         this.serviceType = serviceType;
     }
 
@@ -90,11 +90,11 @@ public class SecuritiesClosedPay {
         this.dateTime = dateTime;
     }
 
-    public Integer getFlag() {
+    public int getFlag() {
         return flag;
     }
 
-    public void setFlag(Integer flag) {
+    public void setFlag(int flag) {
         this.flag = flag;
     }
 
