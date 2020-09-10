@@ -1,6 +1,6 @@
 package com.ssaw.DayEndProcessing.service.impl;
 
-import com.ssaw.BusinessData.entity.CashClosedPay;
+
 import com.ssaw.DayEndProcessing.entity.BondInterestIncome;
 import com.ssaw.DayEndProcessing.entity.CashInterestIncome;
 import com.ssaw.DayEndProcessing.entity.PayTwoFees;
@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +35,7 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
 
 
     @Override
-    public Map<String, Object> selectCashInterestIncome(String pageSize, String page) {
+    public Map<String, Object> selectCashInterestIncome(String pageSize, String page, String statDate, String fundId) {
         //创建一个结果集Map用于存放两个结果变量
         Map<String, Object> resultMap = new HashMap<>();
         //定义一个分页条数变量
@@ -48,13 +52,30 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
             //通过Integer包装类将String类型转换成int基础数据类型
             v_page = Integer.parseInt(page);
         }
+        //String类型时间减一天
+        //new SimpleDateFormat对象
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        //创建一个 String类型的空时间
+        String datetime="";
+        //判断传入的statDate是否为null/空
+        if(statDate!=null&& !statDate.equals("")){
+            try {
+                //减一天
+                long dif= df.parse(statDate).getTime() - 86400 * 1000;
+                //创建Date类对象
+                Date date=new Date();
+                //把 dif 传给Date
+                date.setTime(dif);
+                //将使用format将date转换成日期类格式
+                datetime=df.format(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("日期"+datetime);
+
         //查询表
-        String sqlSelect=" (select * from cashClosedPayInventory c join account a on c.accountId=a.accountId ) ";
-        //判断条件
-        StringBuffer sqlWhere = new StringBuffer();
-
-        sqlWhere.append(" and businessType in (3) ");
-
+        String sqlSelect=" (select * from (select * from cashClosedPayInventory where fundId='289289289' and businessType in 3 and businessDate='"+datetime+"' ) c join account a on c.accountId=a.accountId )  ";
         //创建一个Map，用于存储过程的调用传值
         Map<String, Object> map = new HashMap<>();
         //传入存储过程需要查询的表名
@@ -84,7 +105,7 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
     }
 
     @Override
-    public Map<String, Object> selectBondInterestIncome(String pageSize, String page) {
+    public Map<String, Object> selectBondInterestIncome(String pageSize, String page, String statDate, String fundId) {
         //创建一个结果集Map用于存放两个结果变量
         Map<String, Object> resultMap = new HashMap<>();
         //定义一个分页条数变量
@@ -101,13 +122,24 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
             //通过Integer包装类将String类型转换成int基础数据类型
             v_page = Integer.parseInt(page);
         }
+        //String类型时间减一天
+        //new SimpleDateFormat对象
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        //判断传入的statDate是否为null/空
+        String datetime="";
+        if(statDate!=null&& !statDate.equals("")){
+            try {
+                long dif= df.parse(statDate).getTime() - 86400 * 1000;
+                Date date=new Date();
+                date.setTime(dif);
+                datetime=df.format(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("日期"+datetime);
         //查询表
-        String sqlSelect=" (select * from SECURITIESCLOSEDPAYINVENTORY s join account a on s.accountId=a.accountId join securities se on se.securitiesId= s.securitiesId ) ";
-        //判断条件
-        StringBuffer sqlWhere = new StringBuffer();
-
-        sqlWhere.append(" and securitiesType in (3) ");
-
+        String sqlSelect=" (select * from (select * from securitiesClosedPayInventory where fundId='"+fundId+"' and securitiesType=3 and datetime='"+datetime+"' ) s  join securities se on se.securitiesId= s.securitiesId ) ";
         //创建一个Map，用于存储过程的调用传值
         Map<String, Object> map = new HashMap<>();
         //传入存储过程需要查询的表名
@@ -137,7 +169,7 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
     }
 
     @Override
-    public Map<String, Object> selectPayTwoFees(String pageSize, String page) {
+    public Map<String, Object> selectPayTwoFees(String pageSize, String page, String statDate, String fundId) {
         //创建一个结果集Map用于存放两个结果变量
         Map<String, Object> resultMap = new HashMap<>();
         //定义一个分页条数变量
@@ -154,13 +186,31 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
             //通过Integer包装类将String类型转换成int基础数据类型
             v_page = Integer.parseInt(page);
         }
+        //String类型时间减一天
+        //new SimpleDateFormat对象
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        //创建一个 String类型的空时间
+        String datetime="";
+        //判断传入的statDate是否为null/空
+        if(statDate!=null&& !statDate.equals("")){
+            try {
+                //减一天
+                long dif= df.parse(statDate).getTime() - 86400 * 1000;
+                //创建Date类对象
+                Date date=new Date();
+                //把 dif 传给Date
+                date.setTime(dif);
+                //将使用format将date转换成日期类格式
+                datetime=df.format(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("日期"+datetime);
+
         //查询表
-        String sqlSelect=" (select * from cashClosedPayInventory c join account a on c.accountId=a.accountId ) ";
-        //判断条件
-        StringBuffer sqlWhere = new StringBuffer();
-
-        sqlWhere.append(" and businessType in (1,2) ");
-
+        String sqlSelect=" (select * from (select * from cashClosedPayInventory where fundId='289289289' and businessType in (1,2) and businessDate='"+datetime+"' ) c join account a " +
+                "on c.accountId=a.accountId ) ";
         //创建一个Map，用于存储过程的调用传值
         Map<String, Object> map = new HashMap<>();
         //传入存储过程需要查询的表名

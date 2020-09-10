@@ -14,10 +14,10 @@ import java.util.Map;
 
 public interface IncomePaymentService {
     //现金利息收入的查询
-    public Map<String,Object> selectCashInterestIncome(String pageSize,String page);
+    public Map<String,Object> selectCashInterestIncome(String pageSize,String page, String statDate, String fundId);
     //债券利息收入的查询
-    public Map<String,Object> selectBondInterestIncome(String pageSize,String page);
+    public Map<String,Object> selectBondInterestIncome(String pageSize,String page, String statDate, String fundId);
     //支付两费的查询
-    public Map<String,Object> selectPayTwoFees(String pageSize,String page);
+    public Map<String,Object> selectPayTwoFees(String pageSize,String page, String statDate, String fundId);
 
 }

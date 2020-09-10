@@ -11,7 +11,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function(){
 
     //执行一个laydate实例
     laydate.render({
-        elem: '#dateTime3' //指定日期
+        elem: '#dateTime' //指定日期
     });
 
     //执行一个laydate实例
@@ -75,7 +75,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function(){
                 //获得统计的库存id
                 var data = checkStatus.data;
                 //获得日期
-                var dateTime3 = $("#dateTime3").val();
+                var dateTime = $("#dateTime").val();
                 // //    layer.alert(JSON.stringify(data));
                 if (data.length == 0) {
                     layer.msg("请至少选择一个库存进行统计",)
@@ -86,10 +86,14 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function(){
                     }
                 }
 
+                //执行一个laydate实例
+                laydate.render({
+                    elem: '#dateTime' //指定日期
+                });
                 table.reload('userTable', {
                         method: 'post'
                         , where: {
-                            'dateTime3': dateTime3,
+                            'dateTime': dateTime,
                             'invId': ids.join(','),
                         }
                         , page: {
@@ -97,7 +101,10 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function(){
                         }
                     }
                 );
-
+                //执行一个laydate实例
+                laydate.render({
+                    elem: '#dateTime' //指定日期
+                });
                 break;
         }
 

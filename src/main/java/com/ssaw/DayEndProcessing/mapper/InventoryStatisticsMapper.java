@@ -2,11 +2,10 @@ package com.ssaw.DayEndProcessing.mapper;
 
 
 
-import com.ssaw.InventoryManagement.entity.SecuritiesInventory;
+import com.ssaw.DayEndProcessing.entity.SecuritiesInventoryData;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * ClassName:    InventoryStatisticsMapper
@@ -19,9 +18,10 @@ import java.util.Map;
 @Mapper
 public interface InventoryStatisticsMapper {
     /**
-     * 统计证券库存
+     * 查询证券库存方法
+     * @param dateTime
+     * @param fundId
      * @return
      */
-    public int countSecuritiesInventory(Map<String,Object> map);
-    public List<SecuritiesInventory> selectSecuritiesInventory();
+    public List<SecuritiesInventoryData> selectSecuritiesInventory(String dateTime, String fundId);
 }
