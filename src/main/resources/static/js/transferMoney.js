@@ -187,18 +187,29 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         } else if (obj.event === 'edit') {
             alert(JSON.stringify(data));
             form.val('editform',$.parseJSON(JSON.stringify(data)));
+            $('#BTitle').val('中国银行股份有限公司托管及投资则服务部:');
+            $('#HTitle').val('敬请贵部根据以下提供的付/收款人名称、开户行、账号、到账日期、币种、和划款金额划款。');
             var index = layer.open({
                 type: 1,
-                title: '修改员工',
+                title: '指令设置',
                 closeBtn: 1,
                 move:false,
+                area:['700px','500px'],
                 content:$('#editContent')
             });
             form.render();
-            layer.full(index);
         };
     })
 
+    form.on('select(title)', function(data){
+        if($('#orderCheque').val()==1){
+            $("#BTitleDiv").css("display","block");
+            $("#HTitleDiv").css("display","block");
+        }else{
+            $("#BTitleDiv").css("display","none");
+            $("#HTitleDiv").css("display","none");
+        }
+    });
 
 });
 function myclose() {

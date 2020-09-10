@@ -20,4 +20,5 @@ public interface BankTreasurerService {
     public int insertBankTreasurer(BankTreasurer bankTreasurer);
     public int updateBankTreasurer(BankTreasurer bankTreasurer);
     public int deleteBankTreasurer(String bankTreasurerId);
+    public int deleteBankTreasurerByDepositId(String depositId);
 }

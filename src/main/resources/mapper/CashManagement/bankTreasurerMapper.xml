@@ -18,6 +18,9 @@
                 #{bankTreasurerId}
             </foreach>
     </delete>
+    <delete id="deleteBankTreasurerByDepositId">
+        delete from bankTreasurer where businessId=#{depositId}
+    </delete>
 
     <resultMap id="bankTreasurerMap" type="com.ssaw.CashManagement.entity.BankTreasurer">
         <result property="bankTreasurerId" column="bankTreasurerId" javaType="String"></result>

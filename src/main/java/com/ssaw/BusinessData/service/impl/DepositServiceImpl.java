@@ -121,6 +121,8 @@ public class DepositServiceImpl implements DepositService {
 
     @Override
     public int updateDeposit(Deposit deposit) {
+        System.out.println("deposit进去了===========");
+        System.out.println(deposit);
         //存款业务的处理状态变为
         deposit.setFlag(1);
         //存款业务的到期处理 产生资金调拨 流入遍流出 流出变流入
@@ -151,7 +153,8 @@ public class DepositServiceImpl implements DepositService {
 
 
     @Override
-    public int deleteDeposit(int depositId) {
+    public int deleteDeposit(String depositId) {
+        bankTreasurerMapper.deleteBankTreasurerByDepositId(depositId);
         return depositMapper.deleteDeposit(depositId);
     }
 }
