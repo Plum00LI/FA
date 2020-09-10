@@ -5,6 +5,7 @@ import com.ssaw.BusinessData.mapper.EquityDataMapper;
 import com.ssaw.BusinessProcessing.entity.EquityDispose;
 import com.ssaw.BusinessProcessing.mapper.EquityDisposeMapper;
 import com.ssaw.BusinessProcessing.service.EquityDisposeService;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,7 +46,10 @@ public class EquityDisposeServiceImpl implements EquityDisposeService {
         }
 
         //多表查询
-        String p_tableName = "(select equityDataId,securitiesName,accountName,equitiesType,equitiesExright,securitiesNum,proportion from securities,equityData,securitiesInventory,account)";
+        String p_tableName="(select * from "+SysTableNameListUtil.ED+" e "+
+                "join (select securitiesId,securitiesNum from "+SysTableNameListUtil.SI+") s "+
+                "on e.securityId=s.securitiesId)";
+
 
 
 

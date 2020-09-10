@@ -117,7 +117,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 templet:function (item) {
                     if (item.equitiesType==1){
                         return '送股';
-                    } else if(item.equitiesType=='2'){ return '分红';
+                    } else if(item.equitiesType=='2'){
+                        return '分红';
                     }
                 }
             }

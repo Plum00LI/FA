@@ -27,8 +27,10 @@ public class CashClosedPayInventoryController {
 
     @Resource
     DbUtil dbUtil;
+
     @RequestMapping("insertCashClosedPayInventory")
     public int insertCashClosedPayInventory(CashClosedPayInventory cashClosedPayInventory){
+        System.out.println(cashClosedPayInventory);
         cashClosedPayInventory.setCashClosedPayInventoryId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.CCPI));
         cashClosedPayInventory.setFundId("289289289");
         int j = cashClosedPayInventoryService.insertCashClosedPayInventory(cashClosedPayInventory);
