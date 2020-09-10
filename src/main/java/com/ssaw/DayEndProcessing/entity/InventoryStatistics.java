@@ -9,43 +9,48 @@ package com.ssaw.DayEndProcessing.entity;
  * Author:   SYT
  */
 public class InventoryStatistics {
-    // 库存编号
-    private String inventoryId;
-    //库存名称
-    private String inventoryName;
-    //基金代码  来自基金表
-    private String fundId;
-    //操作员 来自操作员信息表
-    private String userId;
-    //统计日期
-    private String dateTime;
-    //已统计数据
-    private int haveStatisticalData;
-    //统计状态
-    private String stateOfStatistical;
-    //    private String fundName;
+    private int invId;//根据此id来确定统计的库存
+    private String inventoryName;//库存名称
+    private String inventoryId;//库存Id
+    private String inventoryOperator;//操作员
+    private String inventoryDate;//统计日期
+    private int inventoryData;//已统计数据
+    private String inventoryStatis;//统计结果  未统计不显示 统计完将状态修改为已统计
 
 
     public InventoryStatistics(){
 
     }
 
-    public InventoryStatistics(String inventoryId, String inventoryName, String fundId, String userId, String dateTime, int haveStatisticalData, String stateOfStatistical) {
-        this.inventoryId = inventoryId;
+    public InventoryStatistics(int invId, String inventoryName, String inventoryId, String inventoryOperator, String inventoryDate, int inventoryData, String inventoryStatis) {
+        this.invId = invId;
         this.inventoryName = inventoryName;
-        this.fundId = fundId;
-        this.userId = userId;
-        this.dateTime = dateTime;
-        this.haveStatisticalData = haveStatisticalData;
-        this.stateOfStatistical = stateOfStatistical;
-    }
-
-    public String getInventoryId() {
-        return inventoryId;
-    }
-
-    public void setInventoryId(String inventoryId) {
         this.inventoryId = inventoryId;
+        this.inventoryOperator = inventoryOperator;
+        this.inventoryDate = inventoryDate;
+        this.inventoryData = inventoryData;
+        this.inventoryStatis = inventoryStatis;
+    }
+
+    @Override
+    public String toString() {
+        return "InventoryStatistics{" +
+                "invId=" + invId +
+                ", inventoryName='" + inventoryName + '\'' +
+                ", inventoryId='" + inventoryId + '\'' +
+                ", inventoryOperator='" + inventoryOperator + '\'' +
+                ", inventoryDate='" + inventoryDate + '\'' +
+                ", inventoryData=" + inventoryData +
+                ", inventoryStatis='" + inventoryStatis + '\'' +
+                '}';
+    }
+
+    public int getInvId() {
+        return invId;
+    }
+
+    public void setInvId(int invId) {
+        this.invId = invId;
     }
 
     public String getInventoryName() {
@@ -56,43 +61,43 @@ public class InventoryStatistics {
         this.inventoryName = inventoryName;
     }
 
-    public String getFundId() {
-        return fundId;
+    public String getInventoryId() {
+        return inventoryId;
     }
 
-    public void setFundId(String fundId) {
-        this.fundId = fundId;
+    public void setInventoryId(String inventoryId) {
+        this.inventoryId = inventoryId;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getInventoryOperator() {
+        return inventoryOperator;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setInventoryOperator(String inventoryOperator) {
+        this.inventoryOperator = inventoryOperator;
     }
 
-    public String getDateTime() {
-        return dateTime;
+    public String getInventoryDate() {
+        return inventoryDate;
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setInventoryDate(String inventoryDate) {
+        this.inventoryDate = inventoryDate;
     }
 
-    public int getHaveStatisticalData() {
-        return haveStatisticalData;
+    public int getInventoryData() {
+        return inventoryData;
     }
 
-    public void setHaveStatisticalData(int haveStatisticalData) {
-        this.haveStatisticalData = haveStatisticalData;
+    public void setInventoryData(int inventoryData) {
+        this.inventoryData = inventoryData;
     }
 
-    public String getStateOfStatistical() {
-        return stateOfStatistical;
+    public String getInventoryStatis() {
+        return inventoryStatis;
     }
 
-    public void setStateOfStatistical(String stateOfStatistical) {
-        this.stateOfStatistical = stateOfStatistical;
+    public void setInventoryStatis(String inventoryStatis) {
+        this.inventoryStatis = inventoryStatis;
     }
 }

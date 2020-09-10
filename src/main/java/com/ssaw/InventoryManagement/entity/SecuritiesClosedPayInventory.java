@@ -12,8 +12,7 @@ package com.ssaw.InventoryManagement.entity;
 public class SecuritiesClosedPayInventory {
     //证券应收应付存库Id
     private String securitiesClosedPayInventoryId;
-    //现金账户ID
-    private String accountId;
+
     //业务日期
     private String dateTime;
     //基金信息表Id
@@ -30,29 +29,15 @@ public class SecuritiesClosedPayInventory {
     private String securitiesClosedPayDesc;
     //期初标志 是否从其他系统导入得期初数据 0：不是 1：是
     private int securityPeriodFlag;
-    //账户名称
-    private String accountName;
+
     public SecuritiesClosedPayInventory(){
 
     }
 
-    public SecuritiesClosedPayInventory(String securitiesClosedPayInventoryId, String accountId, String dateTime, String fundId, String securitiesId, int securitiesType, int flag, double totalPrice, String securitiesClosedPayDesc, int securityPeriodFlag, String accountName) {
-        this.securitiesClosedPayInventoryId = securitiesClosedPayInventoryId;
-        this.accountId = accountId;
-        this.dateTime = dateTime;
-        this.fundId = fundId;
-        this.securitiesId = securitiesId;
-        this.securitiesType = securitiesType;
-        this.flag = flag;
-        this.totalPrice = totalPrice;
-        this.securitiesClosedPayDesc = securitiesClosedPayDesc;
-        this.securityPeriodFlag = securityPeriodFlag;
-        this.accountName = accountName;
-    }
+
     /**
      *
      * @param securitiesClosedPayInventoryId    证券应收应付存库Id
-     * @param accountId 现金账户ID
      * @param dateTime  业务日期
      * @param fundId    基金信息表Id
      * @param securitiesId  证券信息表ID  securities表
@@ -62,9 +47,8 @@ public class SecuritiesClosedPayInventory {
      * @param securitiesClosedPayDesc   备注
      * @param securityPeriodFlag    期初标志 是否从其他系统导入得期初数据 0：不是 1：是
      */
-    public SecuritiesClosedPayInventory(String securitiesClosedPayInventoryId, String accountId, String dateTime, String fundId, String securitiesId, int securitiesType, int flag, double totalPrice, String securitiesClosedPayDesc, int securityPeriodFlag) {
+    public SecuritiesClosedPayInventory(String securitiesClosedPayInventoryId,String dateTime, String fundId, String securitiesId, int securitiesType, int flag, double totalPrice, String securitiesClosedPayDesc, int securityPeriodFlag) {
         this.securitiesClosedPayInventoryId = securitiesClosedPayInventoryId;
-        this.accountId = accountId;
         this.dateTime = dateTime;
         this.fundId = fundId;
         this.securitiesId = securitiesId;
@@ -83,13 +67,6 @@ public class SecuritiesClosedPayInventory {
         this.securitiesClosedPayInventoryId = securitiesClosedPayInventoryId;
     }
 
-    public String getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
-    }
 
     public String getDateTime() {
         return dateTime;
@@ -155,19 +132,11 @@ public class SecuritiesClosedPayInventory {
         this.securityPeriodFlag = securityPeriodFlag;
     }
 
-    public String getAccountName() {
-        return accountName;
-    }
-
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
-    }
 
     @Override
     public String toString() {
         return "SecuritiesClosedPayInventory{" +
                 "securitiesClosedPayInventoryId='" + securitiesClosedPayInventoryId + '\'' +
-                ", accountId='" + accountId + '\'' +
                 ", dateTime='" + dateTime + '\'' +
                 ", fundId='" + fundId + '\'' +
                 ", securitiesId='" + securitiesId + '\'' +
@@ -176,7 +145,6 @@ public class SecuritiesClosedPayInventory {
                 ", totalPrice=" + totalPrice +
                 ", securitiesClosedPayDesc='" + securitiesClosedPayDesc + '\'' +
                 ", securityPeriodFlag=" + securityPeriodFlag +
-                ", accountName='" + accountName + '\'' +
                 '}';
     }
 }

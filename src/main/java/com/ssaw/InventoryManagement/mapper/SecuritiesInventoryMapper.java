@@ -49,4 +49,6 @@ public interface SecuritiesInventoryMapper {
      * @return
      */
     void selectSecuritiesInventoryInfo(Map map);
+
+    void deleteSecuritiesInventoryDate(String dateTime);
 }

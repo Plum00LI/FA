@@ -18,8 +18,8 @@ public interface InventoryStatisticsService {
     /**
      * 查询证券库存
      * @param dateTime
-     * @param inventoryId
+     * @param invId
      * @return
      */
-    public List<InventoryStatistics> selectInventoryStatistics(String dateTime,String inventoryId);
+    public List<InventoryStatistics> selectInventoryStatistics(String dateTime,String invId);
 }
