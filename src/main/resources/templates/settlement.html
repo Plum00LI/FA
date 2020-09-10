@@ -27,23 +27,31 @@
     <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
     <script src="../lib/layuimini/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
 
-
+    <script>
+        layui.use('laydate', function() {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem : '#dateTime', //指定元素
+            });
+        });
+    </script>
 </head>
 <body>
 
 <div style="margin-top: 20px;margin-left: 10px">
-        <form class="layui-form layui-col-space5">
+        <form class="layui-form layui-col-space5" id="searchform" lay-filter="searchform">
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">成交日期</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请输入成交日期" name="businessDate" id="start">
+                    <input class="layui-input"  autocomplete="off" placeholder="请输入成交日期" name="dateTime" id="dateTime">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易方式</label>
 
                 <div class="layui-inline layui-show-xs-block">
-                    <select name="modes" id="modes">
+                    <select name="transactionDataMode" id="transactionDataMode">
                         <option value="">请选择</option>
                         <option value="1">买入</option>
                         <option value="2">卖出</option>
@@ -53,7 +61,7 @@
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <button class="layui-btn"  lay-event="search" id="search" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <button type="button" lay-event="search" id="anniu" name="anniu" style="width: 60px;"
@@ -72,10 +80,10 @@
     <div class="layui-tab-content">
         <div class="layui-tab-item layui-show">
             <!--表格-->
-            <table id="userTable" lay-filter="userTable"></table>
+            <table id="table" lay-filter="table"></table>
         </div>
         <div class="layui-tab-item">
-            <table id="userTable2" lay-filter="userTable2"></table>
+            <table id="table2" lay-filter="table2"></table>
         </div>
     </div>
 </div>
