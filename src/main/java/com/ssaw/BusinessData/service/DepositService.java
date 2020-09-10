@@ -20,5 +20,6 @@ import java.util.Map;
 public interface DepositService {
     public Map<String,Object> selectDeposit(String pageSize,String page,String businessType,String endDate);
     public int insertDeposit(Deposit deposit);
-    public int deleteDeposit(int depositId);
+    public int updateDeposit(Deposit deposit);
+    public int deleteDeposit(String depositId);
 }

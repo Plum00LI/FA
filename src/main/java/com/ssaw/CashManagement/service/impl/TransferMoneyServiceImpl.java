@@ -48,7 +48,7 @@ public class TransferMoneyServiceImpl implements TransferMoneyService {
         //创建一个Map 用于存款过程的调用传值
         Map<String,Object> map=new HashMap<>();
         //传入存储过程需要查询的表名
-        map.put("p_tableName","transferMoney");
+        map.put("p_tableName","(select transferMoney.*,account.accountName outAccountName, (select accountName from account where accountId=transferMoney.inAccountId) inAccountName from transferMoney join account on transferMoney.outAccount = account.accountId)");
         //传入查询的条件
         map.put("p_condition","");
         //传入分页显示条数

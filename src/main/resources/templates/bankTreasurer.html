@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org/">
 <head>
     <title>资金调拨页面</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -29,6 +29,13 @@
         <br/>
         <form class="layui-form layui-col-space5">
             <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨日期</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <input class="layui-input"  autocomplete="off" placeholder="请选择日期" name="dbTime" id="selectDate">
+                </div>
+            </div>
+            </div>
+            <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨类型</label>
                 <div class="layui-inline layui-show-xs-block" style="text-align: center" >
                     <select name="allocatingType" id="allocatingType">
@@ -54,13 +61,6 @@
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <button class="layui-btn"  lay-submit="" lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
-            </div>
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨日期</label>
-                <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择日期" name="dbTime" id="selectDate">
-                </div>
-            </div>
             </div>
         </form>
     </script>
@@ -94,6 +94,7 @@
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">业务编号</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input"  autocomplete="off" placeholder="请输入业务编号" name="businessId">
+                    <input type="hidden" name="fundId" th:value="${session.fundId}">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
@@ -252,7 +253,7 @@
             elem:'#insertAccountName',
             checkedKey:'accountName',
             table:{
-                url:'../selectAccount',
+                url:'../account/selectAccount',
                 cellMinWidth:60,
 
                 cols:[
@@ -279,7 +280,7 @@
             elem:'#updateAccountName',
             checkedKey:'accountName',
             table:{
-                url:'../selectAccount',
+                url:'../account/selectAccount',
                 cellMinWidth:60,
 
                 cols:[

@@ -26,7 +26,7 @@ public interface FundMapper {
      * 删除基金信息
      * @param fundId
      */
-    void deleteFund(int fundId);
+    void deleteFund(String fundId);
 
     /**
      * 修改基金信息
