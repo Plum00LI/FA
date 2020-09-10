@@ -24,4 +24,6 @@ public interface AccountMapper {
     public int updateAccount(Account account);
     //通过Id删除现金账户的方法
     public int deleteAccount(List accountId);
+    //通过ID查询现金账户名和账户卡号
+    public Account selectAccountById(String accountId);
 }

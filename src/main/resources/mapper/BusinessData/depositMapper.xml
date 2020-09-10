@@ -6,6 +6,11 @@
         businessDate,businessType,money,interest,endDate,flag,depositDesc) VALUES(#{depositId},#{fundId},#{outAccountId}
         ,#{inAccountId},#{directionOfMoney},#{businessDate},#{businessType},#{money},#{interest},#{endDate},#{flag},#{depositDesc,jdbcType=VARCHAR})
     </insert>
+    <update id="updateDeposit">
+        update deposit set fundId=#{fundId},outAccountId=#{outAccountId},inAccountId=#{inAccountId},
+        directionOfMoney=#{directionOfMoney},businessDate=#{businessDate},businessType=#{businessType},money=#{money},
+        interest=#{interest},endDate=#{endDate},flag=#{flag},depositDesc=#{depositDesc} where depositId=#{depositId}
+    </update>
     <delete id="deleteDeposit">
     delete from deposit where depositId=#{depositId}
     </delete>

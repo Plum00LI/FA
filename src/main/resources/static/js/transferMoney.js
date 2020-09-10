@@ -22,7 +22,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //表格加载
     table.render({
         elem: '#userTable',
-        url: '../selectTransferMoney',
+        url: '../transferMoney/selectTransferMoney',
         page: true,
         toolbar: '#userToolBar',//显示在表头的工具条
         cellMinWidth:60,
@@ -49,7 +49,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //新增提交
     form.on('submit(addsubmit)', function(data){
         var formData=$('#addform').serialize();
-        $.post("../user/insertUser",formData,function(msg){
+        $.post("../transferMoney/insertUser",formData,function(msg){
             if(msg>0){
                 table.reload('userTable');
                 layer.closeAll();
@@ -76,7 +76,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //修改提交
     form.on('submit(editsubmit)', function(data){
         var formData=$('#editform').serialize();
-        $.post("../user/updateUser",formData,function(msg){
+        $.post("../transferMoney/updateUser",formData,function(msg){
             if(msg>0){
                 table.reload('userTable');
                 layer.closeAll();
@@ -116,7 +116,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     btn:[]
                 });
                 $.ajax({
-                    url:'../user/selectRole',
+                    url:'../transferMoney/selectRole',
                     dataType:'json',
                     type:'post',
                     success:function(obj){
@@ -158,7 +158,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
                     layer.confirm('真的删除行么',{icon: 2}, function(index){
                         layer.close(index);
-                        $.post("../user/deleteUser", {userId:ids.join(',')},function(msg){
+                        $.post("../transferMoney/deleteUser", {userId:ids.join(',')},function(msg){
                             table.reload('userTable');
                             layer.msg('删除'+checkStatus.data.length+'条记录', {
                                 title:'提示',
@@ -179,7 +179,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         if (obj.event === 'del') {
             layer.confirm('真的删除行么',{icon: 2}, function(index){
                 layer.close(index);
-                $.post("../user/deleteUser", {userId:data.userId+""},function(msg){
+                $.post("../transferMoney/deleteUser", {userId:data.userId+""},function(msg){
                     table.reload('userTable');
                 });
 

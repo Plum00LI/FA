@@ -1,5 +1,7 @@
 package com.ssaw.GlobalManagement.controller;
 
+import com.ssaw.BusinessDescription.entity.Account;
+import com.ssaw.BusinessDescription.service.AccountService;
 import com.ssaw.GlobalManagement.service.SysMenuService;
 import com.ssaw.GlobalManagement.service.UserInfoService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +22,12 @@ public class SystemController {
     //注册SysMenuService服务
     @Resource
     SysMenuService sysMenuService;
+    //注册AccountService服务
+    @Resource
+    AccountService accountService;
     //checkLogin验证登录方法
     @RequestMapping("checkLogin")
-    public Map<String,Object> checkLogin(String userName, String userPwd, String fundId, HttpServletRequest req){
+    public Map<String,Object> checkLogin(String userName, String userPwd, String fundMsg, HttpServletRequest req){
         //创建存放回调对象的map
         Map<String, Object> map = new HashMap<>();
         //调用userInfoService服务isLogin方法检查登录
@@ -35,8 +40,17 @@ public class SystemController {
             HttpSession session = req.getSession();
             //在session中放入当次登录用户信息
             session.setAttribute("userName",userName);
+            System.out.println(fundMsg);
+            String[] split = fundMsg.split(",");
             //在session中放入当次登录基金信息
-            session.setAttribute("fundId","608899");
+            session.setAttribute("fundId",split[0]);
+            //通过accountId查询account信息
+            Account account = accountService.selectAccountById(split[1]);
+            //在session中放入当次登录默认账户ID
+            session.setAttribute("accountId",split[1]);
+            //在session中放入当次登录默认账户名称
+            session.setAttribute("accountName",account.getAccountName());
+
         }else {
             //返回异常状态
             map.put("code",0);

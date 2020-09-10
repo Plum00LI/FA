@@ -21,7 +21,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //表格加载
     table.render({
         elem: '#userTable',
-        url: '../selectBankTreasurer',
+        url: '../bankTreasurer/selectBankTreasurer',
         page: true,
         toolbar: '#userToolBar',//显示在表头的工具条
         cellMinWidth:60,
@@ -69,7 +69,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //新增提交
     form.on('submit(addsubmit)', function(data){
         var formData=$('#addform').serialize();
-        $.post("../insertBankTreasurer",formData,function(msg){
+        $.post("../bankTreasurer/insertBankTreasurer",formData,function(msg){
             if(msg>0){
                 table.reload('userTable');
                 layer.closeAll();
@@ -96,7 +96,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //修改提交
     form.on('submit(editsubmit)', function(data){
         var formData=$('#editform').serialize();
-        $.post("../updateBankTreasurer",formData,function(msg){
+        $.post("../bankTreasurer/updateBankTreasurer",formData,function(msg){
             if(msg>0){
                 table.reload('userTable');
                 layer.closeAll();
@@ -171,7 +171,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
                     layer.confirm('真的删除行么',{icon: 2}, function(index){
                         layer.close(index);
-                        $.post("../deleteBankTreasurer", {bankTreasurerId:ids.join(',')},function(msg){
+                        $.post("../bankTreasurer/deleteBankTreasurer", {bankTreasurerId:ids.join(',')},function(msg){
                             table.reload('userTable');
                             layer.msg('删除'+checkStatus.data.length+'条记录', {
                                 title:'提示',
@@ -192,7 +192,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         if (obj.event === 'del') {
             layer.confirm('真的删除行么',{icon: 2}, function(index){
                 layer.close(index);
-                $.post("../deleteBankTreasurer", {bankTreasurerId:data.bankTreasurerId+""},function(msg){
+                $.post("../bankTreasurer/deleteBankTreasurer", {bankTreasurerId:data.bankTreasurerId+""},function(msg){
                     table.reload('userTable');
                 });
 

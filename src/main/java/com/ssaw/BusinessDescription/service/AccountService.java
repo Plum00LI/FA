@@ -22,4 +22,6 @@ public interface AccountService {
     public int insertAccount(Account account);
     public int updateAccount(Account account);
     public int deleteAccount(String accountId);
+    //通过ID查询现金账户名和账户卡号
+    public Account selectAccountById(String accountId);
 }
