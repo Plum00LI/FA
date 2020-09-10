@@ -38,4 +38,9 @@ public class TaSettlementController {
         //返回数据
         return json;
     }
+    @RequestMapping("updateTaSettlement")
+    public int  updateTaSettlement(String taTransactionIds,String status){
+        System.out.println("修改"+taTransactionIds);
+        return taSettlementService.updateTaSettlement(taTransactionIds,status);
+    }
 }

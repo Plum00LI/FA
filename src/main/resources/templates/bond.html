@@ -79,7 +79,7 @@
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">证券编号</label>
             <div class="layui-input-inline">
                 <input class="layui-input"  autocomplete="off" placeholder="证券编号"
-                       name="securitiesId" id="insertAccountName">
+                       name="securitiesId" id="insertSecurities">
             </div>
 
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">债券名称</label>
@@ -261,18 +261,18 @@
     layui.use([ 'tableSelect'], function () {
         var $=layui.jquery,
             tableSelect=layui.tableSelect;
-        /*//增加得下拉表格
+        //增加得下拉表格
         tableSelect.render({
-            elem:'#insertAccountName',
-            checkedKey:'accountName',
+            elem:'#insertSecurities',
+            checkedKey:'securitiesId',
             table:{
-                url:'../selectAccount',
+                url:'../Securities/selectSecurities',
                 cellMinWidth:60,
 
                 cols:[
                     [   {type:'radio'},
-                        {field:'accountName',title:'账户名称',width:250},
-                        {field: 'accountId',title: '账号Id',width:250}
+                        {field:'securitiesId',title:'证券编号',width:250},
+                        {field: 'securitiesName',title: '证券名称',width:250}
                     ]
                 ]
             },
@@ -281,13 +281,12 @@
                 var newJson=[];
                 //遍历选中的数据
                 $.each(data.data,function (index,item) {
-                    newJson.push(item.accountName);
-                    $("#insertAccountName").val(item.accountId);//给隐藏域中的val赋值
+                    newJson.push(item.securitiesId);
                 });
                 elem.val(newJson.join(","));//给输入框里显示的值赋值
 
             }
-        })*/
+        })
 
     })
 

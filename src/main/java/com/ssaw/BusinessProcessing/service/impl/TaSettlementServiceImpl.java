@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,8 +49,10 @@ public class TaSettlementServiceImpl implements TaSettlementService {
         if(transactionType!=null&&!transactionType.equals("")){
             sqlWhere.append(" AND transactionType LIKE  '%"+transactionType+"%'" );
         }
-        if (status!=null && status.equals("")){
-            sqlWhere.append(" AND status =  "+status );
+        int v_status=0;
+        if (status!=null&&!status.equals("")){
+            v_status=Integer.parseInt(status);
+            sqlWhere.append(" AND transactionstatus =  "+v_status );
         }
 
         //创建一个Map，用于存储过程的调用传值
@@ -82,6 +85,22 @@ public class TaSettlementServiceImpl implements TaSettlementService {
         System.out.println(TaSettlementList);
         System.out.println("查询结果为"+sqlWhere.toString());
         return resultMap;
+    }
+
+    @Override
+    public int updateTaSettlement(String taTransactionIds, String status) {
+        ArrayList taTransactionIdList =new ArrayList<>();
+        String[] split=taTransactionIds.split(",");
+        for (String s : split) {
+            taTransactionIdList.add(s);
+        }
+        System.out.println(taTransactionIdList);
+        if (status.equals("0")){
+            return taSettlementMapper.updateTaSettlement(taTransactionIdList);
+        }else {
+            return taSettlementMapper.updateTaSettlementTwo(taTransactionIdList);
+        }
+
     }
 
 

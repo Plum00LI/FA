@@ -15,4 +15,10 @@ public interface TaSettlementService {
      * 查询
      */
     Map<String,Object> selectTaSettlement(String pageSize, String page, String dateTime,String transactionType,String status);
+
+    /*
+    修改
+     */
+    public int updateTaSettlement(String taTransactionIds,String status);
+
 }
