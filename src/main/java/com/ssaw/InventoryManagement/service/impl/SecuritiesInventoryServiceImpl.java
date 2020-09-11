@@ -55,7 +55,7 @@ public class SecuritiesInventoryServiceImpl implements SecuritiesInventoryServic
     }
 
     @Override
-    public Map<String, Object> selectSecuritiesInventoryInfo(String pageSize, String page,String securitiesId,String securitiesName,String fundId) {
+    public Map<String, Object> selectSecuritiesInventoryInfo(String pageSize, String page,String dateTime,String securitiesId,String securitiesName) {
         //创建一个结果集Map,用于存放两个结果变量
         Map<String, Object> resultMap = new HashMap<>();
         //定义一个分页条数变量
@@ -74,16 +74,14 @@ public class SecuritiesInventoryServiceImpl implements SecuritiesInventoryServic
         }
 
         StringBuffer sqlWhere = new StringBuffer();
-        if (securitiesId!=null && !securitiesId.equals("")){
-            sqlWhere.append(" and securitiesId like '%"+securitiesId+"%'");
+
+
+        if (dateTime!=null && !dateTime.equals("")){
+            sqlWhere.append(" and dateTime like '%"+dateTime+"%'");
         }
 
         if (securitiesName!=null && !securitiesName.equals("")){
             sqlWhere.append(" and securitiesName like '%"+securitiesName+"%'");
-        }
-
-        if (fundId!=null && !fundId.equals("")){
-            sqlWhere.append(" and fundId like '%"+fundId+"%'");
         }
         String tableName="(select * from " + SysTableNameListUtil.SI +" s join (select securitiesName，securitiesId from "+SysTableNameListUtil.SE+" )  e on s.securitiesId=e.securitiesId "
                 +"join (select fundId from "+SysTableNameListUtil.F+" )  f on s.fundId=f.fundId)";

@@ -146,12 +146,12 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                 //表格的重新加载事件
                 table.reload('userTable', {
                     method:'post'
-                    , where: {
-                        'securitiesId': securitiesId
-                        ,'dateTime':dateTime
-                    }
                     ,page: {
                         curr: 1
+                    },
+                    where: {
+                        'securitiesId': securitiesId
+                        ,'dateTime':dateTime
                     }
                 });
 

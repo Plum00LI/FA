@@ -95,6 +95,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 });
             }
         });
+        $("#addform")[0].reset();
         return false;
     });
     //给工具条的按钮添加事件
@@ -117,7 +118,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 //layer.full(index);
                 break;
             case 'search':
-                alert("搜索");
+                //alert("搜索");
                 var businessType= $("#businessType").val();
                 var endDate= $("#selectEnd").val();
                 //表格的重新加载事件

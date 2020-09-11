@@ -14,7 +14,7 @@ public class Settlement {
     private Double price;           //交易价格(单价)
     private Double num;             //交易数量
     private Double netReceipts;        //实收金额
-    private Double totalSum;        //交易总金额
+    private Double  totalSum;        //交易总金额
     private int transactionDataMode;//交易方式(1买入、2卖出，3分红，4送股)
     private String dateTime;        //交易日期(交易成交的日期)
     private String settlementDate;  //结算日期(交易结算的日期)

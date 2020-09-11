@@ -16,8 +16,11 @@ import java.util.Map;
 */
 @Service
 public interface TransferMoneyService {
-    public Map<String,Object> selectTransferMoney(String pageSize,String page);
+    //查询所有划款指令的方法
+    public Map<String,Object> selectTransferMoney(String pageSize,String page,String crossSectionDate);
+    //增加划款指令的方法
     public int insertTransferMoney(TransferMoney transferMoney);
     public int updateTransferMoney(TransferMoney transferMoney);
-    public int deleteTransferMoney();
+    //通过划款指令Id删除的方法
+    public int deleteTransferMoney(String transferMoneyId);
 }

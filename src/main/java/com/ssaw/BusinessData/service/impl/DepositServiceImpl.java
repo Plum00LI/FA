@@ -29,6 +29,9 @@ import java.util.Map;
 @Service
 @Transactional
 public class DepositServiceImpl implements DepositService {
+    /**
+     * 注入Deposit的Mapper层
+     */
    @Resource
    DepositMapper depositMapper;
    @Resource
@@ -36,6 +39,14 @@ public class DepositServiceImpl implements DepositService {
    @Resource
     DbUtil dbUtil;
 
+    /**
+     * 查询所有存款业务的实现类方法（带分页，返回数据和总条目数）
+     * @param pageSize 当前查询页数
+     * @param page 分页数据条目数
+     * @param businessType 业务类型
+     * @param endDate 存款业务到期时间
+     * @return 查询的结果集Map
+     */
     @Override
     public Map<String, Object> selectDeposit(String pageSize, String page,String businessType,String endDate) {
         //创建一个结果集Map用于存放两个结果变量
@@ -90,6 +101,11 @@ public class DepositServiceImpl implements DepositService {
         return resultMap;
     }
 
+    /**
+     * 存款业务的增加实现类方法
+     * @param deposit 存款业务实体类
+     * @return
+     */
     @Override
     public int insertDeposit(Deposit deposit) {
         deposit.setDepositId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.DE));
@@ -119,15 +135,20 @@ public class DepositServiceImpl implements DepositService {
         return depositMapper.insertDeposit(deposit);
     }
 
+    /**
+     * 存款业务到期处理的实现方法
+     * @param deposit 存款业务实体类
+     * @return
+     */
     @Override
     public int updateDeposit(Deposit deposit) {
         System.out.println("deposit进去了===========");
         System.out.println(deposit);
-        //存款业务的处理状态变为
+        //存款业务的处理状态变为已处理
         deposit.setFlag(1);
-        //存款业务的到期处理 产生资金调拨 流入遍流出 流出变流入
+        //存款业务的到期处理 产生资金调拨 流入变流出 流出变流入
         BankTreasurer bankTreasurer=new BankTreasurer();
-        //流出账户
+        //流出账户的改变
         bankTreasurer.setBankTreasurerId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.BT));
         bankTreasurer.setFundId(deposit.getFundId());
         bankTreasurer.setTotalPrice(deposit.getMoney());
@@ -142,18 +163,25 @@ public class DepositServiceImpl implements DepositService {
         bankTreasurer.setBusinessId(deposit.getDepositId());
         bankTreasurer.setBankTreasurerDesc("");
         bankTreasurer.setFlag(1);
+        //调用资金调拨的增加方法
         bankTreasurerMapper.insertBankTreasurer(bankTreasurer);
-        //流入账户
+        //流入账户的改变
         bankTreasurer.setAccountId(deposit.getInAccountId());
         bankTreasurer.setAccountName(deposit.getInAccountName());
         bankTreasurer.setFlag(-1);
+        //调用资金调拨的增加方法
         bankTreasurerMapper.insertBankTreasurer(bankTreasurer);
         return depositMapper.updateDeposit(deposit);
     }
 
-
+    /**
+     * 存款业务的删除实现类方法
+     * @param depositId 存款业务Id
+     * @return
+     */
     @Override
     public int deleteDeposit(String depositId) {
+        //当删除时时同时也会删除资金调拨产生的数据，所有调用资金调拨通过存款业务Id删除的方法
         bankTreasurerMapper.deleteBankTreasurerByDepositId(depositId);
         return depositMapper.deleteDeposit(depositId);
     }

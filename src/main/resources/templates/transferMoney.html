@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org/">
 <head>
     <title>划款指令页面</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -30,24 +30,14 @@
         <br/>
         <form class="layui-form layui-col-space5">
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">指令状态</label>
-                <div class="layui-inline layui-show-xs-block" style="text-align: center" >
-                    <select name="cateid">
-                        <option>请选择指令状态</option>
-                        <option>未生成</option>
-                        <option>已生成</option>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">划款日期</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择日期" name="end" id="start">
+                    <input class="layui-input"  autocomplete="off" placeholder="请选择日期" name="crossSectionDate" id="start">
                 </div>
             </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <button class="layui-btn"  lay-submit="" lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
             </div>
         </form>
     </script>
@@ -78,8 +68,10 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">收款账户</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择收款账户" name="inAccountId" id="inAccountId">
-                    <input type="hidden" name="inAccount" id="inAccount"/>
+                    <input class="layui-input"  autocomplete="off" placeholder="请选择收款账户" name="inAccountName" id="insertAccount">
+                    <input type="hidden" name="inAccountId" id="inAccountId"/>
+                    <input type="hidden" name="inBlankName" id="inBlankName"/>
+                    <input type="hidden" name="foundId" th:value="${session.fundId}">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
@@ -87,6 +79,7 @@
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input"  autocomplete="off" placeholder="请选择付款账户" name="outAccountName" id="insertAccount2">
                     <input type="hidden" name="outAccount" id="outAccount"/>
+                    <input type="hidden" name="outBlankName" id="outBlankName"/>
                 </div>
             </div>
         </div>
@@ -133,13 +126,25 @@
         </div>
     </form>
 </div>
-<!--修改的div内容-->
+<!--生成指令的div内容-->
 <div id="editContent"
      style="display: none; height: 100%; height: 100%; text-align: center;">
     <form id="editform" lay-filter="editform"
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
         <div>
+            <input type="hidden" name="transferMoneyId"/>
+            <input type="hidden" name="inAccountId"/>
+            <input type="hidden" name="inBlankName"/>
+            <input type="hidden" name="inBlankCardCode"/>
+            <input type="hidden" name="crossSectionDate"/>
+            <input type="hidden" name="accountingDate"/>
+            <input type="hidden" name="money"/>
+            <input type="hidden" name="outAccount"/>
+            <input type="hidden" name="outBlankName"/>
+            <input type="hidden" name="outBlankCardCode"/>
+            <input type="hidden" name="foundId"/>
+            <input type="hidden" name="purpose"/>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 120px;text-align: center">显示抬头项</label>
                 <div class="layui-inline layui-show-xs-block" style="width: 184px">
@@ -179,7 +184,7 @@
         </div>
         <div style="position: absolute; bottom: 20px; margin-left: 220px">
             <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
-                <i class="layui-icon">&#x1005;</i>生产
+                <i class="layui-icon">&#x1005;</i>生成
             </button>
             <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
                 <i class="layui-icon">&#x1006;</i>取消
@@ -194,7 +199,7 @@
             tableSelect=layui.tableSelect;
         //增加得下拉表格
         tableSelect.render({
-            elem:'#inAccountId',
+            elem:'#insertAccount',
             checkedKey:'inAccountName',
             table:{
                 url:'../account/selectAccount',
@@ -214,7 +219,8 @@
                 //遍历选中的数据
                 $.each(data.data,function (index,item) {
                     newJson.push(item.accountName);
-                    $("#inAccount").val(item.accountId);//给隐藏域中的val赋值
+                    $("#inAccountId").val(item.accountId);//给隐藏域中的val赋值
+                    $("#inBlankName").val(item.blankName);
                 });
                 elem.val(newJson.join(","));//给输入框里显示的值赋值
 
@@ -230,8 +236,8 @@
                 cols:[
                     [   {type:'radio'},
                         {field: 'accountId',title: '账户Id'},
-                        {field: 'blankCardCode',title: '银行卡号'},
                         {field:'accountName',title:'账户名称'},
+                        {field: 'blankCardCode',title: '银行卡号'},
                         {field:'blankName',title:'银行名称'}
                     ]
                 ]
@@ -242,7 +248,8 @@
                 //遍历选中的数据
                 $.each(data.data,function (index,item) {
                     newJson.push(item.accountName);
-                    $("#outAccountId").val(item.accountId);//给隐藏域中的val赋值
+                    $("#outAccount").val(item.accountId);//给隐藏域中的val赋值
+                    $("#outBlankName").val(item.blankName);
                 });
                 elem.val(newJson.join(","));//给输入框里显示的值赋值
 

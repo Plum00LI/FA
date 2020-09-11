@@ -49,8 +49,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //新增提交
     form.on('submit(addsubmit)', function(data){
         var formData=$('#addform').serialize();
-        $.post("../transferMoney/insertUser",formData,function(msg){
-            if(msg>0){
+        $.post("../transferMoney/insertTransferMoney",formData,function(msg){
+          if(msg>0){
                 table.reload('userTable');
                 layer.closeAll();
                 layer.msg('添加成功',{
@@ -71,33 +71,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 });
             }
         });
-        return false;
-    });
-    //修改提交
-    form.on('submit(editsubmit)', function(data){
-        var formData=$('#editform').serialize();
-        $.post("../transferMoney/updateUser",formData,function(msg){
-            if(msg>0){
-                table.reload('userTable');
-                layer.closeAll();
-                layer.msg('修改成功',{
-                    title : '提示',
-                    area : [ '200px',
-                        '140px' ],
-                    time : 0,
-                    btn : [ '知道了' ]
-                });
-            }else{
-                layer.closeAll();
-                layer.msg('修改失败',{
-                    title : '提示',
-                    area : [ '200px',
-                        '140px' ],
-                    time : 0,
-                    btn : [ '知道了' ]
-                });
-            }
-        });
+        $("#addform")[0].reset();
         return false;
     });
     //给工具条的按钮添加事件
@@ -108,36 +82,25 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             case 'add':
                 var index=layer.open({
                     type: 1,
-                    title: '添加资金调拨',
+                    title: '添加划款指令',
                     closeBtn: 1,
                     move:false,
                     content:$("#addContent"),
                     area:['700px','500px'],
                     btn:[]
                 });
-                $.ajax({
-                    url:'../transferMoney/selectRole',
-                    dataType:'json',
-                    type:'post',
-                    success:function(obj){
-                        $.each(obj,function(index,item){
-                            $('#roleId').append(new Option(item.roleName,item.roleId));//往下拉菜单里添加元素
-                        })
-                        form.render();//菜单渲染 把内容加载进去
-                    }
-                })
                 form.render();
                 //全屏
                 //layer.full(index);
                 break;
             case 'search':
-                alert("搜索");
-                var userName= $("#userName").val();
+                //alert("搜索");
+                var crossSectionDate= $("#start").val();
                 //表格的重新加载事件
                 table.reload('userTable', {
                     method: 'post'
                     , where: {
-                        'userName': userName
+                        'crossSectionDate': crossSectionDate
                     }
                     , page: {
                         curr: 1
@@ -154,11 +117,11 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 {
                     var ids=[];
                     for (var i = 0; i <data.length; i++) {
-                        ids.push(data[i].userId);
+                        ids.push(data[i].transferMoneyId);
                     }
                     layer.confirm('真的删除行么',{icon: 2}, function(index){
                         layer.close(index);
-                        $.post("../transferMoney/deleteUser", {userId:ids.join(',')},function(msg){
+                        $.post("../transferMoney/deleteTransferMoney", {transferMoneyId:ids.join(',')},function(msg){
                             table.reload('userTable');
                             layer.msg('删除'+checkStatus.data.length+'条记录', {
                                 title:'提示',
@@ -175,17 +138,17 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //给表格编辑，删除按钮添加点击事件
     table.on('tool(userTable)', function(obj) {
         var data = obj.data;//得到删除行整行的数据
-        alert(data.userId);
+        //alert(data.transferMoneyId);
         if (obj.event === 'del') {
             layer.confirm('真的删除行么',{icon: 2}, function(index){
                 layer.close(index);
-                $.post("../transferMoney/deleteUser", {userId:data.userId+""},function(msg){
+                $.post("../transferMoney/deleteTransferMoney", {transferMoneyId:data.transferMoneyId+""},function(msg){
                     table.reload('userTable');
                 });
 
             });
         } else if (obj.event === 'edit') {
-            alert(JSON.stringify(data));
+            //alert(JSON.stringify(data));
             form.val('editform',$.parseJSON(JSON.stringify(data)));
             $('#BTitle').val('中国银行股份有限公司托管及投资则服务部:');
             $('#HTitle').val('敬请贵部根据以下提供的付/收款人名称、开户行、账号、到账日期、币种、和划款金额划款。');
@@ -200,6 +163,17 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             form.render();
         };
     })
+    //生成指令excel
+    form.on('submit(editsubmit)', function(data){
+        //$('#outBlankName').val(data.outBlankName);
+        var transferMoney=$('#editform').serialize();
+        alert(transferMoney);
+        window.location.href="../transferOrderController/export?"+transferMoney;
+        $('#editform')[0].reset();  //清空原有数据
+        layer.closeAll();
+        removeDate();
+        return false;
+    });
 
     form.on('select(title)', function(data){
         if($('#orderCheque').val()==1){
