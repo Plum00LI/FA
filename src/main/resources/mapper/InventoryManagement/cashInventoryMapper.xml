@@ -19,6 +19,9 @@
             #{cashInventoryId}
         </foreach>
     </delete>
+    <delete id="deleteCashInventoryDate">
+        delete  from cashInventory where dateTime=#{dateTime}
+    </delete>
 
 
     <resultMap id="cashInventoryMap" type="com.ssaw.InventoryManagement.entity.CashInventory">

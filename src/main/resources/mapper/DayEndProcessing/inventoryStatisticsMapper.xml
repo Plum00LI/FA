@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.DayEndProcessing.mapper.InventoryStatisticsMapper">
-    <!--    查询证券库存信息-->
-<!--    <select id="selectSecuritiesInventory"-->
-<!--            resultType="com.ssaw.InventoryManagement.entity.SecuritiesInventory">-->
-<!--       -->
-<!--    </select>-->
-
     <select id="selectSecuritiesInventory"
             resultType="com.ssaw.DayEndProcessing.entity.SecuritiesInventoryData" >
-  select
+    select
         NVL(jy.securitiesid,si.securitiesid) as securitiesId,
             sum(nvl(si.securitiesNum,0))-sum(nvl(jy.newNum,0)) as todayNum,
             sum(nvl(si.total,0))-sum(nvl(jy.newNetRectipts,0)) as todayTotal,
@@ -19,18 +13,28 @@
             from (select * from securitiesInventory where DATETIME=to_char(to_date(#{dateTime},'yyyy-MM-dd')-1,'yyyy-MM-dd') and FUNDID=#{fundId}) si
              full join(select sum(nvl(num,0)*flag) as newNum,sum(nvl(netReceipts,0)*flag) as newNetRectipts,securitiesId from transactionData where DATETIME=#{dateTime} and FUNDID=#{fundId} group by securitiesId)  jy
                   on si.SECURITIESID=jy.SECURITIESID
-                  group by si.securitiesId,jy.securitiesId;
+                  group by si.securitiesId,jy.securitiesId
+    </select>
+    <select id="selectTaInventory" resultType="com.ssaw.DayEndProcessing.entity.TaInventoryData">
+	SELECT
+         sum(tatotal) AS taTotal,sum(tanum) AS taNum,fundId FROM
 
---          select
---         NVL(jy.securitiesid,si.securitiesid) as securitiesid,
---             sum(nvl(si.securitiesNum,0))-sum(nvl(jy.newNum,0)) as todayNum,
---             sum(nvl(si.total,0))-sum(nvl(jy.newNetRectipts,0)) as todayTotal,
---             (case when  ((sum(nvl(si.securitiesNum,0))-sum(nvl(jy.newNum,0)))=0) then 0
---             else   (sum(nvl(si.total,0))-sum(nvl(jy.newNetRectipts,0)))/(sum(nvl(si.securitiesNum,0))-sum(nvl(jy.newNum,0))) end )
---              as unitPrice
---             from (select * from securitiesInventory where DATETIME=to_char(to_date(#{dateTime},'yyyy-MM-dd')-1,'yyyy-MM-dd') and FUNDID=#{fundId}) si
---              full join(select sum(nvl(num,0)*flag) as newNum,sum(nvl(netReceipts,0)*flag) as newNetRectipts,securitiesId from transactionData where DATETIME=#{dateTime} and FUNDID=#{fundId} group by securitiesId)  jy
---                   on si.SECURITIESID=jy.SECURITIESID
---                   group by si.securitiesId,jy.securitiesId;
+	(select tatotal,tanum,fundId from
+    TAINVENTORY where fundId=#{fundId} and
+    dateTime=to_char(to_date(#{dateTime},'yyyy-MM-dd')-1,'yyyy-MM-dd')
+    UNION
+    select sum(totalMoney*(case transactionType when 3 then -1 else 1 end)) as totalMoney,
+    sum(fundNum*(case transactionType when 3 then -1 else 1 end)) AS fundNum,fundId
+    from
+    TATransaction WHERE
+    DATETIME=#{dateTime}  AND fundId=#{fundId}  group by
+    fundid) a
+	GROUP BY a.fundId
+    </select>
+    <select id="selectCashInventory" resultType="com.ssaw.DayEndProcessing.entity.CashInventoryData">
+   select (nvl(SECURITIESNUM,0) + bt.totalNum) as cashTotal from
+        (select * from CASHINVENTORY where DATETIME=to_char(to_date(#{dateTime},'yyyy-MM-dd')-1,'yyyy-MM-dd') and FUNDID=#{fundId} ) ci full join
+        (select accountId,sum(totalprice*flag) as totalNum from bankTreasurer where DBTIME=#{dateTime} and FUNDID=#{fundId} group by accountid) bt
+        on ci.ACCOUNTID=bt.ACCOUNTID
     </select>
 </mapper>

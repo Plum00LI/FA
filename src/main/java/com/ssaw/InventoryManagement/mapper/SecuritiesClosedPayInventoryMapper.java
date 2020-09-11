@@ -42,4 +42,10 @@ public interface SecuritiesClosedPayInventoryMapper {
      * @return
      */
     public int deleteSecuritiesClosedPayInventory(List securitiesClosedPayInventoryId);
+
+    /**
+     * 根据时间删除
+     * @param dateTime
+     */
+    public void deleteSecuritiesClosedPayInventoryDate(String dateTime);
 }

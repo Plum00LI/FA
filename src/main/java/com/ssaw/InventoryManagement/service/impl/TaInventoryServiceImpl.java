@@ -109,5 +109,10 @@ public class TaInventoryServiceImpl implements TaInventoryService {
         return taInventoryMapper.deleteTaInventory(taInventoryIdList);
     }
 
+    @Override
+    public void deleteTaInventoryDate(String dateTime) {
+        taInventoryMapper.deleteTaInventoryDate(dateTime);
+    }
+
 
 }

@@ -42,4 +42,10 @@ public interface TaInventoryMapper {
      * @return
      */
     public int deleteTaInventory(List taInventoryId);
+
+    /**
+     * 根据日期删除
+     * @param dateTime
+     */
+    public void deleteTaInventoryDate(String dateTime);
 }

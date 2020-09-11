@@ -136,5 +136,10 @@ public class CashInventoryServiceImpl implements CashInventoryService {
         return cashInventoryMapper.deleteCashInventory(cashInventoryIdList);
     }
 
+    @Override
+    public void deleteCashInventoryData(String dateTime) {
+        cashInventoryMapper.deleteCashInventoryDate(dateTime);
+    }
+
 
 }
