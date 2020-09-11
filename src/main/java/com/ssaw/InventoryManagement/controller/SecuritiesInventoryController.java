@@ -86,10 +86,12 @@ public class SecuritiesInventoryController {
         return securitiesInventoryService.insertSecuritiesInventory(securitiesInventory);
     }
 
-    @RequestMapping(value = "updateSecuritiesInventory",method = {RequestMethod.GET,RequestMethod.POST})
-    public int updateSecuritiesInventory(@ModelAttribute SecuritiesInventory securitiesInventory){
+    @RequestMapping("updateSecuritiesInventory")
+    public int updateSecuritiesInventory(SecuritiesInventory securitiesInventory){
         System.out.println("修改的方法");
-        return securitiesInventoryService.updateSecuritiesInventory(securitiesInventory);
+        int i = securitiesInventoryService.updateSecuritiesInventory(securitiesInventory);
+        System.out.println("修改="+i);
+        return i;
     }
 
     @RequestMapping("deleteSecuritiesInventory")

@@ -15,7 +15,7 @@ public class AssetValuation {
     private Double price;//单位成本
     private Double total;//购买的总价格
     private String fundId;//基金编号
-    private Double appraisementVal;//资产估值
+    private Double assetValuationVal;//资产估值
     private String dateTime;//交易日期
     private String settlementDate;//结算日期
     private Double totalSum;//交易总金额
@@ -25,6 +25,25 @@ public class AssetValuation {
     private String strAppraisement;
 
     public AssetValuation() {
+    }
+
+    public AssetValuation(String toDay, String securitiesId, Integer securitiesType, Double closingPrice, Integer securitiesNum, Double price, Double total, String fundId, Double assetValuationVal, String dateTime, String settlementDate, Double totalSum, Integer flag, Double actualMoney, Integer transactionType, String strAppraisement) {
+        this.toDay = toDay;
+        this.securitiesId = securitiesId;
+        this.securitiesType = securitiesType;
+        this.closingPrice = closingPrice;
+        this.securitiesNum = securitiesNum;
+        this.price = price;
+        this.total = total;
+        this.fundId = fundId;
+        this.assetValuationVal = assetValuationVal;
+        this.dateTime = dateTime;
+        this.settlementDate = settlementDate;
+        this.totalSum = totalSum;
+        this.flag = flag;
+        this.actualMoney = actualMoney;
+        this.transactionType = transactionType;
+        this.strAppraisement = strAppraisement;
     }
 
     public String getToDay() {
@@ -91,12 +110,12 @@ public class AssetValuation {
         this.fundId = fundId;
     }
 
-    public Double getAppraisementVal() {
-        return appraisementVal;
+    public Double getAssetValuationVal() {
+        return assetValuationVal;
     }
 
-    public void setAppraisementVal(Double appraisementVal) {
-        this.appraisementVal = appraisementVal;
+    public void setAssetValuationVal(Double assetValuationVal) {
+        this.assetValuationVal = assetValuationVal;
     }
 
     public String getDateTime() {
@@ -167,7 +186,7 @@ public class AssetValuation {
                 ", price=" + price +
                 ", total=" + total +
                 ", fundId='" + fundId + '\'' +
-                ", appraisementVal=" + appraisementVal +
+                ", appraisementVal=" + assetValuationVal +
                 ", dateTime='" + dateTime + '\'' +
                 ", settlementDate='" + settlementDate + '\'' +
                 ", totalSum=" + totalSum +
