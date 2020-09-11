@@ -26,7 +26,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
         elem: '#dateTime' //指定元素
     });
 
-    form.on('checkbox(addCheck)', function(data){
+    //期初数据选中
+    form.on('checkbox(initialSigns)', function(data){
         var addbtn = document.getElementById('addbtn');
         if(data.elem.checked){
             addbtn.classList.remove("layui-btn-disabled")
@@ -109,9 +110,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
                 {type: 'checkbox', fixed: 'left'}
                 , {field: 'securitiesInventoryId', title: '证券库存Id',hide:true, fixed: 'left', totalRowText: '合计：'}
                 , {field: 'dateTime', title: '日期'}
-                , {field: 'fundId', title: '基金代码',hide:true}
                 , {field: 'securitiesId', title: '证券代码'}
                 , {field: 'securitiesName', title: '证券名称', sort: true}
+                , {field: 'fundId', title: '基金代码',hide:true}
                 , {field: 'securitiesNum', title: '数量'}
                 , {field: 'price', title: '单位成本'}
                 , {field: 'total', title: '总金额'}
@@ -146,18 +147,19 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
                 break;
             case 'search':
                 alert("搜索");
-                var securitiesId = $("#securitiesId").val();
                 var dateTime = $("#dateTime").val();
+                var securitiesName = $("#securitiesName").val();
                 //表格的重新加载事件
                 table.reload('userTable', {
                     page: {
                         curr: 1
                     }
                     , where: {
-                        'securitiesId': securitiesId
-                        ,'dateTime':dateTime
+                        'dateTime': dateTime
+                        ,'securitiesName':securitiesName
                     }
                 });
+                break;
             case 'deleteAll':
                 var data = checkStatus.data;
                 //    layer.alert(JSON.stringify(data));

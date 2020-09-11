@@ -1,4 +1,7 @@
 package com.ssaw.BusinessData.entity;
+
+import java.math.BigDecimal;
+
 /**
  *@program: FA
  *@description: 证券应收应付实体类
@@ -19,8 +22,7 @@ public class SecuritiesClosedPay {
      */
     private String securitiesName;
 
-    public SecuritiesClosedPay() {
-    }
+    public SecuritiesClosedPay(){}
 
     public SecuritiesClosedPay(String securitiesClosedPayId, String fundId, String accountId, String securitiesId, Integer serviceType, Double amount, String dateTime, Integer flag,String securitiesName) {
         this.securitiesClosedPayId = securitiesClosedPayId;

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssaw.DayEndProcessing.mapper.AssetValuationMapper">
+
+    <select id="selectAssetValuation" resultType="com.ssaw.DayEndProcessing.entity.AssetValuation">
+        select s.securitiesid,s.securitiestype, m.closingprice,si.securitiesnum, si.price,si.total, m.datetime,
+		(si.securitiesnum* m.closingprice-si.total) appraisementVal from securities s,securitiesInventory si,
+		(select * from market where datetime = (select max(datetime) from market where datetime &lt;=#{toDay})) m
+		where s.securitiesid = si.securitiesid and  m.securitiesid = s.securitiesid and si.datetime = #{toDay}
+		and si.fundId= #{fundId}
+    </select>
+</mapper>
