@@ -29,7 +29,7 @@
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center" >业务类型</label>
                 <div class="layui-inline layui-show-xs-block" style="text-align: center">
                     <select name="businessType" id="businessType">
-                        <option value="">请选择业务类型</option>
+                        <option value="" placeholder="请选择业务类型"></option>
                         <option value="1">定期三天</option>
                         <option value="2">定期七天</option>
                         <option value="3">活期存款</option>
@@ -139,7 +139,7 @@
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center" >业务类型</label>
                 <div class="layui-inline layui-show-xs-block" style="text-align: center;width: 187px" >
                     <select name="businessType" id="businessType2" >
-                        <option value="">请选择业务类型</option>
+                        <option value="" placeholder="请选择业务类型"></option>
                         <option value="1">三天存款</option>
                         <option value="2">七天存款</option>
                         <option value="3">活期存款</option>
@@ -237,23 +237,6 @@
 
             }
         })
-    })
-    form.on('input(type)', function(data){
-        if($('#businessType2').val()==1){
-            day = 3;
-        }else if($('#businessType2').val()==2){
-            day = 7;
-        }
-        setTimeout(function () {
-            var date1=$('#date1').val().getTime();
-            date2 = date1+1000*60*60*24*day;
-            var endDate = new Date(date2);
-            var endYear = endDate.getFullYear();
-            var endMonth = endDate.getMonth()+1;
-            var endday = endDate.getDate();
-            var endTime = endYear+"-"+buling(endMonth)+"-"+buling(endday);
-            $('#date2').val(endTime);
-        }, 300);
 
     });
 

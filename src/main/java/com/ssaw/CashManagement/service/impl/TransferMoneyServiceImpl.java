@@ -4,11 +4,14 @@ import com.ssaw.CashManagement.entity.BankTreasurer;
 import com.ssaw.CashManagement.entity.TransferMoney;
 import com.ssaw.CashManagement.mapper.TransferMoneyMapper;
 import com.ssaw.CashManagement.service.TransferMoneyService;
+import com.ssaw.GlobalManagement.util.DbUtil;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.awt.image.DataBuffer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,12 +26,25 @@ import java.util.Map;
 @Service
 @Transactional
 public class TransferMoneyServiceImpl implements TransferMoneyService {
+    /**
+     * 注入TransferMoney的Mapper层
+     */
     @Resource
     TransferMoneyMapper transferMoneyMapper;
 
+    @Resource
+    DbUtil dbUtil;
 
+    /**
+     *  查询所有划款指令的实现类方法（带分页，返回数据和总条目数）
+     * @param pageSize 当前查询页数
+     * @param page 分页数据条目数
+     * @param crossSectionDate 划款日期
+     * @return 查询的结果集Map
+     */
     @Override
-    public Map<String, Object> selectTransferMoney(String pageSize, String page) {
+    public Map<String, Object> selectTransferMoney(String pageSize, String page,String crossSectionDate) {
+        System.out.println(crossSectionDate);
         //创建一个结果集Map用于存放两个结果变量
         Map<String,Object> resultMap=new HashMap<>();
         //定义一个分页条数变量
@@ -49,8 +65,12 @@ public class TransferMoneyServiceImpl implements TransferMoneyService {
         Map<String,Object> map=new HashMap<>();
         //传入存储过程需要查询的表名
         map.put("p_tableName","(select transferMoney.*,account.accountName outAccountName, (select accountName from account where accountId=transferMoney.inAccountId) inAccountName from transferMoney join account on transferMoney.outAccount = account.accountId)");
+        String sql="";
+        if (crossSectionDate!=null && !crossSectionDate.equals("")){
+            sql=sql+" and crossSectionDate ='"+crossSectionDate+"'";
+        }
         //传入查询的条件
-        map.put("p_condition","");
+        map.put("p_condition",sql);
         //传入分页显示条数
         map.put("p_pageSize",v_pageSize);
         //传入分页页码
@@ -73,8 +93,14 @@ public class TransferMoneyServiceImpl implements TransferMoneyService {
         return resultMap;
     }
 
+    /**
+     * 划款指令的增加实现类方法
+     * @param transferMoney 资金调拨的实体类
+     * @return
+     */
     @Override
     public int insertTransferMoney(TransferMoney transferMoney) {
+        transferMoney.setTransferMoneyId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.TM));
         return transferMoneyMapper.insertTransferMoney(transferMoney);
     }
 
@@ -83,8 +109,20 @@ public class TransferMoneyServiceImpl implements TransferMoneyService {
         return transferMoneyMapper.updateTransferMoney(transferMoney);
     }
 
+    /**
+     * 划款指令的删除实现类方法
+     * @param transferMoneyId
+     * @return
+     */
     @Override
-    public int deleteTransferMoney() {
-        return transferMoneyMapper.deleteTransferMoney();
+    public int deleteTransferMoney(String transferMoneyId) {
+        String[] split = transferMoneyId.split(",");
+        ArrayList  transferMoneyList= new ArrayList<>();
+        for (String id : split) {
+            transferMoneyList.add(id);
+        }
+        return transferMoneyMapper.deleteTransferMoney(transferMoneyList);
     }
+
+
 }
