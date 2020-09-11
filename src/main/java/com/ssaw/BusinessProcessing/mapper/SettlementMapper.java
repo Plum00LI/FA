@@ -19,5 +19,7 @@ public interface SettlementMapper {
      * @return
      */
     void selectSettlement(HashMap hashMap);
-    int updateSettlement(Settlement settlement);
+    public int deleteSettlement(String transactionDataId);
+    public int updateSettlement(int status,String transactionDataId);
+    public int updateSettlementTwo(int status,String transactionDataId);
 }
