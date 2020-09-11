@@ -1,6 +1,6 @@
 package com.ssaw.BusinessProcessing.service;
 
-import com.ssaw.BusinessProcessing.entity.Settlement;
+
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -19,5 +19,7 @@ public interface SettlementService {
      * @return
      */
     HashMap selectSettlement(int page, int limit, String dateTime, String transactionDataMode,String status);
-    int updateSettlement(Settlement settlement);
+    public int deleteSettlement(String transactionDataId);
+    public int updateSettlement(String settlement);
+    public int updateSettlementTwo(String settlement);
 }

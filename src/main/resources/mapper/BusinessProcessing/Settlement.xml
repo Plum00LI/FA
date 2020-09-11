@@ -34,9 +34,15 @@
         <result property="seateName" column="seateName" javaType="String"></result>
         <result property="blankName" column="blankName" javaType="String"></result>
     </resultMap>
-    <update id="updateSettlement" parameterType="com.ssaw.BusinessProcessing.entity.Settlement">
-         update transactionData set status=#{status} where transactionDataId=#{transactionDataId}
+    <update id="updateSettlement">
+         update transactionData set status=#{param1} where transactionDataId=#{param2}
     </update>
+    <update id="updateSettlementTwo">
+            update transactionData set status=#{param1} where transactionDataId=#{param2}
+    </update>
+    <delete id="deleteSettlement" parameterType="String">
+            delete from transactionData where transactionDataId=#{transactionDataId}
+    </delete>
 
     <!--
      accountId  //现金账户

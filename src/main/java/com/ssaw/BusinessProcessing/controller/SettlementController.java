@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 /**
  * create by: 曾钦辉
  * description: 交易结算控制类
@@ -38,8 +40,18 @@ public class SettlementController {
         System.out.println("交易："+settlementList.size());
         return tranMap;
     }
+    @RequestMapping("deleteSettlement")
+    public int deleteSettlement(String transactionDataId){
+        return settlementService.deleteSettlement(transactionDataId);
+    }
+
     @RequestMapping("updateSettlement")
-    public int updateSettlement(Settlement settlement){
+    public int updateTransactionData(String settlement){
         return settlementService.updateSettlement(settlement);
+    }
+
+    @RequestMapping("updateSettlementTwo")
+    public int updateSettlementTwo(String settlement){
+        return settlementService.updateSettlementTwo(settlement);
     }
 }
