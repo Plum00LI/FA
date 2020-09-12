@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org/">
 <head>
     <title>现金应收应付库存</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -83,7 +83,7 @@
         </div>
 
         <input name="accountId" type="hidden" id="accountId">
-
+        <input name="fundId" type="hidden" th:value="${session.fundId}">
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label" style="text-align: center">账户名称</label>
             <div class="layui-inline layui-show-xs-block">

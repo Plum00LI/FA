@@ -25,9 +25,9 @@ public class EquityDisposeController {
     EquityDisposeService equityDisposeService;
 
     @RequestMapping("selectEquityDispose")
-    public Map<String,Object> selectEquityDispose(String page, String limit){
+    public Map<String,Object> selectEquityDispose(String page, String limit, String equityDataId, String disposeStatus){
         //调用Service层执行查询，接收返回结果集Map
-        Map<String, Object> map = equityDisposeService.selectEquityDispose(limit,page);
+        Map<String, Object> map = equityDisposeService.selectEquityDispose(limit,page,equityDataId,disposeStatus);
         List<EquityDispose> equityDisposeList = (List<EquityDispose>) map.get("equityDisposeList");
         int count = (int) map.get("count");
         //以layui要求存储响应数据格式
@@ -40,4 +40,10 @@ public class EquityDisposeController {
         System.out.println(equityDisposeList);
         return equityDisposeMap;
     }
+
+    @RequestMapping("updateEquityDispose")
+    public int updateEquityDispose(String equityDisPose){
+        return equityDisposeService.updateEquityDispose(equityDisPose);
+    }
+
 }

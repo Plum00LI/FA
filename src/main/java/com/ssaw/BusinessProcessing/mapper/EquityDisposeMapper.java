@@ -2,6 +2,7 @@ package com.ssaw.BusinessProcessing.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,4 +14,5 @@ import java.util.Map;
 @Mapper
 public interface EquityDisposeMapper {
     public void selectEquityDispose(Map map);
+    public int updateEquityDispose(String equityDataId, int disposeStatus);
 }
