@@ -37,4 +37,17 @@
         (select accountId,sum(totalprice*flag) as totalNum from bankTreasurer where DBTIME=#{dateTime} and FUNDID=#{fundId} group by accountid) bt
         on ci.ACCOUNTID=bt.ACCOUNTID
     </select>
+    <select id="selectSecuritiesClosedPayInventory"
+            resultType="com.ssaw.DayEndProcessing.entity.SecuritiesClosedPayInventoryData">
+        select nvl(ns.securitiesid,se.securitiesid)as securitiesid,nvl(ns.totalPrice,0)+nvl(se.amount,0) as
+		total,nvl(se.flag,ns.flag) as flag
+        from
+        (select * from SECURITIESCLOSEDPAYINVENTORY where fundid=#{fundId}
+        and securitiesType = 3  and DATETIME=to_char(to_date(#{dateTime},'yyyy-MM-dd')-1,'yyyy-MM-dd')) ns
+        full join
+        (select sum(nvl(amount,0)) as amount,securitiesid,flag from
+        securitiesClosedPay where fundId=#{fundId} and serviceType=3 and
+        dateTime=#{dateTime} group by securitiesid,amount ,flag) se
+		on ns.securitiesid = se.securitiesid
+    </select>
 </mapper>

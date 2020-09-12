@@ -1,14 +1,12 @@
 package com.ssaw.DayEndProcessing.service.impl;
 
-import com.ssaw.DayEndProcessing.entity.CashInventoryData;
-import com.ssaw.DayEndProcessing.entity.InventoryStatistics;
-import com.ssaw.DayEndProcessing.entity.SecuritiesInventoryData;
-import com.ssaw.DayEndProcessing.entity.TaInventoryData;
+import com.ssaw.DayEndProcessing.entity.*;
 import com.ssaw.DayEndProcessing.mapper.InventoryStatisticsMapper;
 import com.ssaw.DayEndProcessing.service.InventoryStatisticsService;
 import com.ssaw.GlobalManagement.util.DbUtil;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.InventoryManagement.entity.CashInventory;
+import com.ssaw.InventoryManagement.entity.SecuritiesClosedPayInventory;
 import com.ssaw.InventoryManagement.entity.SecuritiesInventory;
 
 import com.ssaw.InventoryManagement.entity.TaInventory;
@@ -17,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +62,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
         InventoryStatistics cashInventory=new InventoryStatistics(1,"现金库存","289289289","admin","",0,"暂无");
         InventoryStatistics securitiesInventory=new InventoryStatistics(2,"证券库存","289289289","admin","",0,"暂无");
         InventoryStatistics taInventory=new InventoryStatistics(3,"TA库存","289289289","admin","",0,"暂无");
-        InventoryStatistics securitiesClosePayInventory=new InventoryStatistics(4,"证券应收应付库存","289289289","admin","",0,"暂无");
+        InventoryStatistics securitiesClosedPayInventory=new InventoryStatistics(4,"证券应收应付库存","289289289","admin","",0,"暂无");
         InventoryStatistics cashClosePayInventory=new InventoryStatistics(5,"现金应收应付库存","289289289","admin","",0,"暂无");
         System.out.println("serviceImpl的dateTime"+dateTime);
 
@@ -126,14 +125,6 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                             System.out.println("证券库存数据为："+securities);
                             //删除证券库存信息
                             securitiesInventoryService.deleteSecuritiesInventoryDate(dateTime);
-//                            #{securitiesInventoryId,jdbcType=VARCHAR},
-//                            #{fundId,jdbcType=VARCHAR},#{dateTime,jdbcType=VARCHAR},
-//                            #{securitiesId,jdbcType=VARCHAR},
-//                            #{securitiesName,jdbcType=VARCHAR},
-//                            #{securityPeriodFlag},#{securitiesNum}
-//                            ,#{price}
-//                            ,#{total}
-//                            ,#{securitiesInventoryDesc
                             //增加证券库存数据
                             SecuritiesInventory securitiesInventory1=new SecuritiesInventory();
                             //证券库存ID
@@ -185,13 +176,48 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                             System.out.println("ta库存的实体类："+taInventory1);
                             taInventoryService.insertTaInventory(taInventory1);
                         }
-
-
-
-
                         break;
                     case "4":
                         System.out.println("证券应收应付库存");
+                        List<SecuritiesClosedPayInventoryData> securitiesClosedPayInventoryDataList=inventoryStatisticsMapper.selectSecuritiesClosedPayInventory(dateTime,"000899");
+                        securitiesClosedPayInventory=new InventoryStatistics(4,"证券应收应付库存","000899","admin",dateTime,securitiesClosedPayInventoryDataList.size(),"已统计");
+                        for (SecuritiesClosedPayInventoryData securitiesClosedPayInventoryData : securitiesClosedPayInventoryDataList) {
+                            System.out.println("我是统计证券应收应付库存的操作,我统计的数据为："+securitiesClosedPayInventoryData);
+                            //根据日期删除
+                            securitiesClosedPayInventoryService.deleteSecuritiesClosedPayInventoryDate(dateTime);
+                            //定义新证券应收应付库存对象
+                            SecuritiesClosedPayInventory securitiesClosedPayInventory1=new SecuritiesClosedPayInventory();
+//                            private String securitiesClosedPayInventoryId;
+//
+//                            //业务日期
+//                            private String dateTime;
+//                            //基金信息表Id
+//                            private String fundId;
+//                            //证券信息表ID  securities表
+//                            private String securitiesId;
+//                            //证券应收应付类型 1=估值款 2=证券清算款 3=债券利息
+//                            private int securitiesType;
+//                            //业务状态 1流入，-1流出
+//                            private int flag;
+//                            //总金额*
+//                            private BigDecimal totalPrice;
+//                            //备注
+//                            private String securitiesClosedPayDesc;
+//                            //期初标志 是否从其他系统导入得期初数据 0：不是 1：是
+//                            private int securityPeriodFlag;
+                            securitiesClosedPayInventory1.setSecuritiesClosedPayInventoryId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.SCPI));
+                            securitiesClosedPayInventory1.setDateTime(dateTime);
+                            securitiesClosedPayInventory1.setFundId("000899");
+                            securitiesClosedPayInventory1.setSecuritiesId(securitiesClosedPayInventoryData.getSecuritiesId());
+                            securitiesClosedPayInventory1.setSecuritiesType(3);
+                            securitiesClosedPayInventory1.setFlag(securitiesClosedPayInventoryData.getFlag());
+                            securitiesClosedPayInventory1.setTotalPrice(securitiesClosedPayInventoryData.getTotal());
+                            securitiesClosedPayInventory1.setSecuritiesClosedPayDesc("证券应收应付库存统计");
+                            securitiesClosedPayInventory1.setSecurityPeriodFlag(0);
+                            //增加
+                            securitiesClosedPayInventoryService.insertSecuritiesClosedPayInventory(securitiesClosedPayInventory1);
+                            System.out.println("我是统计证券应收应付库存的操作,我统计的数据为："+securitiesClosedPayInventory1);
+                        }
                         break;
                     case "5":
                         System.out.println("现金应收应付库存");
@@ -202,7 +228,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
         list.add(cashInventory);
         list.add(securitiesInventory);
         list.add(taInventory);
-        list.add(securitiesClosePayInventory);
+        list.add(securitiesClosedPayInventory);
         list.add(cashClosePayInventory);
         return list;
     }
