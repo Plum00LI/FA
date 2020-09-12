@@ -26,13 +26,22 @@ import java.util.Map;
 public class DepositController {
 
     /**
-     * 注入account服务层
+     * 注入Deposit服务层
      */
     @Resource
     DepositService depositService;
 
     @Resource
     DbUtil dbUtil;
+
+    /**
+     * 界面请求的信息数据控制层查询所有存款业务的方法
+     * @param page 当前查询页数
+     * @param limit 分页数据条目数
+     * @param businessType 业务类型
+     * @param endDate 存款业务到期时间
+     * @return 界面要求的数据格式
+     */
     @RequestMapping("selectDeposit")
     public Map<String,Object> selectDeposit(String page, String limit,String businessType,String endDate){
         //调用Service层执行查询，接收返回结果集Map
@@ -49,18 +58,36 @@ public class DepositController {
         //返回数据
         return json;
     }
+
+    /**
+     * 界面请求的信息数据控制层增加存款业务的方法
+     * @param deposit 存款业务的实体类
+     * @return 返回影响的行数 判断是否增加成功
+     */
     @RequestMapping("insertDeposit")
     public int insertDeposit(Deposit deposit){
         System.out.println(deposit);
         int i = depositService.insertDeposit(deposit);
         return i;
     }
+
+    /**
+     * 界面请求的信息数据控制层删除存款业务的方法
+     * @param depositId 存款业务的Id
+     * @return 返回影响的行数 判断是否删除成功
+     */
     @RequestMapping("deleteDeposit")
     public int deleteDeposit(String depositId){
         System.out.println(depositId);
         int i = depositService.deleteDeposit(depositId);
         return i;
     }
+
+    /**
+     * 界面请求的信息数据控制层存款业务到期处理的方法
+     * @param deposit 存款业务的实体类
+     * @return
+     */
     @RequestMapping("updateDeposit")
     public int updateDeposit(Deposit deposit){
         System.out.println("deposit进去了===========");

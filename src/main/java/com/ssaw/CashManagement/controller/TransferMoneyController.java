@@ -29,9 +29,10 @@ public class TransferMoneyController {
     DbUtil dbUtil;
 
     @RequestMapping("selectTransferMoney")
-    public Map<String,Object> selectAccount(String page, String limit){
+    public Map<String,Object> selectAccount(String page, String limit,String crossSectionDate){
+        System.out.println(crossSectionDate);
         //调用Service层执行查询，接收返回结果集Map
-        Map<String, Object> map = transferMoneyService.selectTransferMoney(limit,page);
+        Map<String, Object> map = transferMoneyService.selectTransferMoney(limit,page,crossSectionDate);
         //从结果集中拿出结果
         List<TransferMoney> transferMoneyList= (List<TransferMoney>) map.get("transferMoneyList");
         int count= (int) map.get("count");
@@ -57,6 +58,18 @@ public class TransferMoneyController {
     @RequestMapping("updateTransferMoney")
     public int updateTransferMoney(TransferMoney transferMoney){
         int i = transferMoneyService.updateTransferMoney(transferMoney);
+        return i;
+    }
+
+    /**
+     * 界面请求的信息数据控制层删除划款指令的方法
+     * @param transferMoneyId 划款指令的Id
+     * @return 返回影响的行数 判断是否删除成功
+     */
+    @RequestMapping("deleteTransferMoney")
+    public int deleteTransferMoney(String transferMoneyId){
+        System.out.println(transferMoneyId);
+        int i = transferMoneyService.deleteTransferMoney(transferMoneyId);
         return i;
     }
 }

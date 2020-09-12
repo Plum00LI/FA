@@ -79,7 +79,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 		return false;
 	});
 
-	//查询
+	//查询表格渲染
 	table.render({
 		elem: '#userTable',
 		url: '../Securities/selectSecurities',

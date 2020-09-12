@@ -3,7 +3,9 @@
 <mapper namespace="com.ssaw.InventoryManagement.mapper.SecuritiesClosedPayInventoryMapper">
 
     <insert id="insertSecuritiesClosedPayInventory">
-
+         insert into securitiesClosedPayInventory(securitiesClosedPayInventoryId,dateTime,fundId,securitiesId,securitiesType,flag,totalPrice,securityPeriodFlag)
+         values (#{securitiesClosedPayInventoryId},#{dateTime},#{fundId},#{securitiesId},
+        #{securitiesType},#{flag},${totalPrice},#{securityPeriodFlag})
     </insert>
 
     <update id="updateSecuritiesClosedPayInventory">
@@ -12,6 +14,9 @@
 
     <delete id="deleteSecuritiesClosedPayInventory">
 
+    </delete>
+    <delete id="deleteSecuritiesClosedPayInventoryDate">
+        delete from securitiesClosedPayInventory where dateTime=#{dateTime}
     </delete>
 
     <resultMap id="securitiesClosedPayInventoryMap" type="com.ssaw.InventoryManagement.entity.SecuritiesClosedPayInventory">

@@ -91,6 +91,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 });
             }
         });
+        $("#addform")[0].reset();
         return false;
     });
     //修改提交
@@ -137,7 +138,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 });
                 form.render();
                 //全屏
-                layer.full(index);
+                //layer.full(index);
                 break;
             case 'search':
                 //alert("搜索");

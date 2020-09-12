@@ -26,10 +26,23 @@ import java.util.Map;
 @Service
 @Transactional
 public class BankTreasurerServiceImpl implements BankTreasurerService {
+    /**
+     * 注入BankTreasurer的Mapper层
+     */
     @Resource
     BankTreasurerMapper bankTreasurerMapper;
     @Resource
     DbUtil dbUtil;
+
+    /**
+     * 查询所有资金调拨的实现类方法（带分页，返回数据和总条目数）
+     * @param pageSize  当前查询页数
+     * @param page 分页数据条目数
+     * @param allocatingType 调拨类型
+     * @param flag 调拨方向
+     * @param dbTime 调拨日期
+     * @return 查询的结果集Map
+     */
     @Override
     public Map<String, Object> selectBankTreasurer(String pageSize, String page,String allocatingType,String flag,String dbTime) {
         System.out.println(allocatingType);
@@ -96,6 +109,11 @@ public class BankTreasurerServiceImpl implements BankTreasurerService {
         return resultMap;
     }
 
+    /**
+     * 资金调拨的增加实现类方法
+     * @param bankTreasurer 资金调拨实体类
+     * @return
+     */
     @Override
     public int insertBankTreasurer(BankTreasurer bankTreasurer) {
         bankTreasurer.setBankTreasurerId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.BT));
@@ -104,11 +122,21 @@ public class BankTreasurerServiceImpl implements BankTreasurerService {
         return bankTreasurerMapper.insertBankTreasurer(bankTreasurer);
     }
 
+    /**
+     * 资金调拨的修改实现类方法
+     * @param bankTreasurer 资金调拨实体类
+     * @return
+     */
     @Override
     public int updateBankTreasurer(BankTreasurer bankTreasurer) {
         return bankTreasurerMapper.updateBankTreasurer(bankTreasurer);
     }
 
+    /**
+     * 资金调拨通过资金调拨Id的删除实现类方法
+     * @param bankTreasurerId 资金调拨Id
+     * @return
+     */
     @Override
     public int deleteBankTreasurer(String bankTreasurerId) {
         String[] split = bankTreasurerId.split(",");
@@ -119,6 +147,11 @@ public class BankTreasurerServiceImpl implements BankTreasurerService {
         return bankTreasurerMapper.deleteBankTreasurer(bankTreasurerList);
     }
 
+    /**
+     * 资金调拨通过存款业务Id的删除实现类方法
+     * @param depositId 存款业务Id
+     * @return
+     */
     @Override
     public int deleteBankTreasurerByDepositId(String depositId) {
         return bankTreasurerMapper.deleteBankTreasurerByDepositId(depositId);

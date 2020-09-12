@@ -13,17 +13,17 @@ import java.math.BigDecimal;
 public class SecuritiesInventoryData {
     private String securitiesId;// 证券Id
     private int todayNum;// 总数量
-    private Double todayTotal;// 总金额
-    private Double unitPrice;// 单位成本
+    private double todayTotal;// 总金额
+    private double unitPrice;// 单位成本
 
     public SecuritiesInventoryData(){
 
     }
 
-    public SecuritiesInventoryData(String securitiesId, Double todayTotal, Integer todayNum, Double unitPrice) {
+    public SecuritiesInventoryData(String securitiesId, int todayNum, double todayTotal, double unitPrice) {
         this.securitiesId = securitiesId;
-        this.todayTotal = todayTotal;
         this.todayNum = todayNum;
+        this.todayTotal = todayTotal;
         this.unitPrice = unitPrice;
     }
 
@@ -45,27 +45,27 @@ public class SecuritiesInventoryData {
         this.securitiesId = securitiesId;
     }
 
-    public Double getTodayTotal() {
-        return todayTotal;
-    }
-
-    public void setTodayTotal(Double todayTotal) {
-        this.todayTotal = todayTotal;
-    }
-
-    public Integer getTodayNum() {
+    public int getTodayNum() {
         return todayNum;
     }
 
-    public void setTodayNum(Integer todayNum) {
+    public void setTodayNum(int todayNum) {
         this.todayNum = todayNum;
     }
 
-    public Double getUnitPrice() {
+    public double getTodayTotal() {
+        return todayTotal;
+    }
+
+    public void setTodayTotal(double todayTotal) {
+        this.todayTotal = todayTotal;
+    }
+
+    public double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(Double unitPrice) {
+    public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
     }
 }

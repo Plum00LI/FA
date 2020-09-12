@@ -28,7 +28,14 @@ public class AccountServiceImpl implements AccountService {
     @Resource
     AccountMapper accountMapper;
 
-
+    /**
+     * 查询所有现金账户的实现类方法（带分页，返回数据和总条目数）
+     * @param pageSize 当前查询页数
+     * @param page 分页数据条目数
+     * @param accountName 现金账户名称
+     * @param blankName 银行名称
+     * @return 查询的结果集Map
+     */
     @Override
     public Map<String, Object> selectAccount(String pageSize, String page,String accountName,String blankName) {
         //创建一个结果集Map用于存放两个结果变量
@@ -84,16 +91,31 @@ public class AccountServiceImpl implements AccountService {
         return resultMap;
     }
 
+    /**
+     * 现金账户的增加实现类方法
+     * @param account 现金账户的实体类
+     * @return
+     */
     @Override
     public int insertAccount(Account account) {
         return accountMapper.insertAccount(account);
     }
 
+    /**
+     * 现金账户的修改实现类方法
+     * @param account 现金账户的实体类
+     * @return
+     */
     @Override
     public int updateAccount(Account account) {
         return accountMapper.updateAccount(account);
     }
 
+    /**
+     * 现金账户的删除实现类方法
+     * @param accountId 现金账户Id
+     * @return
+     */
     @Override
     public int deleteAccount(String accountId) {
         String[] split = accountId.split(",");
@@ -104,7 +126,11 @@ public class AccountServiceImpl implements AccountService {
         return accountMapper.deleteAccount(accountList);
     }
 
-
+    /**
+     * 通过ID查询现金账户名和账户卡号的实现类方法
+     * @param accountId 现金账户Id
+     * @return
+     */
     @Override
     public Account selectAccountById(String accountId) {
         return accountMapper.selectAccountById(accountId);

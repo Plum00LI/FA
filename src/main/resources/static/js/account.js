@@ -89,6 +89,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 });
             }
         });
+        $("#addform")[0].reset();
         return false;
     });
     //修改提交
@@ -130,7 +131,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     closeBtn: 1,
                     move:false,
                     content:$("#addContent"),
-                    area:['800px','600px'],
+                    area:['700px','500px'],
                     btn:[]
                 });
                 form.render();

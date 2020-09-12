@@ -2,6 +2,7 @@ package com.ssaw.DayEndProcessing.controller;
 
 import com.ssaw.DayEndProcessing.entity.InventoryStatistics;
 import com.ssaw.DayEndProcessing.service.InventoryStatisticsService;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,7 +27,7 @@ public class InventoryStatisticsController {
     @RequestMapping("/selectInventory")
     public HashMap selectInventory(String dateTime, String invId){
         //获得基金id
-        String fundId = "289289289";
+//        String fundId = SysTableNameListUtil.F;
         System.out.println("controller的dateTime"+dateTime);
         List<InventoryStatistics> inventoryEntities = inventoryStatisticsService.selectInventoryStatistics(dateTime,invId);
         HashMap userMap = new HashMap();

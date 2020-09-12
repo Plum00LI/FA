@@ -7,11 +7,14 @@ import com.ssaw.CashManagement.entity.BankTreasurer;
 import com.ssaw.CashManagement.mapper.BankTreasurerMapper;
 import com.ssaw.GlobalManagement.util.DbUtil;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
+import com.ssaw.GlobalManagement.util.SysUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
+
 /**
  * create by: 曾钦辉
  * description: 交易结算Service实现类
@@ -60,40 +63,52 @@ public class SettlementServiceImpl implements SettlementService {
     }
 
     @Override
-    public int updateSettlement(Settlement settlement) {
-        BankTreasurer bankTreasurer=new BankTreasurer();
-        bankTreasurer.setBankTreasurerId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.BT));
-        bankTreasurer.setFundId(settlement.getFundId());
-        bankTreasurer.setTotalPrice(settlement.getTotalSum());
-        bankTreasurer.setAccountId(settlement.getAccountId());
-        bankTreasurer.setFlag(settlement.getFlag());
-        bankTreasurer.setDbTime(settlement.getSettlementDate());
-        bankTreasurer.setDateTime(settlement.getDateTime());
-        bankTreasurer.setBusinessId(settlement.getTransactionDataId());
-        bankTreasurer.setAllocatingType(4);//申购赎回款
-        bankTreasurer.setBankTreasurerDesc(settlement.getTransactionDataDesc());
-        bankTreasurer.setAccountName(settlement.getAccountName());
-
-
-
-        String transactionDataId = settlement.getTransactionDataId();
-        String[] split=new String[0];
-        if (transactionDataId!=null&&!transactionDataId.equals("")){
-            split= transactionDataId.split(",");
-
-        }
-        for(int i=0;i<split.length;i++){
-            settlement.setTransactionDataId(split[i]);
-            //交易状态 0==未结算 1==已结算
-            if(settlement.getStatus()==0){
-                settlement.setStatus(1);
-
-            }
-            else if(settlement.getStatus()==1){
-                bankTreasurerMapper.insertBankTreasurer(bankTreasurer);
-            }
-        }
-        return settlementMapper.updateSettlement(settlement);
+    public int deleteSettlement(String transactionDataId) {
+        return settlementMapper.deleteSettlement(transactionDataId);
     }
 
+    @Override
+    public int updateSettlement(String settlement) {
+        List<Settlement> settlementList = SysUtil.jsonToArrayList(settlement, Settlement.class);
+
+        for (Settlement settlement1 : settlementList) {
+            BankTreasurer bankTreasurerPojo = new BankTreasurer();
+            bankTreasurerPojo.setBankTreasurerId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.BT));
+            bankTreasurerPojo.setFundId(settlement1.getFundId());
+            bankTreasurerPojo.setTotalPrice(settlement1.getTotalSum());
+            bankTreasurerPojo.setAccountId(settlement1.getAccountId());
+            bankTreasurerPojo.setAccountName(settlement1.getAccountName());
+            bankTreasurerPojo.setFlag(settlement1.getFlag());
+            bankTreasurerPojo.setDbTime(settlement1.getDateTime());
+            bankTreasurerPojo.setDateTime(settlement1.getSettlementDate());
+            bankTreasurerPojo.setBusinessId(settlement1.getTransactionDataId());
+            bankTreasurerPojo.setAllocatingType(4);
+            settlement1.setTransactionDataDesc("结算资金调拨");
+            bankTreasurerPojo.setBankTreasurerDesc(settlement1.getTransactionDataDesc());
+            int status = settlement1.getStatus();
+            String transactionDataId = settlement1.getTransactionDataId();
+            if (status==0){
+                settlementMapper.updateSettlement(1,transactionDataId);
+                bankTreasurerMapper.insertBankTreasurer(bankTreasurerPojo);
+            }
+            System.out.println(bankTreasurerPojo);
+        }
+        return 1;
+    }
+    //反结算修改状态删除资金调拨
+    @Override
+    public int updateSettlementTwo(String settlement) {
+        List<Settlement> settlementList = SysUtil.jsonToArrayList(settlement, Settlement.class);
+        for (Settlement settlement1 : settlementList) {
+            System.out.println(settlement1);
+            int status = settlement1.getStatus();
+            String transactionDataId = settlement1.getTransactionDataId();
+            System.out.println(status);
+            if (status==1){
+                settlementMapper.updateSettlementTwo(0,transactionDataId);
+                bankTreasurerMapper.deleteBankTreasurerByDepositId(transactionDataId);
+            }
+        }
+        return 1;
+    }
 }

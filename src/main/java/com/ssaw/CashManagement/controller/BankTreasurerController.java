@@ -23,11 +23,23 @@ import java.util.Map;
 @RestController
 @RequestMapping("/bankTreasurer")
 public class BankTreasurerController {
+    /**
+     * 注入BankTreasurer服务层
+     */
     @Resource
     BankTreasurerService bankTreasurerService;
     @Resource
     DbUtil dbUtil;
 
+    /**
+     * 界面请求的信息数据控制层查询所有资金调拨的方法
+     * @param page 当前查询页数
+     * @param limit 分页数据条目数
+     * @param allocatingType 调拨类型
+     * @param flag 调拨方向
+     * @param dbTime 调拨日期
+     * @return 界面要求的数据格式
+     */
     @RequestMapping("selectBankTreasurer")
     public Map<String,Object> selectAccount(String page, String limit,String allocatingType,String flag,String dbTime){
         //调用Service层执行查询，接收返回结果集Map
@@ -45,16 +57,34 @@ public class BankTreasurerController {
         //返回数据
         return json;
     }
+
+    /**
+     * 界面请求的信息数据控制层增加资金调拨的方法
+     * @param bankTreasurer 资金调拨的实体类
+     * @return 返回影响的行数 判断是否增加成功
+     */
     @RequestMapping("insertBankTreasurer")
     public int insertBankTreasurer(BankTreasurer bankTreasurer){
         int i = bankTreasurerService.insertBankTreasurer(bankTreasurer);
         return i;
     }
+
+    /**
+     * 界面请求的信息数据控制层删除资金调拨的方法
+     * @param bankTreasurerId 资金调拨的Id
+     * @return
+     */
     @RequestMapping("deleteBankTreasurer")
     public int deleteBankTreasurer(String bankTreasurerId){
         System.out.println(bankTreasurerId);
         return  bankTreasurerService.deleteBankTreasurer(bankTreasurerId);
     }
+
+    /**
+     * 界面请求的信息数据控制层修改资金调拨的方法
+     * @param bankTreasurer 资金调拨的实体类
+     * @return
+     */
     @RequestMapping("updateBankTreasurer")
     public int updateBankTreasurer(BankTreasurer bankTreasurer){
         int i = bankTreasurerService.updateBankTreasurer(bankTreasurer);

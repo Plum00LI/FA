@@ -18,10 +18,33 @@ public class TransferMoney {
     private String outBlankName;//划款的账户的开户银行
     private String foundId;//基金Id
     private String purpose;//划款的用途
-    private String inAccountName;
-    private String outAccountName;
+    private String inAccountName;//划款到的账户的名称
+    private String outAccountName;//划款的账户的名称
+    private Integer orderCheque;            //是否显示抬头项
+    private Integer auditor;                //是否显示审核人
+    private String htitle;                  //抬头名称
+    private String btitle;	                //抬头说明信息
 
     public TransferMoney() {
+    }
+
+    public TransferMoney(String transferMoneyId, String inAccountId, String inBlankName, String crossSectionDate, String accountingDate, double money, String outAccount, String outBlankName, String foundId, String purpose, String inAccountName, String outAccountName, Integer orderCheque, Integer auditor, String htitle, String btitle) {
+        this.transferMoneyId = transferMoneyId;
+        this.inAccountId = inAccountId;
+        this.inBlankName = inBlankName;
+        this.crossSectionDate = crossSectionDate;
+        this.accountingDate = accountingDate;
+        this.money = money;
+        this.outAccount = outAccount;
+        this.outBlankName = outBlankName;
+        this.foundId = foundId;
+        this.purpose = purpose;
+        this.inAccountName = inAccountName;
+        this.outAccountName = outAccountName;
+        this.orderCheque = orderCheque;
+        this.auditor = auditor;
+        this.htitle = htitle;
+        this.btitle = btitle;
     }
 
     public TransferMoney(String transferMoneyId, String inAccountId, String inBlankName, String crossSectionDate, String accountingDate, double money, String outAccount, String outBlankName, String foundId, String purpose, String inAccountName, String outAccountName) {
@@ -146,6 +169,38 @@ public class TransferMoney {
 
     public void setOutAccountName(String outAccountName) {
         this.outAccountName = outAccountName;
+    }
+
+    public Integer getOrderCheque() {
+        return orderCheque;
+    }
+
+    public void setOrderCheque(Integer orderCheque) {
+        this.orderCheque = orderCheque;
+    }
+
+    public Integer getAuditor() {
+        return auditor;
+    }
+
+    public void setAuditor(Integer auditor) {
+        this.auditor = auditor;
+    }
+
+    public String getHtitle() {
+        return htitle;
+    }
+
+    public void setHtitle(String htitle) {
+        this.htitle = htitle;
+    }
+
+    public String getBtitle() {
+        return btitle;
+    }
+
+    public void setBtitle(String btitle) {
+        this.btitle = btitle;
     }
 
     @Override
