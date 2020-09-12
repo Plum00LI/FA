@@ -11,7 +11,7 @@ package com.ssaw.DayEndProcessing.entity;
 public class InventoryStatistics {
     private int invId;//根据此id来确定统计的库存
     private String inventoryName;//库存名称
-    private String inventoryId;//库存Id
+    private String fundId;//基金Id
     private String inventoryOperator;//操作员
     private String inventoryDate;//统计日期
     private int inventoryData;//已统计数据
@@ -22,10 +22,10 @@ public class InventoryStatistics {
 
     }
 
-    public InventoryStatistics(int invId, String inventoryName, String inventoryId, String inventoryOperator, String inventoryDate, int inventoryData, String inventoryStatis) {
+    public InventoryStatistics(int invId, String inventoryName, String fundId, String inventoryOperator, String inventoryDate, int inventoryData, String inventoryStatis) {
         this.invId = invId;
         this.inventoryName = inventoryName;
-        this.inventoryId = inventoryId;
+        this.fundId = fundId;
         this.inventoryOperator = inventoryOperator;
         this.inventoryDate = inventoryDate;
         this.inventoryData = inventoryData;
@@ -37,7 +37,7 @@ public class InventoryStatistics {
         return "InventoryStatistics{" +
                 "invId=" + invId +
                 ", inventoryName='" + inventoryName + '\'' +
-                ", inventoryId='" + inventoryId + '\'' +
+                ", fundId='" + fundId + '\'' +
                 ", inventoryOperator='" + inventoryOperator + '\'' +
                 ", inventoryDate='" + inventoryDate + '\'' +
                 ", inventoryData=" + inventoryData +
@@ -61,12 +61,12 @@ public class InventoryStatistics {
         this.inventoryName = inventoryName;
     }
 
-    public String getInventoryId() {
-        return inventoryId;
+    public String getFundId() {
+        return fundId;
     }
 
-    public void setInventoryId(String inventoryId) {
-        this.inventoryId = inventoryId;
+    public void setFundId(String fundId) {
+        this.fundId = fundId;
     }
 
     public String getInventoryOperator() {

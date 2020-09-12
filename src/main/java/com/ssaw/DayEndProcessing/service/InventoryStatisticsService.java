@@ -1,6 +1,7 @@
 package com.ssaw.DayEndProcessing.service;
 
 import com.ssaw.DayEndProcessing.entity.InventoryStatistics;
+import com.ssaw.DayEndProcessing.entity.TaInventoryData;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +17,11 @@ import java.util.List;
 @Service
 public interface InventoryStatisticsService {
     /**
-     * 查询证券库存
+     * 查询库存
      * @param dateTime
      * @param invId
      * @return
      */
     public List<InventoryStatistics> selectInventoryStatistics(String dateTime,String invId);
+
 }

@@ -15,12 +15,13 @@ public class EquityDispose {
     private String equitiesExright;//除权日
     private int securitiesNum;//证券数量
     private int proportion;//比例
+    private int disposeStatus;//处理状态   0.未处理   1.已处理
 
     public EquityDispose() {
     }
 
     public EquityDispose(String equityDataId, String securitiesName, String accountName,
-                         int equitiesType, String equitiesExright, int securitiesNum, int proportion) {
+                         int equitiesType, String equitiesExright, int securitiesNum, int proportion, int disposeStatus) {
         this.equityDataId = equityDataId;
         this.securitiesName = securitiesName;
         this.accountName = accountName;
@@ -28,7 +29,9 @@ public class EquityDispose {
         this.equitiesExright = equitiesExright;
         this.securitiesNum = securitiesNum;
         this.proportion = proportion;
+        this.disposeStatus = disposeStatus;
     }
+
 
     public String getEquityDataId() {
         return equityDataId;
@@ -84,6 +87,14 @@ public class EquityDispose {
 
     public void setProportion(int proportion) {
         this.proportion = proportion;
+    }
+
+    public int getDisposeStatus() {
+        return disposeStatus;
+    }
+
+    public void setDisposeStatus(int disposeStatus) {
+        this.disposeStatus = disposeStatus;
     }
 
     @Override

@@ -48,4 +48,10 @@ public interface SecuritiesClosedPayInventoryService {
      * @return
      */
     public int deleteSecuritiesClosedPayInventory(String securitiesClosedPayInventoryId);
+
+    /**
+     * 按照日期删除
+     * @param dateTime
+     */
+    public void deleteSecuritiesClosedPayInventoryDate(String dateTime);
 }

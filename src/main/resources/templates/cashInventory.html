@@ -42,6 +42,7 @@
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input"  autocomplete="off" placeholder="请选择现金账户" name="accountName" id="searchAccountName">
                 <input type="hidden" name="accountId" id="searchAccountId"/>
+
             </div>
 
             <div class="layui-inline layui-show-xs-block">
@@ -193,7 +194,7 @@
             elem:'#searchAccountName',
             checkedKey:'accountName',
             table:{
-                url:'../selectAccount',
+                url:'../account/selectAccount',
                 // cellMinWidth:60,
 
                 cols:[
@@ -220,7 +221,7 @@
             elem:'#insertAccountName',
             checkedKey:'accountName',
             table:{
-                url:'../selectAccount',
+                url:'../account/selectAccount',
                 // cellMinWidth:60,
 
                 cols:[

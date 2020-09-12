@@ -27,32 +27,25 @@
     <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
     <script src="../lib/layuimini/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
 
-    <script>
-        layui.use('laydate', function() {
-            var laydate = layui.laydate;
-            //执行一个laydate实例
-            laydate.render({
-                elem : '#dateTime', //指定元素
-            });
-        });
-    </script>
 </head>
 <body>
 
-<div style="margin-top: 20px;margin-left: 10px">
-        <form class="layui-form layui-col-space5" id="searchform" lay-filter="searchform">
+<!--结算表头-->
+<script type="text/html" id="userToolBar">
+    <div style="margin-top: 0px;margin-left: 0px" >
+        <form class="layui-form layui-col-space5">
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">成交日期</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请输入成交日期" name="dateTime" id="dateTime">
+                    <input class="layui-input"  autocomplete="off" placeholder="请输入成交日期" name="dateTime" id="start">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易方式</label>
 
                 <div class="layui-inline layui-show-xs-block">
-                    <select name="transactionDataMode" id="transactionDataMode">
-                        <option value="">请选择</option>
+                    <select name="transactionDataMode" id="cateId">
+                        <option placeholder="请选择"></option>
                         <option value="1">买入</option>
                         <option value="2">卖出</option>
                         <option value="3">分红</option>
@@ -61,48 +54,68 @@
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-event="search" id="search" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <button class="layui-btn"  lay-submit="" lay-filter="select" lay-event="select"><i class="layui-icon">&#xe615;</i>搜索</button>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button type="button" lay-event="search" id="anniu" name="anniu" style="width: 60px;"
-                        class="layui-btn layui-btn-sm">结算</button>
+                <button class="layui-btn"  type="button" lay-submit="settlement" lay-filter="search" lay-event="search" name="settlement" id="settlement" onclick="return false;" >结算</button>
             </div>
         </form>
+        <ul class="layui-tab-title" style="border-bottom-color: #009688">
+            <li class="layui-this" lay-id="1">未结算</li>
+            <li lay-id="2">已结算</li>
+        </ul>
+    </div>
+</script>
 
-
-</div>
+<!--反结算表头-->
+<script type="text/html" id="userToolBar2">
+    <div style="margin-top: 0px;margin-left: 0px" >
+        <form class="layui-form layui-col-space5">
+            <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">成交日期</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <input class="layui-input"  autocomplete="off" placeholder="请输入成交日期" name="dateTime" id="start1">
+                </div>
+            </div>
+            <div class="layui-inline layui-show-xs-block">
+                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易方式</label>
+                <div class="layui-inline layui-show-xs-block">
+                    <select name="transactionDataMode" id="cateId1">
+                        <option placeholder="请选择"></option>
+                        <option value="1">买入</option>
+                        <option value="2">卖出</option>
+                        <option value="3">分红</option>
+                        <option value="4">送股</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline layui-show-xs-block">
+                <button class="layui-btn"  lay-submit="" lay-filter="select" lay-event="select"><i class="layui-icon">&#xe615;</i>搜索</button>
+            </div>
+            <div class="layui-inline layui-show-xs-block">
+                <button class="layui-btn"  type="button" lay-submit="settlement" lay-filter="search2" lay-event="search2" name="settlement" id="settlement1" onclick="return false"; >反结算</button>
+            </div>
+        </form>
+        <ul class="layui-tab-title" style="border-bottom-color: #009688">
+            <li class="layui-this" lay-id="1">未结算</li>
+            <li lay-id="2">已结算</li>
+        </ul>
+    </div>
+</script>
 
 <div class="layui-tab" lay-filter="test">
-    <ul class="layui-tab-title" style="border-bottom-color: #009688">
-        <li class="layui-this" lay-id="1">未结算</li>
-        <li lay-id="2">已结算</li>
-    </ul>
     <div class="layui-tab-content">
         <div class="layui-tab-item layui-show">
             <!--表格-->
-            <table id="table" lay-filter="table"></table>
+            <table id="userTable" lay-filter="userTable"></table>
         </div>
         <div class="layui-tab-item">
-            <table id="table2" lay-filter="table2"></table>
+            <table id="userTable2" lay-filter="userTable2"></table>
         </div>
     </div>
 </div>
 
 
 <script src="../js/settlement.js"></script>
-<script>
-    layui.use('element', function(){
-        var $ = layui.jquery
-            ,element = layui.element;
-        //Hash地址的定位
-        var layid = location.hash.replace(/^#test=/, '');
-        element.tabChange('test', layid);
-
-        element.on('tab(test)', function(elem){
-            location.hash = 'test='+ $(this).attr('lay-id');
-        });
-
-    });
-</script>
 </body>
 </html>

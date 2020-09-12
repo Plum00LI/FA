@@ -1,5 +1,7 @@
 package com.ssaw.InventoryManagement.entity;
 
+import java.math.BigDecimal;
+
 /**
  * ClassName:    SecuritiesClosedPayInventory
  * Package:    com.ssaw.InventoryManagement.entity
@@ -24,7 +26,7 @@ public class SecuritiesClosedPayInventory {
     //业务状态 1流入，-1流出
     private int flag;
     //总金额*
-    private double totalPrice;
+    private BigDecimal totalPrice;
     //备注
     private String securitiesClosedPayDesc;
     //期初标志 是否从其他系统导入得期初数据 0：不是 1：是
@@ -33,7 +35,6 @@ public class SecuritiesClosedPayInventory {
     public SecuritiesClosedPayInventory(){
 
     }
-
 
     /**
      *
@@ -47,7 +48,7 @@ public class SecuritiesClosedPayInventory {
      * @param securitiesClosedPayDesc   备注
      * @param securityPeriodFlag    期初标志 是否从其他系统导入得期初数据 0：不是 1：是
      */
-    public SecuritiesClosedPayInventory(String securitiesClosedPayInventoryId,String dateTime, String fundId, String securitiesId, int securitiesType, int flag, double totalPrice, String securitiesClosedPayDesc, int securityPeriodFlag) {
+    public SecuritiesClosedPayInventory(String securitiesClosedPayInventoryId, String dateTime, String fundId, String securitiesId, int securitiesType, int flag, BigDecimal totalPrice, String securitiesClosedPayDesc, int securityPeriodFlag) {
         this.securitiesClosedPayInventoryId = securitiesClosedPayInventoryId;
         this.dateTime = dateTime;
         this.fundId = fundId;
@@ -58,6 +59,9 @@ public class SecuritiesClosedPayInventory {
         this.securitiesClosedPayDesc = securitiesClosedPayDesc;
         this.securityPeriodFlag = securityPeriodFlag;
     }
+
+
+
 
     public String getSecuritiesClosedPayInventoryId() {
         return securitiesClosedPayInventoryId;
@@ -108,11 +112,11 @@ public class SecuritiesClosedPayInventory {
         this.flag = flag;
     }
 
-    public double getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 

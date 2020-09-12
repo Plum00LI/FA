@@ -62,7 +62,7 @@ public class CashInventoryController {
         //基金Id
         cashInventory.setFundId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
         //证券数量 来自证券库存 写死 securitiesNum;
-        cashInventory.setSecuritiesNum(1000);
+        cashInventory.setSecuritiesNum(0);
         //是否从其他系统导入的期初数据  0：不是  1：是
         cashInventory.setSecurityPeriodFlag(1);
         System.out.println(cashInventory);

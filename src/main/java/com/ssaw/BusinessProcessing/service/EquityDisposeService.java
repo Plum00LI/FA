@@ -2,6 +2,7 @@ package com.ssaw.BusinessProcessing.service;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,5 +13,6 @@ import java.util.Map;
  */
 @Service
 public interface EquityDisposeService {
-    public Map<String,Object> selectEquityDispose(String pageSize, String page);
+    public Map<String,Object> selectEquityDispose(String pageSize, String page,String equitiesType,String equitiesExright);
+    public int updateEquityDispose(String equityDisPose);
 }

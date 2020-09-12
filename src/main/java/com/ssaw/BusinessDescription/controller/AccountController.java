@@ -33,6 +33,15 @@ public class AccountController {
 
     @Resource
     DbUtil dbUtil;
+
+    /**
+     * 界面请求的信息数据控制层查询所有现金账户的方法
+     * @param page 当前查询页数
+     * @param limit 分页数据条目数
+     * @param accountName 现金账户名称
+     * @param blankName 银行名称
+     * @return  界面要求的数据格式
+     */
     @RequestMapping("selectAccount")
     public Map<String,Object> selectAccount(String page, String limit,String accountName,String blankName){
         //调用Service层执行查询，接收返回结果集Map
@@ -49,20 +58,36 @@ public class AccountController {
         //返回数据
         return json;
     }
+
+    /**
+     * 界面请求的信息数据控制层增加现金账户的方法
+     * @param account 现金账户实体类
+     * @return 返回影响的行数 判断是否增加成功
+     */
     @RequestMapping("insertAccount")
     public int insertAccount(Account account){
-        //account.setAccountId("963258");
         account.setAccountId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.A));
-  /*      account.setFundId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));*/
         int i = accountService.insertAccount(account);
         return i;
     }
+
+    /**
+     * 界面请求的信息数据控制层删除现金账户的方法
+     * @param accountId 现金账户的Id
+     * @return 返回影响的行数 判断是否删除成功
+     */
     @RequestMapping("deleteAccount")
     public int deleteAccount(String accountId){
         System.out.println(accountId);
         int i = accountService.deleteAccount(accountId);
         return i;
     }
+
+    /**
+     * 界面请求的信息数据控制层修改现金账户的方法
+     * @param account 现金账户实体类
+     * @return 返回影响的行数 判断是否修改成功
+     */
     @RequestMapping("updateAccount")
     public int updateAccount(Account account){
         System.out.println(account);

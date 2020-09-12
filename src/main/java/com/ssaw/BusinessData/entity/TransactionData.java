@@ -97,37 +97,6 @@ public class TransactionData {
         this.transactionDataDesc = transactionDataDesc;
     }
 
-    public TransactionData(String accountName, String securitiesName, Double price, Double num, Double netReceipts, Double totalSum, int transactionDataMode, String dateTime, String settlementDate, int status, String fundId, String fundName, String securitiesId, String brokersId, String brokersName, String seateId, String seateName, String accountId, String blankName, int flag, Double commission,
-                           Double transfer, Double brokerage, Double stamp, Double management, Double security, String transactionDataDesc) {
-        this.accountName = accountName;
-        this.securitiesName = securitiesName;
-        this.price = price;
-        this.num = num;
-        this.netReceipts = netReceipts;
-        this.totalSum = totalSum;
-        this.transactionDataMode = transactionDataMode;
-        this.dateTime = dateTime;
-        this.settlementDate = settlementDate;
-        this.status = status;
-        this.fundId = fundId;
-        this.fundName = fundName;
-        this.securitiesId = securitiesId;
-        this.brokersId = brokersId;
-        this.brokersName = brokersName;
-        this.seateId = seateId;
-        this.seateName = seateName;
-        this.accountId = accountId;
-        this.blankName = blankName;
-        this.flag = flag;
-        this.commission = commission;
-        this.transfer = transfer;
-        this.brokerage = brokerage;
-        this.stamp = stamp;
-        this.management = management;
-        this.security = security;
-        this.transactionDataDesc = transactionDataDesc;
-    }
-
     public String getTransactionDataId() {
         return transactionDataId;
     }

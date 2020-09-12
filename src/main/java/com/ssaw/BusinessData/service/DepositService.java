@@ -18,8 +18,12 @@ import java.util.Map;
 @Service
 @Transactional
 public interface DepositService {
+    //查询所有存款业务的服务类接口方法
     public Map<String,Object> selectDeposit(String pageSize,String page,String businessType,String endDate);
+    //增加存款业务的方法
     public int insertDeposit(Deposit deposit);
+    //修改存款业务的方法
     public int updateDeposit(Deposit deposit);
+    //通过存款业务Id删除的方法
     public int deleteDeposit(String depositId);
 }
