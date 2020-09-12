@@ -21,6 +21,6 @@ public interface TaSettlementMapper {
     /*
     修改
      */
-    public int updateTaSettlement(List taTransactionId);
-    public int updateTaSettlementTwo(List taTransactionId);
+    public int updateTaSettlement(int Status,String taTransactionId);
+    public int updateTaSettlementTwo(int Status,String taTransactionId);
 }

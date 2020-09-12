@@ -19,6 +19,7 @@ public interface TaSettlementService {
     /*
     修改
      */
-    public int updateTaSettlement(String taTransactionIds,String status);
+    public int updateSettlement(String taSettlement);
+    public int updateSettlementTwo(String taSettlement);
 
 }

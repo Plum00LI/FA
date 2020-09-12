@@ -1,5 +1,6 @@
 package com.ssaw.BusinessProcessing.controller;
 
+import com.ssaw.BusinessDescription.entity.Account;
 import com.ssaw.BusinessProcessing.entity.TaSettlement;
 import com.ssaw.BusinessProcessing.service.TaSettlementService;
 import com.ssaw.GlobalManagement.util.DbUtil;
@@ -22,25 +23,32 @@ public class TaSettlementController {
     @Resource
     DbUtil dbUtil;
     @RequestMapping("selectTaSettlement")
-    public Map<String, Object> selectTaSettlement(String limit,String page,String dateTime,String transactionType,String status) {
-        System.out.println("进来查询了" + status);
-        Map<String,Object> map=taSettlementService.selectTaSettlement(limit,page,dateTime,transactionType,status);
-        List<TaSettlement> taSettlementList= (List<TaSettlement>) map.get("taSettlementList");
+    public Map<String,Object> selectTaSettlement(String page,String limit,String dateTime,String transactionType,String status) {
+        System.out.println("进来了==================");
+        //调用Service层执行查询，接收返回结果集Map
+        Map<String, Object> map = taSettlementService.selectTaSettlement(limit,page,dateTime,transactionType,status);
+        //从结果集中拿出结果
+        List<TaSettlement> TaSettlementList= (List<TaSettlement>) map.get("TaSettlementList");
         int count= (int) map.get("count");
         //以layui要求存储响应数据格式
-        Map<String, Object> json = new HashMap<>();
+        Map<String,Object> json=new HashMap<>();
         json.put("code",0);
         json.put("msg","");
         json.put("count",count);
-        json.put("data",taSettlementList);
-        System.out.println("结果集+"+taSettlementList);
-
+        json.put("data",TaSettlementList);
         //返回数据
         return json;
+
     }
-    @RequestMapping("updateTaSettlement")
-    public int  updateTaSettlement(String taTransactionIds,String status){
-        System.out.println("修改"+taTransactionIds);
-        return taSettlementService.updateTaSettlement(taTransactionIds,status);
+    @RequestMapping("/updateTaSettlement")
+    public int updateTransactionData(String settlement){
+        return taSettlementService.updateSettlement(settlement);
+    }
+
+    @RequestMapping("/updateTaSettlementTwo")
+    public int updateTwoTransactionData(String settlement){
+        return taSettlementService.updateSettlementTwo(settlement);
     }
 }
+
+

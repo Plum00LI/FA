@@ -201,7 +201,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 		} else if (obj.event === 'edit') {
 			//alert(JSON.stringify(data));
 
-			form.val('editfor m',$.parseJSON(JSON.stringify(data)));
+			form.val('editform',$.parseJSON(JSON.stringify(data)));
 			var index = layer.open({
 				type: 1,
 				title: '修改员工',

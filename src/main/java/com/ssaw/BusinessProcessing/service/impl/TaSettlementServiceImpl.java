@@ -3,6 +3,12 @@ package com.ssaw.BusinessProcessing.service.impl;
 import com.ssaw.BusinessProcessing.entity.TaSettlement;
 import com.ssaw.BusinessProcessing.mapper.TaSettlementMapper;
 import com.ssaw.BusinessProcessing.service.TaSettlementService;
+import com.ssaw.CashManagement.entity.BankTreasurer;
+import com.ssaw.CashManagement.mapper.BankTreasurerMapper;
+import com.ssaw.GlobalManagement.util.DateTimeUtil;
+import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
+import com.ssaw.GlobalManagement.util.SysUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,11 +28,15 @@ import java.util.Map;
 @Transactional
 public class TaSettlementServiceImpl implements TaSettlementService {
     @Resource
+    DbUtil dbUtil;
+    @Resource
     TaSettlementMapper taSettlementMapper;
+    @Resource
+    BankTreasurerMapper bankTreasurerMapper;
     @Override
     public Map<String, Object> selectTaSettlement(String pageSize, String page, String dateTime, String transactionType, String status) {
-        //创建一个结果集Map用于存放两个结果变量
-        Map<String, Object> resultMap = new HashMap<>();
+        StringBuffer sqlWhere = new StringBuffer();
+        Map<String,Object> resultMap=new HashMap<>();
         //定义一个分页条数变量
         int v_pageSize = 0;
         //判断传入的pageSize是否为null/空
@@ -41,7 +51,6 @@ public class TaSettlementServiceImpl implements TaSettlementService {
             //通过Integer包装类将String类型转换成int基础数据类型
             v_page=Integer.parseInt(page);
         }
-        StringBuffer sqlWhere=new StringBuffer();
         if(dateTime!=null&&!dateTime.equals("")){
             sqlWhere.append(" AND dateTime LIKE  '%"+dateTime+"%'" );
         }
@@ -76,7 +85,7 @@ public class TaSettlementServiceImpl implements TaSettlementService {
         //接收返回总条数
         int v_count = (int) map.get("p_count");
         //将结果放入结果集Map
-        resultMap.put("taSettlementList",TaSettlementList);
+        resultMap.put("TaSettlementList",TaSettlementList);
         resultMap.put("count",v_count);
         String p_condition = (String) map.get("p_condition");
         System.out.println(p_condition);
@@ -88,20 +97,45 @@ public class TaSettlementServiceImpl implements TaSettlementService {
     }
 
     @Override
-    public int updateTaSettlement(String taTransactionIds, String status) {
-        ArrayList taTransactionIdList =new ArrayList<>();
-        String[] split=taTransactionIds.split(",");
-        for (String s : split) {
-            taTransactionIdList.add(s);
+    public int updateSettlement(String taSettlement) {
+        List<TaSettlement> TaSettlementList = SysUtil.jsonToArrayList(taSettlement, TaSettlement.class);
+        for (TaSettlement taSettlement1:TaSettlementList){
+            BankTreasurer bankTreasurer = new BankTreasurer();
+            bankTreasurer.setBankTreasurerId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.BT));
+            bankTreasurer.setFundId(taSettlement1.getFundId());
+            bankTreasurer.setTotalPrice(taSettlement1.getPrice());
+            bankTreasurer.setAccountId(taSettlement1.getAccountId());
+            bankTreasurer.setFlag(1);
+            bankTreasurer.setDbTime(taSettlement1.getDateTime());
+            String date= DateTimeUtil.getSystemDateTime("yyyy-MM-dd");
+            bankTreasurer.setDateTime(date);
+            bankTreasurer.setBusinessId(taSettlement1.getTaTransactionId());
+            bankTreasurer.setAllocatingType(4);
+            bankTreasurer.setBankTreasurerDesc("");
+            bankTreasurerMapper.insertBankTreasurer(bankTreasurer);
+            int status = taSettlement1.getTransactionStatus();
+            String transactionDataId = taSettlement1.getTaTransactionId();
+            if (status==0){
+                taSettlementMapper.updateTaSettlement(1,transactionDataId);
+                bankTreasurerMapper.insertBankTreasurer(bankTreasurer);
+            }
+            System.out.println(bankTreasurer);
         }
-        System.out.println(taTransactionIdList);
-        if (status.equals("0")){
-            return taSettlementMapper.updateTaSettlement(taTransactionIdList);
-        }else {
-            return taSettlementMapper.updateTaSettlementTwo(taTransactionIdList);
-        }
-
+        return 1;
     }
-
-
+    @Override
+    public int updateSettlementTwo(String taSettlement) {
+        List<TaSettlement> TaSettlementList = SysUtil.jsonToArrayList(taSettlement, TaSettlement.class);
+        for (TaSettlement taSettlement1 : TaSettlementList) {
+            System.out.println(taSettlement1);
+            int status = taSettlement1.getTransactionStatus();
+            String transactionDataId = taSettlement1.getTaTransactionId();
+            System.out.println(status);
+            if (status==1){
+                taSettlementMapper.updateTaSettlementTwo(0,transactionDataId);
+                bankTreasurerMapper.deleteBankTreasurerByDepositId(transactionDataId);
+            }
+        }
+        return 1;
+    }
 }
