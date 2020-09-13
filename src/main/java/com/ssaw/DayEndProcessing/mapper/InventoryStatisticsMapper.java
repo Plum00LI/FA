@@ -2,10 +2,7 @@ package com.ssaw.DayEndProcessing.mapper;
 
 
 
-import com.ssaw.DayEndProcessing.entity.CashInventoryData;
-import com.ssaw.DayEndProcessing.entity.SecuritiesClosedPayInventoryData;
-import com.ssaw.DayEndProcessing.entity.SecuritiesInventoryData;
-import com.ssaw.DayEndProcessing.entity.TaInventoryData;
+import com.ssaw.DayEndProcessing.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -44,5 +41,19 @@ public interface InventoryStatisticsMapper {
      */
     public List<CashInventoryData> selectCashInventory(String dateTime,String fundId);
 
+    /**
+     * 查询证券应收应付库存
+     * @param dateTime
+     * @param fundId
+     * @return
+     */
     public List<SecuritiesClosedPayInventoryData> selectSecuritiesClosedPayInventory(String dateTime,String fundId);
+
+    /**
+     * 查询现金应收应付库存
+     * @param dateTime
+     * @param fundId
+     * @return
+     */
+    public List<CashClosedPayInventoryData> selectCashClosedPayInventory(String dateTime,String fundId);
 }
