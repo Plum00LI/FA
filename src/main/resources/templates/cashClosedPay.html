@@ -157,18 +157,18 @@
             </div>
         </div>
         <br/>
-        <div class="layui-inline layui-show-xs-block">
+        <div class="layui-inline layui-show-xs-block" style="margin-top: 10px">
             <label class="layui-form-label layui-bg-green" style="text-align: center">资金流向</label>
-            <div class="layui-inline layui-show-xs-block" style="width: 195px">
+            <div class="layui-inline layui-show-xs-block" style="width: 182px" >
                 <select name="flag" id="flag_3">
                     <option value="1">流入</option>
                     <option value="-1">流出</option>
                 </select>
             </div>
         </div>
-        <div class="layui-inline layui-show-xs-block">
+        <div class="layui-inline layui-show-xs-block" style="margin-top: 10px">
             <label class="layui-form-label layui-bg-green" style="text-align: center">业务类型</label>
-            <div class="layui-inline layui-show-xs-block" style="width: 195px">
+            <div class="layui-inline layui-show-xs-block" style="width: 182px">
                 <select name="serviceType" id="serviceType_3">
                     <option value="1">管理费</option>
                     <option value="2">托管费</option>
@@ -178,7 +178,7 @@
             </div>
         </div>
         <br>
-        <div class="layui-inline layui-show-xs-block" style="float: left">
+        <div class="layui-inline layui-show-xs-block" style="float: left;margin-top: 10px">
             <label class="layui-form-label layui-bg-green" style="text-align: center">总金额</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" placeholder="请输入总金额" name="amount">
@@ -197,41 +197,41 @@
 </div>
 <script src="../js/cashClosedPay.js"></script>
 <script type="text/javascript">
-layui.use(['tableSelect'],function () {
+    layui.use(['tableSelect'],function () {
 
-    var $ = layui.jquery,
-        tableSelect = layui.tableSelect;
-    //新增的下拉表格
-    tableSelect.render({
-        elem: '#insertAccountName',
-        checkedKey: 'accountName',
-        table: {
-            url: '../selectAccount',
-            cellMinWidth: 60,
-            cols: [
-                [{type: 'radio'},
-                    {field: 'accountName', title: '账户名称', width: 100},
-                    {field: 'blankCardCode', title: '银行卡号', width: 100},
-                    {field: 'blankName', title: '银行名称'},
-                    {field: 'accountId', title: '账号Id', hidden: true}
+        var $ = layui.jquery,
+            tableSelect = layui.tableSelect;
+        //新增的下拉表格
+        tableSelect.render({
+            elem: '#insertAccountName',
+            checkedKey: 'accountName',
+            table: {
+                url: '../selectAccount',
+                cellMinWidth: 60,
+                cols: [
+                    [{type: 'radio'},
+                        {field: 'accountName', title: '账户名称', width: 100},
+                        {field: 'blankCardCode', title: '银行卡号', width: 100},
+                        {field: 'blankName', title: '银行名称'},
+                        {field: 'accountId', title: '账号Id', hidden: true}
+                    ]
                 ]
-            ]
-        },
-        done: function (elem, data) {
-            //elem:返回之前input对象；data:表格返回的选中的数据 []
-            var newJson = [];
-            //遍历选中的数据
-            $.each(data.data, function (index, item) {
-                newJson.push(item.accountName);
-                $("#insertAccountId").val(item.accountId);//给隐藏域中的val赋值
-                $("#insertFundId").val(item.fundId)
-            });
-            elem.val(newJson.join(","));//给输入框里显示的值赋值
+            },
+            done: function (elem, data) {
+                //elem:返回之前input对象；data:表格返回的选中的数据 []
+                var newJson = [];
+                //遍历选中的数据
+                $.each(data.data, function (index, item) {
+                    newJson.push(item.accountName);
+                    $("#insertAccountId").val(item.accountId);//给隐藏域中的val赋值
+                    $("#insertFundId").val(item.fundId)
+                });
+                elem.val(newJson.join(","));//给输入框里显示的值赋值
 
-        }
+            }
 
-    })
-});
+        })
+    });
 </script>
 
 </body>

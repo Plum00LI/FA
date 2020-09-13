@@ -10,6 +10,8 @@ package com.ssaw.DayEndProcessing.entity;
 public class CashInterestIncome {
 
     private String accountName; //账号名称
+    private String accountId;
+    private String fundId;
     private int businessType; //业务类型
     private int businessStatus; //流入流出
     private String businessDate;    //业务时间
@@ -26,6 +28,22 @@ public class CashInterestIncome {
     }
 
     public CashInterestIncome() {
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getFundId() {
+        return fundId;
+    }
+
+    public void setFundId(String fundId) {
+        this.fundId = fundId;
     }
 
     @Override
