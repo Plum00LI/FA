@@ -5,21 +5,17 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
     var form = layui.form;
     var laydate = layui.laydate;
     table =  $.extend(table, {config: {checkName: 'checked'}});
-    $('.cancel').click(function(){
-        layer.closeAll();
-    });
+
     table.render({
         elem : '#mytable',
-        url : 'assetValuationController/selectAppraisementState',
-        //data:dataz,
+        url : '../assetValuationController/selecAssetValuationData',
+        //data:data,
         page : true,
-        limit : 8,
         height : 498,
         toolbar : '#toolbarDemo',
-        limits : [ 9, 18, 27, 36 ],
         skin: 'row',
         even: true,
-        /*done:function(res){
+       /* done:function(res){
             $.each(res,function(index,item){
             console.log(item)
             var strSub= [];

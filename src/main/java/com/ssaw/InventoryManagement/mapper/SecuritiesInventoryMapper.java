@@ -34,7 +34,7 @@ public interface SecuritiesInventoryMapper {
      * @param securitiesInventoryId 证券库存Id
      * @return 返回一个int类型参数
      */
-    int deleteSecuritiesInventory(String securitiesInventoryId);
+    int deleteSecuritiesInventory(List securitiesInventoryId);
 
     /**
      * 修改
@@ -52,5 +52,4 @@ public interface SecuritiesInventoryMapper {
 
     void deleteSecuritiesInventoryDate(String dateTime);
 
-    void deleteSecuritiesClosedPayInventoryDate(String securitiesId, String toDay, Integer securitiesType);
 }

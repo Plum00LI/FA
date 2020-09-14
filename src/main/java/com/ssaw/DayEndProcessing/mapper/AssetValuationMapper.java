@@ -2,10 +2,10 @@ package com.ssaw.DayEndProcessing.mapper;
 
 import com.ssaw.BusinessData.entity.CashClosedPay;
 import com.ssaw.DayEndProcessing.entity.AssetValuation;
+import com.ssaw.DayEndProcessing.entity.AssetValuationData;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
@@ -28,14 +28,14 @@ public interface AssetValuationMapper {
 
     /**
      * 通过估值日期查询是否当日是否证券以估值和已清算
-     * @param today 估值日期
+     * @param toDay 估值日期
      * @param securitiesType 证券类型
      * @return 证券估值增值 和清算款的状态
      */
-    @Select("select securitiesType form SecuritiesClosedPay where dateTime=#{dateTime} and securitiesType=#{securitiesType} group by securitiestype")
-    public Integer selectSecuritiesType(@Param("today")String today,@Param("securitiesType")Integer securitiesType);
+    /*@Select("select securitiesType from securitiesClosedPayInventory where dateTime=to_date(#{toDay},'yyyy-MM-dd') and securitiesType=#{securitiesType,jdbcType=INTEGER} group by securitiesType")*/
+    public List<Integer> selectSecuritiesType(String toDay,Integer securitiesType);
 
-    @Select("select * form SecuritiesClosedPay where dateTime=#{dateTime}")
+    @Select("select * form securitiesClosedPay where dateTime=#{dateTime}")
     public List<CashClosedPay> selectCashClosedPay(String today);
 
     /**
@@ -71,4 +71,11 @@ public interface AssetValuationMapper {
      * @return 受影响的行数（1：成功；0：失败）
      */
     public int deleteTAReceivables(Map map);
+
+
+    public List<AssetValuationData> selectAssecuritisState(String toDay, String strAppraisement);
+
+
+    @Select("select securitiesType form SecuritiesClosedPay where dateTime=#{dateTime} and securitiesType=#{securitiesType} group by securitiestype")
+    public Integer selectSecuritiesType1(String today, Integer securitiesType);
 }
