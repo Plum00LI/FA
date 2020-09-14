@@ -51,4 +51,6 @@ public interface SecuritiesInventoryMapper {
     void selectSecuritiesInventoryInfo(Map map);
 
     void deleteSecuritiesInventoryDate(String dateTime);
+
+    void deleteSecuritiesClosedPayInventoryDate(String securitiesId, String toDay, Integer securitiesType);
 }

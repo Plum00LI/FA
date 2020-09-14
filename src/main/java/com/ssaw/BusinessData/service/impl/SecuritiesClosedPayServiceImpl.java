@@ -117,4 +117,22 @@ public class SecuritiesClosedPayServiceImpl implements SecuritiesClosedPayServic
         }
         return securitiesClosedPayMapper.deleteSecuritiesClosedPay(list);
     }
+
+    //-------------------收益支付统计----------------
+    //时间、类型、流入流出、基金Id删除信息
+    @Override
+    public void deleteSecuritiesNew(SecuritiesClosedPay securitiesClosedPay) {
+        securitiesClosedPayMapper.deleteSecuritiesNew(securitiesClosedPay);
+    }
+    //根据时间、类型、流入流出、基金Id查询信息
+    @Override
+    public List selectSecuritiesNew(SecuritiesClosedPay securitiesClosedPay) {
+        return  securitiesClosedPayMapper.selectSecuritiesNew(securitiesClosedPay);
+    }
+
+    //傅赛赢
+    @Override
+    public int deleteSecuritiesClosedPayByPojo(SecuritiesClosedPay securitiesClosedPay) {
+        return securitiesClosedPayMapper.deleteSecuritiesClosedPayByPojo(securitiesClosedPay);
+    }
 }

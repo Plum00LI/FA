@@ -4,11 +4,11 @@
 
 <mapper namespace="com.ssaw.BusinessProcessing.mapper.TaSettlementMapper">
     <update id="updateTaSettlement">
-        update taTransaction set status=#{param1} where transactionDataId=#{param2}
+        update taTransaction set transactionStatus=#{param1} where taTransactionId=#{param2}
     </update>
 
     <update id="updateTaSettlementTwo">
-        update taTransaction set status=#{param1} where transactionDataId=#{param2}
+        update taTransaction set transactionStatus=#{param1} where taTransactionId=#{param2}
     </update>
 
     <resultMap id="TasettlementMap" type="com.ssaw.BusinessProcessing.entity.TaSettlement">

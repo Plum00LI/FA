@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: TescComment
@@ -62,4 +63,12 @@ public interface AssetValuationMapper {
     @Select("select sum(actualMoney) actualMoney,transactionType from taTransaction where dateTime<=#{toDay}"+
             "#{toDay} < settlementDate and fundId=#{fundId} group by fundId,accountId,transactionType")
     public List<AssetValuation> selectTaTransaction(AssetValuation assetValuation);
+
+
+    /**
+     * 删除Ta应收应付库存
+     * @param map 多个条件
+     * @return 受影响的行数（1：成功；0：失败）
+     */
+    public int deleteTAReceivables(Map map);
 }

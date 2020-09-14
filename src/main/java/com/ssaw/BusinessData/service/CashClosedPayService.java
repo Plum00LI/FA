@@ -5,6 +5,7 @@ import com.ssaw.BusinessData.entity.CashClosedPay;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,4 +24,12 @@ public interface CashClosedPayService {
     int deleteCashClosedPay(String cashClosedPayId);
     int updateCashClosedPay(CashClosedPay cashClosePay);
     Map<String,Object> selectCashClosedPay(String pageSize, String page,String dateTime,String serviceType);
+
+    //创建一个根据实体类来删除
+    void deleteNew(CashClosedPay cashClosePay);
+    //创建一个根据实体类来查询
+    List selectNew(CashClosedPay cashClosePay);
+
+    //收益计提
+    int deleteNew2(CashClosedPay cashClosedPay);
 }

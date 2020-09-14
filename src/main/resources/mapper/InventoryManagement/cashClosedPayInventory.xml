@@ -18,6 +18,9 @@
             #{cashClosedPayInventoryId}
         </foreach>
     </delete>
+    <delete id="deleteCashClosedPayInventoryDate">
+        delete from cashClosedPayInventory where dateTime=#{dateTime}
+    </delete>
 
     <!--查询-->
     <resultMap id="cashClosedPayInventoryMap" type="com.ssaw.InventoryManagement.entity.CashClosedPayInventory">

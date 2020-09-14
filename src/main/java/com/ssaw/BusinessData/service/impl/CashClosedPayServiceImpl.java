@@ -78,7 +78,7 @@ public class CashClosedPayServiceImpl implements CashClosedPayService {
                 sqlWhere.append(" and dateTime = '" +dateTime+"' ");
 
         }
-//创建一个结果集用于接收数据库存储过程所需条件
+        //创建一个结果集用于接收数据库存储过程所需条件
         Map<String,Object> map = new HashMap<>();
         String sqlSelect="(select * from cashClosedPay c join fund f on f.fundId=c.fundId join account a on a.accountId=c.accountId ) ";
         map.put("p_tableName",sqlSelect);
@@ -98,5 +98,22 @@ public class CashClosedPayServiceImpl implements CashClosedPayService {
         resultMap.put("cashClosedPays",cashClosedPays);
         resultMap.put("count",count);
         return resultMap;
+    }
+    //创建一个根据实体类来删除
+    @Override
+    public void deleteNew(CashClosedPay cashClosePay) {
+        cashClosedPayMapper.deleteNew(cashClosePay);
+    }
+    //创建一个根据实体类来查询
+    @Override
+    public List selectNew(CashClosedPay cashClosePay) {
+      return  cashClosedPayMapper.selectNew(cashClosePay);
+    }
+
+    //收益计提删除方法
+    //老傅大傻逼
+    @Override
+    public int deleteNew2(CashClosedPay cashClosedPay) {
+        return cashClosedPayMapper.deleteNew2(cashClosedPay);
     }
 }

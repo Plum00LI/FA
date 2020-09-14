@@ -9,6 +9,8 @@ package com.ssaw.DayEndProcessing.entity;
  */
 public class PayTwoFees {
     private String accountName; //账号名称
+    private String accountId;
+    private String fundId;
     private int businessType; //业务类型
     private double totalMoney;//金额
     private int businessStatus; //流入流出
@@ -23,6 +25,22 @@ public class PayTwoFees {
     }
 
     public PayTwoFees() {
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getFundId() {
+        return fundId;
+    }
+
+    public void setFundId(String fundId) {
+        this.fundId = fundId;
     }
 
     @Override

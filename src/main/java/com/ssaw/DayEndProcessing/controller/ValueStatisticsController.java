@@ -46,28 +46,29 @@ public class ValueStatisticsController {
     @RequestMapping("insertValueStatistics")
     @ResponseBody
     public Object insertValueStatistics(String valueStatisticsDate) throws ParseException {
-//        String dateTimeTwo="";
-//        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-//        Date parse = df.parse(valueStatisticsDate);
-//        Calendar instance = Calendar.getInstance();
-//        instance.setTime(parse);
-//        int i = instance.get(Calendar.DAY_OF_WEEK);
-//        if(i==6){
-//              instance.add(Calendar.DATE, -1); //得到前一天
-//              Date time = instance.getTime();
-//              dateTimeTwo=df.format(time);
-//
-//        }else if(i==7){
-//              instance.add(Calendar.DATE, -2); //得到前一天
-//              Date time = instance.getTime();
-//              dateTimeTwo=df.format(time);
-//        }
-//
-//        List<SecuritiesValueStatistics> securitiesValueStatistics = securitiesValueStatisticsService.selectSecuritiesValueStatistics(valueStatisticsDate, "000899", dateTimeTwo);
-//        for (SecuritiesValueStatistics securitiesValueStatistic : securitiesValueStatistics) {
-//            System.out.println(securitiesValueStatistic);
-//        }
+        String dateTimeTwo="";
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date parse = df.parse(valueStatisticsDate);
+        Calendar instance = Calendar.getInstance();
+        instance.setTime(parse);
+        int i = instance.get(Calendar.DAY_OF_WEEK);
+        i--;
+        if(i==6){
+              instance.add(Calendar.DATE, -1); //得到前一天
+              Date time = instance.getTime();
+              dateTimeTwo=df.format(time);
 
+        }else if(i==7){
+              instance.add(Calendar.DATE, -2); //得到前一天
+              Date time = instance.getTime();
+              dateTimeTwo=df.format(time);
+        }
+
+        List<SecuritiesValueStatistics> securitiesValueStatistics = securitiesValueStatisticsService.selectSecuritiesValueStatistics("2020-09-10", "000899", "2020-09-10",1);
+        for (SecuritiesValueStatistics securitiesValueStatistic : securitiesValueStatistics) {
+            System.out.println(securitiesValueStatistic);
+        }
+//
 //        ValueStatistics valueStatistics1 = new ValueStatistics(valueStatisticsDate, "1",1, "证券",  -1);
 //            ValueStatistics valueStatistics2 = new ValueStatistics(valueStatisticsDate, "1",2, "股票",  1);
 //            ValueStatistics valueStatistics3 = new ValueStatistics(valueStatisticsDate, "1",3,"南方航空", "600028", 2000.00, 4.43, 8820.00, 8860.00, 40.00, 2);

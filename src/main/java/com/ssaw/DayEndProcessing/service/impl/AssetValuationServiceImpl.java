@@ -8,13 +8,20 @@ import com.ssaw.DayEndProcessing.mapper.AssetValuationMapper;
 import com.ssaw.DayEndProcessing.service.AssetValuationService;
 import com.ssaw.GlobalManagement.util.DbUtil;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
+import com.ssaw.InventoryManagement.entity.CashClosedPayInventory;
 import com.ssaw.InventoryManagement.entity.SecuritiesClosedPayInventory;
+import com.ssaw.InventoryManagement.service.CashClosedPayInventoryService;
+import com.ssaw.InventoryManagement.service.SecuritiesClosedPayInventoryService;
+import org.apache.tomcat.jni.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *@program: FA
@@ -28,16 +35,16 @@ public class AssetValuationServiceImpl implements AssetValuationService {
     AssetValuationMapper assetValuationMapper;
 
     @Resource
-    SecuritiesClosedPayService securitiesClosedPayService;
+    SecuritiesClosedPayInventoryService securitiesClosedPayInventoryService;
 
     @Resource
-    CashClosedPayService cashClosedPayService;
+    CashClosedPayInventoryService cashClosedPayInventoryService;
 
     @Resource
     DbUtil dbUtil;
 
     @Override
-    public List<AssetValuation> selectAssetValuation(AssetValuation assetValuation) {
+    public List<AssetValuation> selectAssetValuation(AssetValuation assetValuation, HttpSession session) {
         //获取基金编号
         assetValuation.setFundId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
         System.out.println("前端传过来的日期："+assetValuation.getToDay());
@@ -56,21 +63,93 @@ public class AssetValuationServiceImpl implements AssetValuationService {
             }
             System.out.println("估值增值的值："+assetValuation1.getAssetValuationVal());
             System.out.println("当前状态："+flag);
-            //证券应收应付库存
-            SecuritiesClosedPayInventory securitiesClosedPayInventory = new SecuritiesClosedPayInventory("",
-                    assetValuation1.getFundId(), assetValuation1.getSecuritiesId(),assetValuation.getToDay(),1,flag,
-                    new BigDecimal(assetValuation1.getAssetValuationVal()+""),null,1);
+           SecuritiesClosedPayInventory securitiesClosedPayInventory = new SecuritiesClosedPayInventory(
+                   null,assetValuation.getFundId(),assetValuation1.getSecuritiesId(),assetValuation.getToDay(),
+                   1,flag,new Double(assetValuation1.getAssetValuationVal()+""),null,1);
+            Integer securitiesType=assetValuationMapper.selectSecuritiesType(assetValuation.getToDay(),1);
+            System.out.println("查询应收应付库存大小："+securitiesType);
+            if (securitiesType==null){
+                System.out.println("没有数据：直接添加");
+                securitiesClosedPayInventoryService.insertSecuritiesClosedPayInventory(securitiesClosedPayInventory);
+            }else if (securitiesType==1){
+                System.out.println("查询到值：先删后增");
+                securitiesClosedPayInventoryService.deleteSecuritiesClosedPayInventoryDate(assetValuation1.getSecuritiesId(),
+                        assetValuation.getToDay(),securitiesType);
+                securitiesClosedPayInventoryService.insertSecuritiesClosedPayInventory(securitiesClosedPayInventory);
+            }
+        }
+        return assetValuationList;
+    }
+
+
+    @Override
+    public List<AssetValuation> selectTaTransaction(AssetValuation assetValuation, HttpSession session) {
+        assetValuation.setFundId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
+        //TA交易数据清算款
+        List<AssetValuation> assetValuations = assetValuationMapper.selectTaTransaction(assetValuation);
+        for (AssetValuation taTransaction:assetValuations){
+            //流入1  流出-1
+            int businessStatus = 1;
+            // TA交易数据 申购 1 赎回-1 -----判断是否是赎回
+            if (taTransaction.getTransactionType()==-1){
+                businessStatus=-1;
+            }
+            try {
+                CashClosedPayInventory cashClosedPayInventory = new CashClosedPayInventory(null, dbUtil.requestDbTableMaxId(SysTableNameListUtil.A), 4,
+                        new Double(taTransaction.getActualMoney()), assetValuation.getToDay(), 1, businessStatus,null);
+                this.deleteTAReceivables(assetValuation.getToDay(),businessStatus,dbUtil.requestDbTableMaxId(SysTableNameListUtil.F),dbUtil.requestDbTableMaxId(SysTableNameListUtil.A));
+                cashClosedPayInventoryService.insertCashClosedPayInventory(cashClosedPayInventory);
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        // 清算款-交易数据！
+        // 查询交易数据的数据
+        List<AssetValuation> transactionData = assetValuationMapper.selectTransactionData(assetValuation);
+        //得到交易数据
+        for (AssetValuation transaction:transactionData){
+            //判断总金额是否小于零
+            int businessStatus=1;
+            if (transaction.getTotalSum()<0){
+                //把负数转成整数
+                transaction.setTotalSum(Math.abs(transaction.getTotalSum()));
+                businessStatus=-1;
+            }
+            SecuritiesClosedPayInventory securitiesClosedPayInventory = new SecuritiesClosedPayInventory(
+                    null,dbUtil.requestDbTableMaxId(SysTableNameListUtil.A),transaction.getSecuritiesId(),assetValuation.getToDay(),
+                    2,businessStatus,new Double(transaction.getTotalSum()+""),null,1);
+            Integer securitiesType = assetValuationMapper.selectSecuritiesType(assetValuation.getToDay(), 2);
+            System.out.println("清算款="+securitiesType);
+            if (securitiesType == null){
+                System.out.println("清算款-没有数据：直接添加");
+                securitiesClosedPayInventoryService.insertSecuritiesClosedPayInventory(securitiesClosedPayInventory);
+            }else if (securitiesType==2){
+                System.out.println("清算款-查询到值：先删后增");
+                securitiesClosedPayInventoryService.deleteSecuritiesClosedPayInventoryDate(transaction.getSecuritiesId(),assetValuation.getToDay(),securitiesType);
+            }
         }
         return null;
     }
 
-    @Override
-    public List<AssetValuation> selectTaTransaction(AssetValuation assetValuation) {
-        return null;
-    }
+
 
     @Override
     public List<Integer> selectSecuritiesType(String today) {
-        return null;
+
+        return assetValuationMapper.selectAllSecuritiesType(today);
     }
+
+    @Override
+    public int deleteTAReceivables(String toDay, int flag,String fundId,String accountId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("toDay",toDay);
+        map.put("flag",flag);
+        map.put("fundId",fundId);
+        map.put("accountId",accountId);
+        System.out.println("map="+map);
+        int i = assetValuationMapper.deleteTAReceivables(map);
+        return i;
+    }
+
+
 }

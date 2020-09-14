@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html class="x-admin-sm">
-
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <title>库存统计</title>
@@ -28,7 +27,7 @@
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input"  autocomplete="off" placeholder="选择日期" name="start" id="dateTime">
                 </div>
-
+                <input type="hidden" name="fundId" th:value="${session.fundId}">
                 <div class="layui-inline layui-show-xs-block">
                     <a class="layui-btn"  lay-filter="searchSubmit" lay-event="search">
                         <i class="layui-icon">&#xe615;&nbsp;统计</i>

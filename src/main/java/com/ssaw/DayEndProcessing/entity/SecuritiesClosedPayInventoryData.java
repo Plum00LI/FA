@@ -12,14 +12,14 @@ import java.math.BigDecimal;
  */
 public class SecuritiesClosedPayInventoryData {
     private String securitiesId;
-    private BigDecimal total;
+    private Double total;
     private int flag;
 
     public SecuritiesClosedPayInventoryData(){
 
     }
 
-    public SecuritiesClosedPayInventoryData(String securitiesId, BigDecimal total, int flag) {
+    public SecuritiesClosedPayInventoryData(String securitiesId, Double total, int flag) {
         this.securitiesId = securitiesId;
         this.total = total;
         this.flag = flag;
@@ -42,11 +42,11 @@ public class SecuritiesClosedPayInventoryData {
         this.securitiesId = securitiesId;
     }
 
-    public BigDecimal getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(BigDecimal total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 

@@ -18,6 +18,7 @@
         delete from securitiesInventory where dateTime=#{dateTime}
     </delete>
 
+
     <select id="selectSecuritiesInventory" resultType="com.ssaw.InventoryManagement.entity.SecuritiesInventory">
         select * from securitiesInventory
     </select>

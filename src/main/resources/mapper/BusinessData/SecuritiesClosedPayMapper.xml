@@ -15,6 +15,13 @@
             #{securitiesClosedPayId}
         </foreach>
     </delete>
+    <delete id="deleteSecuritiesNew" parameterType="com.ssaw.BusinessData.entity.SecuritiesClosedPay">
+        delete from securitiesClosedPay where dateTime=#{dateTime} and fundId=#{fundId} and serviceType=#{serviceType} and  flag=#{flag}
+    </delete>
+
+    <delete id="deleteSecuritiesClosedPayByPojo" parameterType="com.ssaw.BusinessData.entity.SecuritiesClosedPay">
+        delete from SecuritiesClosedPay where dateTime=#{dateTime} and fundId=#{fundId} and securitiesId=#{securitiesId}
+    </delete>
 
     <resultMap id="securitiesClosedPayMap" type="com.ssaw.BusinessData.entity.SecuritiesClosedPay">
         <result property="securitiesClosedPayId" column="securitiesClosedPayId" javaType="String"></result>
@@ -29,5 +36,8 @@
     <select id="selectSecuritiesClosedPay" parameterType="java.util.Map" statementType="CALLABLE"
             resultType="java.util.Map">
         {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},#{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=VARCHAR},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=securitiesClosedPayMap})}
+    </select>
+    <select id="selectSecuritiesNew" resultType="com.ssaw.BusinessData.entity.SecuritiesClosedPay">
+        select * from securitiesClosedPay where  dateTime=#{dateTime} and fundId=#{fundId} and serviceType=#{serviceType} and  flag=#{flag}
     </select>
 </mapper>

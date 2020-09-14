@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,11 +26,11 @@ public class InventoryStatisticsController {
     InventoryStatisticsService inventoryStatisticsService;
 
     @RequestMapping("/selectInventory")
-    public HashMap selectInventory(String dateTime, String invId){
+    public HashMap selectInventory(String fundId, String dateTime, String invId){
         //获得基金id
-//        String fundId = SysTableNameListUtil.F;
+
         System.out.println("controller的dateTime"+dateTime);
-        List<InventoryStatistics> inventoryEntities = inventoryStatisticsService.selectInventoryStatistics(dateTime,invId);
+        List<InventoryStatistics> inventoryEntities = inventoryStatisticsService.selectInventoryStatistics(fundId,dateTime,invId);
         HashMap userMap = new HashMap();
         userMap.put("count",10);
         userMap.put("code",0);

@@ -26,8 +26,13 @@ public class SecuritiesValueStatisticsServiceImpl implements SecuritiesValueStat
     SecuritiesValueStatisticsMapper ecuritiesValueStatisticsMapper;
 
     @Override
-    public List<SecuritiesValueStatistics> selectSecuritiesValueStatistics(String dateTime, String fundID, String dateTimeTwo) {
+    public List<SecuritiesValueStatistics> selectSecuritiesValueStatistics(String dateTime, String fundID, String dateTimeTwo,int type) {
 
-        return ecuritiesValueStatisticsMapper.selectSecuritiesValueStatistics(dateTime,fundID,dateTimeTwo);
+        return ecuritiesValueStatisticsMapper.selectSecuritiesValueStatistics(dateTime,fundID,dateTimeTwo,type);
+    }
+
+    @Override
+    public List<SecuritiesValueStatistics> selectSecuritiesValueStatisticsTwo(String dateTime, String fundID, String dateTimeTwo, int type, int typeTwo) {
+        return ecuritiesValueStatisticsMapper.selectSecuritiesValueStatisticsTwo(dateTime,fundID,dateTimeTwo,type,typeTwo);
     }
 }

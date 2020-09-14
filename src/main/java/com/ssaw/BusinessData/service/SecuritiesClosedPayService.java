@@ -42,4 +42,14 @@ public interface SecuritiesClosedPayService {
      * @return
      */
     int deleteSecuritiesClosedPay(String securitiesClosedPayId);
+
+    //-------------------收益支付统计----------------
+    //时间、类型、流入流出、基金Id删除信息
+    void deleteSecuritiesNew(SecuritiesClosedPay securitiesClosedPay);
+    //根据时间、类型、流入流出、基金Id查询信息
+    List selectSecuritiesNew(SecuritiesClosedPay securitiesClosedPay);
+
+
+    //傅赛赢
+    public int deleteSecuritiesClosedPayByPojo(SecuritiesClosedPay securitiesClosedPay);
 }
