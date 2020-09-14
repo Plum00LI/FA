@@ -84,18 +84,17 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 		elem: '#userTable',
 		url: '../selectFund',
 		page: true,
-		height: 'full-55',
+		height: 'full-20',
 		toolbar: '#userToolBar',//显示在表头的工具条
-		minLength:80,
-		cellMinWidth:60,
+		cellMinWidth:200,
 		cols: [
 			[ //表头
 				{type: 'checkbox', field: 'left'}
-				,{field: 'fundId', title: '基金代码', width:215, align:'center'}
-				,{field: 'fundName', title: '基金名称', width: 215, align:'center'}
-				,{field: 'managerCompany', title: '基金管理公司', width:215, align:'center'}
-				,{field: 'trusteeCompany', title: '基金托管银行', width: 215, align:'center'}
-				,{field: 'fundType', title: '基金类型', width:215, align:'center',templet: function(item){
+				,{field: 'fundId', title: '基金代码', align:'center'}
+				,{field: 'fundName', title: '基金名称', align:'center'}
+				,{field: 'managerCompany', title: '基金管理公司', align:'center'}
+				,{field: 'trusteeCompany', title: '基金托管银行', align:'center'}
+				,{field: 'fundType', title: '基金类型', align:'center',templet: function(item){
 					if(item.fundType=='2') {return '封闭式';
 					} else if(item.fundType=='1'){ return '开放式';
 					}
@@ -115,7 +114,7 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 						return '366';
 					}
 				},
-				,{field: 'operation', title: '操作' , width: 215, align:'center',toolbar:'#barDemo'}
+				{fixed:'right',title: '操作' , align:'center',toolbar:'#barDemo'}
 
 			]
 		]
@@ -132,12 +131,13 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 					closeBtn: 1,
 					move:false,
 					content:$("#addContent"),
-					btn:[]
+					btn:[],
+					area:['800px','600px']
 				});
 
 				form.render();
 				//全屏
-				layer.full(index);
+				// layer.full(index);
 				break;
 			case 'search':
 				alert("搜索");
@@ -204,12 +204,12 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 				title: '修改基金参数',
 				closeBtn: 1,
 				move:false,
-				area: ['500px', '400px'],
+				area: ['800px', '600px'],
 				content:$('#editContent')
 			});
 
 			form.render();
-			layer.full(index);
+			// layer.full(index);
 		};
 	});
 

@@ -9,63 +9,13 @@
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" href="../css/font.css">
-    <link rel="stylesheet" href="../css/xadmin.css">
-    <link rel="stylesheet" href="../css/theme9.css">
-    <script src="../lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../js/xadmin.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]-->
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-
-    <link rel="stylesheet" href="../lib/layui/css/layui.css">
-
-
-    <script src="../lib/layui/layui.js"></script>
-    <!--工具条-->
-    <script type="text/html" id="userToolBar">
-        <div style="float:right">
-            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
-                    class="layui-icon">&#xe654;</i>添加数据
-            </button>
-            <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll"><i
-                    class="layui-icon">&#xe640;</i>批量删除
-            </button>
-        </div>
-
-        <form class="layui-form layui-col-space5">
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易所名称</label>
-
-                <div class="layui-inline layui-show-xs-block">
-                    <select name="exchangeName" id="exchangeName_3">
-                        <option value="">请选择</option>
-                        <option value="1">上交所</option>
-                        <option value="2">深交所</option>
-
-                    </select>
-                </div>
-            </div>
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">费率类型</label>
-
-                <div class="layui-inline layui-show-xs-block">
-                    <select name="rateType" id="rateType_3">
-                        <option value="">请选择</option>
-                        <option value="1">股票</option>
-                        <option value="2">债券</option>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn" lay-submit="" lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索
-                </button>
-            </div>
-        </form>
-    </script>
-
-
+    <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
+    <script src="../lib/layuimini/js/lay-config.js"></script>
+    <script type="text/javascript" src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
     <script type="text/javascript">
 
         layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
@@ -145,7 +95,7 @@
                 elem: '#userTable',
                 url: '/varietiesRate/selectVarietiesRate',
                 page: true,
-                height: 'full-55',
+                height: 'full-20',
                 toolbar: '#userToolBar',//显示在表头的工具条
                 minLength: 80,
                 cellMinWidth:60,
@@ -173,7 +123,7 @@
                         , {field: 'transferFee', title: '过户费', align: 'center'}
                         , {field: 'collectionRate', title: '征管费',  align: 'center'}
                         , {field: 'brokerage', title: '经手费',  align: 'center'}
-                        , {title: '操作', minWidth: 100, toolbar: '#barDemo', align: "center"}
+                        , {fixed: 'right',title: '操作', minWidth: 100, toolbar: '#barDemo', align: "center"}
                     ]
                 ],
                 limits: [10, 15, 20, 25, 50, 100],
@@ -193,11 +143,10 @@
                             closeBtn: 1,
                             move: false,
                             content: $("#addContent"),
-                            btn: []
+                            btn: [],
+                            area:['800px','600px']
                         });
                         form.render();
-                        //全屏
-                        layer.full(index);
                         break;
                     case 'search':
                         alert("搜索");
@@ -265,12 +214,11 @@
                         title: '修改权益数据',
                         closeBtn: 1,
                         move: false,
-                        area: ['500px', '400px'],
+                        area: ['800px', '600px'],
                         content: $('#editContent')
                     });
 
                     form.render();
-                    layer.full(index);
                 };
             })
         });
@@ -279,17 +227,57 @@
         }
     </script>
 </head>
-<body style="overflow: auto; background-color: white;"
-      class="layui-view-body layui-content">
-<div>
+<body>
+<!--工具条-->
+<script type="text/html" id="userToolBar">
+    <div style="float:right">
+        <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
+                class="layui-icon">&#xe654;</i>添加数据
+        </button>
+        <button class="layui-btn layui-btn-primary layui-btn layui-btn-sm" lay-event="deleteAll" style="color: #FF0000"><i
+                class="layui-icon">&#xe640;</i>批量删除
+        </button>
+    </div>
+
+    <form class="layui-form layui-col-space5">
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">交易所名称</label>
+
+            <div class="layui-inline layui-show-xs-block">
+                <select name="exchangeName" id="exchangeName_3">
+                    <option value="">请选择</option>
+                    <option value="1">上交所</option>
+                    <option value="2">深交所</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">费率类型</label>
+
+            <div class="layui-inline layui-show-xs-block">
+                <select name="rateType" id="rateType_3">
+                    <option value="">请选择</option>
+                    <option value="1">股票</option>
+                    <option value="2">债券</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline layui-show-xs-block">
+            <button class="layui-btn layui-btn-primary" lay-submit="" lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索
+            </button>
+        </div>
+    </form>
+</script>
+<div class="layuimini-main">
     <!--表格-->
     <table id="userTable" lay-filter="userTable" ></table>
     <!--工具条-->
     <div style="display: none;" id="barDemo">
         <a class="layui-btn layui-btn-xs" lay-event="edit"><i
                 class="layui-icon">&#xe642;</i>编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
-                class="layui-icon">&#xe640;</i>删除</a>
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="del" style="color: #FF0000"><i
+                class="layui-icon" >&#xe640;</i>删除</a>
 
     </div>
 </div>
@@ -300,7 +288,7 @@
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green">费率类型</label>
+            <label class="layui-form-label layui-bg-gray">费率类型</label>
             <div class="layui-input-inline">
                 <select name="exchangeName" id="exchangeName_1">
                     <option value="0">请选择</option>
@@ -308,7 +296,7 @@
                     <option value="2">深交所</option>
                 </select>
             </div>
-            <label class="layui-form-label layui-bg-green">交易所名称</label>
+            <label class="layui-form-label layui-bg-gray">交易所名称</label>
             <div class="layui-input-inline">
                 <select name="rateType" id="rateType_1">
                     <option value="0">请选择</option>
@@ -318,12 +306,12 @@
             </div>
         </div>
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green"> 过户费</label>
+            <label class="layui-form-label layui-bg-gray"> 过户费</label>
             <div class="layui-input-inline">
                 <input type="number" name="stampDuty" lay-verify="required"
                        autocomplete="off" placeholder="" class="layui-input">
             </div>
-            <label class="layui-form-label layui-bg-green"> 印花税</label>
+            <label class="layui-form-label layui-bg-gray"> 印花税</label>
             <div class="layui-input-inline">
                 <input type="number" name="transferFee" lay-verify="required"
                        autocomplete="off" placeholder="" class="layui-input">
@@ -331,12 +319,12 @@
         </div>
 
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green"> 经手费</label>
+            <label class="layui-form-label layui-bg-gray"> 经手费</label>
             <div class="layui-input-inline">
                 <input type="number" name="collectionRate" lay-verify="required"
                        autocomplete="off" placeholder="" class="layui-input">
             </div>
-            <label class="layui-form-label layui-bg-green"> 征管费</label>
+            <label class="layui-form-label layui-bg-gray"> 征管费</label>
             <div class="layui-input-inline">
                 <input type="number" name="brokerage" lay-verify="required"
                        autocomplete="off" placeholder="" class="layui-input">
@@ -347,7 +335,7 @@
             <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
-            <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
+            <button class="layui-btn layui-btn-primary cancel" type="button" onclick="myclose()" style="color: #FF0000">
                 <i class="layui-icon">&#x1006;</i>取消
             </button>
         </div>
@@ -361,14 +349,14 @@
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green">费率类型</label>
+            <label class="layui-form-label layui-bg-gray">费率类型</label>
             <div class="layui-input-inline">
                 <select name="exchangeName" id="exchangeName_2">
                     <option value="1">上交所</option>
                     <option value="2">深交所</option>
                 </select>
             </div>
-            <label class="layui-form-label layui-bg-green">交易所名称</label>
+            <label class="layui-form-label layui-bg-gray">交易所名称</label>
             <div class="layui-input-inline">
                 <select name="rateType" id="rateType_2">
                     <option value="1">股票</option>
@@ -377,12 +365,12 @@
             </div>
         </div>
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green"> 过户费</label>
+            <label class="layui-form-label layui-bg-gray"> 过户费</label>
             <div class="layui-input-inline">
                 <input type="number" name="stampDuty" lay-verify="required"
                        autocomplete="off" placeholder="" class="layui-input">
             </div>
-            <label class="layui-form-label layui-bg-green"> 印花税</label>
+            <label class="layui-form-label layui-bg-gray"> 印花税</label>
             <div class="layui-input-inline">
                 <input type="number" name="transferFee" lay-verify="required"
                        autocomplete="off" placeholder="" class="layui-input">
@@ -390,12 +378,12 @@
         </div>
 
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green"> 经手费</label>
+            <label class="layui-form-label layui-bg-gray"> 经手费</label>
             <div class="layui-input-inline">
                 <input type="number" name="collectionRate" lay-verify="required"
                        autocomplete="off" placeholder="" class="layui-input">
             </div>
-            <label class="layui-form-label layui-bg-green"> 征管费</label>
+            <label class="layui-form-label layui-bg-gray"> 征管费</label>
             <div class="layui-input-inline">
                 <input type="number" name="brokerage" lay-verify="required"
                        autocomplete="off" placeholder="" class="layui-input">
@@ -406,7 +394,7 @@
             <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
-            <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
+            <button class="layui-btn layui-btn-primary cancel" type="button" onclick="myclose()" style="color: #FF0000">
                 <i class="layui-icon">&#x1006;</i>取消
             </button>
         </div>

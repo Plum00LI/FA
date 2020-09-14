@@ -71,7 +71,7 @@ layui.use(['element', 'form', 'table', 'layer'], function () {
         page: true,
         toolbar: '#userToolBar',//显示在表头的工具条
         cellMinWidth: 50,
-        height:'full-70',
+        height:'full-20',
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
@@ -79,7 +79,7 @@ layui.use(['element', 'form', 'table', 'layer'], function () {
                 ,{field: 'brokersName', title: '券商名称', align:'center'}
                 ,{field: 'brokersInstructions', title: '券商说明', align:'center'}
                 ,{field: 'brokersDesc', title: '券商备注', align:'center'}
-                ,{title: 'operation', title: '操作' , toolbar:'#barDemo', align:'center'}
+                ,{fixed: 'right',title: 'operation', title: '操作' , toolbar:'#barDemo', align:'center'}
             ]
         ]
     });
@@ -97,7 +97,7 @@ layui.use(['element', 'form', 'table', 'layer'], function () {
                     closeBtn: 1,
                     move:false,
                     content:$("#addContent"),
-                    area: ['800px', '500px'],
+                    area: ['800px', '600px'],
                     btn:[]
                 });
                 form.render();
@@ -169,7 +169,7 @@ layui.use(['element', 'form', 'table', 'layer'], function () {
                 title: '修改券商设置',
                 closeBtn: 1,
                 move:false,
-                area: ['800px', '500px'],
+                area: ['800px', '600px'],
                 content:$('#editContent')
             });
             form.render();

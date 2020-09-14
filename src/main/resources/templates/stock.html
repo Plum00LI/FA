@@ -4,22 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>menu</title>
-    <link rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
-    <link rel="stylesheet" href="../lib/layuimini/css/public.css" media="all">
-    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-    <script src="../lib/layuimini/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <script src="../lib/layuimini/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../lib/layuimini/js/xadmin.js"></script>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-
-    <link rel="stylesheet" href="../lib/layuimini/lib/layui/css/layui.css">
+    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
+    <script src="../lib/layuimini/js/lay-config.js"></script>
+    <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
 
     <style>
         .layui-btn:not(.layui-btn-lg ):not(.layui-btn-sm):not(.layui-btn-xs) {
@@ -29,30 +24,6 @@
         }
     </style>
 
-    <!--折叠展开按钮-->
-    <div class="layuimini-container">
-        <div class="layuimini-main">
-            <div>
-                <div class="layui-btn-group">
-                    <button class="layui-btn" id="btn-expand">全部展开</button>
-                    <button class="layui-btn layui-btn-normal" id="btn-fold">全部折叠</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!--显示在表头的工具条-->
-    <script type="text/html" id="stockToolBar">
-        <div style="float:right">
-            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="addParent"><i
-                    class="layui-icon">&#xe654;</i>添加父模块
-            </button>
-            <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="addChild"><i
-                    class="layui-icon">&#xe654;</i>添加子模块
-            </button>
-        </div>
-    </script>
     <script type="text/javascript">
         layui.use(['table', 'treetable', 'element', 'form', 'layer', 'laydate'], function () {
             var $ = layui.jquery;
@@ -338,16 +309,33 @@
     </script>
 
     <!--加载的数据表格-->
-<body style="overflow: auto; background-color: white;"
-      class="layui-view-body layui-content">
-<div>
+<body>
+
+<div class="layuimini-main">
+    <!--显示在表头的工具条-->
+    <script type="text/html" id="stockToolBar">
+        <div style="float: left">
+            <div class="layui-btn-group">
+                <button class="layui-btn layui-btn-primary" id="btn-expand">全部展开</button>
+                <button class="layui-btn layui-btn-primary" id="btn-fold">全部折叠</button>
+            </div>
+        </div>
+        <div style="float:right">
+            <button class="layui-btn layui-btn-primary layui-btn layui-btn-sm" lay-event="addParent"><i
+                    class="layui-icon">&#xe654;</i>添加父模块
+            </button>
+            <button class="layui-btn layui-btn-primary layui-btn layui-btn-sm" lay-event="addChild"><i
+                    class="layui-icon">&#xe654;</i>添加子模块
+            </button>
+        </div>
+    </script>
     <!--表格-->
     <table id="stock-table" class="layui-table" lay-filter="stock-table"></table>
     <!--工具条-->
     <div style="display: none;" id="barDemo">
         <a class="layui-btn layui-btn-xs" lay-event="edit"><i
                 class="layui-icon">&#xe642;</i>编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="del" style="color: #FF0000"><i
                 class="layui-icon">&#xe640;</i>删除</a>
     </div>
 </div>
@@ -361,7 +349,7 @@
           style="margin: 30px auto; display: inline-block;">
         <div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">板块编号</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">板块编号</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input" autocomplete="off" placeholder="例如：001" name="stockId">
                 </div>
@@ -370,7 +358,7 @@
             <input name="stockParentId" type="hidden" value="000">
             <br>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">板块名称</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">板块名称</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input" autocomplete="off" placeholder="请输入板块名称"
                            name="stockName">
@@ -379,7 +367,7 @@
         </div>
         <br>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green"
+            <label class="layui-form-label layui-bg-gray"
                    style="text-align: center; width: 130px; height: 100px; line-height: 81px">板块备注</label>
             <div class="layui-inline layui-show-xs-block">
                 <textarea name="stockDesc" required lay-verify="required" placeholder="请输入板块备注" class="layui-textarea"
@@ -406,7 +394,7 @@
           style="margin: 30px auto; display: inline-block;">
         <div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">板块编号</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">板块编号</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input" autocomplete="off" placeholder="例如：001" name="stockId">
                 </div>
@@ -415,7 +403,7 @@
         <br>
         <div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">板块名称</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">板块名称</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input" autocomplete="off" placeholder="请输入板块名称"
                            name="stockName">
@@ -425,7 +413,7 @@
         <br>
         <div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">父类板块编号</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">父类板块编号</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input" autocomplete="off" placeholder="请输入父类板块编号"
                            name="stockParentId" id="addParentStock">
@@ -435,7 +423,7 @@
         <br>
         <div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green"
+                <label class="layui-form-label layui-bg-gray"
                        style="text-align: center; width: 130px; height: 100px; line-height: 81px">板块备注</label>
                 <div class="layui-inline layui-show-xs-block">
                 <textarea name="stockDesc" required lay-verify="required" placeholder="请输入板块备注" class="layui-textarea"
@@ -448,7 +436,7 @@
             <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
                 <i class="layui-icon">&#x1005;</i>提交
             </button>
-            <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
+            <button class="layui-btn layui-btn-primary" type="button" onclick="myclose()" style="color: #FF0000">
                 <i class="layui-icon">&#x1006;</i>取消
             </button>
         </div>
@@ -463,7 +451,7 @@
           style="margin: 30px auto; display: inline-block;">
         <div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">板块编号</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">板块编号</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input" autocomplete="off" placeholder="例如：001" name="blankCardCode"
                            readonly="readonly">
@@ -474,7 +462,7 @@
         <br>
         <div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">板块名称</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">板块名称</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input" autocomplete="off" placeholder="请输入板块名称"
                            name="accountName">
@@ -484,7 +472,7 @@
         <br>
         <div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">父类板块编号</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">父类板块编号</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input" autocomplete="off" placeholder="请输入父类板块编号"
                            name="accountName">
@@ -494,7 +482,7 @@
         <br>
         <div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green"
+                <label class="layui-form-label layui-bg-gray"
                        style="text-align: center; width: 130px; height: 100px; line-height: 81px">板块备注</label>
                 <div class="layui-inline layui-show-xs-block">
                 <textarea name="accountDesc" required lay-verify="required" placeholder="请输入板块备注" class="layui-textarea"
@@ -507,7 +495,7 @@
             <button class="layui-btn" lay-submit="" lay-filter="updatesubmit">
                 <i class="layui-icon">&#x1005;</i>提交
             </button>
-            <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
+            <button class="layui-btn layui-btn-primary" type="button" onclick="myclose()" style="color: #FF0000">
                 <i class="layui-icon">&#x1006;</i>取消
             </button>
         </div>
