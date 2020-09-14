@@ -13,15 +13,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ClassName:    SecuritiesClosedPayInventoryController
- * Package:    com.ssaw.InventoryManagement.controller
  * Description:证券应收应付库存
- * Version:
- * Datetime:    2020/9/6   21:09
- * Author:   SYT
+ * Datetime:2020/9/14
+ * Author:sunH
  */
 @RestController
-@RequestMapping("/securitiesClosedPayInventory")
+@RequestMapping("securitiesClosedPayInventory")
 public class SecuritiesClosedPayInventoryController {
     @Resource
     SecuritiesClosedPayInventoryService securitiesClosedPayInventoryService;
@@ -37,7 +34,7 @@ public class SecuritiesClosedPayInventoryController {
      * @param dateTime  日期
      * @return
      */
-    @RequestMapping("/select")
+    @RequestMapping("select")
     public Map<String,Object> selectSecuritiesClosedPayInventory(String page, String limit,String securitiesType,String dateTime){
         //调用Service层执行查询，接收返回结果集Map
         Map<String, Object> map =  securitiesClosedPayInventoryService.selectSecuritiesClosedPayInventory(limit,page,securitiesType,dateTime);
@@ -54,4 +51,9 @@ public class SecuritiesClosedPayInventoryController {
         //返回数据
         return json;
     }
+
+    /*@RequestMapping("insert")
+    public int insertSecuritiesClosedPayInventory(SecuritiesClosedPayInventory securitiesClosedPayInventory){
+
+    }*/
 }
