@@ -3,6 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.DayEndProcessing.mapper.AssetValuationMapper">
+    <delete id="deleteTAReceivables" parameterType="java.util.Map">
+        delete from receivables where datetime = #{today} and businessType = 4
+		and fundId = #{fundId}
+		and ACCOUNTID = #{accountId}
+		and initialSigns = 1 and flag = #{flag}
+    </delete>
 
     <select id="selectAssetValuation" resultType="com.ssaw.DayEndProcessing.entity.AssetValuation">
         select s.securitiesid,s.securitiestype, m.closingprice,si.securitiesnum, si.price,si.total, m.datetime,

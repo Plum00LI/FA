@@ -41,4 +41,11 @@ public interface SecuritiesClosedPayMapper {
      */
     int deleteSecuritiesClosedPay(List securitiesClosedPayId);
 
+
+    //-------------------收益支付统计----------------
+    //根据时间、类型、流入流出、基金Id删除信息
+    void deleteSecuritiesNew(SecuritiesClosedPay securitiesClosedPay);
+    //根据时间、类型、流入流出、基金Id查询
+    List<SecuritiesClosedPay> selectSecuritiesNew(SecuritiesClosedPay securitiesClosedPay);
+
 }

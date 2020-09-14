@@ -6,7 +6,9 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: TescComment
@@ -23,14 +25,14 @@ public interface AssetValuationService {
      * @param assetValuation 查询所需条件  资产估值实体对象
      * @return
      */
-    public List<AssetValuation> selectAssetValuation(AssetValuation assetValuation);
+    public List<AssetValuation> selectAssetValuation(AssetValuation assetValuation, HttpSession session);
 
     /**
      * 查询TA交易清算款数据
      * @param assetValuation 查询所需条件  资产估值实体对象
      * @return
      */
-    public List<AssetValuation> selectTaTransaction(AssetValuation assetValuation);
+    public List<AssetValuation> selectTaTransaction(AssetValuation assetValuation,HttpSession session);
 
     /**
      * 通过估值日期查询是否当日是否证券以估值和已清算
@@ -38,4 +40,10 @@ public interface AssetValuationService {
      * @return 证券估值增值 和清算款的状态
      */
     public List<Integer> selectSecuritiesType(String today);
+
+    /**
+     * 删除Ta应收应付库存
+     * @return 受影响的行数（1：成功；0：失败）
+     */
+    public int deleteTAReceivables(String today, int flag,String fundId,String accountId);
 }
