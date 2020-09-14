@@ -1,6 +1,7 @@
 package com.ssaw.DayEndProcessing.controller;
 
 import com.ssaw.BusinessData.entity.CashClosedPay;
+import com.ssaw.BusinessData.entity.Market;
 import com.ssaw.DayEndProcessing.entity.AssetValuation;
 import com.ssaw.DayEndProcessing.entity.AssetValuationData;
 import com.ssaw.DayEndProcessing.mapper.AssetValuationMapper;
@@ -74,12 +75,12 @@ public class AssetValuationController {
 
     /**
      * 动态加载证券估值增值状态和清算状态
-     * @param toDay 估值日期
-     * @param strAppraisement 选中状态
+     * @param
+     * @param
      * @return
      */
-    @RequestMapping("selectAssecuritisState")
-    public HashMap selectAssecuritisState(String toDay,String strAppraisement){
+    @RequestMapping("selectAssecuritisState1")
+    public List<AssetValuationData> selectAssecuritisState(String toDay, String strAppraisement){
         AssetValuationData assetValuationData = new AssetValuationData(1,"证券估值增值","未估值",false);
         AssetValuationData assetValuationData1 = new AssetValuationData(2,"清算款","未清算",false);
 
@@ -122,16 +123,29 @@ public class AssetValuationController {
                 assetValuationData1.setState("已清算");
             }
         }
-        HashMap<String,Object> hashMap = new HashMap();
+
         List<AssetValuationData> dataList = new ArrayList<AssetValuationData>();
         dataList.add(assetValuationData);
         dataList.add(assetValuationData1);
         System.out.println(strAppraisement);
-        hashMap.put("count",1);
-        hashMap.put("code",0);
+
+        return dataList;
+    }
+
+
+    @RequestMapping("selecAssetValuationData")
+    public HashMap selecAssetValuationData(String toDay, Integer securitiesType){
+        System.out.println("dada==========================");
+        System.out.println("资产估值分页查询控制器");
+        List<AssetValuationData> assetValuationDataList = assetValuationService.selectAssecuritisStates(toDay,securitiesType);
+        HashMap<String,Object> hashMap = new HashMap<>();
+
+        //以layui要求存储响应数据格式
+        hashMap.put("code",10);
         hashMap.put("msg","");
-        hashMap.put("data",dataList);
-        System.out.println("信息的大小："+dataList.size());
+        hashMap.put("count",0);
+        hashMap.put("data",assetValuationDataList);
+        System.out.println("信息的大小："+assetValuationDataList.size());
         return hashMap;
     }
 }

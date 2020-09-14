@@ -1,7 +1,7 @@
 package com.ssaw.DayEndProcessing.service;
 
 import com.ssaw.DayEndProcessing.entity.InventoryStatistics;
-import com.ssaw.DayEndProcessing.entity.TaInventoryData;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -15,20 +15,26 @@ import java.util.List;
 /**
  * ClassName:    InventoryStatisticsController
  * Package:    com.ssaw.DayEndProcessing.controller
- * Description:
+ * Description:     库存统计
  * Version:
  * Datetime:    2020/9/9   17:19
  * Author:   SYT
  */
 @RestController
 public class InventoryStatisticsController {
+
     @Resource
     InventoryStatisticsService inventoryStatisticsService;
 
+    /**
+     * 库存统计显示在网页的数据
+     * @param fundId
+     * @param dateTime
+     * @param invId
+     * @return
+     */
     @RequestMapping("/selectInventory")
     public HashMap selectInventory(String fundId, String dateTime, String invId){
-        //获得基金id
-
         System.out.println("controller的dateTime"+dateTime);
         List<InventoryStatistics> inventoryEntities = inventoryStatisticsService.selectInventoryStatistics(fundId,dateTime,invId);
         HashMap userMap = new HashMap();
