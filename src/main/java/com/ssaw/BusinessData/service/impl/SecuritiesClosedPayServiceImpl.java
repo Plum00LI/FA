@@ -129,4 +129,10 @@ public class SecuritiesClosedPayServiceImpl implements SecuritiesClosedPayServic
     public List selectSecuritiesNew(SecuritiesClosedPay securitiesClosedPay) {
         return  securitiesClosedPayMapper.selectSecuritiesNew(securitiesClosedPay);
     }
+
+    //傅赛赢
+    @Override
+    public int deleteSecuritiesClosedPayByPojo(SecuritiesClosedPay securitiesClosedPay) {
+        return securitiesClosedPayMapper.deleteSecuritiesClosedPayByPojo(securitiesClosedPay);
+    }
 }

@@ -48,4 +48,6 @@ public interface SecuritiesClosedPayInventoryMapper {
      * @param dateTime
      */
     public void deleteSecuritiesClosedPayInventoryDate(String dateTime);
+
+    void deleteSecuritiesClosedPayInventoryDate(String securitiesId, String toDay, Integer securitiesType);
 }

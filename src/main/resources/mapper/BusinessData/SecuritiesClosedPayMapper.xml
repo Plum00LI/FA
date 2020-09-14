@@ -19,6 +19,10 @@
         delete from securitiesClosedPay where dateTime=#{dateTime} and fundId=#{fundId} and serviceType=#{serviceType} and  flag=#{flag}
     </delete>
 
+    <delete id="deleteSecuritiesClosedPayByPojo" parameterType="com.ssaw.BusinessData.entity.SecuritiesClosedPay">
+        delete from SecuritiesClosedPay where dateTime=#{dateTime} and fundId=#{fundId} and securitiesId=#{securitiesId}
+    </delete>
+
     <resultMap id="securitiesClosedPayMap" type="com.ssaw.BusinessData.entity.SecuritiesClosedPay">
         <result property="securitiesClosedPayId" column="securitiesClosedPayId" javaType="String"></result>
         <result property="fundId" column="fundId" javaType="String"></result>
