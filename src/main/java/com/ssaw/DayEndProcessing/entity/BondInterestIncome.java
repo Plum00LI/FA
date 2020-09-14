@@ -10,6 +10,9 @@ package com.ssaw.DayEndProcessing.entity;
 public class BondInterestIncome {
 
     private String accountName; //账号名称
+    private String accountId;
+    private String fundId;
+    private String securitiesId;
     private String securitiesName;//证券名称
     private int securitiesType;////证券应收应付类型 3=债券利息
     private int flag;//业务状态 1流入，-1流出
@@ -26,6 +29,30 @@ public class BondInterestIncome {
     }
 
     public BondInterestIncome() {
+    }
+
+    public String getSecuritiesId() {
+        return securitiesId;
+    }
+
+    public void setSecuritiesId(String securitiesId) {
+        this.securitiesId = securitiesId;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getFundId() {
+        return fundId;
+    }
+
+    public void setFundId(String fundId) {
+        this.fundId = fundId;
     }
 
     @Override

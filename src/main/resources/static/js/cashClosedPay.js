@@ -55,6 +55,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 				});
 			}
 		});
+		layer.empty();
 		return false;
 	});
 	//修改提交

@@ -87,6 +87,7 @@
                 $.post("/varietiesRate/insertVarietiesRate", formData, function (msg) {
                     if (msg > 0) {
                         table.reload('userTable');
+
                         layer.closeAll();
                         layer.msg('添加成功', {
                             title: '提示',
@@ -97,6 +98,7 @@
                         });
                     } else {
                         layer.closeAll();
+
                         layer.msg('添加失败', {
                             title: '提示',
                             area: ['200px',
@@ -106,6 +108,7 @@
                         });
                     }
                 });
+                layer.empty();
                 return false;
             });
 
@@ -148,8 +151,8 @@
                 cellMinWidth:60,
                 cols: [
                     [ //表头
-                    {type: 'checkbox', field: 'left'}
-                    , {field: 'exchangeName', title: '交易所名称', width: 175, align: 'center'
+                        {type: 'checkbox', field: 'left'}
+                        , {field: 'exchangeName', title: '交易所名称', width: 175, align: 'center'
                         ,templet: function(item) {
                             if (item.exchangeName == '2') {
                                 return '深交所';
@@ -158,7 +161,7 @@
                             }
                         }
                     }
-                    , {field: 'rateType', title: '费率类型', width: 175, align: 'center'
+                        , {field: 'rateType', title: '费率类型', width: 175, align: 'center'
                         ,templet: function(item) {
                             if (item.rateType == '2') {
                                 return '债券';
@@ -166,12 +169,12 @@
                                 return '股票';
                             }
                         }}
-                    , {field: 'stampDuty', title: '印花税',  align: 'center'}
-                    , {field: 'transferFee', title: '过户费', align: 'center'}
-                    , {field: 'collectionRate', title: '征管费',  align: 'center'}
-                    , {field: 'brokerage', title: '经手费',  align: 'center'}
-                    , {title: '操作', minWidth: 100, toolbar: '#barDemo', align: "center"}
-                ]
+                        , {field: 'stampDuty', title: '印花税',  align: 'center'}
+                        , {field: 'transferFee', title: '过户费', align: 'center'}
+                        , {field: 'collectionRate', title: '征管费',  align: 'center'}
+                        , {field: 'brokerage', title: '经手费',  align: 'center'}
+                        , {title: '操作', minWidth: 100, toolbar: '#barDemo', align: "center"}
+                    ]
                 ],
                 limits: [10, 15, 20, 25, 50, 100],
                 limit: 15,
