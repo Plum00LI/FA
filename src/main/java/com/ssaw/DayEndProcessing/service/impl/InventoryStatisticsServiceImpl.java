@@ -8,6 +8,8 @@ import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.InventoryManagement.entity.*;
 
 import com.ssaw.InventoryManagement.mapper.CashClosedPayInventoryMapper;
+import com.ssaw.InventoryManagement.mapper.SecuritiesClosedPayInventoryMapper;
+import com.ssaw.InventoryManagement.mapper.SecuritiesInventoryMapper;
 import com.ssaw.InventoryManagement.service.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +35,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
      InventoryStatisticsMapper inventoryStatisticsMapper;
     //证券库存的Service
     @Resource
-     SecuritiesInventoryService securitiesInventoryService;
+    SecuritiesInventoryMapper securitiesInventoryMapper;
     //TA库存
     @Resource
     TaInventoryService taInventoryService;
@@ -45,7 +47,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
     CashClosedPayInventoryMapper cashClosedPayInventoryMapper;
     //证券应收应付库存
     @Resource
-    SecuritiesClosedPayInventoryService securitiesClosedPayInventoryService;
+    SecuritiesClosedPayInventoryMapper securitiesClosedPayInventoryMapper;
 
 
 
@@ -108,22 +110,16 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                     case "2":
                         System.out.println("证券库存");
                         System.out.println("证券库存的dateTime"+dateTime);
+                        System.out.println("证券库存的fundId"+fundId);
                         //统计证券库存
                         List<SecuritiesInventoryData> securitiesInventoryList=inventoryStatisticsMapper.selectSecuritiesInventory(dateTime,fundId);
-//                        System.out.println("啦啦啦");
 
                         securitiesInventory = new InventoryStatistics(2,"证券库存",fundId,"admain",dateTime,securitiesInventoryList.size(),"已统计");
 
                         for (SecuritiesInventoryData securitiesInventoryData : securitiesInventoryList) {
-                            System.out.println("我是库存统计 我查询到的结果为："+securitiesInventoryData);
-                        }
-
-
-//                        遍历
-                        for (SecuritiesInventoryData securities : securitiesInventoryList) {
-                            System.out.println("证券库存数据为："+securities);
+                            System.out.println("我是证券库存统计 我查询到的结果为："+securitiesInventoryData);
                             //删除证券库存信息
-                            securitiesInventoryService.deleteSecuritiesInventoryDate(dateTime);
+                            securitiesInventoryMapper.deleteSecuritiesInventoryDate(dateTime);
                             //增加证券库存数据
                             SecuritiesInventory securitiesInventory1=new SecuritiesInventory();
                             //证券库存ID
@@ -131,28 +127,25 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                             //证券库存日期
                             securitiesInventory1.setDateTime(dateTime);
                             //证券信息表ID
-                            securitiesInventory1.setSecuritiesId(securities.getSecuritiesId());
+                            securitiesInventory1.setSecuritiesId(securitiesInventoryData.getSecuritiesId());
                             //基金表ID
+                            System.out.println("fundId="+fundId);
                             securitiesInventory1.setFundId(fundId);
                             //是否导入其他系统数据
-//                            securitiesInventory1.setSecurityPeriodFlag(0);
+                            securitiesInventory1.setSecurityPeriodFlag(0);
                             //证券的数量
-                            securitiesInventory1.setSecuritiesNum(securities.getTodayNum());
+                            securitiesInventory1.setSecuritiesNum(securitiesInventoryData.getTodayNum());
                             //单位成本
-                            securitiesInventory1.setPrice(securities.getUnitPrice());
+                            securitiesInventory1.setPrice(securitiesInventoryData.getUnitPrice());
                             //总金额
-                            securitiesInventory1.setTotal(securities.getTodayTotal());
+                            securitiesInventory1.setTotal(securitiesInventoryData.getTodayTotal());
                             //备注
                             securitiesInventory1.setSecuritiesInventoryDesc("证券库存统计");
-
                             //输出语句
                             System.out.println("证券库存统计"+securitiesInventory1);
-
                             //调用增加方法
-                            securitiesInventoryService.insertSecuritiesInventory(securitiesInventory1);
-
+                            securitiesInventoryMapper.insertSecuritiesInventory(securitiesInventory1);
                         }
-
                         break;
                     case "3":
                         System.out.println("TA库存");
@@ -183,7 +176,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                         for (SecuritiesClosedPayInventoryData securitiesClosedPayInventoryData : securitiesClosedPayInventoryDataList) {
                             System.out.println("我是统计证券应收应付库存的操作,我统计的数据为："+securitiesClosedPayInventoryData);
                             //根据日期删除
-                            securitiesClosedPayInventoryService.deleteSecuritiesClosedPayInventoryDate(dateTime);
+                            securitiesClosedPayInventoryMapper.deleteSecuritiesClosedPayInventoryDate(dateTime);
                             //定义新证券应收应付库存对象
                             SecuritiesClosedPayInventory securitiesClosedPayInventory1=new SecuritiesClosedPayInventory();
                             securitiesClosedPayInventory1.setSecuritiesClosedPayInventoryId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.SCPI));
@@ -193,10 +186,13 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                             securitiesClosedPayInventory1.setSecuritiesType(3);
                             securitiesClosedPayInventory1.setFlag(securitiesClosedPayInventoryData.getFlag());
                             securitiesClosedPayInventory1.setTotalPrice(securitiesClosedPayInventoryData.getTotal());
-                            securitiesClosedPayInventory1.setSecuritiesClosedPayDesc("证券应收应付库存统计");
                             securitiesClosedPayInventory1.setSecurityPeriodFlag(0);
+                            securitiesClosedPayInventory1.setSecuritiesClosedPayDesc("证券应收应付库存统计");
+//                            (#{securitiesClosedPayInventoryId
+//                                    ,#{dateTime},#{fundId},#{securitiesId},
+//        #{securitiesType},#{flag},${totalPrice},#{securityPeriodFlag})
                             //增加
-                            securitiesClosedPayInventoryService.insertSecuritiesClosedPayInventory(securitiesClosedPayInventory1);
+                            securitiesClosedPayInventoryMapper.insertSecuritiesClosedPayInventory(securitiesClosedPayInventory1);
                             System.out.println("我是统计证券应收应付库存的操作,我统计的数据为："+securitiesClosedPayInventory1);
                         }
                         break;
@@ -223,9 +219,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                             cashClosedPayInventory1.setCashClosedPayInventoryId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.CCPI));
                             cashClosedPayInventory1.setBusinessDate(dateTime);
                             cashClosedPayInventory1.setAccountId(cashClosedPayInventoryData.getAccountId());
-//                            cashClosedPayInventory1.set
                             cashClosedPayInventory1.setFundId(fundId);
-//                            cashClosedPayInventory1.setFundName();
                             cashClosedPayInventory1.setBusinessType(cashClosedPayInventoryData.getBusinessType());
                             cashClosedPayInventory1.setBusinessStatus(cashClosedPayInventoryData.getFlag());
                             cashClosedPayInventory1.setInitialSigns(0);

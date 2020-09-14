@@ -19,7 +19,7 @@
         </foreach>
     </delete>
     <delete id="deleteCashClosedPayInventoryDate">
-        delete from cashClosedPayInventory where dateTime=#{dateTime}
+        delete from cashClosedPayInventory where businessDate=#{dateTime}
     </delete>
 
     <!--查询-->
