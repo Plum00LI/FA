@@ -7,12 +7,14 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function(){
     var formSelects = layui.formSelects;
     var laydate = layui.laydate;
 
-
-
-    //执行一个laydate实例
     laydate.render({
-        elem: '#dateTime' //指定日期
+        elem:'#dateTime'
     });
+
+    // //执行一个laydate实例
+    // laydate.render({
+    //     elem: '#dateTime' //指定日期
+    // });
 
     //执行一个laydate实例
     laydate.render({
@@ -77,6 +79,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function(){
                 //获得日期
                 var dateTime = $("#dateTime").val();
                 // //    layer.alert(JSON.stringify(data));
+                var fundId=$("#fundId").val();
                 if (data.length == 0) {
                     layer.msg("请至少选择一个库存进行统计",)
                 } else {
@@ -95,6 +98,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function(){
                         , where: {
                             'dateTime': dateTime,
                             'invId': ids.join(','),
+                            'fundId':fundId
                         }
                         , page: {
                             curr: 1

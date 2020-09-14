@@ -40,5 +40,9 @@ public interface CashInventoryMapper {
      */
     public int deleteCashInventory(List cashInventoryId);
 
-    public int deleteCashInventoryDate(String dateTime);
+    /**
+     * 根据日期删除
+     * @param dateTime
+     */
+    public void deleteCashInventoryDate(String dateTime);
 }
