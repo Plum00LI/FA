@@ -5,11 +5,17 @@
 
 <mapper namespace="com.ssaw.DayEndProcessing.mapper.SecuritiesValueStatisticsMapper">
 
-<select id="selectSecuritiesValueStatistics" resultType="com.ssaw.DayEndProcessing.entity.SecuritiesValueStatistics">
+    <select id="selectSecuritiesValueStatistics" resultType="com.ssaw.DayEndProcessing.entity.SecuritiesValueStatistics">
     select (s.SECURITIESID)SECURITIESID,(s.SECURITIESNAME)SECURITIESNAME,(CASE s.SECURITIESTYPE WHEN 1 THEN '债券'WHEN 2 THEN '股票' END)as SECURITIESTYPE,(m.CLOSINGPRICE)CLOSINGPRICE,(y.SECURITIESNUM)SECURITIESNUM ,(y.TOTAL)TOTAL,(y.SECURITIESNUM*m.CLOSINGPRICE)marketValue,(r.TOTALPRICE)TOTALPRICE from (select * from SECURITIES )s
 join (select * from MARKET where DATETIME=#{param3})m on m.SECURITIESID=s.SECURITIESID
 join (select * from SECURITIESINVENTORY where DATETIME=#{param1} and FUNDID=#{param2})y on y.SECURITIESID=s.SECURITIESID
-join (select * from SECURITIESCLOSEDPAYINVENTORY where DATETIME=#{param1} and SECURITIESTYPE=1 and FUNDID=#{param2})r on r.SECURITIESID=y.SECURITIESID
+join (select * from SECURITIESCLOSEDPAYINVENTORY where DATETIME=#{param1} and SECURITIESTYPE=#{param4} and FUNDID=#{param2})r on r.SECURITIESID=y.SECURITIESID
+</select>
+    <select id="selectSecuritiesValueStatisticsTwo" resultType="com.ssaw.DayEndProcessing.entity.SecuritiesValueStatistics">
+    select (s.SECURITIESID)SECURITIESID,(s.SECURITIESNAME)SECURITIESNAME,(CASE s.SECURITIESTYPE WHEN 1 THEN '债券'WHEN 2 THEN '股票' END)as SECURITIESTYPE,(m.CLOSINGPRICE)CLOSINGPRICE,(y.SECURITIESNUM)SECURITIESNUM ,(y.TOTAL)TOTAL,(y.SECURITIESNUM*m.CLOSINGPRICE)marketValue,(r.TOTALPRICE)TOTALPRICE from (select * from SECURITIES )s
+join (select * from MARKET where DATETIME=#{param3})m on m.SECURITIESID=s.SECURITIESID
+join (select * from SECURITIESINVENTORY where DATETIME=#{param1} and FUNDID=#{param2})y on y.SECURITIESID=s.SECURITIESID
+join (select * from SECURITIESCLOSEDPAYINVENTORY where DATETIME=#{param1} and SECURITIESTYPE=#{param4} and FUNDID=#{param2} and FLAG=#{param5})r on r.SECURITIESID=y.SECURITIESID
 </select>
 
 </mapper>
