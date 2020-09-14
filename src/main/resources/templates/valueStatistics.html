@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <title>menu</title>
@@ -43,6 +43,8 @@
             </div>
 
     </div>
+        <input type="hidden" id="fundId" name="fundId" th:value="${session.fundId}">
+        <input type="hidden" id="accountId" name="accountId" th:value="${session.accountId}">
         <div>
             <div class="layui-btn-group">
                 <button class="layui-btn" id="btn-expand">全部展开</button>
@@ -89,6 +91,10 @@
             elem: '#munu-table',
             // url: '../lib/layuimini/api/test.json',
             url: '../ValueStatistics/selectValueStatistics?valueStatisticsDate='+$('#test12').val(),
+            data:{
+                'fundId':$('#fundId').val(),
+                'accountId':$('#accountId').val()
+            },
             page: false,
             cols: [
                 [
@@ -126,6 +132,7 @@
                 elem: '#munu-table',
                 // url: '../lib/layuimini/api/test.json',
                 url: '../ValueStatistics/insertValueStatistics?valueStatisticsDate='+$('#test12').val(),
+                data:'fundId='+$('#fundId').val(),
                 page: false,
                 cols: [
                     [
@@ -156,6 +163,7 @@
                 elem: '#munu-table',
                 // url: '../lib/layuimini/api/test.json',
                 url: '../ValueStatistics/selectValueStatistics?valueStatisticsDate='+$('#test12').val(),
+                data:'fundId='+$('#fundId').val(),
                 page: false,
                 cols: [
                     [

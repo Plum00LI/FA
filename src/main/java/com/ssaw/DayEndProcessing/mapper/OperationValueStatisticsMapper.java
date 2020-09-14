@@ -16,6 +16,7 @@ import java.util.List;
  * @return
  */
 @Mapper
+
 public interface OperationValueStatisticsMapper {
     /**
      * 现金模块查询方法
@@ -33,5 +34,15 @@ public interface OperationValueStatisticsMapper {
      * @param typeTwo
      * @return
      */
-    public List<OperationValueStatistics> selectOperationTA(String accountID, int type,int typeTwo);
+    public List<OperationValueStatistics> selectOperationTA(String accountID, int type,int typeTwo,String dateTime,String fundID);
+
+    /**
+     * 运营模块查询方法-两费
+     * @param dateTime
+     * @param fundID
+     * @param type
+     *
+     * @return
+     */
+    public List<OperationValueStatistics> selectOperationCost(String accountID,String dateTime, String fundID,int type);
 }
