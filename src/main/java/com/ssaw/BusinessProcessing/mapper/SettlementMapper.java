@@ -25,7 +25,7 @@ public interface SettlementMapper {
      * @param transactionDataId
      * @return
      */
-    public int deleteSettlement(String transactionDataId);
+     int deleteSettlement(String transactionDataId);
 
     /**
      *
@@ -33,7 +33,7 @@ public interface SettlementMapper {
      * @param transactionDataId
      * @return
      */
-    public int updateSettlement(int status,String transactionDataId);
+     int updateSettlement(int status,String transactionDataId);
 
     /**
      *
@@ -41,5 +41,5 @@ public interface SettlementMapper {
      * @param transactionDataId
      * @return
      */
-    public int updateSettlementTwo(int status,String transactionDataId);
+     int updateSettlementTwo(int status,String transactionDataId);
 }
