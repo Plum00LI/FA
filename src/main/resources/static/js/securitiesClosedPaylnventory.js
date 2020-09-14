@@ -18,6 +18,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     laydate.render({
         elem: '#dateTime2' //指定元素
     });
+
+
     //数据表格
     table.render({
         elem: '#securitiesClosedPayInventoryTable',
@@ -34,7 +36,17 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 ,{field: 'dateTime', title: '业务日期'}
                 ,{field: 'fundId', title: '基金信息表ID'}
                 ,{field: 'securitiesId', title: '证券信息表ID'}
-                ,{field: 'securitiesType', title: '证券应收应付类型'}
+                ,{field: 'securitiesType', title: '证券应收应付类型',
+                templet:function (item) {
+                    if (item.securitiesType==1){
+                        return '估值款';
+                    }else if (item.securitiesType==2){
+                        return '证券清算款';
+                    }else if (item.securitiesType==3){
+                        return '债券利息';
+                    }
+                }
+            }
                 ,{field: 'totalPrice', title: '总金额'}
                 ,{field: 'securitiesClosedPayDesc', title: '备注'}
                 ,{field: 'securityPeriodFlag', title: '期初标志'}
@@ -42,6 +54,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             ]
         ]
     });
+
+
     //期初数据选中
     form.on('checkbox(initialSigns)', function(data){
         var addbtn = document.getElementById('addbtn');
@@ -54,6 +68,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             addbtn.setAttribute("lay-event","")
         }
     });
+
+
     //新增提交
     form.on('submit(addsubmit)', function(data){
         var formData=$('#addform').serialize();
@@ -82,6 +98,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         });
         return false;
     });
+
+
     //修改提交
     form.on('submit(editsubmit)', function(data){
         var formData=$('#editform').serialize();
@@ -110,6 +128,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         });
         return false;
     });
+
 
     //给工具条的按钮添加事件
     table.on('toolbar(securitiesClosedPayInventoryTable)',function (obj) {

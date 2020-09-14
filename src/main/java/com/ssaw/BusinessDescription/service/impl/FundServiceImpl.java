@@ -99,19 +99,18 @@ public class FundServiceImpl implements FundService {
         }
 
 
-        int v_fundId = 0;
         StringBuffer sqlWhere=new StringBuffer();
         if(fundId!=null&&!fundId.equals("")){
-            v_fundId=Integer.parseInt(fundId);
-            sqlWhere.append(" AND fundId LIKE  '%"+v_fundId+"%'" );
+            sqlWhere.append(" AND fundId LIKE  '%"+fundId+"%'" );
         }
         if(fundType!=null&&!fundType.equals("")){
             sqlWhere.append(" AND fundType LIKE  '%"+fundType+"%'" );
         }
+        String fund=" ( select * from  fund f join manager m on f.managerId=m.managerId join trustee t on f.trusteeId=t.trusteeId )";
         //创建一个Map，用于存储过程的调用传值
         Map<String,Object> map = new HashMap<>();
         //传入存储过程需要查询的表名
-        map.put("p_tableName","fund");
+        map.put("p_tableName",fund);
         //传入查询条件
         map.put("p_condition",sqlWhere.toString());
         //传入分页显示条数

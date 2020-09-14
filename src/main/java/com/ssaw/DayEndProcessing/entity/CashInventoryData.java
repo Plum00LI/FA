@@ -10,19 +10,21 @@ package com.ssaw.DayEndProcessing.entity;
  */
 public class CashInventoryData {
     private double cashTotal;
+    private String accountId;
     public CashInventoryData(){
 
     }
 
-    public CashInventoryData(double cashTotal) {
+    public CashInventoryData(double cashTotal, String accountId) {
         this.cashTotal = cashTotal;
+        this.accountId = accountId;
     }
 
     @Override
-    public String
-    toString() {
+    public String toString() {
         return "CashInventoryData{" +
                 "cashTotal=" + cashTotal +
+                ", accountId='" + accountId + '\'' +
                 '}';
     }
 
@@ -32,5 +34,13 @@ public class CashInventoryData {
 
     public void setCashTotal(double cashTotal) {
         this.cashTotal = cashTotal;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 }
