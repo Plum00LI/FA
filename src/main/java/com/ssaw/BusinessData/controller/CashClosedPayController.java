@@ -72,4 +72,11 @@ public class CashClosedPayController {
         //返回数据
         return json;
     };
+
+    //傅赛赢
+    @RequestMapping("deleteNew2")
+    public int deleteNew2(CashClosedPay cashClosedPay){
+        int i = cashClosedPayService.deleteNew2(cashClosedPay);
+        return i;
+    }
 }

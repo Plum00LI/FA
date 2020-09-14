@@ -28,4 +28,7 @@ public interface CashClosedPayMapper {
      void deleteNew(CashClosedPay cashClosePay);
     //创建一个根据实体类来查询
     List<CashClosedPay> selectNew(CashClosedPay cashClosePay);
+
+    //收益计提
+    int deleteNew2(CashClosedPay cashClosedPay);
 }
