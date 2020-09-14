@@ -115,8 +115,8 @@ public class TaSettlementServiceImpl implements TaSettlementService {
             bankTreasurerMapper.insertBankTreasurer(bankTreasurer);
             int status = taSettlement1.getTransactionStatus();
             String transactionDataId = taSettlement1.getTaTransactionId();
-            if (status==0){
-                taSettlementMapper.updateTaSettlement(1,transactionDataId);
+                if (status==0){
+                taSettlementMapper.updateTaSettlement(1,taSettlement1.getTaTransactionId());
                 bankTreasurerMapper.insertBankTreasurer(bankTreasurer);
             }
             System.out.println(bankTreasurer);
@@ -132,7 +132,7 @@ public class TaSettlementServiceImpl implements TaSettlementService {
             String transactionDataId = taSettlement1.getTaTransactionId();
             System.out.println(status);
             if (status==1){
-                taSettlementMapper.updateTaSettlementTwo(0,transactionDataId);
+                taSettlementMapper.updateTaSettlementTwo(0,taSettlement1.getTaTransactionId());
                 bankTreasurerMapper.deleteBankTreasurerByDepositId(transactionDataId);
             }
         }

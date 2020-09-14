@@ -22,6 +22,6 @@ public interface InventoryStatisticsService {
      * @param invId
      * @return
      */
-    public List<InventoryStatistics> selectInventoryStatistics(String dateTime,String invId);
+    public List<InventoryStatistics> selectInventoryStatistics(String fundId,String dateTime,String invId);
 
 }
