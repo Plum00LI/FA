@@ -40,6 +40,18 @@ public class CashClosedPay {
         this.dateTime = dateTime;
         this.flag = flag;
     }
+    public CashClosedPay(String cashClosedPayId, String fundId, String fundName, String accountId, String accountName, int serviceType, double amount, String dateTime, int flag) {
+        this.cashClosedPayId = cashClosedPayId;
+        this.fundId = fundId;
+        this.fundName = fundName;
+        this.accountId = accountId;
+        this.accountName = accountName;
+        this.serviceType = serviceType;
+        this.amount = amount;
+        this.dateTime = dateTime;
+        this.flag = flag;
+    }
+
 
     @Override
     public String toString() {
