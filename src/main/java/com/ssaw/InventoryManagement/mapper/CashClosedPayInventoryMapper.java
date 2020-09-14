@@ -18,4 +18,5 @@ public interface CashClosedPayInventoryMapper {
     public int deleteCashClosedPayInventory(List cashClosedPayInventoryId);
     public int updateCashClosedPayInventory(CashClosedPayInventory cashClosedPayInventory);
     public void selectCashClosedPayInventory(Map map);
+    public void deleteCashClosedPayInventoryDate(String dateTime);
 }

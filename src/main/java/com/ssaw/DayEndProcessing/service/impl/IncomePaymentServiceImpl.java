@@ -33,7 +33,7 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
     @Resource
     IncomePaymentMapper incomePaymentMapper;
 
-
+    //证券利息收入
     @Override
     public Map<String, Object> selectCashInterestIncome(String pageSize, String page, String statDate, String fundId) {
         //创建一个结果集Map用于存放两个结果变量
@@ -75,7 +75,7 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
         System.out.println("日期"+datetime);
 
         //查询表
-        String sqlSelect=" (select * from (select * from cashClosedPayInventory where fundId='289289289' and businessType in 3 and businessDate='"+datetime+"' ) c join account a on c.accountId=a.accountId )  ";
+        String sqlSelect=" (select * from (select * from cashClosedPayInventory where fundId='000899' and businessType in 3 and businessDate='"+datetime+"' ) c join account a on c.accountId=a.accountId )  ";
         //创建一个Map，用于存储过程的调用传值
         Map<String, Object> map = new HashMap<>();
         //传入存储过程需要查询的表名
@@ -104,6 +104,7 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
         return resultMap;
     }
 
+    //债券利息收入
     @Override
     public Map<String, Object> selectBondInterestIncome(String pageSize, String page, String statDate, String fundId) {
         //创建一个结果集Map用于存放两个结果变量
@@ -168,6 +169,7 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
         return resultMap;
     }
 
+    //支付两费
     @Override
     public Map<String, Object> selectPayTwoFees(String pageSize, String page, String statDate, String fundId) {
         //创建一个结果集Map用于存放两个结果变量
@@ -209,7 +211,7 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
         System.out.println("日期"+datetime);
 
         //查询表
-        String sqlSelect=" (select * from (select * from cashClosedPayInventory where fundId='289289289' and businessType in (1,2) and businessDate='"+datetime+"' ) c join account a " +
+        String sqlSelect=" (select * from (select * from cashClosedPayInventory where fundId='000899' and businessType in (1,2) and businessDate='"+datetime+"' ) c join account a " +
                 "on c.accountId=a.accountId ) ";
         //创建一个Map，用于存储过程的调用传值
         Map<String, Object> map = new HashMap<>();

@@ -2,6 +2,7 @@ package com.ssaw.BusinessData.mapper;
 
 import com.ssaw.BusinessData.entity.CashClosedPay;
 
+import com.ssaw.BusinessDescription.entity.VarietiesRate;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -23,4 +24,8 @@ public interface CashClosedPayMapper {
     int deleteCashClosedPay(List cashClosedPayId);
     int updateCashClosedPay(CashClosedPay cashClosePay);
     void selectCashClosedPay(Map map);
+    //创建一个根据实体类来删除
+     void deleteNew(CashClosedPay cashClosePay);
+    //创建一个根据实体类来查询
+    List<CashClosedPay> selectNew(CashClosedPay cashClosePay);
 }
