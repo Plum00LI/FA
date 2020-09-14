@@ -111,6 +111,7 @@ public class CashClosedPayServiceImpl implements CashClosedPayService {
     }
 
     //收益计提删除方法
+    //老傅大傻逼
     @Override
     public int deleteNew2(CashClosedPay cashClosedPay) {
         return cashClosedPayMapper.deleteNew2(cashClosedPay);
