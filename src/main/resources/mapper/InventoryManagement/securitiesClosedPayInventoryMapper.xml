@@ -12,8 +12,12 @@
 
     </update>
 
-    <delete id="deleteSecuritiesClosedPayInventory">
-
+    <delete id="deleteSecuritiesClosedPayInventory" parameterType="list">
+        delete from securitiesClosedPayInventory where securitiesClosedPayInventoryId in
+        <foreach collection="list" item="securitiesClosedPayInventoryId" open="("
+                 separator="," close=")">
+            #{securitiesClosedPayInventoryId}
+        </foreach>
     </delete>
     <delete id="deleteSecuritiesClosedPayInventoryDate">
         delete from securitiesClosedPayInventory where dateTime=#{dateTime}

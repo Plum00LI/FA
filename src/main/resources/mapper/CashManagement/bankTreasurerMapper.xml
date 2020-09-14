@@ -19,7 +19,7 @@
             </foreach>
     </delete>
     <delete id="deleteBankTreasurerByDepositId">
-        delete from bankTreasurer where businessId=#{depositId}
+        delete from bankTreasurer where businessId=#{businessId}
     </delete>
 
     <resultMap id="bankTreasurerMap" type="com.ssaw.CashManagement.entity.BankTreasurer">

@@ -61,9 +61,11 @@ public class EquityDisposeServiceImpl implements EquityDisposeService {
 
 
         //多表查询
-        String p_tableName="(select * from "+SysTableNameListUtil.SI+" s "+
-                "join (select * from "+SysTableNameListUtil.ED+") e "+
-                "on s.securitiesId=e.securityId)";
+        String p_tableName="(select ((SECURITIESNUM*qysj.PROPORTION)/100) as settlementAmount,SECURITIESID,qysj.EQUITYDATAID,qysj.EQUITIESTYPE,qysj.EQUITIESEXRIGHT,qysj.PROPORTION,qysj.DISPOSESTATUS,qysj.SECURITYID,zjkc.SECURITIESNUM " +
+                "from (select * from "+SysTableNameListUtil.SI+") zjkc " +
+                "full join (select PROPORTION,SECURITYID,EQUITYDATAID,EQUITIESTYPE,EQUITIESEXRIGHT,DISPOSESTATUS " +
+                "from "+SysTableNameListUtil.ED+") qysj " +
+                "on qysj.SECURITYID=zjkc.SECURITIESID)";
 
 
 
