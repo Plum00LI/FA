@@ -62,7 +62,7 @@
                     ,{field: 'securitiesNum', title: '证券数量', align:'center'}
                     ,{field: 'proportion', title: '比例', align:'center'}
                     ,{field: 'settlementAmount', title: '结算金额', align:'center'}
-                    ,{field: 'disposeStatus', title: '处理状态', align:'center',
+                    ,{field: 'disposeStatus', title: '处理状态', align:'center', hide: true,
                         templet:function (item) {
                             if (item.disposeStatus==0){
                                 return '未处理';
@@ -102,7 +102,7 @@
                     ,{field: 'securitiesNum', title: '证券数量', align:'center'}
                     ,{field: 'proportion', title: '比例', align:'center'}
                     ,{field: 'settlementAmount', title: '结算金额', align:'center'}
-                        ,{field: 'disposeStatus', title: '处理状态', align:'center',
+                        ,{field: 'disposeStatus', title: '处理状态', align:'center', hide: true,
                         templet:function (item) {
                             if (item.disposeStatus==0){
                                 return '未处理';
