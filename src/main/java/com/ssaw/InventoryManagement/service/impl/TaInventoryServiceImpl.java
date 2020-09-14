@@ -86,7 +86,7 @@ public class TaInventoryServiceImpl implements TaInventoryService {
     }
 
     /**
-     *
+     *  增加TA库存
      * @param taInventory
      * @return
      */
@@ -94,11 +94,20 @@ public class TaInventoryServiceImpl implements TaInventoryService {
         return taInventoryMapper.insertTaInventory(taInventory);
     }
 
-
+    /**
+     * 修改TA库存信息
+     * @param taInventory
+     * @return
+     */
     public int updateTaInventory(TaInventory taInventory) {
         return taInventoryMapper.updateTaInventory(taInventory);
     }
 
+    /**
+     * 根据Id删除
+     * @param taInventoryId
+     * @return
+     */
     @Override
     public int deleteTaInventory(String taInventoryId) {
         String[] taInventoryIds=taInventoryId.split(",");
@@ -109,6 +118,10 @@ public class TaInventoryServiceImpl implements TaInventoryService {
         return taInventoryMapper.deleteTaInventory(taInventoryIdList);
     }
 
+    /**
+     * g根据日期删除
+     * @param dateTime
+     */
     @Override
     public void deleteTaInventoryDate(String dateTime) {
         taInventoryMapper.deleteTaInventoryDate(dateTime);

@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.InventoryManagement.mapper.SecuritiesClosedPayInventoryMapper">
 
-    <insert id="insertSecuritiesClosedPayInventory">
-         insert into securitiesClosedPayInventory(securitiesClosedPayInventoryId,dateTime,fundId,securitiesId,securitiesType,flag,totalPrice,securityPeriodFlag)
+    <insert id="insertSecuritiesClosedPayInventory" parameterType="com.ssaw.InventoryManagement.entity.SecuritiesClosedPayInventory">
+         insert into securitiesClosedPayInventory(securitiesClosedPayInventoryId,dateTime,fundId,securitiesId,securitiesType,flag,totalPrice,securityPeriodFlag,securitiesClosedPayDesc)
          values (#{securitiesClosedPayInventoryId},#{dateTime},#{fundId},#{securitiesId},
-        #{securitiesType},#{flag},${totalPrice},#{securityPeriodFlag})
+        #{securitiesType},#{flag},#{totalPrice},#{securityPeriodFlag},#{securitiesClosedPayDesc})
     </insert>
 
     <update id="updateSecuritiesClosedPayInventory">
