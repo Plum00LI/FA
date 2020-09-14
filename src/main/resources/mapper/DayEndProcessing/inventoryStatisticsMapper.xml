@@ -50,4 +50,14 @@
         dateTime=#{dateTime} group by securitiesid,amount ,flag) se
 		on ns.securitiesid = se.securitiesid
     </select>
+    <select id="selectCashClosedPayInventory"
+            resultType="com.ssaw.DayEndProcessing.entity.CashClosedPayInventoryData">
+        select nvl(xj.serviceType,kc.businessType) as BUSINESSTYPE,(NVL(totalMoney,0)+xj.tocal) as cashTotal,nvl(kc.INITIALSIGNS,xj.FLAG) as flag,xj.accountId
+        from
+        (select * from cashClosedPayInventory where FUNDID='000899' and businessDate=to_char(to_date('2020-09-06','yyyy-MM-dd')-1,'yyyy-MM-dd')) kc
+        full join
+        (select serviceType,dateTime,ACCOUNTID,sum(nvl(amount,0)*nvl(FLAG,0)) as tocal,FLAG
+        from (select * from cashClosedPay where DATETIME='2020-09-06' and fundId='000899') group by serviceType,DATETIME,ACCOUNTID,FLAG) xj on xj.ACCOUNTID=kc.ACCOUNTID
+    </select>
+
 </mapper>
