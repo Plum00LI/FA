@@ -48,4 +48,7 @@ public interface SecuritiesClosedPayMapper {
     //根据时间、类型、流入流出、基金Id查询
     List<SecuritiesClosedPay> selectSecuritiesNew(SecuritiesClosedPay securitiesClosedPay);
 
+    //傅赛赢
+    public int deleteSecuritiesClosedPayByPojo(SecuritiesClosedPay securitiesClosedPay);
+
 }
