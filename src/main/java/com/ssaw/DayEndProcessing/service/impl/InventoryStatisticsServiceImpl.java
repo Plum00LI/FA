@@ -168,7 +168,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                             securitiesClosedPayInventory1.setSecuritiesClosedPayInventoryId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.SCPI));
                             //业务时间
                             securitiesClosedPayInventory1.setDateTime(dateTime);
-                            //基金Id///
+                            //基金Id
                             securitiesClosedPayInventory1.setFundId(fundId);
                             //证券ID
                             securitiesClosedPayInventory1.setSecuritiesId(securitiesClosedPayInventoryData.getSecuritiesId());
