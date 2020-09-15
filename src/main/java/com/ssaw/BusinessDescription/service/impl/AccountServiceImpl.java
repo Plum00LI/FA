@@ -61,6 +61,7 @@ public class AccountServiceImpl implements AccountService {
         if(blankName!=null && !blankName.equals("")){
             sql=sql+" and blankName='"+blankName+"'";
         }
+        System.out.println("blankName="+blankName);
         //创建一个Map 用于存款过程的调用传值
         Map<String,Object> map=new HashMap<>();
         //传入存储过程需要查询的表名
