@@ -291,7 +291,32 @@
             layid = this.getAttribute('lay-id');
             // alert(layid);
 
-        });
+                    // layer.close();
+                    //向服务端发送删除指令
+                    $.post("/RevenueProvision/StatisticalSecurities", "Securities="+Securities,function(msg){
+                        if(msg>0){
+                            // table.reload('myTable');
+                            // layer.closeAll();
+                            // layer.msg('删除成功',{
+                            //     title : '提示',
+                            //     area : [ '200px',
+                            //         '140px' ],
+                            //     time : 0,
+                            //     btn : [ '知道了' ]
+                            // });
+                        }
+                    });
+                }else{
+                    var checkStatus = table.checkStatus("userTable3"); //idTest 即为基础参数 id 对应的值
+                    // 其中 ID 为基础参数 id 对应的值（见：设定容器唯一ID）
+                    var TwoFee = [];
+                    var dataArr = checkStatus.data; //获取选中行的数据
+                    $.each(dataArr, function (i, n) {
+                        TwoFee.push(n);
+                    });
+                    // alert(cashs);
+                    var TwoFees = JSON.stringify(TwoFee);
+                    alert(TwoFees);
 
     });
 </script>
