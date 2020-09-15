@@ -118,6 +118,7 @@ public class CashInventoryServiceImpl implements CashInventoryService {
      * @return
      */
     public int updateCashInventory(CashInventory cashInventory) {
+        System.out.println("cashInventory+"+cashInventory);
         return cashInventoryMapper.updateCashInventory(cashInventory);
     }
 

@@ -77,6 +77,7 @@ public class CashInventoryController {
      */
     @RequestMapping("/update")
     public int updateCashInventory(CashInventory cashInventory){
+//        System.out.println("dateTime="+cashInventory.getDateTime());
         int i=cashInventoryService.updateCashInventory(cashInventory);
         return i;
     }

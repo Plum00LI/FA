@@ -70,7 +70,8 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                 switch (strInvId){
                     case "1":
                         //现金库存统计
-                        List<CashInventoryData> cashInventoryDataList=inventoryStatisticsMapper.selectCashInventory(dateTime,"000899");
+                        List<CashInventoryData> cashInventoryDataList=inventoryStatisticsMapper.selectCashInventory(dateTime,fundId);
+                        cashInventory=new InventoryStatistics(1,"现金库存",fundId,"admain",dateTime,cashInventoryDataList.size(),"已统计");
                         for (CashInventoryData cashInventoryData : cashInventoryDataList) {
                             //删除原现金库存信息
                             cashInventoryMapper.deleteCashInventoryDate(dateTime);
