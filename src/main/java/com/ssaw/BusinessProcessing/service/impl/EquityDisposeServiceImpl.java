@@ -126,7 +126,7 @@ public class EquityDisposeServiceImpl implements EquityDisposeService {
             transactionData.setDateTime(equityDispose2.getEquitiesExright());//业务日期
             transactionData.setNum(1000.0);//交易数量
             transactionData.setPrice(12.0);//交易单价
-            transactionData.setTotalSum(0.0000);//交易总金额
+            transactionData.setTotalSum(1200.00);//交易总金额
             transactionData.setNetReceipts(12000.0);//实收金额
             transactionData.setSettlementDate(equityDispose2.getReceivedDate());//到账日期
             transactionData.setAccountName(equityDispose2.getAccountName());//账户名称

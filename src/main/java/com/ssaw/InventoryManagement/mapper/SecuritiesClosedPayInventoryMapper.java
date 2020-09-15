@@ -7,12 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ClassName:    SecuritiesClosedPayInventoryMapper
- * Package:    com.ssaw.InventoryManagement.mapper
- * Description:
- * Version:
- * Datetime:    2020/9/6   21:02
- * Author:   SYT
+ * ClassName:证券应收应付库存
+ * Datetime:2020-09-14
+ * Author:sunH
  */
 @Mapper
 public interface SecuritiesClosedPayInventoryMapper {
