@@ -160,7 +160,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
                 });
                 break;
-        };
+        }
     });
     //给工具条的反结算添加事件
     table.on('toolbar(userTable2)', function (obj) {

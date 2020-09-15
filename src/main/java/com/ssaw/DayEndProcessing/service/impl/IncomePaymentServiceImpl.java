@@ -60,7 +60,7 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
         //判断传入的statDate是否为null/空
         if(statDate!=null&& !statDate.equals("")){
             try {
-                //减一天
+                //减一天 86400*1000
                 long dif= df.parse(statDate).getTime() - 86400 * 1000;
                 //创建Date类对象
                 Date date=new Date();
