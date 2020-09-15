@@ -397,8 +397,11 @@ public class ValueStatisticsController {
     @RequestMapping("selectValueStatistics")
     @ResponseBody
     public Object selectValueStatistics(String valueStatisticsDate,String fundId,String accountId){
-        System.out.println(valueStatisticsDate);
-        System.out.println("进来了");
+
+        if(valueStatisticsDate.equals(" ")){
+            valueStatisticsDate= DateTimeUtil.getSystemDateTime("yyyy-MM-dd");
+
+        }
         List<ValueStatistics> valueStatisticsList = valueStatisticsService.selectValueStatistics(valueStatisticsDate,fundId);
         Map<String,Object> josn = new HashMap<String,Object>();
         josn.put("code", 0);
