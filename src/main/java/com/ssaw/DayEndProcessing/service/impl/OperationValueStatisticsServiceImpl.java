@@ -21,11 +21,21 @@ import java.util.List;
 @Service
 @Transactional
 public class OperationValueStatisticsServiceImpl implements OperationValueStatisticsService {
-@Resource
-OperationValueStatisticsMapper operationValueStatisticsMapper;
+    @Resource
+    OperationValueStatisticsMapper operationValueStatisticsMapper;
     @Override
     public List<OperationValueStatistics> selectOperationValueStatistics(String dateTime, String fundID, int type) {
 
         return operationValueStatisticsMapper.selectOperationValueStatistics(dateTime,fundID,type);
+    }
+
+    @Override
+    public List<OperationValueStatistics> selectOperationTA(String accountID, int type, int typeTwo, String dateTime,String fundID) {
+        return operationValueStatisticsMapper.selectOperationTA(accountID,type,typeTwo,dateTime,fundID);
+    }
+
+    @Override
+    public List<OperationValueStatistics> selectOperationCost(String accountID,String dateTime, String fundID, int type) {
+        return operationValueStatisticsMapper.selectOperationCost(accountID,dateTime,fundID,type);
     }
 }

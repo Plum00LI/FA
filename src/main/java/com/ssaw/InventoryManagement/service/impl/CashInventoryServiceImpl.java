@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * ClassName:    CashInventoryServiceImpl
  * Package:    com.ssaw.InventoryManagement.service.impl
- * Description:
+ * Description: 现金库存
  * Version:   1.0
  * Datetime:    2020/9/1   9:35
  * Author:   SYT
@@ -118,6 +118,7 @@ public class CashInventoryServiceImpl implements CashInventoryService {
      * @return
      */
     public int updateCashInventory(CashInventory cashInventory) {
+        System.out.println("cashInventory+"+cashInventory);
         return cashInventoryMapper.updateCashInventory(cashInventory);
     }
 
@@ -136,10 +137,12 @@ public class CashInventoryServiceImpl implements CashInventoryService {
         return cashInventoryMapper.deleteCashInventory(cashInventoryIdList);
     }
 
+    /**
+     * 根据日期删除
+     * @param dateTime
+     */
     @Override
     public void deleteCashInventoryData(String dateTime) {
         cashInventoryMapper.deleteCashInventoryDate(dateTime);
     }
-
-
 }

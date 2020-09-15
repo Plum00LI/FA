@@ -60,7 +60,7 @@
                         }}
                     ,{field: 'equitiesExright', title: '除权日期', align:'center'}
                     ,{field: 'securitiesNum', title: '证券数量', align:'center'}
-                    ,{field: 'proportion', title: '比例', align:'center'}
+                    ,{field: 'proportion', title: '比例(%)', align:'center'}
                     ,{field: 'settlementAmount', title: '结算金额', align:'center'}
                     ,{field: 'disposeStatus', title: '处理状态', align:'center', hide: true,
                         templet:function (item) {
@@ -100,7 +100,7 @@
                     }
                     ,{field: 'equitiesExright', title: '除权日期', align:'center'}
                     ,{field: 'securitiesNum', title: '证券数量', align:'center'}
-                    ,{field: 'proportion', title: '比例', align:'center'}
+                    ,{field: 'proportion', title: '比例(%)', align:'center'}
                     ,{field: 'settlementAmount', title: '结算金额', align:'center'}
                         ,{field: 'disposeStatus', title: '处理状态', align:'center', hide: true,
                         templet:function (item) {
@@ -156,6 +156,22 @@
                                 return false;
                             });
                         }
+                        break;
+                    //搜索按钮的条件查询
+                    case 'search':
+                        var equitiesExright= $("#equitiesExright").val();
+                        var equitiesType= $("#equitiesType").val();
+                        //表格的重新加载事件
+                        table.reload('userTable', {
+                            method: 'post'
+                            , where: {
+                                'equitiesExright': equitiesExright,
+                                'equitiesType': equitiesType,
+                            }
+                            , page: {
+                                curr: 1
+                            }
+                        });
                         break;
                        }
                      });
@@ -225,9 +241,9 @@
                 <label class="layui-form-label" style="width: 110px;text-align: center">权益类型</label>
                 <div class="layui-inline layui-show-xs-block">
                     <select name="equitiesType" id="equitiesType">
-                        <option>请选择</option>
-                        <option>分红</option>
-                        <option>送股</option>
+                        <option value="">请选择</option>
+                        <option value="2">分红</option>
+                        <option value="1">送股</option>
                     </select>
                 </div>
             </div>
@@ -259,9 +275,9 @@
                 <label class="layui-form-label" style="width: 110px;text-align: center">权益类型</label>
                 <div class="layui-inline layui-show-xs-block">
                     <select name="equitiesType" id="equitiesType2">
-                        <option>请选择</option>
-                        <option>分红</option>
-                        <option>送股</option>
+                        <option value="">请选择</option>
+                        <option value="2">分红</option>
+                        <option value="1">送股</option>
                     </select>
                 </div>
             </div>

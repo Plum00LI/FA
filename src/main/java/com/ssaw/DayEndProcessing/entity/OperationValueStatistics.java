@@ -16,12 +16,26 @@ package com.ssaw.DayEndProcessing.entity;
  * TOTALMONEY
  */
 public class OperationValueStatistics {
+    private String accountId;
     private String accountName;
     private String blankCardCode;
     private double cashBlance;
     private double totalMoney;
 
     public OperationValueStatistics() {
+    }
+
+    public OperationValueStatistics(String accountId, double totalMoney) {
+        this.accountId = accountId;
+        this.totalMoney = totalMoney;
+    }
+
+    public OperationValueStatistics(String accountId, String accountName, String blankCardCode, double cashBlance, double totalMoney) {
+        this.accountId = accountId;
+        this.accountName = accountName;
+        this.blankCardCode = blankCardCode;
+        this.cashBlance = cashBlance;
+        this.totalMoney = totalMoney;
     }
 
     public OperationValueStatistics(double totalMoney) {
@@ -33,6 +47,14 @@ public class OperationValueStatistics {
         this.blankCardCode = blankCardCode;
         this.cashBlance = cashBlance;
         this.totalMoney = totalMoney;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 
     public String getAccountName() {
@@ -70,10 +92,12 @@ public class OperationValueStatistics {
     @Override
     public String toString() {
         return "OperationValueStatistics{" +
-                "accountName='" + accountName + '\'' +
+                "accountId='" + accountId + '\'' +
+                ", accountName='" + accountName + '\'' +
                 ", blankCardCode='" + blankCardCode + '\'' +
                 ", cashBlance=" + cashBlance +
                 ", totalMoney=" + totalMoney +
                 '}';
     }
 }
+

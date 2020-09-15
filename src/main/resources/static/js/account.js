@@ -29,7 +29,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         page: true,
         toolbar: '#userToolBar',//显示在表头的工具条
         cellMinWidth:60,
-        height:'full-55',
+        height:'full-20',
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
@@ -40,7 +40,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 ,{field: 'blankName', title: '银行名称',align:'center'}
                 ,{field: 'deposit', title: '存款类型',align:'center',
                 templet:function (item) {
-                    if (item.deposit==1){
+                    if (item.deposit===1){
                         return '活期';
                     }
                     return  '定期';
@@ -49,9 +49,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 ,{field: 'cardRate', title: '卡号利率%',align:'center'}
                 ,{field: 'procisionDays', title: '计息期间',align:'center',
                 templet:function (item) {
-                    if (item.procisionDays==1){
+                    if (item.procisionDays===1){
                         return '360天';
-                    }else if (item.procisionDays==2){
+                    }else if (item.procisionDays===2){
                         return '365天';
                     }
                     return '366天'
@@ -60,7 +60,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 ,{field: 'openTime', title: '开户时间',align:'center'}
                 ,{field: 'endTime', title: '结束时间',align:'center'}
                 ,{field: 'accountDesc', title: '备注',align:'center'}
-                ,{field: 'right', title: '操作',width: 187, align:'center', toolbar: '#barDemo',fixed: 'right'}
+                ,{title: '操作',width: 187, align:'center', toolbar: '#barDemo',fixed: 'right'}
             ]
         ]
     });
@@ -131,7 +131,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     closeBtn: 1,
                     move:false,
                     content:$("#addContent"),
-                    area:['700px','500px'],
+                    area:['800px','600px'],
                     btn:[]
                 });
                 form.render();
@@ -203,7 +203,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 title: '修改账户信息',
                 closeBtn: 1,
                 move:false,
-                area:['700px','500px'],
+                area:['800px','600px'],
                 content:$('#editContent')
             });
             form.render();

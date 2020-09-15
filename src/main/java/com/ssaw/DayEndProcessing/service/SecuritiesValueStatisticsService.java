@@ -33,3 +33,4 @@ public interface SecuritiesValueStatisticsService {
      */
     public List<SecuritiesValueStatistics> selectSecuritiesValueStatisticsTwo(String dateTime, String fundID, String dateTimeTwo,int type,int typeTwo);
 }
+

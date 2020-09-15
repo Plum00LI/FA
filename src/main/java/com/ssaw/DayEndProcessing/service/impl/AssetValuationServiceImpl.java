@@ -1,9 +1,11 @@
 package com.ssaw.DayEndProcessing.service.impl;
 
+import com.ssaw.BusinessData.entity.Market;
 import com.ssaw.BusinessData.entity.SecuritiesClosedPay;
 import com.ssaw.BusinessData.service.CashClosedPayService;
 import com.ssaw.BusinessData.service.SecuritiesClosedPayService;
 import com.ssaw.DayEndProcessing.entity.AssetValuation;
+import com.ssaw.DayEndProcessing.entity.AssetValuationData;
 import com.ssaw.DayEndProcessing.mapper.AssetValuationMapper;
 import com.ssaw.DayEndProcessing.service.AssetValuationService;
 import com.ssaw.GlobalManagement.util.DbUtil;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +69,7 @@ public class AssetValuationServiceImpl implements AssetValuationService {
            SecuritiesClosedPayInventory securitiesClosedPayInventory = new SecuritiesClosedPayInventory(
                    null,assetValuation.getFundId(),assetValuation1.getSecuritiesId(),assetValuation.getToDay(),
                    1,flag,new Double(assetValuation1.getAssetValuationVal()+""),null,1);
-            Integer securitiesType=assetValuationMapper.selectSecuritiesType(assetValuation.getToDay(),1);
+            Integer securitiesType=assetValuationMapper.selectSecuritiesType1(assetValuation.getToDay(),1);
             System.out.println("查询应收应付库存大小："+securitiesType);
             if (securitiesType==null){
                 System.out.println("没有数据：直接添加");
@@ -118,7 +121,7 @@ public class AssetValuationServiceImpl implements AssetValuationService {
             SecuritiesClosedPayInventory securitiesClosedPayInventory = new SecuritiesClosedPayInventory(
                     null,dbUtil.requestDbTableMaxId(SysTableNameListUtil.A),transaction.getSecuritiesId(),assetValuation.getToDay(),
                     2,businessStatus,new Double(transaction.getTotalSum()+""),null,1);
-            Integer securitiesType = assetValuationMapper.selectSecuritiesType(assetValuation.getToDay(), 2);
+            Integer securitiesType = assetValuationMapper.selectSecuritiesType1(assetValuation.getToDay(), 2);
             System.out.println("清算款="+securitiesType);
             if (securitiesType == null){
                 System.out.println("清算款-没有数据：直接添加");
@@ -152,4 +155,56 @@ public class AssetValuationServiceImpl implements AssetValuationService {
     }
 
 
+    @Override
+    public List<AssetValuationData> selectAssecuritisStates(String toDay, Integer securitiesType) {
+        System.out.println("dada==========================");
+        List<AssetValuationData> dataList = new ArrayList<AssetValuationData>();
+        AssetValuationData assetValuationData = new AssetValuationData(1,"证券估值增值","未估值",false);
+        AssetValuationData assetValuationData1 = new AssetValuationData(2,"清算款","未清算",false);
+
+
+        List<Integer> stateList = assetValuationMapper.selectSecuritiesType(toDay,securitiesType);
+        System.out.println("strAppraisement="+securitiesType);
+        if (securitiesType!=null && !securitiesType.equals("")){
+            System.out.println("不为null");
+            if (securitiesType==1){
+                assetValuationData.setChecked(true);
+            }
+            if (securitiesType==2){
+                assetValuationData1.setChecked(true);
+            }
+            System.out.println("stateList="+stateList.size());
+            for (Integer state:stateList){
+                if (securitiesType==1){
+                    if (state==1){
+                        System.out.println("进来，以估值");
+                        assetValuationData.setState("已估值");
+                    }
+                }
+                if (securitiesType==2){
+                    if(state==2 || state==4){
+                        assetValuationData1.setState("已清算");
+                    }
+                }
+            }
+        }
+        System.out.println(stateList.size());
+        for (Integer state:stateList){
+            if (state==1){
+                System.out.println("已估值");
+                assetValuationData.setState("已估值");
+            }
+            if (state==2 || state==4){
+                System.out.println("已清算");
+                assetValuationData1.setState("已清算");
+            }
+        }
+
+
+
+        dataList.add(assetValuationData);
+        dataList.add(assetValuationData1);
+
+        return dataList;
+    }
 }

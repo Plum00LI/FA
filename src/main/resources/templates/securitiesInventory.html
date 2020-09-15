@@ -39,7 +39,6 @@
                     <input type="text" id="dateTime"
                            name="dateTime" autocomplete="off"
                            placeholder="请输入时间" class="layui-input">
-                    <span id="searchbut"></span>
                 </div>
                 <label class="layui-form-label layui-bg-green"
                        style="width: 110px;text-align: center">证券名称</label>
@@ -87,7 +86,6 @@
     <form id="addform" lay-filter="addform"
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
-        <input type="hidden" name="fundId" th:value="${session.fundId}">
         <div class="layui-inline layui-show-xs-block">
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green">统计日期</label>
@@ -104,6 +102,7 @@
             </div>
         </div>
         <div class="layui-inline layui-show-xs-block"></div>
+        <input type="hidden" name="fundId" id="fundId" th:value="${session.fundId}">
         <br/><br/>
         <div class="layui-inline layui-show-xs-block">
             <div class="layui-inline layui-show-xs-block">

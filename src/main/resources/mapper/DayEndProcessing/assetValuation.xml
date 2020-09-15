@@ -4,17 +4,29 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.DayEndProcessing.mapper.AssetValuationMapper">
     <delete id="deleteTAReceivables" parameterType="java.util.Map">
-        delete from receivables where datetime = #{today} and businessType = 4
+        delete from receivables where dateTime = #{today} and businessType = 4
 		and fundId = #{fundId}
 		and ACCOUNTID = #{accountId}
 		and initialSigns = 1 and flag = #{flag}
     </delete>
 
     <select id="selectAssetValuation" resultType="com.ssaw.DayEndProcessing.entity.AssetValuation">
-        select s.securitiesid,s.securitiestype, m.closingprice,si.securitiesnum, si.price,si.total, m.datetime,
-		(si.securitiesnum* m.closingprice-si.total) appraisementVal from securities s,securitiesInventory si,
-		(select * from market where datetime = (select max(datetime) from market where datetime &lt;=#{toDay})) m
-		where s.securitiesid = si.securitiesid and  m.securitiesid = s.securitiesid and si.datetime = #{toDay}
+        select s.securitiesId,s.securitiesType, m.closingPrice,si.securitiesNum, si.price,si.total, m.dateTime,
+		(si.securitiesNum* m.closingPrice-si.total) appraisementVal from securities s,securitiesInventory si,
+		(select * from market where dateTime = (select dateTime from market where dateTime &lt;= #{toDay})) m
+		where s.securitiesId = si.securitiesId and  m.securitiesId = s.securitiesId and si.dateTime = #{toDay}
 		and si.fundId= #{fundId}
     </select>
+
+	<select id="selectAssecuritisState" resultType="com.ssaw.DayEndProcessing.entity.AssetValuationData">
+		select s.securitiesId,s.securitiesType, m.closingPrice,si.securitiesNum, si.price,si.total, m.dateTime,
+		(si.securitiesNum* m.closingPrice-si.total) assetValuationVal from securities s,securitiesInventory si,
+		(select * from market where dateTime = (select max(dateTime) from market where dateTime &lt;= #{toDay})) m
+		where s.securitiesId = si.securitiesId and  m.securitiesId = s.securitiesId and si.dateTime = #{toDay}
+		and si.fundId= #{fundId}
+	</select>
+	<select id="selectSecuritiesType" resultType="java.lang.Integer">
+		select securitiesType from securitiesClosedPayInventory where dateTime=to_date(#{toDay,jdbcType=VARCHAR},'yyyy-MM-dd') and securitiesType=#{securitiesType,jdbcType=INTEGER} group by securitiesType
+	</select>
+
 </mapper>

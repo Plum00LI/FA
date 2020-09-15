@@ -24,7 +24,7 @@ import java.util.Map;
  * @version v1.0
  * @type:IncomePaymentServiceImpl
  * @author:阙魁
- * @create:2020-09-01
+ * @create:2020-09-15
  */
 @Service
 @Transactional
@@ -75,7 +75,7 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
         System.out.println("日期"+datetime);
 
         //查询表
-        String sqlSelect=" (select * from (select * from cashClosedPayInventory where fundId='000899' and businessType in 3 and businessDate='"+datetime+"' ) c join account a on c.accountId=a.accountId )  ";
+        String sqlSelect=" (select * from (select * from cashClosedPayInventory where fundId='"+fundId+"' and businessType in 3 and businessDate='"+datetime+"' ) c join account a on c.accountId=a.accountId )  ";
         //创建一个Map，用于存储过程的调用传值
         Map<String, Object> map = new HashMap<>();
         //传入存储过程需要查询的表名
@@ -94,6 +94,9 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
         incomePaymentMapper.selectCashInterestIncome(map);
         //接收返回数据
         List<CashInterestIncome> cashInterestIncomes = (List<CashInterestIncome>) map.get("p_cursor");
+        for (CashInterestIncome cashInterestIncome : cashInterestIncomes) {
+                    cashInterestIncome.setBusinessDate(statDate);
+        }
         //接收返回总条数
         int count = (int) map.get("p_count");
         //将结果放入结果集Map
@@ -159,6 +162,9 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
         incomePaymentMapper.selectBondInterestIncome(map);
         //接收返回数据
         List<BondInterestIncome> bondInterestIncomes = (List<BondInterestIncome>) map.get("p_cursor");
+        for (BondInterestIncome bondInterestIncome : bondInterestIncomes) {
+            bondInterestIncome.setDateTime(statDate);
+        }
         //接收返回总条数
         int count = (int) map.get("p_count");
         //将结果放入结果集Map
@@ -196,7 +202,7 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
         //判断传入的statDate是否为null/空
         if(statDate!=null&& !statDate.equals("")){
             try {
-                //减一天
+                //减一天 86400*1000
                 long dif= df.parse(statDate).getTime() - 86400 * 1000;
                 //创建Date类对象
                 Date date=new Date();
@@ -211,7 +217,7 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
         System.out.println("日期"+datetime);
 
         //查询表
-        String sqlSelect=" (select * from (select * from cashClosedPayInventory where fundId='000899' and businessType in (1,2) and businessDate='"+datetime+"' ) c join account a " +
+        String sqlSelect=" (select * from (select * from cashClosedPayInventory where fundId='"+fundId+"' and businessType in (1,2) and businessDate='"+datetime+"' ) c join account a " +
                 "on c.accountId=a.accountId ) ";
         //创建一个Map，用于存储过程的调用传值
         Map<String, Object> map = new HashMap<>();
@@ -231,6 +237,10 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
         incomePaymentMapper.selectPayTwoFees(map);
         //接收返回数据
         List<PayTwoFees> payTwoFees = (List<PayTwoFees>) map.get("p_cursor");
+        for (PayTwoFees payTwoFee : payTwoFees) {
+                payTwoFee.setBusinessDate(statDate);
+        }
+
         //接收返回总条数
         int count = (int) map.get("p_count");
         //将结果放入结果集Map

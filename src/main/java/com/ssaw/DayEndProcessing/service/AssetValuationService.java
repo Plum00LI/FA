@@ -1,6 +1,7 @@
 package com.ssaw.DayEndProcessing.service;
 
 import com.ssaw.DayEndProcessing.entity.AssetValuation;
+import com.ssaw.DayEndProcessing.entity.AssetValuationData;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
@@ -46,4 +47,6 @@ public interface AssetValuationService {
      * @return 受影响的行数（1：成功；0：失败）
      */
     public int deleteTAReceivables(String today, int flag,String fundId,String accountId);
+
+    public List<AssetValuationData> selectAssecuritisStates(String toDay, Integer securitiesType);
 }
