@@ -8,12 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ClassName:    SecuritiesClosedPayInventoryService
- * Package:    com.ssaw.InventoryManagement.service
- * Description:
- * Version:
- * Datetime:    2020/9/6   21:11
- * Author:   SYT
+ * ClassName:证券应收应付库存
+ * Datetime:2020-09-14
+ * Author:sunH
  */
 @Service
 

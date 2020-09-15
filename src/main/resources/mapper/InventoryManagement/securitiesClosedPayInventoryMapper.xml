@@ -3,13 +3,11 @@
 <mapper namespace="com.ssaw.InventoryManagement.mapper.SecuritiesClosedPayInventoryMapper">
 
     <insert id="insertSecuritiesClosedPayInventory" parameterType="com.ssaw.InventoryManagement.entity.SecuritiesClosedPayInventory">
-         insert into securitiesClosedPayInventory(securitiesClosedPayInventoryId,dateTime,fundId,securitiesId,securitiesType,flag,totalPrice,securityPeriodFlag,securitiesClosedPayDesc)
-         values (#{securitiesClosedPayInventoryId},#{dateTime},#{fundId},#{securitiesId},
-        #{securitiesType},#{flag},#{totalPrice},#{securityPeriodFlag},#{securitiesClosedPayDesc})
+         insert into securitiesClosedPayInventory values (#{securitiesClosedPayInventoryId},#{dateTime},#{fundId},#{securitiesId},#{securitiesType},#{flag},#{totalPrice},#{securitiesClosedPayDesc},#{securityPeriodFlag})
     </insert>
 
     <update id="updateSecuritiesClosedPayInventory">
-
+        update securitiesClosedPayInventory set dateTime=#{dateTime},fundId=#{fundId},securitiesId=#{securitiesId},securitiesType=#{securitiesType},flag=#{flag},totalPrice=#{totalPrice},securitiesClosedPayDesc=#{securitiesClosedPayDesc},securityPeriodFlag=#{securityPeriodFlag} where securitiesClosedPayInventoryId=#{securitiesClosedPayInventoryId}
     </update>
 
     <delete id="deleteSecuritiesClosedPayInventory" parameterType="list">
@@ -19,6 +17,7 @@
             #{securitiesClosedPayInventoryId}
         </foreach>
     </delete>
+
     <delete id="deleteSecuritiesClosedPayInventoryDate">
         delete from securitiesClosedPayInventory where dateTime=#{dateTime}
     </delete>
