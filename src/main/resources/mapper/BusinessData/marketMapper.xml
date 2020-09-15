@@ -24,7 +24,7 @@
       <result property="marketdesc" column="marketdesc" javaType="String"></result>
    </resultMap>
    <select id="selectMarketInfo" parameterType="java.util.Map" statementType="CALLABLE" resultType="java.util.Map">
-      {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR}, #{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=VARCHAR},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=marketMap})}
+      {call pkg_tables.sp_select(#{p_tableName,mode=IN,jdbcType=VARCHAR},#{p_condition,mode=IN,jdbcType=VARCHAR},#{p_pageSize,mode=IN,jdbcType=VARCHAR},#{p_page,mode=IN,jdbcType=INTEGER},#{p_count,mode=OUT,jdbcType=INTEGER},#{p_cursor,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=marketMap})}
    </select>
 
    <select id="selectMarket" resultType="com.ssaw.BusinessData.entity.Market">

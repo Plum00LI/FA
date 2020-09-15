@@ -173,7 +173,7 @@
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-green" style="text-align: center">交易数量</label>
             <div class="layui-inline layui-show-xs-block" style="width: 182px">
-                <input class="layui-input" placeholder="请输入交易数量" name="num" id="num" oninput="Amount()">
+                <input class="layui-input" placeholder="请输入交易数量" name="num" id="num" oninput="myNum()">
             </div>
         </div>
         <br>
@@ -468,7 +468,7 @@
             elem: '#accountName'
             , checkedKey: 'accountName'
             , table: {
-                url: '../selectAccount'
+                url: '../account/selectAccount'
                 , cellMinWidth: 60
                 , cols: [
                     [
@@ -505,7 +505,6 @@
                 ]
             }
             ,done:function (elem,data) {
-                alert("选中的数据：" + data);
                 var NEWJSON = [];
                 layui.each(data.data, function (index, item) {
                     NEWJSON.push(item.brokersName);
@@ -685,6 +684,16 @@
         })
 
     });
+    //计算交易金额
+    function myNum() {
+        layui.use(['layer'],function () {
+            var $ = layui.$;
+            var num = $('#num').val();
+            var price = $('#price').val();
+            var netReceipts = $('#netReceipts');
+            netReceipts.val(Number(num)*Number(price));
+        })
+    }
 </script>
 </body>
 </html>

@@ -24,7 +24,7 @@
                         <div class="layui-form-item">
                             <label style="height: 32px;" class="layui-form-label">统计日期</label>
                             <div class="layui-inline">
-                                <input type="text" style="height: 32px;" class="layui-input" id="test12" name = "datetime">
+                                <input type="text" style="height: 32px;" class="layui-input" id="test12" name ="datetime">
                             </div>
                             <div class="layui-inline">
                                 <button type="button"
@@ -43,8 +43,7 @@
             </div>
 
     </div>
-        <input type="hidden" id="fundId" name="fundId" th:value="${session.fundId}">
-        <input type="hidden" id="accountId" name="accountId" th:value="${session.accountId}">
+
         <div>
             <div class="layui-btn-group">
                 <button class="layui-btn" id="btn-expand">全部展开</button>
@@ -61,6 +60,8 @@
 </div>
 
 
+<input type="hidden" id="fundId" name="fundId" th:value="${session.fundId}">
+<input type="hidden" id="accountId" name="accountId" th:value="${session.accountId}">
 
 </body>
 </html>
@@ -78,10 +79,14 @@
             value: new Date()//获取当前时间
         });
 
+        var fundId=$('#fundId').val();
+        var accountId=$('#accountId').val();
 
         // 渲染表格
         layer.load(2);
-        treetable.render({
+        treetable.render(
+            {
+
             treeColIndex: 1,
             treeSpid: -1,
             treeIdName: 'projectId',
@@ -90,11 +95,9 @@
             defaultToolbar: ['filter', 'exports', 'print'],
             elem: '#munu-table',
             // url: '../lib/layuimini/api/test.json',
-            url: '../ValueStatistics/selectValueStatistics?valueStatisticsDate='+$('#test12').val(),
-            data:{
-                'fundId':$('#fundId').val(),
-                'accountId':$('#accountId').val()
-            },
+            url: '../ValueStatistics/selectValueStatistics?valueStatisticsDate='+$('#test12').val()+' &fundId='+fundId+' &accountId='+accountId
+            ,
+
             page: false,
             cols: [
                 [
@@ -131,8 +134,9 @@
                 defaultToolbar: ['filter', 'exports', 'print'],
                 elem: '#munu-table',
                 // url: '../lib/layuimini/api/test.json',
-                url: '../ValueStatistics/insertValueStatistics?valueStatisticsDate='+$('#test12').val(),
-                data:'fundId='+$('#fundId').val(),
+                url: '../ValueStatistics/insertValueStatistics?valueStatisticsDate='+$('#test12').val()+' &fundId='+fundId+' &accountId='+accountId
+                ,
+
                 page: false,
                 cols: [
                     [
@@ -153,6 +157,7 @@
             });
         })
         $('#statisticsButton2').click(function(){
+
             treetable.render({
                 treeColIndex: 1,
                 treeSpid: -1,
@@ -162,8 +167,9 @@
                 defaultToolbar: ['filter', 'exports', 'print'],
                 elem: '#munu-table',
                 // url: '../lib/layuimini/api/test.json',
-                url: '../ValueStatistics/selectValueStatistics?valueStatisticsDate='+$('#test12').val(),
-                data:'fundId='+$('#fundId').val(),
+                url: '../ValueStatistics/selectValueStatistics?valueStatisticsDate='+$('#test12').val()+' &fundId='+fundId+' &accountId='+accountId
+                ,
+
                 page: false,
                 cols: [
                     [
