@@ -98,8 +98,6 @@
             //新增提交
             form.on('submit(addsubmit)', function(data){
                 var formData=$('#addform').serialize();
-                alert("表单数据：" + formData);
-
                 $.post("../insertTatTransaction",formData,function(msg){
                     if(msg>0){
                         table.reload('userTable');
@@ -127,7 +125,6 @@
             //修改提交
             form.on('submit(editsubmit)', function(data){
                 var formData=$('#editform').serialize();
-                alert("修改提交的数据：" + formData);
                 $.post("../updateTaTransaction",formData,function(msg){
                     if(msg>0){
                         table.reload('userTable');
@@ -202,6 +199,7 @@
                     ]
                 ]
             });
+
             //给工具条的按钮添加事件
             table.on('toolbar(userTable)',function (obj) {
                 //获取选中复选框的对象，
@@ -210,7 +208,7 @@
                     case 'add':
                         var index=layer.open({
                             type: 1,
-                            title: '添加用户信息',
+                            title: '添加',
                             closeBtn: 1,
                             move:false,
                             content:$("#addContent"),
@@ -269,7 +267,6 @@
             //给表格编辑，删除按钮添加点击事件
             table.on('tool(userTable)', function(obj) {
                 var data = obj.data;//得到删除行整行的数据
-                alert(data.taTransactionId);
                 if (obj.event === 'del') {
 
                     layer.confirm('真的删除行么',{icon: 2}, function(index){
@@ -280,12 +277,10 @@
 
                     });
                 } else if (obj.event === 'edit') {
-                    alert(JSON.stringify(data));
-
                     form.val('editform',$.parseJSON(JSON.stringify(data)));
                     var index = layer.open({
                         type: 1,
-                        title: '修改员工',
+                        title: '修改',
                         closeBtn: 1,
                         move:false,
                         area: ['500px', '400px'],
@@ -297,10 +292,74 @@
                     layer.full(index);
                 };
             })
+
+            //给修改券商的下拉表格
+            tableSelect.render({
+                elem:'#updateBrokers',
+                checkedKey:'brokersId',
+                table:{
+                    url:'../updateBrokers',
+                    cellMinWidth: 60,
+                    cols:[
+                        [   {type:'radio'},
+                            {field:'brokersId',title:'券商编号',width:200},
+                            {field: 'brokersName',title:'券商名称',width: 200},
+                        ]
+                    ]
+                },
+                done:function (elem,data) {
+                    //elem:返回之前input对象；data:表格返回的选中的数据 []
+                    var newJson=[];
+                    //遍历选中的数据
+                    $.each(data.data,function (index,item) {
+                        newJson.push(item.brokersName);
+                        alert(item.brokersId)
+                        $("#brokersId2").val(item.brokersId);
+                    });
+                    elem.val(newJson.join(","));//给输入框里显示的值赋值
+
+                }
+            })
+            //新增券商的下拉表格
+            tableSelect.render({
+                elem:'#insertBrokers',
+                checkedKey:'brokersId',
+                table:{
+                    url:'../selectBrokers',
+                    cellMinWidth: 60,
+                    cols:[
+                        [   {type:'radio'},
+                            {field:'brokersId',title:'券商编号',width:200},
+                            {field: 'brokersName',title:'券商名称',width: 200},
+                        ]
+                    ]
+                },
+                done:function (elem,data) {
+                    //elem:返回之前input对象；data:表格返回的选中的数据 []
+                    var newJson=[];
+                    //遍历选中的数据
+                    $.each(data.data,function (index,item) {
+                        newJson.push(item.brokersName);
+                        $("#brokersId1").val(item.brokersId);
+                    });
+                    elem.val(newJson.join(","));//给输入框里显示的值赋值
+                }
+            })
         });
 
         function quxiao() {
             layer.closeAll();
+        }
+
+        function autoEx() {
+            layui.use(['jquery'],function () {
+                var $=layui.jquery;
+                var taNum = $("#taNum").val();
+                var cost = $("#cost").val();
+                var price=$("#price").val();
+                $("#price").val(cost/taNum);
+                $("#sum").val(taNum*price);
+            })
         }
 
     </script>
@@ -347,13 +406,13 @@
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">数量</label>
             <div class="layui-input-inline">
                 <input type="text" name="fundNum" lay-verify="required"
-                       autocomplete="off" placeholder="数量" class="layui-input">
+                       autocomplete="off" placeholder="数量" class="layui-input" id="taNum" oninput="autoEx();">
             </div>
 
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">费用</label>
             <div class="layui-input-inline">
                 <input type="text" name="cost" lay-verify="required"
-                       autocomplete="off" placeholder="请输入费用" class="layui-input">
+                       autocomplete="off" placeholder="请输入费用" class="layui-input" id="cost" oninput="autoEx()">
             </div>
 
         </div>
@@ -367,10 +426,10 @@
                        autocomplete="off" placeholder="请输入日期" class="layui-input" id="start1">
             </div>
 
-            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">单价</label>
+            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center" >单价</label>
             <div class="layui-input-inline">
                 <input type="text" name="price" lay-verify="required"
-                       autocomplete="off" placeholder="请输入单价" class="layui-input">
+                       autocomplete="off" placeholder="请输入单价" class="layui-input" id="price">
             </div>
 
         </div>
@@ -401,7 +460,7 @@
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">总金额</label>
             <div class="layui-input-inline">
                 <input type="text" name="totalMoney" lay-verify="required"
-                       autocomplete="off" placeholder="请输入总金额" class="layui-input">
+                       autocomplete="off" placeholder="请输入总金额" class="layui-input" id="sum">
             </div>
 
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">实际金额</label>
@@ -559,7 +618,10 @@
             </button>
         </div>
 
+
     </form>
+
 </div>
+
 </body>
 </html>
