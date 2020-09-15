@@ -154,7 +154,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                         ,'dateTime':dateTime
                     }
                 });
-
                 break;
             case 'deleteAll':
                 var data = checkStatus.data;
@@ -216,7 +215,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                 });
 
             });
-        } else if (obj.event === 'edit') {
+        } else if (obj.event == 'edit') {
             alert(JSON.stringify(data));
 
             form.val('editform', $.parseJSON(JSON.stringify(data)));
