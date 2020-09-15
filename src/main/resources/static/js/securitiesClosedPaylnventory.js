@@ -18,6 +18,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     laydate.render({
         elem: '#dateTime2' //指定元素
     });
+
+
     //数据表格
     table.render({
         elem: '#securitiesClosedPayInventoryTable',
@@ -34,14 +36,43 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 ,{field: 'dateTime', title: '业务日期'}
                 ,{field: 'fundId', title: '基金信息表ID'}
                 ,{field: 'securitiesId', title: '证券信息表ID'}
-                ,{field: 'securitiesType', title: '证券应收应付类型'}
+                ,{field: 'securitiesType', title: '证券应收应付类型',
+                templet:function (item) {
+                    if (item.securitiesType==1){
+                        return '估值增值';
+                    }else if (item.securitiesType==2){
+                        return '证券清算款';
+                    }else if (item.securitiesType==3){
+                        return '债券利息';
+                    }
+                }
+            }
                 ,{field: 'totalPrice', title: '总金额'}
-                ,{field: 'securitiesClosedPayDesc', title: '备注'}
-                ,{field: 'securityPeriodFlag', title: '期初标志'}
-                ,{field: 'right', title: '操作', toolbar:'#barDemo',fixed: 'right'}
+                ,{field: 'securitiesClosedPayDesc', title: '备注', hide:true}
+                ,{field: 'flag', title: '业务状态',
+                templet:function (item) {
+                    if (item.flag==1){
+                        return '流入';
+                    }else if (item.flag==-1){
+                        return '流出';
+                    }
+                }
+            }
+                ,{field: 'securityPeriodFlag', title: '期初标志',
+                templet:function (item) {
+                    if (item.securityPeriodFlag==0){
+                        return '否';
+                    }else if (item.securityPeriodFlag==1){
+                        return '是';
+                    }
+                }
+            }
+                ,{title: 'right', title: '操作', toolbar:'#barDemo',fixed: 'right'}
             ]
         ]
     });
+
+
     //期初数据选中
     form.on('checkbox(initialSigns)', function(data){
         var addbtn = document.getElementById('addbtn');
@@ -54,11 +85,12 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             addbtn.setAttribute("lay-event","")
         }
     });
+
+
     //新增提交
     form.on('submit(addsubmit)', function(data){
         var formData=$('#addform').serialize();
-        alert("增加");
-        $.post("../cashInventory/insert",formData,function(msg){
+        $.post("../securitiesClosedPayInventory/insert",formData,function(msg){
             if(msg>0){
                 table.reload('securitiesClosedPayInventoryTable');
                 layer.closeAll();
@@ -82,10 +114,11 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         });
         return false;
     });
+
+
     //修改提交
     form.on('submit(editsubmit)', function(data){
         var formData=$('#editform').serialize();
-        alert("forData"+formData);
         $.post("../cashInventory/update",formData,function(msg){
             if(msg>0){
                 table.reload('securitiesClosedPayInventoryTable');
@@ -111,6 +144,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         return false;
     });
 
+
     //给工具条的按钮添加事件
     table.on('toolbar(securitiesClosedPayInventoryTable)',function (obj) {
         //获取选中复选框的对象，
@@ -128,9 +162,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 });
 
                 form.render();
-                //全屏
-                // layer.full(index);
                 break;
+
+                //条件搜索
             case 'search':
                 // alert("搜索");
                 var accountId5= $("#searchAccountId").val();
@@ -149,6 +183,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
                 });
                 break;
+
+                //批量删除
             case 'deleteAll':
                 var data = checkStatus.data;
                 layer.alert(JSON.stringify(data));
@@ -176,10 +212,11 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 break;
         }
     });
+
+
     //给表格编辑，删除按钮添加点击事件
     table.on('tool(securitiesClosedPayInventoryTable)', function(obj) {
         var data = obj.data;//得到删除行整行的数据
-        alert(data.cashInventoryId);
         if (obj.event === 'del') {
             layer.confirm('真的删除行么',{icon: 2}, function(index){
                 layer.close(index);
@@ -189,8 +226,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 
             });
         } else if (obj.event === 'edit') {
-            alert(JSON.stringify(data));
-
             form.val('editform',$.parseJSON(JSON.stringify(data)));
             var index = layer.open({
                 type: 1,
@@ -200,9 +235,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 area: ['800px', '600px'],
                 content:$('#editContent')
             });
-            // layer.full(index);
             form.render();
-
         };
     })
 });

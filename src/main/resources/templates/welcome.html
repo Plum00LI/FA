@@ -33,7 +33,7 @@
         <th lay-data="{field:'sumPrice', align:'center', minWidth: 100}">成交金额</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody id="tbody">
     <tr>
         <td id="nowTime"></td>
         <td id="stockName" class="style2"></td>
@@ -59,7 +59,7 @@
     }
 
     layui.$(document).ready(function () {
-        var url = "http://hq.sinajs.cn/list=sh600031";   //返回 var hq_str_sh601006="xxxxxxx" 的形式数据。
+        var url = "http://hq.sinajs.cn/list=sh600031,sh600032,sh600033,sh600034,sh600035";   //返回 var hq_str_sh601006="xxxxxxx" 的形式数据。
         // url="http://api.money.126.net/data/feed/1000002,1000001,1000881,money.api";  //返回  _ntes_quote_callback({xxxx}); 的形式数据。
         //url="http://flashquote.stock.hexun.com/Stock_Combo.ASPX?mc=1_600804&dt=T";   //返回  refreshData(xxxxxxx) 的形式数据。
         getNewData(url);
@@ -76,12 +76,32 @@
             hour = date.getHours(),
             min = date.getMinutes(),
             sec = date.getSeconds();
-        var newTime = year + '-' +
-            month + '-' +
-            day + ' ' +
-            hour + ':' +
-            min + ':' +
-            sec;
+        var newTime = year + '-';
+        if(month<10){
+            newTime = newTime + '0' + month + '-';
+        }else{
+            newTime = newTime + month + '-';
+        }
+        if(day<10){
+            newTime = newTime + '0' + day + ' ';
+        }else{
+            newTime = newTime + day + ' ';
+        }
+        if(hour<10){
+            newTime = newTime + '0' + hour + ':';
+        }else{
+            newTime = newTime + hour + ':';
+        }
+        if(min<10){
+            newTime = newTime + '0' + min + ':';
+        }else{
+            newTime = newTime + min + ':';
+        }
+        if(sec<10){
+            newTime = newTime + '0' + sec;
+        }else{
+            newTime = newTime + sec;
+        }
         return newTime;
     }
 
@@ -109,7 +129,7 @@
             timeout: 2000,
             success: function (data, textStatus, jqXHR) {
                 var str = data;
-                str = hq_str_sh600031.split(',');
+                str = (hq_str_sh600033).split(',');
                 stockName.innerText = str[0];
                 date.innerText = str[30];
                 time.innerText = str[31];

@@ -26,8 +26,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 ,{field: 'dateTime', title: '交易日期', width:130, align:'center'}
                 ,{field: 'num', title: '交易数量', width: 130, align:'center'}
                 ,{field: 'price', title: '交易单价', width:130, align:'center'}
-                ,{field: 'totalSum', title: '交易总金额', width: 130, align:'center'}
-                ,{field: 'netReceipts', title: '实收金额', width:130, align:'center'}
+                ,{field: 'totalSum', title: '结算金额', width: 130, align:'center'}
+                ,{field: 'netReceipts', title: '交易金额', width:130, align:'center'}
                 ,{field: 'settlementDate', title: '结算日期', width: 130, align:'center'}
                 ,{field: 'accountName', title: ' 现金账户', width: 130, align:'center'}
                 ,{field: 'securitiesName', title: ' 证券名称', width: 130, align:'center'}
@@ -71,8 +71,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 ,{field: 'dateTime', title: '交易日期', width:130, align:'center'}
                 ,{field: 'num', title: '交易数量', width: 130, align:'center'}
                 ,{field: 'price', title: '交易单价', width:130, align:'center'}
-                ,{field: 'totalSum', title: '交易总金额', width: 130, align:'center'}
-                ,{field: 'netReceipts', title: '实收金额', width:130, align:'center'}
+                ,{field: 'totalSum', title: '结算金额', width: 130, align:'center'}
+                ,{field: 'netReceipts', title: '交易金额', width:130, align:'center'}
                 ,{field: 'settlementDate', title: '结算日期', width: 130, align:'center'}
                 ,{field: 'accountName', title: ' 现金账户', width: 130, align:'center'}
                 ,{field: 'securitiesName', title: ' 证券名称', width: 130, align:'center'}
@@ -160,7 +160,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
                 });
                 break;
-        };
+        }
     });
     //给工具条的反结算添加事件
     table.on('toolbar(userTable2)', function (obj) {

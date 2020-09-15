@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +60,6 @@ public class SecuritiesInventoryController {
      */
     @RequestMapping("selectSecuritiesInventoryInfo")
     public Map<String,Object> selectSecuritiesInventoryInfo(String page, String limit,String accountId,String securitiesName,String fundId){
-        System.out.println("行情数据分页查询控制器");
         Map<String,Object> map = securitiesInventoryService.selectSecuritiesInventoryInfo(limit,page,accountId,securitiesName,fundId);
         List<SecuritiesInventory> securitiesInventoryList = (List<SecuritiesInventory>) map.get("securitiesInventoryList");
         int count = (int) map.get("count");
@@ -96,6 +96,7 @@ public class SecuritiesInventoryController {
 
     @RequestMapping("deleteSecuritiesInventory")
     public int deleteSecuritiesInventory(String securitiesInventoryId){
+
         int i = securitiesInventoryService.deleteSecuritiesInventory(securitiesInventoryId);
         return i;
     }

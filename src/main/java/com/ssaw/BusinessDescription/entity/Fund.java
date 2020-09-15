@@ -15,7 +15,7 @@ package com.ssaw.BusinessDescription.entity;
  * fundName	Varchar2(50)	基金名称
  * fundType	number(1)	1代表开放式基金 2代表封闭式基金
  * managerId	varchar2(50)	Fk  管理人id  来自管理人表
- * trusteeBlank	Varchar2(50)	FK  托管人id  来自托管人表
+ * trusteeBlank TRUSTEEID	Varchar2(50)	FK  托管人id  来自托管人表
  * initNetWorth	Number(14,2)	初始净值
  * sizeOfThe	Number(14,2)	基金规模
  * managerRate	Number(10,4)	管理人费率 年利率  ?/100
@@ -24,13 +24,14 @@ package com.ssaw.BusinessDescription.entity;
  * setUpDate	date	基金成立时间
  * fundDesc	varchar2(100)	备注
  * accountId  	varchar2(50)	FK 账户信息表
+ *
  */
 public class Fund {
     private String fundId;
     private String fundName;
     private double fundType;
     private String managerId;
-    private String trusteeBlank;
+    private String trusteeId;
     private double initNetWorth;
     private double sizeOfThe;
     private double managerRate;
@@ -38,34 +39,36 @@ public class Fund {
     private double provisionDays;
     private String setUpDate;
     private String fundDesc;
-    private String accountId="123123";
+    private String accountId="华宝高端制造基金主账户";
+    private String managerCompany;
+    private String trusteeCompany;
 
     public Fund() {
     }
 
-    public Fund(String fundName, double fundType, String managerId, String trusteeBlank, double initNetWorth, double sizeOfThe,
-                double managerRate, double hostingRate, double provisionDays, String setUpDate, String fundDesc, String accountId) {
-        this.fundName = fundName;
-        this.fundType = fundType;
-        this.managerId = managerId;
-        this.trusteeBlank = trusteeBlank;
-        this.initNetWorth = initNetWorth;
-        this.sizeOfThe = sizeOfThe;
-        this.managerRate = managerRate;
-        this.hostingRate = hostingRate;
-        this.provisionDays = provisionDays;
-        this.setUpDate = setUpDate;
-        this.fundDesc = fundDesc;
-        this.accountId = accountId;
+    public String getManagerCompany() {
+        return managerCompany;
     }
 
-    public Fund(String fundId, String fundName, double fundType, String managerId, String trusteeBlank, double initNetWorth, double sizeOfThe,
+    public void setManagerCompany(String managerCompany) {
+        this.managerCompany = managerCompany;
+    }
+
+    public String getTrusteeCompany() {
+        return trusteeCompany;
+    }
+
+    public void setTrusteeCompany(String trusteeCompany) {
+        this.trusteeCompany = trusteeCompany;
+    }
+
+    public Fund(String fundId, String fundName, double fundType, String managerId, String trusteeId, double initNetWorth, double sizeOfThe,
                 double managerRate, double hostingRate, double provisionDays, String setUpDate, String fundDesc, String accountId) {
         this.fundId = fundId;
         this.fundName = fundName;
         this.fundType = fundType;
         this.managerId = managerId;
-        this.trusteeBlank = trusteeBlank;
+        this.trusteeId = trusteeId;
         this.initNetWorth = initNetWorth;
         this.sizeOfThe = sizeOfThe;
         this.managerRate = managerRate;
@@ -108,12 +111,12 @@ public class Fund {
         this.managerId = managerId;
     }
 
-    public String getTrusteeBlank() {
-        return trusteeBlank;
+    public String getTrusteeId() {
+        return trusteeId;
     }
 
-    public void setTrusteeBlank(String trusteeBlank) {
-        this.trusteeBlank = trusteeBlank;
+    public void setTrusteeId(String trusteeId) {
+        this.trusteeId = trusteeId;
     }
 
     public double getInitNetWorth() {
@@ -183,11 +186,11 @@ public class Fund {
     @Override
     public String toString() {
         return "Fund{" +
-                "fundId=" + fundId +
+                "fundId='" + fundId + '\'' +
                 ", fundName='" + fundName + '\'' +
                 ", fundType=" + fundType +
                 ", managerId='" + managerId + '\'' +
-                ", trusteeBlank='" + trusteeBlank + '\'' +
+                ", trusteeId='" + trusteeId + '\'' +
                 ", initNetWorth=" + initNetWorth +
                 ", sizeOfThe=" + sizeOfThe +
                 ", managerRate=" + managerRate +

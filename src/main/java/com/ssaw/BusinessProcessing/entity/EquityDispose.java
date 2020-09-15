@@ -13,6 +13,7 @@ public class EquityDispose {
     private String accountName;//账户名称
     private int equitiesType;//权益类型
     private String equitiesExright;//除权日
+    private String receivedDate;//到账日期
     private int securitiesNum;//证券数量
     private int proportion;//比例
     private String settlementAmount;//结算金额
@@ -21,13 +22,14 @@ public class EquityDispose {
     public EquityDispose() {
     }
 
-    public EquityDispose(String equityDataId, String securitiesName, String accountName, int equitiesType,
-                         String equitiesExright, int securitiesNum, int proportion, String settlementAmount, int disposeStatus) {
+    public EquityDispose(String equityDataId, String securitiesName, String accountName, int equitiesType, String equitiesExright,
+                         String receivedDate, int securitiesNum, int proportion, String settlementAmount, int disposeStatus) {
         this.equityDataId = equityDataId;
         this.securitiesName = securitiesName;
         this.accountName = accountName;
         this.equitiesType = equitiesType;
         this.equitiesExright = equitiesExright;
+        this.receivedDate = receivedDate;
         this.securitiesNum = securitiesNum;
         this.proportion = proportion;
         this.settlementAmount = settlementAmount;
@@ -74,6 +76,14 @@ public class EquityDispose {
         this.equitiesExright = equitiesExright;
     }
 
+    public String getReceivedDate() {
+        return receivedDate;
+    }
+
+    public void setReceivedDate(String receivedDate) {
+        this.receivedDate = receivedDate;
+    }
+
     public int getSecuritiesNum() {
         return securitiesNum;
     }
@@ -108,14 +118,17 @@ public class EquityDispose {
 
     @Override
     public String toString() {
-        return "权益处理{" +
-                "权益编号='" + equityDataId + '\'' +
-                ", 证券名称='" + securitiesName + '\'' +
-                ", 账户名称='" + accountName + '\'' +
-                ", 权益类型=" + equitiesType +
-                ", 除权日='" + equitiesExright + '\'' +
-                ", 证券数量=" + securitiesNum +
-                ", 比例=" + proportion +
+        return "EquityDispose{" +
+                "equityDataId='" + equityDataId + '\'' +
+                ", securitiesName='" + securitiesName + '\'' +
+                ", accountName='" + accountName + '\'' +
+                ", equitiesType=" + equitiesType +
+                ", equitiesExright='" + equitiesExright + '\'' +
+                ", receivedDate='" + receivedDate + '\'' +
+                ", securitiesNum=" + securitiesNum +
+                ", proportion=" + proportion +
+                ", settlementAmount='" + settlementAmount + '\'' +
+                ", disposeStatus=" + disposeStatus +
                 '}';
     }
 }

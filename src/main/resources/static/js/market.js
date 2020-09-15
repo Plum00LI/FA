@@ -31,8 +31,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
         elem: '#dateTime' //指定元素
     });
 
-    //向世界问个好
-    layer.msg('欢迎进入基金估值核算系统');
+
     //新增提交
     form.on('submit(addsubmit)', function (data) {
             var formData = $('#addform').serialize();
@@ -58,6 +57,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                     });
                 }
             });
+        $("#addform")[0].reset();
             return false;
         });
     //修改提交
@@ -154,7 +154,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                         ,'dateTime':dateTime
                     }
                 });
-
                 break;
             case 'deleteAll':
                 var data = checkStatus.data;
@@ -216,7 +215,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                 });
 
             });
-        } else if (obj.event === 'edit') {
+        } else if (obj.event == 'edit') {
             alert(JSON.stringify(data));
 
             form.val('editform', $.parseJSON(JSON.stringify(data)));

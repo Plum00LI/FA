@@ -84,6 +84,7 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 		elem: '#userTable',
 		url: '../selectFund',
 		page: true,
+
 		height: 'full-55',
 		toolbar: '#userToolBar',//显示在表头的工具条
 		minLength:80,
@@ -93,8 +94,8 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 				{type: 'checkbox', field: 'left'}
 				,{field: 'fundId', title: '基金代码', width:215, align:'center'}
 				,{field: 'fundName', title: '基金名称', width: 215, align:'center'}
-				,{field: 'managerId', title: '基金管理公司', width:215, align:'center'}
-				,{field: 'trusteeBlank', title: '基金托管银行', width: 215, align:'center'}
+				,{field: 'managerCompany', title: '基金管理公司', width:215, align:'center'}
+				,{field: 'trusteeCompany', title: '基金托管银行', width: 215, align:'center'}
 				,{field: 'fundType', title: '基金类型', width:215, align:'center',templet: function(item){
 					if(item.fundType=='2') {return '封闭式';
 					} else if(item.fundType=='1'){ return '开放式';

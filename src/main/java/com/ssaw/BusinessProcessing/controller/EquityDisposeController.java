@@ -3,6 +3,7 @@ package com.ssaw.BusinessProcessing.controller;
 import com.ssaw.BusinessData.entity.EquityData;
 import com.ssaw.BusinessProcessing.entity.EquityDispose;
 import com.ssaw.BusinessProcessing.service.EquityDisposeService;
+import com.ssaw.GlobalManagement.util.DbUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,12 +24,23 @@ import java.util.Map;
 public class EquityDisposeController {
     @Resource
     EquityDisposeService equityDisposeService;
+    @Resource
+    DbUtil dbUtil;
 
     @RequestMapping("selectEquityDispose")
-    public Map<String,Object> selectEquityDispose(String page, String limit, String equityDataId, String disposeStatus){
+    public Map<String,Object> selectEquityDispose(String page, String limit, String equitiesType,String equitiesExright, String disposeStatus, HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        String accountName = (String) session.getAttribute("accountName");
+
+
         //调用Service层执行查询，接收返回结果集Map
-        Map<String, Object> map = equityDisposeService.selectEquityDispose(limit,page,equityDataId,disposeStatus);
+        Map<String, Object> map = equityDisposeService.selectEquityDispose(limit,page,equitiesType,equitiesExright,disposeStatus);
         List<EquityDispose> equityDisposeList = (List<EquityDispose>) map.get("equityDisposeList");
+
+        for (EquityDispose equityDispose : equityDisposeList){
+            equityDispose.setAccountName(accountName);
+        }
+
         int count = (int) map.get("count");
         //以layui要求存储响应数据格式
         Map<String, Object> equityDisposeMap = new HashMap<>();
@@ -46,4 +58,8 @@ public class EquityDisposeController {
         return equityDisposeService.updateEquityDispose(equityDisPose);
     }
 
+    @RequestMapping("updateEquityDisposeTwo")
+    public int updateEquityDisposeTwo(String equityDisPose){
+        return equityDisposeService.updateEquityDisposeTwo(equityDisPose);
+    }
 }
