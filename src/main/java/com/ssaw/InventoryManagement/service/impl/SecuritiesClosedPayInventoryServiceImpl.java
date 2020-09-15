@@ -61,11 +61,14 @@ public class SecuritiesClosedPayInventoryServiceImpl implements SecuritiesClosed
         }
         //创建一个Map，用于存储过程的调用传值
         Map<String,Object> map=new HashMap<>();
-//     accountId   accountName  securitiesId securitiesName
 
+
+
+        //关联查询
         String p_tableName="( select * from "+ SysTableNameListUtil.SCPI +
                 " s join (select securitiesId, securitiesName from "+SysTableNameListUtil.SE+")e on s.securitiesId=e.securitiesId )";
-        System.out.println(p_tableName);
+
+
         //传入存储过程需要查询的表名
         map.put("p_tableName",p_tableName);
         //传入查询条件
