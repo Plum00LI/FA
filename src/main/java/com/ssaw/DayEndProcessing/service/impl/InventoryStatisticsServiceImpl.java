@@ -157,7 +157,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                         break;
                     case "4":
                         //证券应收应付库存
-                        List<SecuritiesClosedPayInventoryData> securitiesClosedPayInventoryDataList=inventoryStatisticsMapper.selectSecuritiesClosedPayInventory(dateTime,"000899");
+                        List<SecuritiesClosedPayInventoryData> securitiesClosedPayInventoryDataList=inventoryStatisticsMapper.selectSecuritiesClosedPayInventory(dateTime,fundId);
                         securitiesClosedPayInventory=new InventoryStatistics(4,"证券应收应付库存",fundId,"admin",dateTime,securitiesClosedPayInventoryDataList.size(),"已统计");
                         for (SecuritiesClosedPayInventoryData securitiesClosedPayInventoryData : securitiesClosedPayInventoryDataList) {
                             //根据日期删除
@@ -188,7 +188,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                         break;
                     case "5":
                         //现金应收应付库存
-                        List<CashClosedPayInventoryData> cashClosedPayInventoryDataList=inventoryStatisticsMapper.selectCashClosedPayInventory(dateTime,"000899");
+                        List<CashClosedPayInventoryData> cashClosedPayInventoryDataList=inventoryStatisticsMapper.selectCashClosedPayInventory(dateTime,fundId);
                         cashClosedPayInventory=new InventoryStatistics(5,"现金应收应付库存",fundId,"admin",dateTime,cashClosedPayInventoryDataList.size(),"已统计");
                         for (CashClosedPayInventoryData cashClosedPayInventoryData : cashClosedPayInventoryDataList) {
                             //根据日期删除
