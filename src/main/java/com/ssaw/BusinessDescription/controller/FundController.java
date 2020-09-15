@@ -31,9 +31,9 @@ public class FundController {
     public int insertFund(Fund fund) {
         System.out.println("进来了");
 
-        int i = fundService.insertFund(fund);
+
         System.out.println(fund);
-        return i;
+        return fundService.insertFund(fund);
     }
 
     @RequestMapping(value = "deleteFund")
@@ -47,9 +47,9 @@ public class FundController {
     @RequestMapping(value = "updateFund")
     public int updateFund(Fund fund) {
         System.out.println("进来了");
-        int i = fundService.updateFund(fund);
+
         System.out.println(fund);
-        return i;
+        return fundService.updateFund(fund);
     }
 
     @RequestMapping(value = "selectFund")

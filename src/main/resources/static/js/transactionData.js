@@ -29,14 +29,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     laydate.render({
         elem: '#settlementDate1'
     })
-    //计算交易金额
-    //     $('#num').oninput(
-    //         function() {
-    //         var num = $('#num').html();
-    //         var price = $('#price').html();
-    //         var netReceipts = $('#netReceipts').html();
-    //         netReceipts.html(num*price);
-    //     });
+
 
     //新增提交
     form.on('submit(addsubmit)', function(data){
@@ -217,7 +210,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             });
             form.render();
             //全屏弹窗 layer.full(index);
-        };
+        }
     })
 });
 
