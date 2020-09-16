@@ -34,6 +34,14 @@ public class SecuritiesClosedPayController {
     @Resource
     DbUtil dbUtil;
 
+    /**
+     * 分页查询
+     * @param page 页码
+     * @param limit 每页的条数
+     * @param securitiesName 证券名
+     * @param dateTime 日期
+     * @return
+     */
     @RequestMapping("selectSecuritiesClosedPay")
     public Map<String,Object> selectSecuritiesClosedPay(String page, String limit,String securitiesName,String dateTime){
         System.out.println("证券应收应付分页查询控制器");
@@ -55,6 +63,11 @@ public class SecuritiesClosedPayController {
         return hashMap;
     }
 
+    /**
+     * 证券应收应付增加方法
+     * @param securitiesClosedPay 证券应收应付实体对象
+     * @return
+     */
     @RequestMapping("insertSecuritiesClosedPay")
     public int insertSecuritiesClosedPay(SecuritiesClosedPay securitiesClosedPay){
         System.out.println("新增的控制类");
@@ -65,7 +78,11 @@ public class SecuritiesClosedPayController {
         return i;
     }
 
-
+    /**
+     * 修改
+     * @param securitiesClosedPay 证券应收应付实体对象
+     * @return
+     */
     @RequestMapping("updateSecuritiesClosedPay")
     public int updateSecuritiesClosedPay(SecuritiesClosedPay securitiesClosedPay){
         System.out.println("进入了修改的control");
@@ -78,7 +95,7 @@ public class SecuritiesClosedPayController {
 
     /**
      * 单行删除多行删除
-     * @param securitiesClosedPayId
+     * @param securitiesClosedPayId 证券应收应付Id
      * @return
      */
     @RequestMapping("deleteSecuritiesClosedPay")

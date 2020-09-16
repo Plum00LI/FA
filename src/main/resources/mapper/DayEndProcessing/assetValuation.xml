@@ -26,7 +26,7 @@
 		and si.fundId= #{fundId}
 	</select>
 	<select id="selectSecuritiesType" resultType="java.lang.Integer">
-		select securitiesType from securitiesClosedPayInventory where dateTime=to_date(#{toDay,jdbcType=VARCHAR},'yyyy-MM-dd') and securitiesType=#{securitiesType,jdbcType=INTEGER} group by securitiesType
+		select securitiesType from securitiesClosedPayInventory where dateTime=to_date(#{toDay},'yyyy-MM-dd') and securitiesType=#{securitiesType} group by securitiesType
 	</select>
 
 </mapper>
