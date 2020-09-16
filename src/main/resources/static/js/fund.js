@@ -84,6 +84,7 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 		elem: '#userTable',
 		url: '../selectFund',
 		page: true,
+
 		height: 'full-55',
 		toolbar: '#userToolBar',//显示在表头的工具条
 		minLength:80,
@@ -115,7 +116,7 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 						return '366';
 					}
 				},
-				,{field: 'operation', title: '操作' , width: 215, align:'center',toolbar:'#barDemo'}
+				{fixed: 'right',field: 'operation', title: '操作' , width: 215, align:'center',toolbar:'#barDemo'}
 
 			]
 		]
@@ -210,7 +211,7 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 
 			form.render();
 			layer.full(index);
-		};
+		}
 	});
 
 });

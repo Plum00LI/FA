@@ -58,6 +58,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 });
             }
         });
+        $("#addform")[0].reset();
         return false;
     });
     //修改提交
@@ -150,18 +151,17 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 break;
             case 'search':
                 alert("搜索");
-                var userName= $("#userName").val();
+                var dateTime= $("#dateTime").val();
                 //表格的重新加载事件
                 table.reload('userTable', {
                     method: 'post'
                     , where: {
-                        'userName': userName
+                        'dateTime': dateTime
                     }
                     , page: {
                         curr: 1
                     }
                 });
-
                 break;
             case 'deleteAll':
                 var data = checkStatus.data;

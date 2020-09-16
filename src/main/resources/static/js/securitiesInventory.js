@@ -39,8 +39,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
         }
     });
 
-    //向世界问个好
-    layer.msg('欢迎进入基金估值核算系统');
+
     //新增提交
     form.on('submit(addsubmit)', function (data) {
         var formData = $('#addform').serialize();
@@ -66,6 +65,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
                 });
             }
         });
+        $("#addform")[0].reset();
         return false;
     });
     //修改提交
@@ -125,6 +125,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
     table.on('toolbar(userTable)', function (obj) {
         //获取选中复选框的对象，
         var checkStatus = table.checkStatus(obj.config.id);//得到表格选中行的ID
+        var fundId=$("#fundId").val();
         switch (obj.event) {
             case 'add':
                 var checked = $("#addCheck").prop("checked");
@@ -151,12 +152,12 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
                 var securitiesName = $("#securitiesName").val();
                 //表格的重新加载事件
                 table.reload('userTable', {
-                    page: {
-                        curr: 1
-                    }
-                    , where: {
-                        'dateTime': dateTime
-                        ,'securitiesName':securitiesName
+                        where: {
+                             'dateTime': dateTime,
+                             'securitiesName':securitiesName
+                    },
+                        page: {
+                              curr: 1
                     }
                 });
                 break;

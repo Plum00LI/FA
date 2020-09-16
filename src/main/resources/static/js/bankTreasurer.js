@@ -157,7 +157,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                         curr: 1
                     }
                 });
-
+                laydate.render({
+                    elem: '#selectDate',//指定元素
+                });
                 break;
             case 'deleteAll':
                 var data = checkStatus.data;

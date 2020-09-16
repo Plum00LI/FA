@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
 *@program: TescComment
@@ -58,9 +57,13 @@ public class SecuritiesInventoryController {
      * @return
      */
     @RequestMapping("selectSecuritiesInventoryInfo")
-    public Map<String,Object> selectSecuritiesInventoryInfo(String page, String limit,String accountId,String securitiesName,String fundId){
-        System.out.println("行情数据分页查询控制器");
-        Map<String,Object> map = securitiesInventoryService.selectSecuritiesInventoryInfo(limit,page,accountId,securitiesName,fundId);
+    public Map<String,Object> selectSecuritiesInventoryInfo(String page, String limit,String accountId,String securitiesName,String dateTime,String fundId){
+        Map<String,Object> map = securitiesInventoryService.selectSecuritiesInventoryInfo(limit,page,dateTime,securitiesName,accountId,fundId);
+        if (dateTime==null || dateTime.equals("")){
+            Date today= new Date();
+            dateTime = new SimpleDateFormat("yyyy-MM-dd").format(today);
+            System.out.println("dateTime=" + dateTime);
+        }
         List<SecuritiesInventory> securitiesInventoryList = (List<SecuritiesInventory>) map.get("securitiesInventoryList");
         int count = (int) map.get("count");
         //以layui要求存储响应数据格式
@@ -96,6 +99,7 @@ public class SecuritiesInventoryController {
 
     @RequestMapping("deleteSecuritiesInventory")
     public int deleteSecuritiesInventory(String securitiesInventoryId){
+
         int i = securitiesInventoryService.deleteSecuritiesInventory(securitiesInventoryId);
         return i;
     }

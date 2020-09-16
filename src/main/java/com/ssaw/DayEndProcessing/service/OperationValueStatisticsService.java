@@ -24,4 +24,23 @@ public interface OperationValueStatisticsService {
      * @return
      */
     public List<OperationValueStatistics> selectOperationValueStatistics(String dateTime, String fundID, int type);
+    /**
+     * 现金模块查询方法-TA清算款
+     * @param accountID
+     * @param type
+     * @param typeTwo
+     * @return
+     */
+    public List<OperationValueStatistics> selectOperationTA(String accountID, int type,int typeTwo,String dateTime,String fundID);
+
+    /**
+     * 运营模块查询方法-两费
+     * @param dateTime
+     * @param fundID
+     * @param type
+     *
+     * @return
+     */
+    public List<OperationValueStatistics> selectOperationCost(String accountID,String dateTime, String fundID,int type);
 }
+

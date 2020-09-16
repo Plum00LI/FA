@@ -11,8 +11,11 @@
         update securitiesInventory set dateTime=#{dateTime,jdbcType=VARCHAR},securitiesId=#{securitiesId,jdbcType=VARCHAR},securitiesNum=#{securitiesNum},price=#{price},total=#{total},securitiesInventoryDesc=#{securitiesInventoryDesc,jdbcType=VARCHAR} where securitiesInventoryId=#{securitiesInventoryId,jdbcType=VARCHAR}
     </update>
 
-    <delete id="deleteSecuritiesInventory" parameterType="com.ssaw.InventoryManagement.entity.SecuritiesInventory">
-        delete from securitiesInventory where securitiesInventoryId=#{securitiesInventoryId}
+    <delete id="deleteSecuritiesInventory" parameterType="java.util.List">
+        delete from securitiesInventory where securitiesInventoryId in
+        <foreach collection="list" item="securitiesInventoryId" open="(" separator="," close=")">
+            #{securitiesInventoryId}
+        </foreach>
     </delete>
     <delete id="deleteSecuritiesInventoryDate"  parameterType="com.ssaw.InventoryManagement.entity.SecuritiesInventory">
         delete from securitiesInventory where dateTime=#{dateTime}
@@ -26,7 +29,6 @@
         <result property="securitiesInventoryId" column="securitiesInventoryId" javaType="String"></result>
         <result property="dateTime" column="dateTime" javaType="String"></result>
         <result property="securitiesId" column="securitiesId" javaType="String"></result>
-        <result property="fundId" column="fundId" javaType="String"></result>
         <result property="securitiesNum" column="securitiesNum" javaType="Integer"></result>
         <result property="price" column="price" javaType="Double"></result>
         <result property="total" column="total" javaType="Double"></result>

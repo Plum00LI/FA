@@ -1,7 +1,7 @@
 <!--syt
 1.0-->
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org/">
 <head>
     <title>layUi入门</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -35,27 +35,29 @@
         </div>
         <br/>
         <form class="layui-form layui-col-space5">
-
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">证券类型</label>
-            </div>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input"  autocomplete="off" placeholder="请选择现金账户" name="accountName" id="searchAccountName">
-                <input type="hidden" name="accountId" id="searchAccountId"/>
+                <select name="securitiesType" id="securitiesType2">
+                    <option value="">请选择</option>
+                    <option value="1">估值增值</option>
+                    <option value="2">证券清算款</option>
+                    <option value="3">债券利息</option>
+                </select>
+            </div>
             </div>
 
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">业务日期</label>
-            </div>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input"  autocomplete="off" placeholder="请输入业务日期"  id="dateTime">
+            </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <a class="layui-btn"  lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</a>
             </div>
         </form>
     </script>
-
 </head>
 <body style="overflow: auto; background-color: white;"
       class="layui-view-body layui-content">
@@ -71,44 +73,92 @@
 
     </div>
 </div>
+
 <!--增加的div内容-->
 <div id="addContent" style="display: none; height: 100%; width:100%; text-align: center">
     <form id="addform" lay-filter="addform" class="layui-form layui-col-space5" style="margin: 50px auto; display: inline-block;">
-        <div style="float: left;">
+
             <div class="layui-inline layui-show-xs-block" style="text-align: center;">
-                <label class="layui-form-label layui-bg-green" style="text-align: center">日期</label>
+                <label class="layui-form-label" style="text-align: center">证券名称</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input type="text"  class="layui-input"  autocomplete="off" placeholder="日期" name="dateTime" id="dateTime1">
+                    <input type="text"  class="layui-input"  autocomplete="off" placeholder="请输入证券名称" name="securitiesName" id="securitiesName">
+                    <input type="hidden" name="securitiesId" id="securitiesId">
+                    <input name="fundId" type="hidden" th:value="${session.fundId}">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="text-align: center">现金账户</label>
+                <label class="layui-form-label" style="text-align: center">业务状态</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择现金账户" name="accountName" id="insertAccountName">
-                    <input type="hidden" name="accountId" id="insertAccountId"/>
+                    <select name="flag" id="flag">
+                        <option value="">请选择</option>
+                        <option value="1">流入</option>
+                        <option value="-1">流出</option>
+                    </select>
                 </div>
             </div>
-        </div>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+        <br>
+        <br>
         <div class="layui-inline layui-show-xs-block" style="float: left">
-            <label class="layui-form-label layui-bg-green" style="text-align: center">余额</label>
+            <label class="layui-form-label" style="text-align: center;">账户名称</label>
             <div class="layui-inline layui-show-xs-block">
-                <input type="text" class="layui-input" placeholder="余额" name="cashBlance" id="cashBlance1">
+                <input class="layui-input" placeholder="请输入账户名称" name="accountName" id="accountName">
+                <input type="hidden" name="accountId" id="accountId">
+            </div>
+        </div>
+        <div class="layui-inline layui-show-xs-block" style="float: left">
+            <label class="layui-form-label" style="text-align: center;">业务日期</label>
+            <div class="layui-inline layui-show-xs-block">
+                <input class="layui-input" placeholder="请输入业务日期" name="dateTime" id="dateTime1" style="width: 215px">
             </div>
         </div>
         <br>
         <br>
-        <br/>
-        <br/>
+        <br>
+        <br>
+        <div class="layui-inline layui-show-xs-block" style="text-align: center;">
+            <label class="layui-form-label" style="text-align: center">期初状态</label>
+            <div class="layui-inline layui-show-xs-block">
+                <select name="securityPeriodFlag" id="securityPeriodFlag">
+                    <option value="1">是</option>
+                    <option value="0">否</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline layui-show-xs-block" style="float: left">
+            <label class="layui-form-label" style="text-align: center;">总金额</label>
+            <div class="layui-inline layui-show-xs-block">
+                <input class="layui-input" placeholder="请输入总金额" name="totalPrice" id="totalPrice">
+            </div>
+        </div>
+        <br>
+        <br>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center; width: 130px; height: 81px; line-height: 81px">备注</label>
+            <label class="layui-form-label" style="text-align: center">证券类型</label>
             <div class="layui-inline layui-show-xs-block">
-                <textarea name="cashInventoryDesc" placeholder="请输入" class="layui-textarea" style="width: 467px"></textarea>
+                <select name="securitiesType" id="securitiesType">
+                    <option value="">请选择</option>
+                    <option value="1">估值增值</option>
+                    <option value="2">证券清算款</option>
+                    <option value="3">债券利息</option>
+                </select>
             </div>
         </div>
+        <div class="layui-inline layui-show-xs-block" style="float: left">
+            <label class="layui-form-label" style="text-align: center;">备注</label>
+            <div class="layui-inline layui-show-xs-block">
+                <input class="layui-input" placeholder="请输入备注（可写可不写）" name="securitiesClosedPayDesc" id="securitiesClosedPayDesc">
+            </div>
+        </div>
+        <div class="layui-inline layui-show-xs-block" style="float: left">
+            <label class="layui-form-label" style="text-align: center;">备注</label>
+            <div class="layui-inline layui-show-xs-block">
+                <input class="layui-input" placeholder="请输入备注（可写可不写）" name="securitiesClosedPayDesc" id="securitiesClosedPayDesc">
+            </div>
+        </div>
+
+
+
+
 
 
 
@@ -124,57 +174,72 @@
 </div>
 
 <!--修改的div内容-->
-<div id="editContent"
-     style="display: none; height: 100%; height: 100%; text-align: center;">
-    <form id="editform" lay-filter="editform"
-          class="layui-form layui-form-pane"
-          style="margin: 30px auto; display: inline-block;">
-        <div style="float: left;">
-            <div class="layui-inline layui-show-xs-block" style="text-align: center;">
-                <label class="layui-form-label layui-bg-green" style="text-align: center">日期</label>
-                <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="日期" name="dateTime" id="dateTime2" disabled>
-                </div>
-            </div>
+<div id="editContent" style="display: none; height: 100%; text-align: center;">
+    <form id="editform" lay-filter="editform" class="layui-form layui-col-space5" style="margin: 50px auto; display: inline-block;">
+        <input name="securityPeriodFlag" type="hidden">
+        <input name="securitiesClosedPayInventoryId" type="hidden">
+        <div class="layui-inline layui-show-xs-block" style="text-align: center;">
+            <label class="layui-form-label" style="text-align: center">证券代码</label>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="text-align: center">现金账户ID</label>
-                <div class="layui-inline layui-show-xs-block">
-                    <input  type="text" class="layui-input" placeholder="现金账户ID" name="accountId"  readonly>
-                </div>
+                <input type="text"  class="layui-input"  autocomplete="off" placeholder="请输入证券代码" name="securitiesName" id="securitiesName2">
+                <input type="hidden" name="securitiesId" id="securitiesId2">
+                <input type="hidden" name="fundId" id="fundId">
             </div>
         </div>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <div style="float: left;">
-            <div class="layui-inline layui-show-xs-block" style="text-align: center;">
-                <label class="layui-form-label layui-bg-green" style="text-align: center">账户名称</label>
-                <div class="layui-inline layui-show-xs-block">
-                    <input  type="text" class="layui-input" readonly autocomplete="off" placeholder="账户名称" name="accountName" id="accountName1">
-                </div>
-            </div>
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="text-align: center">余额</label>
-                <div class="layui-inline layui-show-xs-block">
-                    <input  type="text" class="layui-input" placeholder="余额" name="cashBlance" id="cashBlance" onkeyup = "if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"onafterpaste = "if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}">
-                </div>
-            </div>
-        </div>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="text-align: center; width: 130px; height: 101px; line-height: 81px">备注</label>
+            <label class="layui-form-label" style="text-align: center">业务状态</label>
             <div class="layui-inline layui-show-xs-block">
-                <textarea name="cashInventoryDesc"  placeholder="请输入" class="layui-textarea" style="width: 467px"></textarea>
+                <select name="flag">
+                    <option value="">请选择</option>
+                    <option value="1">流入</option>
+                    <option value="-1">流出</option>
+                </select>
             </div>
-            <!--         required lay-verify="required"   -->
         </div>
+        <br>
+        <br>
+        <div class="layui-inline layui-show-xs-block" style="float: left">
+            <label class="layui-form-label" style="text-align: center;">账户名称</label>
+            <div class="layui-inline layui-show-xs-block">
+                <input class="layui-input" placeholder="请输入账户名称" name="accountName" id="accountName2">
+                <input type="hidden" name="accountId" id="accountId2">
+            </div>
+        </div>
+        <div class="layui-inline layui-show-xs-block" style="float: left">
+            <label class="layui-form-label" style="text-align: center;">业务日期</label>
+            <div class="layui-inline layui-show-xs-block">
+                <input class="layui-input" placeholder="请输入业务日期" name="dateTime" id="dateTime2" style="width: 215px">
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label" style="text-align: center">业务类型</label>
+            <div class="layui-inline layui-show-xs-block">
+                <select name="securitiesType">
+                    <option value="">请选择</option>
+                    <option value="1">估值增值</option>
+                    <option value="2">证券清算款</option>
+                    <option value="3">债券利息</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline layui-show-xs-block" style="float: left">
+            <label class="layui-form-label" style="text-align: center;">总金额</label>
+            <div class="layui-inline layui-show-xs-block">
+                <input class="layui-input" placeholder="请输入总金额" name="totalPrice">
+            </div>
+        </div>
+
+
+
+
+
         <div style="position: absolute;  bottom: 20px; margin-left:220px;">
             <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
-                <i class="layui-icon">&#x1005;</i>添加
+                <i class="layui-icon">&#x1005;</i>编辑
             </button>
             <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
                 <i class="layui-icon">&#x1006;</i>取消
@@ -182,19 +247,20 @@
         </div>
     </form>
 </div>
+
+
+
 <script src="../js/securitiesClosedPaylnventory.js"></script>
 <script type="text/javascript">
-
     layui.use([ 'tableSelect'], function () {
         var $=layui.jquery,
             tableSelect=layui.tableSelect;
-        // 搜索框下拉表格
+        //增加账户下拉表格
         tableSelect.render({
-            elem:'#searchAccountName',
+            elem:'#accountName',
             checkedKey:'accountName',
             table:{
-                url:'../selectAccount',
-                // cellMinWidth:60,
+                url:'../account/selectAccount',
 
                 cols:[
                     [   {type:'radio'},
@@ -210,18 +276,70 @@
                 $.each(data.data,function (index,item) {
                     newJson.push(item.accountName);
                     console.log(item.accountId);
-                    $("#searchAccountId").val(item.accountId);//给隐藏域中的val赋值
+                    $("#accountId").val(item.accountId);//给隐藏域中的val赋值
                 });
                 elem.val(newJson.join(","));//给输入框里显示的值赋值
             }
         })
-        //增加下拉表格
+
+        //新增证券下拉选择器
         tableSelect.render({
-            elem:'#insertAccountName',
+            elem: '#securitiesName'
+            , checkedKey: 'securitiesId'
+            , table: {
+                url: '../Securities/selectSecurities'
+                , cols: [
+                    [
+                        {type: 'radio'},
+                        {field: 'securitiesId', title: '证券ID',width:250},
+                        {field: 'securitiesName', title: '证券名称',width: 250},
+                    ]
+                ]
+            }
+            , done: function (elem, data) {
+                var NEWJSON = []
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.securitiesName)
+                    console.log(item.securitiesId)
+                    $("#securitiesId").val(item.securitiesId);
+                })
+                elem.val(NEWJSON.join(","))
+            }
+        })
+
+        //修改证券代码下拉选择器
+        tableSelect.render({
+            elem: '#securitiesName2'
+            , checkedKey: 'fundId'
+            , table: {
+                url: '../securitiesClosedPayInventory/select'
+                , cols: [
+                    [
+                        {type: 'radio'},
+                        {field: 'fundId', title: '基金编号', width:250},
+                        {field: 'securitiesName', title: '证券名称', width:250},
+                    ]
+                ]
+            }
+            , done: function (elem, data) {
+                var NEWJSON = []
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.securitiesName)
+                    console.log(item.securitiesId)
+                    console.log(item.fundId)
+                    $("#securitiesId2").val(item.securitiesId);
+                    $("#fundId").val(item.fundId)
+                })
+                elem.val(NEWJSON.join(","))
+            }
+        })
+
+        //修改账户下拉选择器
+        tableSelect.render({
+            elem:'#accountName2',
             checkedKey:'accountName',
             table:{
                 url:'../account/selectAccount',
-                // cellMinWidth:60,
 
                 cols:[
                     [   {type:'radio'},
@@ -237,14 +355,13 @@
                 $.each(data.data,function (index,item) {
                     newJson.push(item.accountName);
                     console.log(item.accountId);
-                    $("#insertAccountId").val(item.accountId);//给隐藏域中的val赋值
+                    $("#accountId2").val(item.accountId);//给隐藏域中的val赋值
                 });
                 elem.val(newJson.join(","));//给输入框里显示的值赋值
             }
         })
     })
 </script>
-
 </body>
 </html>
 

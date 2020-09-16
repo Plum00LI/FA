@@ -86,7 +86,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 		url: '../Securities/selectSecurities',
 		toolbar: '#userToolBar',
 		defaultToolbar: ['filter', 'exports', 'print'],
-		height:'full-170',
+		height:'full-20',
 		cellMinWidth:60,
 		cols: [
 			[
@@ -137,7 +137,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 					}
 				},
 				{field: 'securitiesDesc', title: '备注', sort: true},
-				{title: '操作', minWidth: 100, toolbar: '#barDemo', align: "center"}
+				{fixed:'right',title: '操作', minWidth: 100, toolbar: '#barDemo', align: "center"}
 			]
 		],
 		limits: [10, 15, 20, 25, 50, 100],
@@ -158,11 +158,10 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 					closeBtn: 1,
 					move: false,
 					content: $("#addContent"),
-					btn: []
+					btn: [],
+					area:['800px','600px']
 				});
 				form.render();
-				//全屏
-				layer.full(index);
 				break;
 			case 'search':
 				alert("搜索");
@@ -229,12 +228,11 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 				title: '修改证券信息',
 				closeBtn: 1,
 				move: false,
-				area: ['500px', '400px'],
+				area: ['800px', '600px'],
 				content: $('#editContent')
 			});
 
 			form.render();
-			layer.full(index);
 		};
 	})
 });

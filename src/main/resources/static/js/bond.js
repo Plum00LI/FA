@@ -86,28 +86,27 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 		elem: '#userTable',
 		url: '../selectBond',
 		page: true,
-		height: 498,
+		height: 'full-20',
 		toolbar: '#userToolBar',//显示在表头的工具条
-		minLength:80,
 		cellMinWidth:60,
 		cols: [
 			[ //表头
 				{type: 'checkbox', fixed: 'left'}
-				,{field: 'securitiesId', title: '债券编号', width:130, align:'center'}
-				,{field: 'bondName', title: '债券名称', width:130, align:'center'}
-				,{field: 'drawStartDate', title: '计息起始日', width: 130, align:'center'}
-				,{field: 'drawEndDate', title: '计息结束日', width:130, align:'center'}
-				,{field: 'bondType', title: '债券类型', width: 130, align:'center',templet:function (item){
+				,{field: 'securitiesId', title: '债券编号',  align:'center'}
+				,{field: 'bondName', title: '债券名称',  align:'center'}
+				,{field: 'drawStartDate', title: '计息起始日',  align:'center'}
+				,{field: 'drawEndDate', title: '计息结束日',  align:'center'}
+				,{field: 'bondType', title: '债券类型',  align:'center',templet:function (item){
 					if (item.bondType=='1'){
 						return '银行间';
 					}else {
 						return '非银行间';
 					}
 				}}
-				,{field: 'parRate', title: '票面利率(%)', width:130, align:'center'}
-				,{field: 'bondRate', title: '债券利息(%)', width: 130, align:'center'}
-				,{field: 'bondRateAmount', title: '票面金额', width: 130, align:'center'}
-				,{field: 'payInterestNum', title: '付息次数', width: 130, align:'center',templet:function (item) {
+				,{field: 'parRate', title: '票面利率(%)',  align:'center'}
+				,{field: 'bondRate', title: '债券利息(%)',  align:'center'}
+				,{field: 'bondRateAmount', title: '票面金额',  align:'center'}
+				,{field: 'payInterestNum', title: '付息次数',  align:'center',templet:function (item) {
 					if (item.payInterestNum=='1'){
 						return '一年一次';
 					}else if (item.payInterestNum=='2'){
@@ -116,9 +115,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 						return '一年四次';
 					}
 				}}
-				,{field: 'bondDesc', title: '备用字段', width: 130, align:'center'}
+				,{field: 'bondDesc', title: '备用字段',  align:'center'}
 
-				,{field: 'right', title: '操作',width: 150, align:'center', toolbar: '#barDemo'}
+				,{fixed: 'right', title: '操作',width: 150, align:'center', toolbar: '#barDemo'}
 			]
 		]
 	});
@@ -130,16 +129,15 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 			case 'add':
 				var index=layer.open({
 					type: 1,
-					title: '添加用户信息',
+					title: '添加',
 					closeBtn: 1,
 					move:false,
 					content:$("#addContent"),
-					btn:[]
+					btn:[],
+					area:['800px','600px']
 				});
 
 				form.render();
-				//全屏
-				layer.full(index);
 				break;
 			case 'search':
 				alert("搜索");
@@ -204,15 +202,14 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 			form.val('editform',$.parseJSON(JSON.stringify(data)));
 			var index = layer.open({
 				type: 1,
-				title: '修改员工',
+				title: '修改',
 				closeBtn: 1,
 				move:false,
-				area: ['500px', '400px'],
+				area: ['800px', '600px'],
 				content:$('#editContent')
 			});
 
 			form.render();
-			layer.full(index);
 		};
 	})
 });

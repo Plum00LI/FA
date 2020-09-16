@@ -79,7 +79,7 @@ public class MarketServiceImpl implements MarketService {
         if (dateTime!=null && !dateTime.equals("")){
             sqlWhere.append(" and dateTime like '%"+dateTime+"%'");
         }
-        String tableName="(select * from " + SysTableNameListUtil.M +" m join (select securitiesName,securitiesId from "+SysTableNameListUtil.SE+" )  s on m.securitiesId=s.securitiesId)";
+        String tableName="(select m.marketId,m.securitiesId,s.securitiesName,m.dateTime,m.openPrice,m.closingPrice,m.marketdesc from " + SysTableNameListUtil.M +" m join (select securitiesName,securitiesId from "+SysTableNameListUtil.SE+" )  s on m.securitiesId=s.securitiesId)";
         System.out.println("语句"+tableName);
         //创建一个Map,用来调用存储过程
         Map<String,Object> map = new HashMap<>();

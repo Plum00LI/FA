@@ -1,11 +1,5 @@
-package com.ssaw.InventoryManagement.service.impl;/**
- * @program: TescComment
- * @Description:实体类
- * @author: 瞿平
- * @create: 2020-09-01
- */
+package com.ssaw.InventoryManagement.service.impl;
 
-import com.ssaw.BusinessData.entity.Market;
 import com.ssaw.GlobalManagement.util.DbUtil;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.InventoryManagement.entity.SecuritiesInventory;
@@ -14,6 +8,7 @@ import com.ssaw.InventoryManagement.service.SecuritiesInventoryService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,13 +35,19 @@ public class SecuritiesInventoryServiceImpl implements SecuritiesInventoryServic
 
     @Override
     public int insertSecuritiesInventory(SecuritiesInventory securitiesInventory) {
-        securitiesInventory.setFundId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
+//        securitiesInventory.setFundId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
     return securitiesInventoryMapper.insertSecuritiesInventory(securitiesInventory);
     }
 
     @Override
     public int deleteSecuritiesInventory(String securitiesInventoryId) {
-        return securitiesInventoryMapper.deleteSecuritiesInventory(securitiesInventoryId);
+        //切割字符串
+        String[] split = securitiesInventoryId.split(",");
+        ArrayList<Object> list=new ArrayList<>();
+        for (String id : split) {
+            list.add(id);
+        }
+        return securitiesInventoryMapper.deleteSecuritiesInventory(list);
     }
 
     @Override
@@ -55,7 +56,7 @@ public class SecuritiesInventoryServiceImpl implements SecuritiesInventoryServic
     }
 
     @Override
-    public Map<String, Object> selectSecuritiesInventoryInfo(String pageSize, String page,String dateTime,String securitiesId,String securitiesName) {
+    public Map<String, Object> selectSecuritiesInventoryInfo(String pageSize, String page,String dateTime,String securitiesId,String securitiesName,String fundId) {
         //创建一个结果集Map,用于存放两个结果变量
         Map<String, Object> resultMap = new HashMap<>();
         //定义一个分页条数变量
