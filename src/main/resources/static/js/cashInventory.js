@@ -55,7 +55,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         //新增提交
         form.on('submit(addsubmit)', function(data){
             var formData=$('#addform').serialize();
-            alert("增加");
+            // alert("增加");
             $.post("../cashInventory/insert",formData,function(msg){
                 if(msg>0){
                     table.reload('cashInventoryTable');
@@ -83,7 +83,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         //修改提交
         form.on('submit(editsubmit)', function(data){
             var formData=$('#editform').serialize();
-            alert("forData"+formData);
+            // alert("forData"+formData);
             $.post("../cashInventory/update",formData,function(msg){
                 if(msg>0){
                     table.reload('cashInventoryTable');
@@ -180,7 +180,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         //给表格编辑，删除按钮添加点击事件
         table.on('tool(cashInventoryTable)', function(obj) {
             var data = obj.data;//得到删除行整行的数据
-            alert(data.cashInventoryId);
+            // alert(data.cashInventoryId);
             if (obj.event === 'del') {
                 layer.confirm('真的删除行么',{icon: 2}, function(index){
                     layer.close(index);
@@ -190,7 +190,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 
                 });
             } else if (obj.event === 'edit') {
-                alert(JSON.stringify(data));
+                // alert(JSON.stringify(data));
 
                 form.val('editform',$.parseJSON(JSON.stringify(data)));
                 var index = layer.open({
