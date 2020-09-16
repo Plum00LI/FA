@@ -6,7 +6,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     var form = layui.form;
     var formSelects = layui.formSelects;
     var laydate = layui.laydate;
-
+    var fundId=$("#tableFundId").val();
     //执行一个laydate实例
     laydate.render({
         elem: '#dateTime' //指定元素
@@ -91,13 +91,14 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         url: '../taInventory/select',
         page: true,
         height: 'full-55',
+        where:{ 'fundId':fundId},
         toolbar: '#taInventoryToolBar',//显示在表头的工具条
         minLength:60,
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
-                ,{field: 'taInventoryId', title: 'TA库存ID'}
                 ,{field: 'dateTime', title: '统计日期'}
+                ,{field: 'taInventoryId', title: 'TA库存ID'}
                 ,{field: 'taNum', title: '数量'}
                 ,{field: 'taTotal', title: '金额'}
                 ,{field: 'taInventoryDesc', title: '备注'}
@@ -173,7 +174,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //给表格编辑，删除按钮添加点击事件
     table.on('tool(taInventoryTable)', function(obj) {
         var data = obj.data;//得到删除行整行的数据
-        // alert(data.taInventoryId);
+
         if (obj.event === 'del') {
             layer.confirm('真的删除行么',{icon: 2}, function(index){
                 layer.close(index);
