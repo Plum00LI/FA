@@ -7,20 +7,12 @@
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="../css/font.css">
-    <link rel="stylesheet" href="../css/xadmin.css">
-    <link rel="stylesheet" href="../css/theme9.css">
-    <script src="../lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../js/xadmin.js"></script>
-    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]-->
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-
-    <link rel="stylesheet" href="../lib/layui/css/layui.css">
-
-
-    <script src="../lib/layui/layui.js"></script>
+    <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
+    <script type="text/javascript" src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
+    <script src="../lib/layuimini/js/lay-config.js"></script>
     <!--工具条-->
 
     <script type="text/html" id="userToolBar">
@@ -74,12 +66,13 @@
     </script>
     <script type="text/javascript">
 
-        layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
+        layui.use(['element', 'form', 'table', 'layer', 'laydate','tableSelect'], function () {
             var layer = layui.layer;
             var $ = layui.$;
             var table = layui.table;
             var form = layui.form;
             var formSelects = layui.formSelects;
+            var tableSelect = layui.tableSelect;
             var laydate = layui.laydate;
 
             //执行一个laydate实例
@@ -98,8 +91,6 @@
             //新增提交
             form.on('submit(addsubmit)', function(data){
                 var formData=$('#addform').serialize();
-                alert("表单数据：" + formData);
-
                 $.post("../insertTatTransaction",formData,function(msg){
                     if(msg>0){
                         table.reload('userTable');
@@ -127,7 +118,6 @@
             //修改提交
             form.on('submit(editsubmit)', function(data){
                 var formData=$('#editform').serialize();
-                alert("修改提交的数据：" + formData);
                 $.post("../updateTaTransaction",formData,function(msg){
                     if(msg>0){
                         table.reload('userTable');
@@ -202,6 +192,7 @@
                     ]
                 ]
             });
+
             //给工具条的按钮添加事件
             table.on('toolbar(userTable)',function (obj) {
                 //获取选中复选框的对象，
@@ -210,7 +201,7 @@
                     case 'add':
                         var index=layer.open({
                             type: 1,
-                            title: '添加用户信息',
+                            title: '添加',
                             closeBtn: 1,
                             move:false,
                             content:$("#addContent"),
@@ -269,7 +260,6 @@
             //给表格编辑，删除按钮添加点击事件
             table.on('tool(userTable)', function(obj) {
                 var data = obj.data;//得到删除行整行的数据
-                alert(data.taTransactionId);
                 if (obj.event === 'del') {
 
                     layer.confirm('真的删除行么',{icon: 2}, function(index){
@@ -280,12 +270,10 @@
 
                     });
                 } else if (obj.event === 'edit') {
-                    alert(JSON.stringify(data));
-
                     form.val('editform',$.parseJSON(JSON.stringify(data)));
                     var index = layer.open({
                         type: 1,
-                        title: '修改员工',
+                        title: '修改',
                         closeBtn: 1,
                         move:false,
                         area: ['500px', '400px'],
@@ -297,10 +285,73 @@
                     layer.full(index);
                 };
             })
+
+            //给修改券商的下拉表格
+            tableSelect.render({
+                elem:'#updateAccount',
+                checkedKey:'accountId',
+                table:{
+                    url:'../account/selectAccount',
+                    cellMinWidth: 60,
+                    cols:[
+                        [   {type:'radio'},
+                            {field:'accountId',title:'现金账户Id'},
+                            {field: 'accountName',title:'现金账户名称'},
+                        ]
+                    ]
+                },
+                done:function (elem,data) {
+                    //elem:返回之前input对象；data:表格返回的选中的数据 []
+                    var newJson=[];
+                    //遍历选中的数据
+                    $.each(data.data,function (index,item) {
+                        newJson.push(item.accountId);
+                        $("#brokersId2").val(item.accountId);
+                    });
+                    elem.val(newJson.join(","));//给输入框里显示的值赋值
+
+                }
+            })
+            //新增券商的下拉表格
+            tableSelect.render({
+                elem:'#insertAccount',
+                checkedKey:'accountId',
+                table:{
+                    url:'../account/selectAccount',
+                    cellMinWidth: 60,
+                    cols:[
+                        [   {type:'radio'},
+                            {field:'accountId',title:'现金账户Id'},
+                            {field: 'accountName',title:'现金账户名称'},
+                        ]
+                    ]
+                },
+                done:function (elem,data) {
+                    //elem:返回之前input对象；data:表格返回的选中的数据 []
+                    var newJson=[];
+                    //遍历选中的数据
+                    $.each(data.data,function (index,item) {
+                        newJson.push(item.accountId);
+                        $("#brokersId1").val(item.accountId);
+                    });
+                    elem.val(newJson.join(","));//给输入框里显示的值赋值
+                }
+            })
         });
 
         function quxiao() {
             layer.closeAll();
+        }
+
+        function autoEx() {
+            layui.use(['jquery'],function () {
+                var $=layui.jquery;
+                var taNum = $("#taNum").val();
+                var cost = $("#cost").val();
+                var price=$("#price").val();
+                $("#price").val(cost/taNum);
+                $("#sum").val(taNum*price);
+            })
         }
 
     </script>
@@ -327,10 +378,11 @@
           style="margin: 30px auto; display: inline-block;">
 
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户</label>
+            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center" >账户</label>
             <div class="layui-input-inline">
-                <input class="layui-input"  autocomplete="off" placeholder="请输入账户名称"
-                       name="accountId" >
+                <input type="text" class="layui-input"  autocomplete="off" placeholder="请输入账户名称"
+                       name="accountId" id="insertAccount" lay-verify="required">
+                <input name="brokersId1" type="hidden" id="insertAccountId1">
             </div>
 
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易类型</label>
@@ -347,13 +399,13 @@
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">数量</label>
             <div class="layui-input-inline">
                 <input type="text" name="fundNum" lay-verify="required"
-                       autocomplete="off" placeholder="数量" class="layui-input">
+                       autocomplete="off" placeholder="数量" class="layui-input" id="taNum" oninput="autoEx();">
             </div>
 
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">费用</label>
             <div class="layui-input-inline">
                 <input type="text" name="cost" lay-verify="required"
-                       autocomplete="off" placeholder="请输入费用" class="layui-input">
+                       autocomplete="off" placeholder="请输入费用" class="layui-input" id="cost" oninput="autoEx()">
             </div>
 
         </div>
@@ -367,10 +419,10 @@
                        autocomplete="off" placeholder="请输入日期" class="layui-input" id="start1">
             </div>
 
-            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">单价</label>
+            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center" >单价</label>
             <div class="layui-input-inline">
                 <input type="text" name="price" lay-verify="required"
-                       autocomplete="off" placeholder="请输入单价" class="layui-input">
+                       autocomplete="off" placeholder="请输入单价" class="layui-input" id="price">
             </div>
 
         </div>
@@ -401,7 +453,7 @@
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">总金额</label>
             <div class="layui-input-inline">
                 <input type="text" name="totalMoney" lay-verify="required"
-                       autocomplete="off" placeholder="请输入总金额" class="layui-input">
+                       autocomplete="off" placeholder="请输入总金额" class="layui-input" id="sum">
             </div>
 
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">实际金额</label>
@@ -454,7 +506,8 @@
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户</label>
             <div class="layui-input-inline">
                 <input class="layui-input"  autocomplete="off" placeholder="请输入账户名称"
-                       name="accountId" >
+                       name="accountId"  id="updateAccount">
+                <input name="brokersId2" type="hidden" id="updateAccount1">
             </div>
 
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易类型</label>
@@ -559,7 +612,10 @@
             </button>
         </div>
 
+
     </form>
+
 </div>
+
 </body>
 </html>

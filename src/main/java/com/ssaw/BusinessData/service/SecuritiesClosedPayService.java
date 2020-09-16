@@ -22,7 +22,7 @@ public interface SecuritiesClosedPayService {
      * @param
      * @return
      */
-    public Map<String,Object> selectSecuritiesClosedPay(String pageSize, String page,String securitiesName,String securitiesId);
+    public Map<String,Object> selectSecuritiesClosedPay(String pageSize, String page,String securitiesName,String dateTime);
 
     /**
      * 增加

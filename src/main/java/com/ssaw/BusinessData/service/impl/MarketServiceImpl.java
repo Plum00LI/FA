@@ -73,11 +73,11 @@ public class MarketServiceImpl implements MarketService {
 
         StringBuffer sqlWhere = new StringBuffer();
         if (securitiesId!=null && !securitiesId.equals("")){
-            sqlWhere.append(" and m.securitiesId like '%"+securitiesId+"%'");
+            sqlWhere.append(" and securitiesId like '%"+securitiesId+"%'");
         }
 
         if (dateTime!=null && !dateTime.equals("")){
-            sqlWhere.append(" and m.dateTime like '%"+dateTime+"%'");
+            sqlWhere.append(" and dateTime like '%"+dateTime+"%'");
         }
         String tableName="(select m.marketId,m.securitiesId,s.securitiesName,m.dateTime,m.openPrice,m.closingPrice,m.marketdesc from " + SysTableNameListUtil.M +" m join (select securitiesName,securitiesId from "+SysTableNameListUtil.SE+" )  s on m.securitiesId=s.securitiesId)";
         System.out.println("语句"+tableName);
