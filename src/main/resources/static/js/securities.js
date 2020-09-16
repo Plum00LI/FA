@@ -25,6 +25,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 
 	//新增提交
 	form.on('submit(addsubmit)', function (data) {
+		alert("jinlail");
 		var formData = $('#addform').serialize();
 		$.post("/Securities/insertSecurities", formData, function (msg) {
 			if (msg > 0) {
@@ -95,14 +96,28 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 				{field: 'securitiesType', title: '证券类型', sort: true,
 					templet:function (item) {
 						if (item.securitiesType=="1"){
-							return '债券';
+							return '股票';
 						}else if (item.securitiesType=="2"){
-							return '股票';``
+							return '债券';
 						}
 					}
 				},
 				{field: 'issueDate', title: '发行日期'},
-				{field: 'delayDate', title: '延迟日期'},
+				{field: 'delayDate', title: '延迟日期',
+					templet:function (item) {
+						if (item.delayDate==="1"){
+							return "T+1";
+						}else if (item.delayDate==="2"){
+							return "T+2";
+						}
+						else if (item.delayDate==="3"){
+							return "T+3";
+						}
+						else if (item.delayDate==="4"){
+							return "T+4";
+						}
+					}
+				},
 				{field: 'stockName', title: '股票板块', sort: true,
 					hide:function (item) {
 						if (item.stockParentId==="000"){

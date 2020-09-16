@@ -101,7 +101,7 @@ public class RevenueProvisionController {
     }
     //债券的统计
     @RequestMapping("StatisticalSecurities")
-    public int StatisticalSecurities(String Securities){
+    public int StatisticalSecurities(String Securities,String accountId){
         int i=0;
         System.out.println("进来了===============================================");
         System.out.println(Securities);
@@ -118,13 +118,15 @@ public class RevenueProvisionController {
             System.out.println(cashClosedPayId);
             securitiesClosedPay1.setSecuritiesClosedPayId(cashClosedPayId);
             securitiesClosedPay1.setFundId(bondInterest.getFundId());
-            securitiesClosedPay1.setAccountId(bondInterest.getAccountId());
+            securitiesClosedPay1.setAccountId(accountId);
+            System.out.println(accountId+"我你啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊");
             securitiesClosedPay1.setServiceType(3);
             securitiesClosedPay1.setAmount(bondInterest.getInterest());
             securitiesClosedPay1.setDateTime(bondInterest.getDateTime());
             securitiesClosedPay1.setFlag(1);
             securitiesClosedPay1.setSecuritiesId(bondInterest.getSecuritiesId());
             i = securitiesClosedPayService.insertSecuritiesClosedPay(securitiesClosedPay1);
+            System.out.println(i+"啥子患肢打法");
         }
         return i;
     }
@@ -137,7 +139,7 @@ public class RevenueProvisionController {
         List<TwoFees> twoFeesList = SysUtil.jsonToArrayList(TwoFees, TwoFees.class);
         for (TwoFees twoFees: twoFeesList) {
             CashClosedPay cashClosedPayPojo = new CashClosedPay();
-            cashClosedPayPojo.setDateTime(twoFees.getValueStatisticsDate());
+            cashClosedPayPojo.setDateTime(twoFees.getValueStatisticsDate()); 
             cashClosedPayPojo.setFundId(twoFees.getFundId());
             cashClosedPayPojo.setAccountId(twoFees.getAccountId());
             cashClosedPayService.deleteNew(cashClosedPayPojo);
