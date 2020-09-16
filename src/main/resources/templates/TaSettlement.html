@@ -163,26 +163,28 @@
                        }
                        break;
                    case 'select':
-                       alert("搜索");
                        var dateTime= $("#start").val();
-                       var transactionType= $("#cateId").val();
+                       var transactionType= $("#transactionType").val();
                        //表格的重新加载事件
                        table.reload('userTable', {
                            method: 'post'
                            , where: {
                                'dateTime': dateTime,
-                               'transactionType': transactionType
+                               'transactionType': transactionType,
                            }
                            , page: {
                                curr: 1
                            }
+                       });
+                       laydate.render({
+                           elem: '#start' //指定元素
+
                        });
                        break;
                };
            });
            //给工具条的结算添加事件
            table.on('toolbar(userTable)', function (obj) {
-
                switch (obj.event) {
                    case "search":
                        //获得选中的对象
@@ -196,7 +198,6 @@
                        }
                        else {
                            layer.confirm('真的要结算嘛', function () {
-                               alert(settlement)
                                //向服务端发送结算指令
                                $.post("../TaSettlement/updateTaSettlement","settlement="+settlement,function(msg){
                                    if(msg>0){
@@ -225,9 +226,8 @@
                        }
                        break;
                    case 'select':
-                       alert("搜索");
                        var dateTime= $("#start").val();
-                       var transactionDataMode= $("#cateId").val();
+                       var transactionType= $("#transactionType2").val();
                        //表格的重新加载事件
                        table.reload('userTable', {
                            method: 'post'
@@ -238,6 +238,10 @@
                            , page: {
                                curr: 1
                            }
+                       });
+                       laydate.render({
+                           elem: '#start' //指定元素
+
                        });
                        break;
                };
@@ -308,16 +312,16 @@
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易方式</label>
 
                 <div class="layui-inline layui-show-xs-block">
-                    <select name="transactionType">
+                    <select name="transactionType" id="transactionType">
                         <option value="">请选择</option>
-                        <option>认购</option>
-                        <option>申购</option>
-                        <option>赎回</option>
+                        <option value="1">认购</option>
+                        <option value="2">申购</option>
+                        <option value="3">赎回</option>
                     </select>
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit=""  lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <button class="layui-btn"  lay-submit=""  lay-event="select" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <button class="layui-btn" type="button" onclick=" return false" lay-submit="settlement" lay-filter="search" lay-event="search" name="settlement" id="settlement" >结算</button>
@@ -343,16 +347,16 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易方式</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <select name="transactionType">
-                        <option>请选择</option>
-                        <option>认购</option>
-                        <option>申购</option>
-                        <option>赎回</option>
+                    <select name="transactionType" id="transactionType2">
+                        <option value="">请选择</option>
+                        <option value="1">认购</option>
+                        <option value="2">申购</option>
+                        <option value="3">赎回</option>
                     </select>
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <button class="layui-btn"  lay-submit="" lay-event="select" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <button class="layui-btn" type="button" onclick="return false"  lay-submit="settlement" lay-filter="search2" lay-event="search2" name="settlement" id="settlement1" >反结算</button>
