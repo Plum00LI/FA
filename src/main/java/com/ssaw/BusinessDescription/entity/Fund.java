@@ -39,7 +39,7 @@ public class Fund {
     private double provisionDays;
     private String setUpDate;
     private String fundDesc;
-    private String accountId="华宝高端制造基金主账户";
+    private String accountId="000899001";
     private String managerCompany;
     private String trusteeCompany;
 
