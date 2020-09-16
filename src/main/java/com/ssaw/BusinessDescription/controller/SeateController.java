@@ -27,6 +27,7 @@ public class SeateController {
      */
     @RequestMapping("/seateInsert")
     public int seateInsert(Seate seate){
+        System.out.println("--------------------------");
         System.out.println("增加成功");
         return seateService.seateInsert(seate);
     }

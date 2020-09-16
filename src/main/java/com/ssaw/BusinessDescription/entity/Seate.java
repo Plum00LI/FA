@@ -12,11 +12,11 @@ public class Seate {
     private double seateRate;//佣金费率 年利率？/100
     private String brokersId;//券商编号  Fk  券商编号id  来自券商信息表（brokers）
     private String brokersName;//券商名称    来自券商信息表（brokers）
-    private int seateAddress;//1=上海  2=深圳
+    private String seateAddress;//1=上海  2=深圳
     private String seateDesc;//备注
     public Seate(){}
 
-    public Seate(String seateId, String seateName, int seateType, double seateRate, String brokersId, String brokersName, int seateAddress, String seateDesc) {
+    public Seate(String seateId, String seateName, int seateType, double seateRate, String brokersId, String brokersName, String seateAddress, String seateDesc) {
         this.seateId = seateId;
         this.seateName = seateName;
         this.seateType = seateType;
@@ -75,11 +75,11 @@ public class Seate {
         this.brokersId = brokersId;
     }
 
-    public int getSeateAddress() {
+    public String getSeateAddress() {
         return seateAddress;
     }
 
-    public void setSeateAddress(int seateAddress) {
+    public void setSeateAddress(String seateAddress) {
         this.seateAddress = seateAddress;
     }
 

@@ -7,20 +7,12 @@
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="../css/font.css">
-    <link rel="stylesheet" href="../css/xadmin.css">
-    <link rel="stylesheet" href="../css/theme9.css">
-    <script src="../lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../js/xadmin.js"></script>
-    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]-->
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-
-    <link rel="stylesheet" href="../lib/layui/css/layui.css">
-
-
-    <script src="../lib/layui/layui.js"></script>
+    <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
+    <script type="text/javascript" src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
+    <script src="../lib/layuimini/js/lay-config.js"></script>
     <!--工具条-->
 
     <script type="text/html" id="userToolBar">
@@ -74,12 +66,13 @@
     </script>
     <script type="text/javascript">
 
-        layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
+        layui.use(['element', 'form', 'table', 'layer', 'laydate','tableSelect'], function () {
             var layer = layui.layer;
             var $ = layui.$;
             var table = layui.table;
             var form = layui.form;
             var formSelects = layui.formSelects;
+            var tableSelect = layui.tableSelect;
             var laydate = layui.laydate;
 
             //执行一个laydate实例
@@ -295,15 +288,15 @@
 
             //给修改券商的下拉表格
             tableSelect.render({
-                elem:'#updateBrokers',
-                checkedKey:'brokersId',
+                elem:'#updateAccount',
+                checkedKey:'accountId',
                 table:{
-                    url:'../updateBrokers',
+                    url:'../account/selectAccount',
                     cellMinWidth: 60,
                     cols:[
                         [   {type:'radio'},
-                            {field:'brokersId',title:'券商编号',width:200},
-                            {field: 'brokersName',title:'券商名称',width: 200},
+                            {field:'accountId',title:'现金账户Id'},
+                            {field: 'accountName',title:'现金账户名称'},
                         ]
                     ]
                 },
@@ -312,9 +305,8 @@
                     var newJson=[];
                     //遍历选中的数据
                     $.each(data.data,function (index,item) {
-                        newJson.push(item.brokersName);
-                        alert(item.brokersId)
-                        $("#brokersId2").val(item.brokersId);
+                        newJson.push(item.accountId);
+                        $("#brokersId2").val(item.accountId);
                     });
                     elem.val(newJson.join(","));//给输入框里显示的值赋值
 
@@ -322,15 +314,15 @@
             })
             //新增券商的下拉表格
             tableSelect.render({
-                elem:'#insertBrokers',
-                checkedKey:'brokersId',
+                elem:'#insertAccount',
+                checkedKey:'accountId',
                 table:{
-                    url:'../selectBrokers',
+                    url:'../account/selectAccount',
                     cellMinWidth: 60,
                     cols:[
                         [   {type:'radio'},
-                            {field:'brokersId',title:'券商编号',width:200},
-                            {field: 'brokersName',title:'券商名称',width: 200},
+                            {field:'accountId',title:'现金账户Id'},
+                            {field: 'accountName',title:'现金账户名称'},
                         ]
                     ]
                 },
@@ -339,8 +331,8 @@
                     var newJson=[];
                     //遍历选中的数据
                     $.each(data.data,function (index,item) {
-                        newJson.push(item.brokersName);
-                        $("#brokersId1").val(item.brokersId);
+                        newJson.push(item.accountId);
+                        $("#brokersId1").val(item.accountId);
                     });
                     elem.val(newJson.join(","));//给输入框里显示的值赋值
                 }
@@ -386,10 +378,11 @@
           style="margin: 30px auto; display: inline-block;">
 
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户</label>
+            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center" >账户</label>
             <div class="layui-input-inline">
-                <input class="layui-input"  autocomplete="off" placeholder="请输入账户名称"
-                       name="accountId" >
+                <input type="text" class="layui-input"  autocomplete="off" placeholder="请输入账户名称"
+                       name="accountId" id="insertAccount" lay-verify="required">
+                <input name="brokersId1" type="hidden" id="insertAccountId1">
             </div>
 
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易类型</label>
@@ -513,7 +506,8 @@
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户</label>
             <div class="layui-input-inline">
                 <input class="layui-input"  autocomplete="off" placeholder="请输入账户名称"
-                       name="accountId" >
+                       name="accountId"  id="updateAccount">
+                <input name="brokersId2" type="hidden" id="updateAccount1">
             </div>
 
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易类型</label>
