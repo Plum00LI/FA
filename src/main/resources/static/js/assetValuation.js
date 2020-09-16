@@ -1,3 +1,6 @@
+layui.config({
+    base: 'exts/',
+})
 layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
     var layer = layui.layer;
     var $ = layui.$;
@@ -5,40 +8,38 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
     var form = layui.form;
     var laydate = layui.laydate;
     table =  $.extend(table, {config: {checkName: 'checked'}});
+    $('.cancel').click(function(){
+        layer.closeAll();
+    });
 
+    // table.render({
+    //     elem: '#myTable' //实例化表格的ID名称
+    //     , url: '/Appraisement/selectValuationProcessing' //接收JSON数据的路径
+    //     , toolbar: '#userToolBar' //开启头部工具栏，并为其绑定左侧模板
+    //     , title: '用户数据表'//表格名称
+    //     , cellMinWidth: 100
+    //     , cols: [
+    //         [ //表头既列名  title列名名称
+    //             {type: 'checkbox', fixed: 'left'}
+    //             , {field: 'status', title: '业务类型', align: 'center'}
+    //             , {field: 'statusName', title: '状态', align: 'center'}
+    //
+    //         ]
+    //     ]
+    //     , page: true//开启分页
+    // });
     table.render({
         elem : '#mytable',
-        url : '../assetValuationController/selecAssetValuationData',
-        //data:data,
+        url : '../assetValuationController/selectAssetValuationData',
         page : true,
-        height : 498,
+        limit : 8,
+        height: 'full-50',
         toolbar : '#toolbarDemo',
-        skin: 'row',
-        even: true,
-       /* done:function(res){
-            $.each(res,function(index,item){
-            console.log(item)
-            var strSub= [];
-            for(var i=0;i<item.length;i++){
-                if(item[i].strAppraisement != null){
-                    strSub=item[i].strAppraisement.split(',');
-                    for(var j=0;j<strSub.length;j++){
-                        if(strSub[i] ==1){
-                            item[i].checked = true;
-                        }
-                        if(strSub[i] ==2){
-                            item[i].checked = true;
-                        }
-                    }
-                }
-                }
-            })
-        },*/
-        cols : [ [
-            {
-                field:'assetValuationId',
-                checkbox:true
-            }, {
+        cols : [
+            [
+
+                {type: 'checkbox', fixed: 'left'}
+                , {
                 field : 'assetValuationType',
                 align: 'center',
                 title : '业务类型'
@@ -46,7 +47,9 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
                 field : 'state',
                 align: 'center',
                 title : '状态'
-            }] ]
+            }
+            ]
+        ]
     });
 
     laydate.render({
@@ -57,7 +60,7 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
             var checked = table.checkStatus('mytable').data;
             var strAppraisement = [];
             for(var i=0;i<checked.length;i++){
-                strAppraisement.push(checked[i].assetValuationId);
+                strAppraisement.push(checked[i].appraisementId);
             }
             var toDay = value;
             table.reload('mytable', {
@@ -81,7 +84,7 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
                 var checked = table.checkStatus('mytable').data;
                 var strAppraisement = [];
                 for(var i=0;i<checked.length;i++){
-                    strAppraisement.push(checked[i].assetValuationId);
+                    strAppraisement.push(checked[i].appraisementId);
                 }
                 table.reload('mytable', {
                     page: {curr: 1},
@@ -105,7 +108,7 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
                 var checked = table.checkStatus('mytable').data;
                 var strAppraisement = [];
                 for(var i=0;i<checked.length;i++){
-                    strAppraisement.push(checked[i].assetValuationId);
+                    strAppraisement.push(checked[i].appraisementId);
                 }
                 table.reload('mytable', {
                     page: {curr: 1},
@@ -134,15 +137,32 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
                     }else{
                         var strJson = [];
                         for (var i = 0; i < data.length; i++) {
-                            strJson.push(data[i].assetValuationId)
+                            strJson.push(data[i])
                         }
+                        alert(strJson);
+                        var arrJson = JSON.stringify(strJson);
+                        alert(arrJson);
                         layer.confirm('是否确认估值？', {
                             btn: ['确认','取消'] ,//按钮
                             icon:1
                         }, function(){
                             layer.closeAll('dialog');
-                            $.post('assetValuationController/selectAllAssetValuation',{toDay:toDay,strAppraisement:strJson.join(",")},function(res){
-                                if(res.assetValuationList == ''){
+                            // $.post("/Appraisement/startValuation", "cash="+cash,function(msg){
+                            //     if(msg>0){
+                            //         // table.reload('myTable');
+                            //         // layer.closeAll();
+                            //         // layer.msg('删除成功',{
+                            //         //     title : '提示',
+                            //         //     area : [ '200px',
+                            //         //         '140px' ],
+                            //         //     time : 0,
+                            //         //     btn : [ '知道了' ]
+                            //         // });
+                            //     }
+                            // });
+
+                            $.post('../assetValuationController/startValuation',{toDay:toDay,arrJson:arrJson},function(res){
+                                if(res.appraisementsList == ''){
                                     //边缘弹出
                                     layer.open({
                                         type: 1
@@ -157,7 +177,7 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
                                             layer.closeAll();
                                         }
                                     });
-                                }else if(res.cashClosedPays != '' || res.taTransactionList != ''){
+                                }else if(res.nsrcsList != '' || res.taTransactionList != ''){
                                     table.reload('mytable', {
                                         page: {curr: 1},
                                         where:{
@@ -182,9 +202,45 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
                                     date1(toDay)
                                 }
                             })
+                            /*	setTimeout(function(){
+
+                                },100)
+                            */
                         });
+
+
+                        // $("#valuation1").val(toDay);
+                        /*$.post('appraisementController/selectAllSecuritiesType',{toDay:toDay},function(res){
+                            console.log(res)
+                            if(res == null || res ==''){
+                                for(var i=0;i<data.length;i++){
+                                    if(data[i].appraisementId == 1){
+                                        dataz[0].state = '未估值'
+                                    }
+                                    if(data[i].appraisementId == 2){
+                                        dataz[1].state = '未结算'
+                                    }
+                                }
+                                table.reload('mytable');
+                            }else{
+                                $.each(res,function(item,value){
+                                        for(var i=0;i<data.length;i++){
+                                            if(value == 1 && value == data[i].appraisementId){
+                                                dataz[0].state = '已估值'
+                                            }
+                                            if(value == 2  && value == data[i].appraisementId){
+                                                dataz[1].state = '已结算'
+                                            }
+                                        }
+                                })
+                            }
+
+                        })
+                */
                     }
                 }
+                break;
+            default:
                 break;
         }
     });

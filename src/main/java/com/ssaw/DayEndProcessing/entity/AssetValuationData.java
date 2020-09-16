@@ -7,28 +7,18 @@ package com.ssaw.DayEndProcessing.entity;
  *@create: 2020-09-13 18:29
  **/
 public class AssetValuationData {
-    private Integer assetValuationId; //估值编号
     private String assetValuationType; // 估值类型
-    private String state; //估值类型
-    private boolean checked;
+    private String state; //状态
 
     public AssetValuationData() {
     }
 
-    public AssetValuationData(Integer assetValuationId, String assetValuationType, String state, boolean checked) {
-        this.assetValuationId = assetValuationId;
+    public AssetValuationData( String assetValuationType, String state) {
         this.assetValuationType = assetValuationType;
         this.state = state;
-        this.checked = checked;
+
     }
 
-    public Integer getAssetValuationId() {
-        return assetValuationId;
-    }
-
-    public void setAssetValuationId(Integer assetValuationId) {
-        this.assetValuationId = assetValuationId;
-    }
 
     public String getAssetValuationType() {
         return assetValuationType;
@@ -46,21 +36,13 @@ public class AssetValuationData {
         this.state = state;
     }
 
-    public boolean isChecked() {
-        return checked;
-    }
 
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
 
     @Override
     public String toString() {
         return "AssetValuationData{" +
-                "assetValuationId=" + assetValuationId +
                 ", assetValuationType='" + assetValuationType + '\'' +
                 ", state='" + state + '\'' +
-                ", checked=" + checked +
                 '}';
     }
 }

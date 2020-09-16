@@ -144,7 +144,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
                 }
             }
-                ,{field: 'operation', title: '操作' , width: 160, align:'center',toolbar:'#barDemo'}
+                ,{fixed: 'right',field: 'operation', title: '操作' , width: 160, align:'center',toolbar:'#barDemo'}
             ]
         ]
     });

@@ -2,12 +2,15 @@ package com.ssaw.DayEndProcessing.service;
 
 import com.ssaw.DayEndProcessing.entity.AssetValuation;
 import com.ssaw.DayEndProcessing.entity.AssetValuationData;
+import com.ssaw.InventoryManagement.entity.CashClosedPayInventory;
+import com.ssaw.InventoryManagement.entity.SecuritiesClosedPayInventory;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,32 +24,24 @@ import java.util.Map;
 @Service
 @Transactional
 public interface AssetValuationService {
-    /**
-     * 查询当日行情数据
-     * @param assetValuation 查询所需条件  资产估值实体对象
-     * @return
-     */
-    public List<AssetValuation> selectAssetValuation(AssetValuation assetValuation, HttpSession session);
+    //查询表格内容
+    public List<AssetValuationData> selectBiaoge();
 
-    /**
-     * 查询TA交易清算款数据
-     * @param assetValuation 查询所需条件  资产估值实体对象
-     * @return
-     */
-    public List<AssetValuation> selectTaTransaction(AssetValuation assetValuation,HttpSession session);
+    //查询应收应付状态
+    public List<AssetValuation> selectValuationProcessing();
+    //证券库存join行情表查询
+    public HashMap selectStockarket();
+    //删除证券应收应付库存
+    public int deleteSecuritiesClosedPayInventory(SecuritiesClosedPayInventory securitiesClosedPayInventory);
 
-    /**
-     * 通过估值日期查询是否当日是否证券以估值和已清算
-     * @param today 估值日期
-     * @return 证券估值增值 和清算款的状态
-     */
-    public List<Integer> selectSecuritiesType(String today);
+    //查交易数据 按证券代码分组 插入证券应收应付库存
+    public HashMap selectTransactionData();
+    //查交易数据后 按条件删除 证券应收应付表的内容
+    public int deleteSecuritiesClosedPayInventoryTwo(SecuritiesClosedPayInventory securitiesClosedPayInventory);
 
-    /**
-     * 删除Ta应收应付库存
-     * @return 受影响的行数（1：成功；0：失败）
-     */
-    public int deleteTAReceivables(String today, int flag,String fundId,String accountId);
+    //查询ta交易数据
+    public HashMap selectTaTransaction();
 
-    public List<AssetValuationData> selectAssecuritisStates(String toDay, Integer securitiesType);
+    //删除现金应收应付
+    public int deleteCashClosedPaylnventory(CashClosedPayInventory cashClosedPayInventory);
 }

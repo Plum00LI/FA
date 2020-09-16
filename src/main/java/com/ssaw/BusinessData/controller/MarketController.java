@@ -51,6 +51,11 @@ public class MarketController {
     public Map<String,Object> selectMarketInfo(String page,String limit,String securitiesId,String dateTime){
         System.out.println("行情数据分页查询控制器");
         Map<String,Object> map = marketService.selectMarketInfo(limit,page,securitiesId,dateTime);
+        if (dateTime==null || dateTime.equals("")){
+            Date today= new Date();
+            dateTime = new SimpleDateFormat("yyyy-MM-dd").format(today);
+            System.out.println("dateTime=" + dateTime);
+        }
         List<Market> markets = (List<Market>) map.get("markets");
         int count = (int) map.get("count");
         //以layui要求存储响应数据格式

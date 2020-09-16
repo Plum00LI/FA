@@ -104,7 +104,7 @@
 <!--        股票板块-->
             <label class="layui-form-label layui-bg-gray">股票板块</label>
             <div class="layui-input-inline">
-                <input name="securitiesName" lay-verify="required" id="addStockName"
+                <input name="addStockName" lay-verify="required" id="addStockName"
                        autocomplete="off" placeholder="" class="layui-input">
                 <input type="hidden" id="addStockId" name="stockId">
             </div>
@@ -193,7 +193,7 @@
         <!--        股票板块-->
         <label class="layui-form-label layui-bg-gray">股票板块</label>
         <div class="layui-input-inline">
-            <input name="securitiesName" lay-verify="required" id="addStockName2"
+            <input name="stockName" lay-verify="required" id="addStockName2"
                    autocomplete="off" placeholder="" class="layui-input">
             <input type="hidden" id="addStockId2" name="stockId">
         </div>
@@ -272,10 +272,9 @@
                 $.each(data.data,function (index,item) {
                     newJson.push(item.stockName);
                     console.log(item.stockId)
-                    $("#addAccountId").val(item.stockId);//给隐藏域中的val赋值
+                    $("#addStockId").val(item.stockId);//给隐藏域中的val赋值
                 });
                 elem.val(newJson.join(","));//给输入框里显示的值赋值
-
             }
         })
     })
@@ -305,10 +304,9 @@
                 $.each(data.data,function (index,item) {
                     newJson.push(item.stockName);
                     console.log(item.stockId)
-                    $("#addAccountId").val(item.stockId);//给隐藏域中的val赋值
+                    $("#addStockId2").val(item.stockId);//给隐藏域中的val赋值
                 });
                 elem.val(newJson.join(","));//给输入框里显示的值赋值
-
             }
         })
     })

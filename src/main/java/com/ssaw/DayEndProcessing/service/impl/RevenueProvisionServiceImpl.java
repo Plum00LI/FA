@@ -1,10 +1,12 @@
 package com.ssaw.DayEndProcessing.service.impl;
 
+import com.ssaw.DayEndProcessing.entity.BondInterest;
 import com.ssaw.DayEndProcessing.mapper.RevenueProvisionMapper;
 import com.ssaw.DayEndProcessing.service.RevenueProvisionService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 @Service
 public class RevenueProvisionServiceImpl implements RevenueProvisionService {
@@ -33,7 +35,7 @@ public class RevenueProvisionServiceImpl implements RevenueProvisionService {
     public HashMap selectBondInterest(int page, int limit ,String statDate) {
         HashMap BondInterestMap = new HashMap();
         BondInterestMap.put("p_tableName","(select round(se.securitiesNum* (b.bondRate/365),2) as interest,\n" +
-                "       b.securitiesId,se.dateTime,se.fundId,b.bondName,b.parRate,(case when b.payInterestNum=1 then '一年一次' when b.payInterestNum=2 then '一年两次' else '一年三次' end)as payInterest,b.drawStartDate,b.payInterestNum,se.securitiesNum,b.bondRateAmount,se.accountId\n" +
+                "       b.securitiesId,se.dateTime,se.fundId,b.bondName,b.parRate,(case when b.payInterestNum=1 then '一年一次' when b.payInterestNum=2 then '一年两次' else '一年三次' end)as payInterest,b.drawStartDate,b.payInterestNum,se.securitiesNum,b.bondRateAmount\n" +
                 "from (select * from securitiesInventory where dateTime='"+statDate+"')\n" +
                 "    se join bond b on se.securitiesId = b.securitiesId)");
         BondInterestMap.put("p_condition","");

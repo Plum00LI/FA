@@ -42,9 +42,13 @@ public class CashInventoryController {
         int count = (int) map.get("count");
         //以layui要求存储响应数据格式
         Map<String, Object> json = new HashMap<>();
+        //code
         json.put("code",0);
+        //msg
         json.put("msg","");
+        //count
         json.put("count",count);
+        //data
         json.put("data",cashInventoryList);
         //返回数据
         return json;

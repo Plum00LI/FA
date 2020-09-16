@@ -56,7 +56,7 @@ public class SecuritiesInventoryServiceImpl implements SecuritiesInventoryServic
     }
 
     @Override
-    public Map<String, Object> selectSecuritiesInventoryInfo(String pageSize, String page,String dateTime,String securitiesId,String securitiesName) {
+    public Map<String, Object> selectSecuritiesInventoryInfo(String pageSize, String page,String dateTime,String securitiesId,String securitiesName,String fundId) {
         //创建一个结果集Map,用于存放两个结果变量
         Map<String, Object> resultMap = new HashMap<>();
         //定义一个分页条数变量
