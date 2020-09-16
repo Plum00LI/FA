@@ -162,6 +162,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 						curr: 1
 					}
 				});
+				laydate.render({
+					elem: '#start' //指定元素
+				});
 				break;
 
 			case 'deleteAll':

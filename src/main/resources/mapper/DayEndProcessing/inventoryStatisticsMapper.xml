@@ -30,9 +30,24 @@
     DATETIME=#{dateTime}  AND fundId=#{fundId}  group by
     fundid) a
 	GROUP BY a.fundId
+-- 	版本2
+-- 		SELECT
+--         (nvl(tatotal,0)+NVL(totalMoney,0)) AS taTotal,(nvl(tanum,0)+nvl(fundNum,0))AS taNum,nvl(ta.fundId,a.FUNDID) as fundId FROM
+--
+-- 	(select tatotal,tanum,fundId from
+--     TAINVENTORY where fundId='000899' and
+--     datetime='2020-09-10') ta
+--     full join
+--     (select sum(totalMoney*(case transactionType when 3 then -1 else 1 end)) as totalMoney,
+--     sum(fundNum*(case transactionType when 3 then -1 else 1 end)) AS fundNum,fundId
+--     from
+--     TATransaction WHERE
+--     DATETIME='2020-09-11' AND fundId='000899' group by
+--     FUNDID) a
+-- 	  on a.FUNDID=ta.FUNDID ;
     </select>
     <select id="selectCashInventory" resultType="com.ssaw.DayEndProcessing.entity.CashInventoryData">
-       select (nvl(SECURITIESNUM,0) + nvl(bt.totalNum,0)) as cashTotal,nvl(bt.accountId,ci.accountId) as accountId from
+       select (nvl(CASHBLANCE,0) + nvl(bt.totalNum,0)) as cashTotal,nvl(bt.accountId,ci.accountId) as accountId from
         (select * from CASHINVENTORY where DATETIME=to_char(to_date(#{dateTime},'yyyy-MM-dd')-1,'yyyy-MM-dd') and FUNDID=#{fundId} ) ci
             full join
         (select accountId,sum(totalprice*flag) as totalNum from bankTreasurer where DBTIME=#{dateTime} and FUNDID=#{fundId}  group by accountId) bt

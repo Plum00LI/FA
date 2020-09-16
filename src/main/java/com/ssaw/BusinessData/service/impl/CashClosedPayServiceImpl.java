@@ -24,21 +24,39 @@ import java.util.*;
 @Service
 @Transactional
 public class CashClosedPayServiceImpl implements CashClosedPayService {
+    /**
+     * 注入cashClosedPay的Mapper层
+     */
     @Resource
     CashClosedPayMapper cashClosedPayMapper;
 
+    /**
+     * 增加数据的实现类方法
+     * @param cashClosedPay
+     * @return
+     */
     @Override
     public int insertCashClosedPay(CashClosedPay cashClosedPay) {
         return cashClosedPayMapper.insertCashClosedPay(cashClosedPay);
     }
 
+    /**
+     * 通过cashClosedPayId删除的实体类
+     * @param cashClosedPayId
+     * @return
+     */
     @Override
     public int deleteCashClosedPay(String cashClosedPayId) {
+        //定义String类型数组 接收cashClosedPayId.split切割的数据
         String[] split = cashClosedPayId.split(",");
+        //创建一个ArrayLIst集合
         ArrayList<Object> cashClosePayList=new ArrayList<>();
+        //String数组加强for循环
         for (String id : split) {
+            //将数据添加到ArrayList集合中
             cashClosePayList.add(id);
         }
+        //return返回
         return cashClosedPayMapper.deleteCashClosedPay(cashClosePayList);
     }
 
@@ -65,14 +83,18 @@ public class CashClosedPayServiceImpl implements CashClosedPayService {
             //通过Integer包装类将String类型转换成int基础数据类型
             v_page = Integer.parseInt(page);
         }
-
+        //定义一个StringBuffer变量
         StringBuffer sqlWhere=new StringBuffer();
+        //定义一个v_serviceType变量
         int v_serviceType=0;
+        //判断传入的serviceType是否为null/空
         if (serviceType!=null && !serviceType.equals("")){
+            //通过Integer包装类将String类型转换成int基础数据类型
             v_serviceType=Integer.parseInt(serviceType);
+            //使用sqlWhere.append添加方法添加SQL判断语句
             sqlWhere.append(" and serviceType =" +v_serviceType);
         }
-
+        //判断传入的dateTime是否为null/空
         if (dateTime!=null && !dateTime.equals("")){
 
                 sqlWhere.append(" and dateTime = '" +dateTime+"' ");

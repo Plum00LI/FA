@@ -54,9 +54,10 @@ public class TaSettlementServiceImpl implements TaSettlementService {
         if(dateTime!=null&&!dateTime.equals("")){
             sqlWhere.append(" AND dateTime LIKE  '%"+dateTime+"%'" );
         }
-
+        int v_transactionType=0;
         if(transactionType!=null&&!transactionType.equals("")){
-            sqlWhere.append(" AND transactionType LIKE  '%"+transactionType+"%'" );
+            v_transactionType=Integer.parseInt(transactionType);
+            sqlWhere.append(" AND transactionType LIKE  '%"+v_transactionType+"%'" );
         }
         int v_status=0;
         if (status!=null&&!status.equals("")){
