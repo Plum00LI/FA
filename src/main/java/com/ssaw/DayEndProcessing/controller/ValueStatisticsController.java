@@ -116,6 +116,7 @@ public class ValueStatisticsController {
             num=num+valueStatistics.getTotalPrice();
         }
 
+
         //合计证券清算款所有流入
         List<SecuritiesValueStatistics> securitiesValueStatistics2 = securitiesValueStatisticsService.selectSecuritiesValueStatisticsTwo(valueStatisticsDate, fundId, dateTimeTwo, 2, 1);
         for (SecuritiesValueStatistics valueStatistics : securitiesValueStatistics2) {
@@ -129,6 +130,8 @@ public class ValueStatisticsController {
         }
         //查询现金模块及现金利息
         List<OperationValueStatistics> operationValueStatistics = operationValueStatisticsService.selectOperationValueStatistics(valueStatisticsDate, fundId, 3);
+
+
 
 //        for (OperationValueStatistics operationValueStatistic : operationValueStatistics) {
 //            //根据现金模块查询出的账户ID及其他条件查询TA清算款

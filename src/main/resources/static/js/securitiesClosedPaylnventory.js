@@ -34,9 +34,10 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 {type: 'checkbox', fixed: 'left'}
                 ,{field: 'securitiesClosedPayInventoryId', title: '证券应收应付存库Id'}
                 ,{field: 'dateTime', title: '业务日期'}
-                ,{field: 'fundId', title: '基金信息表ID'}
-                ,{field: 'securitiesId', title: '证券信息表ID'}
-                ,{field: 'securitiesType', title: '证券应收应付类型',
+                ,{field: 'fundId', title: '基金编号'}
+                ,{field: 'securitiesId', title: '证券编号'}
+                ,{field: 'securitiesName', title: '证券名称', hide: true}
+                ,{field: 'securitiesType', title: '证券类型',
                 templet:function (item) {
                     if (item.securitiesType==1){
                         return '估值增值';
@@ -119,7 +120,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //修改提交
     form.on('submit(editsubmit)', function(data){
         var formData=$('#editform').serialize();
-        $.post("../cashInventory/update",formData,function(msg){
+        $.post("../securitiesClosedPayInventory/update",formData,function(msg){
             if(msg>0){
                 table.reload('securitiesClosedPayInventoryTable');
                 layer.closeAll();
@@ -167,16 +168,14 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 //条件搜索
             case 'search':
                 // alert("搜索");
-                var accountId5= $("#searchAccountId").val();
-                var dateTime5= $("#dateTime").val();
-                // alert(dateTime5);
-                alert(accountId5);
+                var securitiesType= $("#securitiesType2").val();
+                var dateTime= $("#dateTime").val();
                 //表格的重新加载事件
                 table.reload('securitiesClosedPayInventoryTable',{
                     method: 'post'
                     , where: {
-                        'accountId': accountId5,
-                        'dateTime': dateTime5
+                        'securitiesType': securitiesType,
+                        'dateTime': dateTime
                     }
                     , page: {
                         curr: 1
@@ -194,11 +193,11 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 {
                     var ids=[];
                     for (var i = 0; i <data.length; i++) {
-                        ids.push(data[i].cashInventoryId);
+                        ids.push(data[i].securitiesClosedPayInventoryId);
                     }
                     layer.confirm('真的删除行么',{icon: 2}, function(index){
                         layer.close(index);
-                        $.post("../cashInventory/delete", {cashInventoryId:ids.join(',')},function(msg){
+                        $.post("../securitiesClosedPayInventory/delete", {securitiesClosedPayInventoryId:ids.join(',')},function(msg){
                             table.reload('securitiesClosedPayInventoryTable');
                             layer.msg('删除'+checkStatus.data.length+'条记录', {
                                 title:'提示',
@@ -220,7 +219,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         if (obj.event === 'del') {
             layer.confirm('真的删除行么',{icon: 2}, function(index){
                 layer.close(index);
-                $.post("../cashInventory/delete", {cashInventoryId:data.cashInventoryId+""},function(msg){
+                $.post("../securitiesClosedPayInventory/delete", {securitiesClosedPayInventoryId:data.securitiesClosedPayInventoryId+""},function(msg){
                     table.reload('securitiesClosedPayInventoryTable');
                 });
 

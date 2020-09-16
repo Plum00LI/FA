@@ -35,7 +35,7 @@ public interface AssetValuationMapper {
     /*@Select("select securitiesType from securitiesClosedPayInventory where dateTime=to_date(#{toDay},'yyyy-MM-dd') and securitiesType=#{securitiesType,jdbcType=INTEGER} group by securitiesType")*/
     public List<Integer> selectSecuritiesType(String toDay,Integer securitiesType);
 
-    @Select("select * form securitiesClosedPay where dateTime=#{dateTime}")
+    @Select("select * form securitiesClosedPay where dateTime=to_date(#{dateTime},'yyyy-MM-dd')")
     public List<CashClosedPay> selectCashClosedPay(String today);
 
     /**
