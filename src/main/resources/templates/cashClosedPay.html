@@ -259,6 +259,34 @@
             }
 
         })
+
+        tableSelect.render({
+            elem: '#updateAccountName',
+            checkedKey: 'accountId',
+            table: {
+                url: '../account/selectAccount',
+                cellMinWidth: 60,
+                cols: [
+                    [{type: 'radio'},
+                        {field: 'accountName', title: '账户名称', width: 100},
+                        {field: 'blankCardCode', title: '银行卡号', width: 100},
+                        {field: 'blankName', title: '银行名称'},
+                        {field: 'accountId', title: '账号Id', hidden: true}
+                    ]
+                ]
+            },
+            done: function (elem, data) {
+                //elem:返回之前input对象；data:表格返回的选中的数据 []
+                var newJson = [];
+                //遍历选中的数据
+                $.each(data.data, function (index, item) {
+                    newJson.push(item.accountId);
+                });
+                elem.val(newJson.join(","));//给输入框里显示的值赋值
+
+            }
+
+        })
     });
 </script>
 
