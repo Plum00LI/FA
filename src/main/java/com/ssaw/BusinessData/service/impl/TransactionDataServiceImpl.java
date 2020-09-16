@@ -52,9 +52,7 @@ public class TransactionDataServiceImpl implements TransactionDataService {
 
     @Override
     public int insertTransactionData(TransactionData transactionData) {
-        Fund fund=new Fund();
-        System.out.println(transactionData);
-        transactionData.setFundId(fund.getFundId());
+        System.out.println(transactionData.getFundId());
         transactionData.setTransactionDataId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
         return transactionDataMapper.insertTransactionData(transactionData);
     }
