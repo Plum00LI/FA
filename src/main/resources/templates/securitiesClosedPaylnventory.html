@@ -35,12 +35,15 @@
         </div>
         <br/>
         <form class="layui-form layui-col-space5">
-
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">证券类型</label>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input"  autocomplete="off" placeholder="请选择现金账户" name="accountName" id="searchAccountName">
-                <input type="hidden" name="accountId" id="searchAccountId"/>
+                <select name="securitiesType" id="securitiesType2">
+                    <option value="">请选择</option>
+                    <option value="1">估值增值</option>
+                    <option value="2">证券清算款</option>
+                    <option value="3">债券利息</option>
+                </select>
             </div>
             </div>
 
@@ -86,7 +89,7 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label" style="text-align: center">业务状态</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <select name="securitiesType" id="securitiesType">
+                    <select name="flag" id="flag">
                         <option value="">请选择</option>
                         <option value="1">流入</option>
                         <option value="-1">流出</option>
@@ -130,9 +133,9 @@
         <br>
         <br>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label" style="text-align: center">业务类型</label>
+            <label class="layui-form-label" style="text-align: center">证券类型</label>
             <div class="layui-inline layui-show-xs-block">
-                <select name="securitiesType">
+                <select name="securitiesType" id="securitiesType">
                     <option value="">请选择</option>
                     <option value="1">估值增值</option>
                     <option value="2">证券清算款</option>
@@ -173,19 +176,20 @@
 <!--修改的div内容-->
 <div id="editContent" style="display: none; height: 100%; text-align: center;">
     <form id="editform" lay-filter="editform" class="layui-form layui-col-space5" style="margin: 50px auto; display: inline-block;">
+        <input name="securityPeriodFlag" type="hidden">
+        <input name="securitiesClosedPayInventoryId" type="hidden">
         <div class="layui-inline layui-show-xs-block" style="text-align: center;">
             <label class="layui-form-label" style="text-align: center">证券代码</label>
             <div class="layui-inline layui-show-xs-block">
                 <input type="text"  class="layui-input"  autocomplete="off" placeholder="请输入证券代码" name="securitiesName" id="securitiesName2">
                 <input type="hidden" name="securitiesId" id="securitiesId2">
                 <input type="hidden" name="fundId" id="fundId">
-                <input type="hidden" name="fundName" id="fundName">
             </div>
         </div>
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label" style="text-align: center">业务状态</label>
             <div class="layui-inline layui-show-xs-block">
-                <select name="securitiesType">
+                <select name="flag">
                     <option value="">请选择</option>
                     <option value="1">流入</option>
                     <option value="-1">流出</option>
@@ -251,34 +255,6 @@
     layui.use([ 'tableSelect'], function () {
         var $=layui.jquery,
             tableSelect=layui.tableSelect;
-        // 搜索框下拉表格
-        tableSelect.render({
-            elem:'#searchAccountName',
-            checkedKey:'accountName',
-            table:{
-                url:'../selectAccount',
-                // cellMinWidth:60,
-
-                cols:[
-                    [   {type:'radio'},
-                        {field:'accountName',title:'账户名称',width:250},
-                        {field: 'accountId',title: '账号Id',width:250}
-                    ]
-                ]
-            },
-            done:function (elem,data) {
-                //elem:返回之前input对象；data:表格返回的选中的数据 []
-                var newJson=[];
-                //遍历选中的数据
-                $.each(data.data,function (index,item) {
-                    newJson.push(item.accountName);
-                    console.log(item.accountId);
-                    $("#searchAccountId").val(item.accountId);//给隐藏域中的val赋值
-                });
-                elem.val(newJson.join(","));//给输入框里显示的值赋值
-            }
-        })
-
         //增加账户下拉表格
         tableSelect.render({
             elem:'#accountName',
@@ -332,7 +308,31 @@
         })
 
         //修改证券代码下拉选择器
-
+        tableSelect.render({
+            elem: '#securitiesName2'
+            , checkedKey: 'fundId'
+            , table: {
+                url: '../securitiesClosedPayInventory/select'
+                , cols: [
+                    [
+                        {type: 'radio'},
+                        {field: 'fundId', title: '基金编号', width:250},
+                        {field: 'securitiesName', title: '证券名称', width:250},
+                    ]
+                ]
+            }
+            , done: function (elem, data) {
+                var NEWJSON = []
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.securitiesName)
+                    console.log(item.securitiesId)
+                    console.log(item.fundId)
+                    $("#securitiesId2").val(item.securitiesId);
+                    $("#fundId").val(item.fundId)
+                })
+                elem.val(NEWJSON.join(","))
+            }
+        })
 
         //修改账户下拉选择器
         tableSelect.render({

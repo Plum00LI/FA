@@ -18,7 +18,7 @@ package com.ssaw.DayEndProcessing.entity;
  *     projectId           Number (5) 项目编号  联合主键 体现层次分级关系/例如股票,
  *     projectName         varchar2(50)项目名称	例如证券,,
  *     projectCode         varchar2(50) 项目代码/账户号,
- *     quantityint         number(12,2) 股数*单位成本		证券库存统计,
+ *     quantityint         number(12,2) 股数		证券库存统计,
  *     peice               number(12,3) 行情		行情数据,
  *     cost                number(12,3)成本		资产估值,
  *     marketValue         number(12,3) 市值,
