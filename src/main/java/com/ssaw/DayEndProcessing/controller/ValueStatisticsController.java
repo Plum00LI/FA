@@ -53,6 +53,9 @@ public class ValueStatisticsController {
     @RequestMapping("insertValueStatistics")
     @ResponseBody
     public Object insertValueStatistics(String valueStatisticsDate,String fundId,String accountId) throws ParseException {
+        valueStatisticsDate = valueStatisticsDate.trim();
+        fundId=fundId.trim();
+        accountId=accountId.trim();
         //债券利息
         double num=0;
         //查询证券清算款-流入（应收）
@@ -102,6 +105,7 @@ public class ValueStatisticsController {
             Date time = instance.getTime();
             dateTimeTwo=df.format(time);
         }
+        dateTimeTwo=dateTimeTwo.trim();
         //查询证券模块
         List<SecuritiesValueStatistics> securitiesValueStatistics = securitiesValueStatisticsService.selectSecuritiesValueStatistics(valueStatisticsDate, fundId, dateTimeTwo,1);
         //查询债券利息
@@ -151,6 +155,7 @@ public class ValueStatisticsController {
         //数据块插入证券模块外层对象
         ValueStatistics valueStatistics1 = new ValueStatistics(valueStatisticsDate, fundId,1, "证券",  -1);
         valueStatisticsService.insertValueStatistics(valueStatistics1);
+        System.out.println(valueStatistics1);
         //数据块插入股票模块外层对象
         ValueStatistics valueStatistics2 = new ValueStatistics(valueStatisticsDate, fundId,2, "股票", 1 );
         valueStatisticsService.insertValueStatistics(valueStatistics2);
@@ -207,30 +212,51 @@ public class ValueStatisticsController {
                 id++;
 
 
-                //根据账户ID循环查询TA应收
+                //根据账户ID查询TA应收
                 List<OperationValueStatistics> operationValueStatistics3 = operationValueStatisticsService.selectOperationTA(operationValueStatistic.getAccountId(), 4, 1, valueStatisticsDate, fundId);
-                for (OperationValueStatistics valueStatistics : operationValueStatistics3) {
-                //合计TA应收
-                num3=num3+valueStatistics.getTotalMoney();
+
+
+                for (OperationValueStatistics operationValueStatistics1 : operationValueStatistics3) {
+                if(operationValueStatistics1!=null){
+                    //合计TA应收
+                    num3=num3+operationValueStatistics1.getTotalMoney();
+                }
+
+
                 }
                 //根据账户ID循环查询TA应付
                 List<OperationValueStatistics> operationValueStatistics4 = operationValueStatisticsService.selectOperationTA(operationValueStatistic.getAccountId(), 4, -1, valueStatisticsDate, fundId);
-                for (OperationValueStatistics valueStatistics : operationValueStatistics4) {
-                //合计TA应付
-                num4=num4+valueStatistics.getTotalMoney();
-                }
+                if(operationValueStatistics4.size()!=0){
+                for (OperationValueStatistics operationValueStatistics9 : operationValueStatistics4) {
+                    //合计TA应付
+                    if(operationValueStatistics9!=null){
+                        num4=num4+operationValueStatistics9.getTotalMoney();
+                    }
+
+                }}
                 //数据库插入主账户TA清算款
                 ValueStatistics  valueStatistics9=new ValueStatistics(valueStatisticsDate,fundId,id,"TA清算款",num3-num4,valueStatistics5.getProjectId());
                 valueStatisticsService.insertValueStatistics(valueStatistics9);
                 id++;
                 //根据主账户ID查询管理费
                 List<OperationValueStatistics> operationValueStatistics1 = operationValueStatisticsService.selectOperationCost(operationValueStatistic.getAccountId(), valueStatisticsDate, fundId, 1);
+
                 //得到主账户管理费
-                num7=operationValueStatistics1.get(0).getTotalMoney();
+                for (OperationValueStatistics valueStatistics : operationValueStatistics1) {
+                    if(valueStatistics!=null){
+                        num7=valueStatistics.getTotalMoney();
+                    }
+                }
+
                 //根据主账户ID查询托管费
                 List<OperationValueStatistics> operationValueStatistics2 = operationValueStatisticsService.selectOperationCost(operationValueStatistic.getAccountId(), valueStatisticsDate, fundId, 2);
                 //得到主账户托管费
-                num8=operationValueStatistics2.get(0).getTotalMoney();
+                for (OperationValueStatistics valueStatistics : operationValueStatistics2) {
+                    if(valueStatistics!=null){
+                        num8=valueStatistics.getTotalMoney();
+                    }
+                }
+
             }
 
 
@@ -246,17 +272,23 @@ public class ValueStatisticsController {
                 ValueStatistics valueStatistics11=new ValueStatistics(valueStatisticsDate,fundId,id,"存款利息",operationValueStatistic.getTotalMoney(),valueStatistics10.getProjectId());
                 valueStatisticsService.insertValueStatistics(valueStatistics11);
                 id++;
-                //根据账户ID循环查询TA应收
+                //根据账户ID循环TA应收
                 List<OperationValueStatistics> operationValueStatistics3 = operationValueStatisticsService.selectOperationTA(operationValueStatistic.getAccountId(), 4, 1, valueStatisticsDate, fundId);
                 for (OperationValueStatistics valueStatistics : operationValueStatistics3) {
                     //合计TA应收
-                    num5=num5+valueStatistics.getTotalMoney();
+                    if(valueStatistics!=null){
+                        num5=num5+valueStatistics.getTotalMoney();
+                    }
+
                 }
-                //根据账户ID循环查询TA应付
+                //根据账户ID循环TA应付
                 List<OperationValueStatistics> operationValueStatistics4 = operationValueStatisticsService.selectOperationTA(operationValueStatistic.getAccountId(), 4, -1, valueStatisticsDate, fundId);
-                for (OperationValueStatistics valueStatistics : operationValueStatistics4) {
+                for (OperationValueStatistics valueStatistics6 : operationValueStatistics4) {
                     //合计TA应付
-                    num6=num6+valueStatistics.getTotalMoney();
+                    if(valueStatistics6!=null){
+                        num6=num6+valueStatistics6.getTotalMoney();
+                    }
+
                 }
                 //数据库插入次账户TA清算款
                 ValueStatistics  valueStatistics12=new ValueStatistics(valueStatisticsDate,fundId,id,"TA清算款",num5-num6,valueStatistics10.getProjectId());
@@ -265,11 +297,21 @@ public class ValueStatisticsController {
                 //根据次账户ID查询管理费
                 List<OperationValueStatistics> operationValueStatistics1 = operationValueStatisticsService.selectOperationCost(operationValueStatistic.getAccountId(), valueStatisticsDate, fundId, 1);
                 //得到次账户管理费
-                num9=operationValueStatistics1.get(0).getTotalMoney();
+                for (OperationValueStatistics valueStatistics : operationValueStatistics1) {
+                    if(valueStatistics!=null){
+                        num9=valueStatistics.getTotalMoney();
+                    }
+                }
+
                 //根据次账户ID查询托管费
                 List<OperationValueStatistics> operationValueStatistics2 = operationValueStatisticsService.selectOperationCost(operationValueStatistic.getAccountId(), valueStatisticsDate, fundId, 2);
                 //得到次账户托管费
-                num10=operationValueStatistics2.get(0).getTotalMoney();
+                for (OperationValueStatistics valueStatistics : operationValueStatistics2) {
+                    if(valueStatistics!=null){
+                        num10=valueStatistics.getTotalMoney();
+                    }
+                }
+
             }
         }
 
@@ -316,9 +358,14 @@ public class ValueStatisticsController {
         id++;
 
         //调用方法查询TA数量
+        double sum=0;
         List<TaInventory> taInventories = taValueStatisticsService.selectTaNum(fundId, valueStatisticsDate);
-        //合计单位净值
-        num14=(num13-num12)/taInventories.get(0).getTaNum();
+        for (TaInventory taInventory : taInventories) {
+            sum=sum+taInventory.getTaNum();
+        }
+        if(sum!=0){
+            num14=(num13-num12)/sum;
+        }
 
         //数据库插入合计模块单位资产净值数据
         ValueStatistics valueStatistics21=new ValueStatistics(valueStatisticsDate,fundId,id,"单位净值",num14,valueStatistics16.getProjectId());
@@ -397,11 +444,14 @@ public class ValueStatisticsController {
     @RequestMapping("selectValueStatistics")
     @ResponseBody
     public Object selectValueStatistics(String valueStatisticsDate,String fundId,String accountId){
-
-        if(valueStatisticsDate.equals(" ")){
+        valueStatisticsDate = valueStatisticsDate.trim();
+        fundId=fundId.trim();
+        accountId=accountId.trim();
+        if(valueStatisticsDate.equals("")){
             valueStatisticsDate= DateTimeUtil.getSystemDateTime("yyyy-MM-dd");
 
         }
+        valueStatisticsDate=valueStatisticsDate.trim();
         List<ValueStatistics> valueStatisticsList = valueStatisticsService.selectValueStatistics(valueStatisticsDate,fundId);
         Map<String,Object> josn = new HashMap<String,Object>();
         josn.put("code", 0);
