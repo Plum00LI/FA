@@ -2,7 +2,7 @@ package com.ssaw.DayEndProcessing.entity;
 
 public class TwoFees {
     private String fundId;
-    private String fundName; //基金名
+    private String fundName; // 基金名
     private int fundType; //基金类型
     private String managerId; //管理人Id
     private String trusteeBlank; //托管人Id

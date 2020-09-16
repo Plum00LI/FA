@@ -219,37 +219,41 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             }
         };
     })
-
-    function myDate(){
-        layui.use(['layer']),function () {
-            alert("进来了");
-            if($('#businessType2').val()==1){
-                day = 3;
-            }else if($('#businessType2').val()==2){
-                day = 7;
-            }
-            setTimeout(function () {
-                var date1=$('#date1').val().getTime();
-                date2 = date1+1000*60*60*24*day;
-                var endDate = new Date(date2);
-                var endYear = endDate.getFullYear();
-                var endMonth = endDate.getMonth()+1;
-                var endday = endDate.getDate();
-                var endTime = endYear+"-"+buling(endMonth)+"-"+buling(endday);
-                $('#date2').val(endTime);
-            }, 300);
-        }
-    }
-
-    form.on('input(type)', function(data){
-        alert("进来了");
+    form.on('select(type)', function(data){
+        var today = new Date();
+        // 获取当前年
+        var year=today.getFullYear();
+        // 获取当前月
+        var month=today.getMonth()+1;
+        // 获取当前日
+        var date=today.getDate();
+        var day = null;
         if($('#businessType2').val()==1){
             day = 3;
         }else if($('#businessType2').val()==2){
             day = 7;
         }
-        setTimeout(function () {
-            var date1=$('#date1').val().getTime();
+        // 输出为yyyy-MM-hh格式的字符串
+        var datetime = year+'-'+buling(month)+"-"+buling(date);
+        $('#date1').val(datetime);
+        var date1 = new Date($('#date1').val()).getTime();
+        date2 = date1+1000*60*60*24*day;
+        var endDate = new Date(date3);
+        var endYear = endDate.getFullYear();
+        var endMonth = endDate.getMonth()+1;
+        var endday = endDate.getDate();
+        var endTime = endYear+"-"+buling(endMonth)+"-"+buling(endday);
+        $('#date2').val(endTime);
+
+    });
+/*    function myDate() {
+        alert("进来了")
+            if ($('#businessType2').val() == 1) {
+                day = 3;
+            } else if ($('#businessType2').val() == 2) {
+                day = 7;
+            }
+            var date1 = new Date($('#date1').val()).getTime()
             date2 = date1+1000*60*60*24*day;
             var endDate = new Date(date2);
             var endYear = endDate.getFullYear();
@@ -257,11 +261,35 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             var endday = endDate.getDate();
             var endTime = endYear+"-"+buling(endMonth)+"-"+buling(endday);
             $('#date2').val(endTime);
-        }, 300);
+    }*/
 
-    });
+
 
 });
 function myclose() {
     layer.closeAll();
 }
+function myDate() {
+    if ($('#businessType2').val() == 1) {
+        day = 3;
+    } else if ($('#businessType2').val() == 2) {
+        day = 7;
+    }
+    setTimeout(function () {
+        var date1 = new Date($('#date1').val()).getTime();
+    date2 = date1 + 1000 * 60 * 60 * 24 * day;
+    var endDate = new Date(date2);
+    var endYear = endDate.getFullYear();
+    var endMonth = endDate.getMonth() + 1;
+    var endday = endDate.getDate();
+    var endTime = endYear+"-"+buling(endMonth)+"-"+buling(endday);
+    $('#date2').val(endTime);
+    }, 300);
+};
+function buling(data) {
+    if (data < 10) {
+        return data = "0" + data;
+    } else {
+        return data;
+    }
+};

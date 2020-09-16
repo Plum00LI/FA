@@ -3,10 +3,13 @@ package com.ssaw.DayEndProcessing.mapper;
 import com.ssaw.BusinessData.entity.CashClosedPay;
 import com.ssaw.DayEndProcessing.entity.AssetValuation;
 import com.ssaw.DayEndProcessing.entity.AssetValuationData;
+import com.ssaw.InventoryManagement.entity.CashClosedPayInventory;
+import com.ssaw.InventoryManagement.entity.SecuritiesClosedPayInventory;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,63 +22,21 @@ import java.util.Map;
  */
 @Mapper
 public interface AssetValuationMapper {
-    /**
-     * 查询当日行情数据
-     * @param assetValuation 查询所需的条件
-     * @return
-     */
-    public List<AssetValuation> selectAssetValuation(AssetValuation assetValuation);
+    //查询应收应付状态
+    public List<AssetValuation> selectValuationProcessing();
+    //证券库存关联行情表查询
+    public void selectStockarket(HashMap hashMap);
+    //删除证券应收应付库存的方法
+    public int deleteSecuritiesClosedPayInventory(SecuritiesClosedPayInventory securitiesClosedPayInventory);
+    //查交易数据 按证券代码分组 插入证券应收应付库存
+    public void selectTransactionData(HashMap hashMap);
+    //查交易数据后 按条件删除 证券应收应付表的内容
+    public int deleteSecuritiesClosedPayInventoryTwo(SecuritiesClosedPayInventory securitiesClosedPayInventory);
+    //查询ta交易数据 按账户分组
 
-    /**
-     * 通过估值日期查询是否当日是否证券以估值和已清算
-     * @param toDay 估值日期
-     * @param securitiesType 证券类型
-     * @return 证券估值增值 和清算款的状态
-     */
-    /*@Select("select securitiesType from securitiesClosedPayInventory where dateTime=to_date(#{toDay},'yyyy-MM-dd') and securitiesType=#{securitiesType,jdbcType=INTEGER} group by securitiesType")*/
-    public List<Integer> selectSecuritiesType(String toDay,Integer securitiesType);
+    public void selectTaTransaction(HashMap hashMap);
 
-    @Select("select * form securitiesClosedPay where dateTime=to_date(#{dateTime},'yyyy-MM-dd')")
-    public List<CashClosedPay> selectCashClosedPay(String today);
+    //按条件删除应收应付库存
 
-    /**
-     * 查询先进应收应付库存数据
-     * @param today 估值日期
-     * @return
-     */
-    @Select("select securitiesType form SecuritiesClosedPay where dateTime=#{dateTime} and securitiesType in (1,2)" +
-            "union"+
-            "select businessType from cashClosedPayInventory where businessDate=#{businessDate} and businessType = 4")
-    public List<Integer> selectAllSecuritiesType(String today);
-
-
-    /**
-     * 查询交易数据清算款
-     * @param assetValuation 估值增值实体对象
-     * @return
-     */
-    @Select("select dateTime,settlementDate,SUM((totalSum*flag)) totalSum,securitiesId,accountId"+
-            "from transactionData where fundId=#{fundId} and dateTime<=#{toDay} and transactionDataMode in(1,2,3,4)"+
-            "and #{toDay} < settlementDate group by securitiesId,dateTime,settlementDate,accountId")
-    public List<AssetValuation> selectTransactionData(AssetValuation assetValuation);
-
-
-    @Select("select sum(actualMoney) actualMoney,transactionType from taTransaction where dateTime<=#{toDay}"+
-            "#{toDay} < settlementDate and fundId=#{fundId} group by fundId,accountId,transactionType")
-    public List<AssetValuation> selectTaTransaction(AssetValuation assetValuation);
-
-
-    /**
-     * 删除Ta应收应付库存
-     * @param map 多个条件
-     * @return 受影响的行数（1：成功；0：失败）
-     */
-    public int deleteTAReceivables(Map map);
-
-
-    public List<AssetValuationData> selectAssecuritisState(String toDay, String strAppraisement);
-
-
-    @Select("select securitiesType form SecuritiesClosedPay where dateTime=#{dateTime} and securitiesType=#{securitiesType} group by securitiestype")
-    public Integer selectSecuritiesType1(String today, Integer securitiesType);
+    public int deleteCashClosedPaylnventory(CashClosedPayInventory cashClosedPayInventory);
 }

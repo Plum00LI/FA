@@ -153,8 +153,6 @@ public class EquityDisposeServiceImpl implements EquityDisposeService {
             transactionData.setStatus(equityDispose2.getDisposeStatus());//处理状态
 
 
-
-
             int disposeStatus = equityDispose2.getDisposeStatus();
             String equityDataId = equityDispose2.getEquityDataId();
             if (disposeStatus==0){

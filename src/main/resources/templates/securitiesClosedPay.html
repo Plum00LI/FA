@@ -32,7 +32,9 @@
             </div>
         </div>
         <div class="layui-inline layui-show-xs-block">
-            <button class="layui-btn"  lay-submit="" style="background-color: #2c3e50;color: #FFFFFF" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+            <button class="layui-btn layui-btn-sm layui-bg-blue"  type="button" style="background-color: #2c3e50;color: #FFFFFF"
+                    lay-event="search">
+                <i class="layui-icon">&#xe615;</i>搜索</button>
         </div>
         </form>
     </script>
@@ -51,11 +53,12 @@
 <!--增加的div内容-->
 <div id="addContent" style="display: none; height: 100%; width:100%; text-align: center">
     <form id="addform" lay-filter="addform" class="layui-form layui-col-space5" style="margin: 50px auto; display: inline-block;">
+        <input type="hidden" name="fundId" th:value="${session.fundId}">
         <div class="layui-inline layui-show-xs-block" style="text-align: center;">
             <label class="layui-form-label layui-bg-green" style="text-align: center">账户编号</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" placeholder="请输入银行账户" name="accountName" style="width: 180px" id="account">
-                <input type="hidden" name="fundId" th:value="${session.fundId}">
+                <input type="hidden" name="accountId" th:value="${session.accountId}">
             </div>
         </div>
         &nbsp&nbsp&nbsp&nbsp&nbsp
@@ -195,7 +198,7 @@
             elem: '#account',
             checkedKey: 'accountId',
             table: {
-                url: '../selectAccount',
+                url: '../account/selectAccount',
                 cols: [
                     [
                         { type: 'checkbox' },
