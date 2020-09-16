@@ -38,7 +38,7 @@ public class CashInventoryServiceImpl implements CashInventoryService {
      * @return  查询的结果集Map
      */
     @Override
-    public Map<String, Object> selectCashInventory(String pageSize, String page,String accountId,String dateTime) {
+    public Map<String, Object> selectCashInventory(String pageSize, String page,String accountId,String dateTime,String fundId) {
         //创建一个结果集Map用于存放两个结果变量
         Map<String,Object> resultMap=new HashMap<>();
         //定义一个分页条数变量
@@ -72,8 +72,8 @@ public class CashInventoryServiceImpl implements CashInventoryService {
 
         //创建一个Map，用于存储过程的调用传值
         Map<String,Object> map=new HashMap<>();
-        String p_tableName="( select c.cashInventoryId,c.fundId,c.cashBlance,c.accountId,c.dateTime,c.securitiesNum,c.securityPeriodFlag,c.cashInventoryDesc,a.accountName "+
-        " from " + SysTableNameListUtil.CI+" c join "+SysTableNameListUtil.A +" a on c.accountId=a.accountId)";
+        String p_tableName="( select c.cashInventoryId,c.fundId,c.cashBlance,c.accountId,c.dateTime,c.securityPeriodFlag,c.cashInventoryDesc,a.accountName "+
+        " from " + SysTableNameListUtil.CI+" c join "+SysTableNameListUtil.A +" a on c.accountId=a.accountId and c.fundId='"+fundId+"' )";
 
         System.out.println(sql);
         System.out.println(p_tableName);

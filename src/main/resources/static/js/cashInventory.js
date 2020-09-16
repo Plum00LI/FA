@@ -6,7 +6,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         var form = layui.form;
         var formSelects = layui.formSelects;
         var laydate = layui.laydate;
-
+        var fundId=$("#tableFundId").val();
         //执行一个laydate实例
         //时间下拉表
         laydate.render({
@@ -25,17 +25,17 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             count:0,
             page: true,
             height: 'full-55',
+            where:{ 'fundId':fundId},
             toolbar: '#cashInventoryToolBar',//显示在表头的工具条
             cols: [
                 [ //表头
                     {type: 'checkbox', fixed: 'left'}
+                    ,{field: 'dateTime', title: '统计时间'}
                     ,{field: 'cashInventoryId', title: '现金库存ID'}
-                    ,{field: 'securitiesNum', title: '证券数量'}
+                    ,{field: 'fundId', title: '基金ID'}
                     ,{field: 'accountId', title: '账户ID'}
                     ,{field: 'accountName', title: '账户名'}
-                    ,{field: 'fundId', title: '基金ID'}
                     ,{field: 'cashBlance', title: '现金余额'}
-                    ,{field: 'dateTime', title: '统计时间'}
                     ,{field: 'right', title: '操作', toolbar:'#barDemo', fixed: 'right'}
                 ]
             ]
@@ -55,7 +55,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         //新增提交
         form.on('submit(addsubmit)', function(data){
             var formData=$('#addform').serialize();
-            // alert("增加");
             $.post("../cashInventory/insert",formData,function(msg){
                 if(msg>0){
                     table.reload('cashInventoryTable');
@@ -83,7 +82,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         //修改提交
         form.on('submit(editsubmit)', function(data){
             var formData=$('#editform').serialize();
-            // alert("forData"+formData);
             $.post("../cashInventory/update",formData,function(msg){
                 if(msg>0){
                     table.reload('cashInventoryTable');
@@ -124,23 +122,19 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                         content:$("#addContent"),
                         btn:[]
                     });
-
                     form.render();
-                    //全屏
-                    // layer.full(index);
                     break;
                 case 'search':
-                    // alert("搜索");
                     var accountId5= $("#searchAccountId").val();
                     var dateTime5= $("#dateTime").val();
-                    // alert(dateTime5);
-                    // alert(accountId5);
+                    // var fundId=$("#searchFundId").val();
                     //表格的重新加载事件
                     table.reload('cashInventoryTable',{
                         method: 'post'
                         , where: {
                             'accountId': accountId5,
                             'dateTime': dateTime5
+                            // 'fundId':fundId
                         }
                         , page: {
                             curr: 1
@@ -180,7 +174,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         //给表格编辑，删除按钮添加点击事件
         table.on('tool(cashInventoryTable)', function(obj) {
             var data = obj.data;//得到删除行整行的数据
-            // alert(data.cashInventoryId);
             if (obj.event === 'del') {
                 layer.confirm('真的删除行么',{icon: 2}, function(index){
                     layer.close(index);
@@ -190,8 +183,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 
                 });
             } else if (obj.event === 'edit') {
-                // alert(JSON.stringify(data));
-
                 form.val('editform',$.parseJSON(JSON.stringify(data)));
                 var index = layer.open({
                     type: 1,
@@ -201,7 +192,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     area: ['800px', '600px'],
                     content:$('#editContent')
                 });
-                // layer.full(index);
                 form.render();
 
             };

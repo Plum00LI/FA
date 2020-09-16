@@ -1,7 +1,7 @@
 <!--syt
 1.0-->
 <!DOCTYPE html>
-<html>
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <title>现金库存</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -42,7 +42,7 @@
                 <input type="hidden" name="accountId" id="searchAccountId"/>
 
             </div>
-
+            <input type="hidden" name="fundId" id="searchFundId" th:value="${session.fundId}">
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label " style="width: 110px;text-align: center ;background-color: #8c8c8c;color: #FFFFFF">统计日期</label>
             </div>
@@ -60,7 +60,9 @@
       class="layui-view-body layui-content">
 <div>
     <!--表格-->
-    <table id="cashInventoryTable" lay-filter="cashInventoryTable"></table>
+    <table id="cashInventoryTable" lay-filter="cashInventoryTable">
+        <input type="hidden" name="fundId" id="tableFundId" th:value="${session.fundId}">
+    </table>
     <!--工具条-->
     <div style="display: none;" id="barDemo">
         <a class="layui-btn layui-btn-xs" lay-event="edit"><i
@@ -74,6 +76,7 @@
 <div id="addContent" style="display: none; height: 100%; width:100%; text-align: center">
     <form id="addform" lay-filter="addform" class="layui-form layui-col-space5" style="margin: 50px auto; display: inline-block;">
         <div style="float: left;">
+            <input type="hidden" name="fundId" id="fundId" th:value="${session.fundId}">
             <div class="layui-inline layui-show-xs-block" style="text-align: center;">
                 <label class="layui-form-label layui-bg-primary" style="text-align: center">日期</label>
                 <div class="layui-inline layui-show-xs-block">
@@ -128,6 +131,7 @@
     <form id="editform" lay-filter="editform"
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
+
         <input name="cashInventoryId" type="hidden">
         <div style="float: left;">
             <div class="layui-inline layui-show-xs-block" style="text-align: center;">
