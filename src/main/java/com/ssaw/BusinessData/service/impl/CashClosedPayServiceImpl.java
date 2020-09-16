@@ -100,9 +100,11 @@ public class CashClosedPayServiceImpl implements CashClosedPayService {
                 sqlWhere.append(" and dateTime = '" +dateTime+"' ");
 
         }
-        //创建一个结果集用于接收数据库存储过程所需条件
+        //创建一个结果集Map用于接收数据库存储过程所需条件
         Map<String,Object> map = new HashMap<>();
+        //定义一个String类型用来接收查询呢的sql语句cashClosedPay、fund、account
         String sqlSelect="(select * from cashClosedPay c join fund f on f.fundId=c.fundId join account a on a.accountId=c.accountId ) ";
+        //将 p_tableName、p_condition、p_pageSize、p_page、p_count、p_cursor的值放入map结果集
         map.put("p_tableName",sqlSelect);
         map.put("p_condition",sqlWhere.toString());
         map.put("p_pageSize",v_pageSize);
@@ -116,7 +118,7 @@ public class CashClosedPayServiceImpl implements CashClosedPayService {
         List<CashClosedPay> cashClosedPays = (List<CashClosedPay>) map.get("p_cursor");
         //接收返回总条数
         int count = (int) map.get("p_count");
-        //将结果放入结果集Map
+        //将cashClosedPays、count结果放入结果集Map
         resultMap.put("cashClosedPays",cashClosedPays);
         resultMap.put("count",count);
         return resultMap;

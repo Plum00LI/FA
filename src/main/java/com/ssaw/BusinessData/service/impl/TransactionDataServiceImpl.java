@@ -53,7 +53,7 @@ public class TransactionDataServiceImpl implements TransactionDataService {
     @Override
     public int insertTransactionData(TransactionData transactionData) {
         System.out.println(transactionData.getFundId());
-        transactionData.setTransactionDataId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
+        transactionData.setTransactionDataId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.TD));
         return transactionDataMapper.insertTransactionData(transactionData);
     }
 
