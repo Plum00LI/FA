@@ -1,14 +1,10 @@
 package com.ssaw.InventoryManagement.controller;
 
-import com.ssaw.BusinessData.entity.Market;
 import com.ssaw.GlobalManagement.util.DbUtil;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.InventoryManagement.entity.SecuritiesInventory;
 import com.ssaw.InventoryManagement.service.SecuritiesInventoryService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
