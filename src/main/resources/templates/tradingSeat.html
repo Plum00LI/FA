@@ -269,7 +269,7 @@
                     <div class="layui-inline layui-show-xs-block">
                         <label class="layui-form-label layui-bg-green" style="width: 90px;text-align: center">席位地址</label>
                         <div class="layui-inline layui-show-xs-block">
-                            <select name="modules" id="seateAddress" lay-search="" lay-verify="required" style="width: 130px">
+                            <select name="seateAddress"  lay-search="" lay-verify="required" style="width: 130px">
                                 <option value="">--请选择--</option>
                                 <option value="1">上海</option>
                                 <option value="2">深圳</option>
@@ -286,7 +286,7 @@
             </div>
         </div>
         <div style="position: absolute; left: 35%; bottom: 18px;">
-            <button class="layui-btn" lay-submit="" lay-event="edit">
+            <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
                 <i class="layui-icon">&#x1005;</i>修改
             </button>
             <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
@@ -567,7 +567,7 @@
             elem:'#updateBrokers',
             checkedKey:'brokersId',
             table:{
-                url:'../updateBrokers',
+                url:'../selectBrokers',
                 cellMinWidth: 60,
                 cols:[
                     [   {type:'radio'},
