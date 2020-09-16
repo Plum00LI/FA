@@ -26,11 +26,6 @@ public class SecuritiesController {
     @Resource
     SecuritiesService securitiesService;
 
-  /*   'securitiesIds': securitiesIds, 证券id
-            'securitiesNames': securitiesNames, 证券名
-            'securitiesTypes': securitiesTypes,  交易所名
-            'exchanges': exchanges 债券类型
-            */
     //查询
     @RequestMapping("selectSecurities")
     public Map<String,Object> selectSecurities(String page, String limit,String securitiesIds,String securitiesNames,String securitiesTypes,String exchanges){
@@ -78,6 +73,7 @@ public class SecuritiesController {
      */
     @RequestMapping("updateSecurities")
     public int updateSecurities(Securities securities){
+        System.out.println("进来了控制测");
         int i=securitiesService.updateSecurities(securities);
         return i;
     }

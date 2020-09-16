@@ -32,7 +32,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //新增提交
     form.on('submit(addsubmit)', function(data){
         var formData=$('#addform').serialize();
-        alert("formData" + formData);
+        // alert("formData" + formData);
         $.post("../taInventory/insert",formData,function(msg){
             if(msg>0){
                 table.reload('taInventoryTable');
@@ -126,9 +126,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 // layer.full(index);
                 break;
             case 'search':
-                alert("搜索");
+                // alert("搜索");
                 var dateTime= $("#dateTime").val();
-                alert(dateTime);
+                // alert(dateTime);
                 //表格的重新加载事件
                 table.reload('taInventoryTable', {
                     method: 'post'
@@ -183,7 +183,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 
             });
         } else if (obj.event === 'edit') {
-            alert(JSON.stringify(data));
+            // alert(JSON.stringify(data));
 
             form.val('editform',$.parseJSON(JSON.stringify(data)));
             var index = layer.open({

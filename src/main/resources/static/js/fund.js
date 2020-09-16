@@ -116,7 +116,7 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 						return '366';
 					}
 				},
-				,{field: 'operation', title: '操作' , width: 215, align:'center',toolbar:'#barDemo'}
+				{fixed: 'right',field: 'operation', title: '操作' , width: 215, align:'center',toolbar:'#barDemo'}
 
 			]
 		]
@@ -211,7 +211,7 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 
 			form.render();
 			layer.full(index);
-		};
+		}
 	});
 
 });

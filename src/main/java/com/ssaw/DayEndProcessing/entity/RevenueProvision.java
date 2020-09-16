@@ -1,7 +1,7 @@
 package com.ssaw.DayEndProcessing.entity;
 
 public class RevenueProvision {
-    private String accountId; //账户Id
+    private String accountId; //账户 Id
     private String fundId;   //基金Id
     private String blankCardCode; //银行卡号
     private String accountName;  //账户名称

@@ -152,12 +152,12 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
                 var securitiesName = $("#securitiesName").val();
                 //表格的重新加载事件
                 table.reload('userTable', {
-                    page: {
-                        curr: 1
-                    }
-                    , where: {
-                        'dateTime': dateTime
-                        ,'securitiesName':securitiesName
+                        where: {
+                             'dateTime': dateTime,
+                             'securitiesName':securitiesName
+                    },
+                        page: {
+                              curr: 1
                     }
                 });
                 break;

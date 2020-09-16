@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <title>收益计提页面</title>
     <link type="text/css" rel="stylesheet" href="../lib/layui/css/layui.css"/>
@@ -174,6 +174,7 @@
                     var checkStatus = table.checkStatus("userTable2"); //idTest 即为基础参数 id 对应的值
                     // 其中 ID 为基础参数 id 对应的值（见：设定容器唯一ID）
                     var Securitie = [];
+                    var accountId = $("#accountId").val();
                     var dataArr = checkStatus.data; //获取选中行的数据
                     $.each(dataArr, function (i, n) {
                         Securitie.push(n);
@@ -181,10 +182,10 @@
                     // alert(cashs);
                     var Securities = JSON.stringify(Securitie);
                     alert(Securities);
-
+                    alert(accountId);
                     // layer.close();
                     //向服务端发送删除指令
-                    $.post("/RevenueProvision/StatisticalSecurities", "Securities="+Securities,function(msg){
+                    $.post("/RevenueProvision/StatisticalSecurities", {Securities:Securities,accountId:accountId},function(msg){
                         if(msg>0){
                             // table.reload('myTable');
                             // layer.closeAll();
@@ -231,7 +232,7 @@
     </script>
 </head>
 <body>
-
+<input type="text" name="accountId" id="accountId" th:value="${session.accountId}">
 
 <div style="margin-top: 20px;margin-left: 10px">
     <form id="searchDate" class="layui-form layui-col-space5">
