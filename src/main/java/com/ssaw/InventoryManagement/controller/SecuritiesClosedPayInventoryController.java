@@ -61,4 +61,17 @@ public class SecuritiesClosedPayInventoryController {
         int i = securitiesClosedPayInventoryService.insertSecuritiesClosedPayInventory(securitiesClosedPayInventory);
         return i;
     }
+
+    @RequestMapping("delete")
+    public int deleteSecuritiesClosedPayInventory(String securitiesClosedPayInventoryId){
+        int i = securitiesClosedPayInventoryService.deleteSecuritiesClosedPayInventory(securitiesClosedPayInventoryId);
+        return i;
+    }
+
+    @RequestMapping("update")
+    public int updateSecuritiesClosedPayInventory(SecuritiesClosedPayInventory securitiesClosedPayInventory){
+        System.out.println(securitiesClosedPayInventory);
+        int i = securitiesClosedPayInventoryService.updateSecuritiesClosedPayInventory(securitiesClosedPayInventory);
+        return i;
+    }
 }

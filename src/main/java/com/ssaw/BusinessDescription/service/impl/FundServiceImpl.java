@@ -37,8 +37,8 @@ public class FundServiceImpl implements FundService {
      */
     @Override
     public int insertFund(Fund fund) {
-        int i = fundMapper.insertFund(fund);
-        return i;
+
+        return  fundMapper.insertFund(fund);
     }
 
     /**
@@ -70,8 +70,8 @@ public class FundServiceImpl implements FundService {
      */
     @Override
     public int updateFund(Fund fund) {
-        int i = fundMapper.updateFund(fund);
-        return i;
+
+        return fundMapper.updateFund(fund);
     }
     /**
      * 查询serviceImpl方法

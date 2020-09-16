@@ -32,8 +32,6 @@ public class Fund {
     private double fundType;
     private String managerId;
     private String trusteeId;
-    private String managerCompany;
-    private String trusteeCompany;
     private double initNetWorth;
     private double sizeOfThe;
     private double managerRate;
@@ -41,7 +39,9 @@ public class Fund {
     private double provisionDays;
     private String setUpDate;
     private String fundDesc;
-    private String accountId;
+    private String accountId="华宝高端制造基金主账户";
+    private String managerCompany;
+    private String trusteeCompany;
 
     public Fund() {
     }
