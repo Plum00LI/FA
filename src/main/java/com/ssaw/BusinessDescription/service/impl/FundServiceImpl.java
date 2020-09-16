@@ -37,7 +37,6 @@ public class FundServiceImpl implements FundService {
      */
     @Override
     public int insertFund(Fund fund) {
-
         return  fundMapper.insertFund(fund);
     }
 

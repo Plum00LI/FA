@@ -44,7 +44,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
                 }
             }
-                ,{field: 'status', title: '交易状态', width: 130, align:'center', templet: function(item){
+                ,{fixed: 'right',field: 'status', title: '交易状态', width: 130, align:'center', templet: function(item){
                     if(item.status=='0') {
                         return '未结算';
                     } else if(item.status=='1'){
@@ -89,7 +89,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
                 }
             }
-                ,{field: 'status', title: '交易状态', width: 130, align:'center', templet: function(item){
+                ,{fixed: 'right',field: 'status', title: '交易状态', width: 130, align:'center', templet: function(item){
                     if(item.status=='0') {
                         return '未结算';
                     } else if(item.status=='1'){

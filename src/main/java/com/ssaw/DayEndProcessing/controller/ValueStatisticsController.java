@@ -112,21 +112,32 @@ public class ValueStatisticsController {
         List<SecuritiesValueStatistics> securitiesValueStatistics1 = securitiesValueStatisticsService.selectSecuritiesValueStatistics(valueStatisticsDate, fundId, dateTimeTwo, 3);
 
         //合计债券利息
-        for (SecuritiesValueStatistics valueStatistics : securitiesValueStatistics1) {
-            num=num+valueStatistics.getTotalPrice();
+        if(securitiesValueStatistics1.size()!=0) {
+            for (SecuritiesValueStatistics valueStatistics : securitiesValueStatistics1) {
+                if(valueStatistics!=null){
+                num = num + valueStatistics.getTotalPrice();
+                }
+            }
         }
-
 
         //合计证券清算款所有流入
         List<SecuritiesValueStatistics> securitiesValueStatistics2 = securitiesValueStatisticsService.selectSecuritiesValueStatisticsTwo(valueStatisticsDate, fundId, dateTimeTwo, 2, 1);
-        for (SecuritiesValueStatistics valueStatistics : securitiesValueStatistics2) {
-            num1=num1+valueStatistics.getTotalPrice();
+        if(securitiesValueStatistics2.size()!=0){
+            for (SecuritiesValueStatistics valueStatistics : securitiesValueStatistics2) {
+                if(valueStatistics!=null) {
+                    num1 = num1 + valueStatistics.getTotalPrice();
+                }
+            }
         }
 
         //合计证券清算款所有流出
         List<SecuritiesValueStatistics> securitiesValueStatistics3 = securitiesValueStatisticsService.selectSecuritiesValueStatisticsTwo(valueStatisticsDate, fundId, dateTimeTwo, 2, -1);
-        for (SecuritiesValueStatistics valueStatistics : securitiesValueStatistics3) {
-            num2=num2+valueStatistics.getTotalPrice();
+        if(securitiesValueStatistics3.size()!=0){
+            for (SecuritiesValueStatistics valueStatistics : securitiesValueStatistics3) {
+                if(valueStatistics!=null){
+                 num2=num2+valueStatistics.getTotalPrice();
+                }
+             }
         }
         //查询现金模块及现金利息
         List<OperationValueStatistics> operationValueStatistics = operationValueStatisticsService.selectOperationValueStatistics(valueStatisticsDate, fundId, 3);
@@ -158,17 +169,21 @@ public class ValueStatisticsController {
         //数据块插入证券模块外层对象
         ValueStatistics valueStatistics1 = new ValueStatistics(valueStatisticsDate, fundId,1, "证券",  -1);
         valueStatisticsService.insertValueStatistics(valueStatistics1);
-        System.out.println(valueStatistics1);
+
         //数据块插入股票模块外层对象
         ValueStatistics valueStatistics2 = new ValueStatistics(valueStatisticsDate, fundId,2, "股票", 1 );
         valueStatisticsService.insertValueStatistics(valueStatistics2);
         //遍历证券模块数据集合
-        for (SecuritiesValueStatistics securitiesValueStatistic : securitiesValueStatistics) {
-            //数据库插入股票板块据
-           if(securitiesValueStatistic.getSecuritiesType().equals("股票")){
-               valueStatisticsService.insertValueStatistics(new ValueStatistics(valueStatisticsDate,fundId,id,securitiesValueStatistic.getSecuritiesName(),securitiesValueStatistic.getSecuritiesId(),securitiesValueStatistic.getSecuritiesNum(),securitiesValueStatistic.getClosingPrice(),securitiesValueStatistic.getTotal(),securitiesValueStatistic.getMarketValue(),securitiesValueStatistic.getTotalPrice(),2));
-               id++;
-           }
+        if(securitiesValueStatistics.size()!=0) {
+            for (SecuritiesValueStatistics securitiesValueStatistic : securitiesValueStatistics) {
+                if(securitiesValueStatistic!=null){
+                    //数据库插入股票板块据
+                     if (securitiesValueStatistic.getSecuritiesType().equals("股票")) {
+                         valueStatisticsService.insertValueStatistics(new ValueStatistics(valueStatisticsDate, fundId, id, securitiesValueStatistic.getSecuritiesName(), securitiesValueStatistic.getSecuritiesId(), securitiesValueStatistic.getSecuritiesNum(), securitiesValueStatistic.getClosingPrice(), securitiesValueStatistic.getTotal(), securitiesValueStatistic.getMarketValue(), securitiesValueStatistic.getTotalPrice(), 2));
+                            id++;
+                  }
+                }
+            }
         }
         //数据块插入债券模块外层对象
         ValueStatistics valueStatistics3=new ValueStatistics(valueStatisticsDate,fundId,id,"债券",1);
@@ -176,16 +191,20 @@ public class ValueStatisticsController {
         //递增功能ID
         id++;
         //遍历证券模块数据集合
-        for (SecuritiesValueStatistics securitiesValueStatistic : securitiesValueStatistics) {
-            //合计总市值
-            num13=num13+securitiesValueStatistic.getMarketValue();
-            //合计证券模块估值增值
-            num11=num11+securitiesValueStatistic.getTotalPrice();
-            //数据库插入债券板块据
-            if(securitiesValueStatistic.getSecuritiesType().equals("债券")){
-                valueStatisticsService.insertValueStatistics(new ValueStatistics(valueStatisticsDate,fundId,id,securitiesValueStatistic.getSecuritiesName(),securitiesValueStatistic.getSecuritiesId(),securitiesValueStatistic.getSecuritiesNum(),securitiesValueStatistic.getClosingPrice(),securitiesValueStatistic.getTotal(),securitiesValueStatistic.getMarketValue(),securitiesValueStatistic.getTotalPrice(),valueStatistics3.getProjectId()));
-                id++;
-            }
+        if(securitiesValueStatistics.size()!=0){
+            for (SecuritiesValueStatistics securitiesValueStatistic : securitiesValueStatistics) {
+                if(securitiesValueStatistic!=null){
+                    //合计总市值
+                    num13=num13+securitiesValueStatistic.getMarketValue();
+                    //合计证券模块估值增值
+                    num11=num11+securitiesValueStatistic.getTotalPrice();
+                    //数据库插入债券板块据
+                    if(securitiesValueStatistic.getSecuritiesType().equals("债券")){
+                    valueStatisticsService.insertValueStatistics(new ValueStatistics(valueStatisticsDate,fundId,id,securitiesValueStatistic.getSecuritiesName(),securitiesValueStatistic.getSecuritiesId(),securitiesValueStatistic.getSecuritiesNum(),securitiesValueStatistic.getClosingPrice(),securitiesValueStatistic.getTotal(),securitiesValueStatistic.getMarketValue(),securitiesValueStatistic.getTotalPrice(),valueStatistics3.getProjectId()));
+                    id++;
+                    }
+                }
+             }
         }
         //数据块插入现金模块外层对象
         ValueStatistics valueStatistics4=new ValueStatistics(valueStatisticsDate,fundId,id,"现金",-1);
@@ -193,129 +212,146 @@ public class ValueStatisticsController {
         //递增功能ID
         id++;
         //遍历现金模块数据集合
-        for (OperationValueStatistics operationValueStatistic : operationValueStatistics) {
-            //获得两个账户总余额+现金利息
-            num13=num13+operationValueStatistic.getCashBlance()+operationValueStatistic.getTotalMoney();
-            if(accountId.equals(operationValueStatistic.getAccountId())){
-                //数据库插入主账户基本数据及余额
-                ValueStatistics valueStatistics5=new ValueStatistics(valueStatisticsDate,fundId,id,operationValueStatistic.getAccountName(),operationValueStatistic.getBlankCardCode(),operationValueStatistic.getCashBlance(),valueStatistics4.getProjectId());
-                valueStatisticsService.insertValueStatistics(valueStatistics5);
-                id++;
-                //数据库插入主账户现金利息
-                ValueStatistics valueStatistics6=new ValueStatistics(valueStatisticsDate,fundId,id,"存款利息",operationValueStatistic.getTotalMoney(),valueStatistics5.getProjectId());
-                valueStatisticsService.insertValueStatistics(valueStatistics6);
-                id++;
-                //数据库插入主账户债券利息
-                ValueStatistics  valueStatistics7=new ValueStatistics(valueStatisticsDate,fundId,id,"债券利息",num,valueStatistics5.getProjectId());
-                valueStatisticsService.insertValueStatistics(valueStatistics7);
-                id++;
-                //数据库插入主账户证券清算款
-                ValueStatistics  valueStatistics8=new ValueStatistics(valueStatisticsDate,fundId,id,"证券清算款",num1-num2,valueStatistics5.getProjectId());
-                valueStatisticsService.insertValueStatistics(valueStatistics8);
-                id++;
+        if(operationValueStatistics.size()!=0) {
+            for (OperationValueStatistics operationValueStatistic : operationValueStatistics) {
+                if(operationValueStatistic!=null) {
+                    //获得两个账户总余额+现金利息
+                    num13 = num13 + operationValueStatistic.getCashBlance() + operationValueStatistic.getTotalMoney();
+                    if (accountId.equals(operationValueStatistic.getAccountId())) {
+                        //数据库插入主账户基本数据及余额
+                        ValueStatistics valueStatistics5 = new ValueStatistics(valueStatisticsDate, fundId, id, operationValueStatistic.getAccountName(), operationValueStatistic.getBlankCardCode(), operationValueStatistic.getCashBlance(), valueStatistics4.getProjectId());
+                        valueStatisticsService.insertValueStatistics(valueStatistics5);
+                        id++;
+                        //数据库插入主账户现金利息
+                        ValueStatistics valueStatistics6 = new ValueStatistics(valueStatisticsDate, fundId, id, "存款利息", operationValueStatistic.getTotalMoney(), valueStatistics5.getProjectId());
+                        valueStatisticsService.insertValueStatistics(valueStatistics6);
+                        id++;
+                        //数据库插入主账户债券利息
+                        ValueStatistics valueStatistics7 = new ValueStatistics(valueStatisticsDate, fundId, id, "债券利息", num, valueStatistics5.getProjectId());
+                        valueStatisticsService.insertValueStatistics(valueStatistics7);
+                        id++;
+                        //数据库插入主账户证券清算款
+                        ValueStatistics valueStatistics8 = new ValueStatistics(valueStatisticsDate, fundId, id, "证券清算款", num1 - num2, valueStatistics5.getProjectId());
+                        valueStatisticsService.insertValueStatistics(valueStatistics8);
+                        id++;
 
 
-                //根据账户ID查询TA应收
-                List<OperationValueStatistics> operationValueStatistics3 = operationValueStatisticsService.selectOperationTA(operationValueStatistic.getAccountId(), 4, 1, valueStatisticsDate, fundId);
+                        //根据账户ID查询TA应收
+                        List<OperationValueStatistics> operationValueStatistics3 = operationValueStatisticsService.selectOperationTA(operationValueStatistic.getAccountId(), 4, 1, valueStatisticsDate, fundId);
 
+                        if(operationValueStatistics3.size()!=0){
+                             for (OperationValueStatistics operationValueStatistics1 : operationValueStatistics3) {
+                                 if (operationValueStatistics1 != null) {
+                                     //合计TA应收
+                                     num3 = num3 + operationValueStatistics1.getTotalMoney();
+                            }
+                         }
 
-                for (OperationValueStatistics operationValueStatistics1 : operationValueStatistics3) {
-                if(operationValueStatistics1!=null){
-                    //合计TA应收
-                    num3=num3+operationValueStatistics1.getTotalMoney();
-                }
+                        }
+                        //根据账户ID循环查询TA应付
+                        List<OperationValueStatistics> operationValueStatistics4 = operationValueStatisticsService.selectOperationTA(operationValueStatistic.getAccountId(), 4, -1, valueStatisticsDate, fundId);
+                        if (operationValueStatistics4.size() != 0) {
+                            for (OperationValueStatistics operationValueStatistics9 : operationValueStatistics4) {
+                                //合计TA应付
+                                if (operationValueStatistics9 != null) {
+                                    num4 = num4 + operationValueStatistics9.getTotalMoney();
+                                }
 
+                            }
+                        }
+                        //数据库插入主账户TA清算款
+                        ValueStatistics valueStatistics9 = new ValueStatistics(valueStatisticsDate, fundId, id, "TA清算款", num3 - num4, valueStatistics5.getProjectId());
+                        valueStatisticsService.insertValueStatistics(valueStatistics9);
+                        id++;
+                        //根据主账户ID查询管理费
+                        List<OperationValueStatistics> operationValueStatistics1 = operationValueStatisticsService.selectOperationCost(operationValueStatistic.getAccountId(), valueStatisticsDate, fundId, 1);
 
-                }
-                //根据账户ID循环查询TA应付
-                List<OperationValueStatistics> operationValueStatistics4 = operationValueStatisticsService.selectOperationTA(operationValueStatistic.getAccountId(), 4, -1, valueStatisticsDate, fundId);
-                if(operationValueStatistics4.size()!=0){
-                for (OperationValueStatistics operationValueStatistics9 : operationValueStatistics4) {
-                    //合计TA应付
-                    if(operationValueStatistics9!=null){
-                        num4=num4+operationValueStatistics9.getTotalMoney();
-                    }
+                        //得到主账户管理费
+                        if(operationValueStatistics1.size()!=0){
+                            for (OperationValueStatistics valueStatistics : operationValueStatistics1) {
+                                if (valueStatistics != null) {
+                                num7 = valueStatistics.getTotalMoney();
+                                }
+                            }
+                        }
 
-                }}
-                //数据库插入主账户TA清算款
-                ValueStatistics  valueStatistics9=new ValueStatistics(valueStatisticsDate,fundId,id,"TA清算款",num3-num4,valueStatistics5.getProjectId());
-                valueStatisticsService.insertValueStatistics(valueStatistics9);
-                id++;
-                //根据主账户ID查询管理费
-                List<OperationValueStatistics> operationValueStatistics1 = operationValueStatisticsService.selectOperationCost(operationValueStatistic.getAccountId(), valueStatisticsDate, fundId, 1);
+                        //根据主账户ID查询托管费
+                        List<OperationValueStatistics> operationValueStatistics2 = operationValueStatisticsService.selectOperationCost(operationValueStatistic.getAccountId(), valueStatisticsDate, fundId, 2);
+                        if(operationValueStatistics2.size()!=0){
+                             //得到主账户托管费
+                            for (OperationValueStatistics valueStatistics : operationValueStatistics2) {
+                                if (valueStatistics != null) {
+                                    num8 = valueStatistics.getTotalMoney();
+                                 }
+                            }
 
-                //得到主账户管理费
-                for (OperationValueStatistics valueStatistics : operationValueStatistics1) {
-                    if(valueStatistics!=null){
-                        num7=valueStatistics.getTotalMoney();
-                    }
-                }
-
-                //根据主账户ID查询托管费
-                List<OperationValueStatistics> operationValueStatistics2 = operationValueStatisticsService.selectOperationCost(operationValueStatistic.getAccountId(), valueStatisticsDate, fundId, 2);
-                //得到主账户托管费
-                for (OperationValueStatistics valueStatistics : operationValueStatistics2) {
-                    if(valueStatistics!=null){
-                        num8=valueStatistics.getTotalMoney();
+                        }
                     }
                 }
 
             }
-
-
         }
         //再次遍历现金模块数据集合
-        for (OperationValueStatistics operationValueStatistic : operationValueStatistics) {
-            if(!accountId.equals(operationValueStatistic.getAccountId())){
-                //数据库插入次账户基本数据及余额
-                ValueStatistics valueStatistics10=new ValueStatistics(valueStatisticsDate,fundId,id,operationValueStatistic.getAccountName(),operationValueStatistic.getBlankCardCode(),operationValueStatistic.getCashBlance(),valueStatistics4.getProjectId());
-                valueStatisticsService.insertValueStatistics(valueStatistics10);
-                id++;
-                //数据库插入次账户现金利息
-                ValueStatistics valueStatistics11=new ValueStatistics(valueStatisticsDate,fundId,id,"存款利息",operationValueStatistic.getTotalMoney(),valueStatistics10.getProjectId());
-                valueStatisticsService.insertValueStatistics(valueStatistics11);
-                id++;
-                //根据账户ID循环TA应收
-                List<OperationValueStatistics> operationValueStatistics3 = operationValueStatisticsService.selectOperationTA(operationValueStatistic.getAccountId(), 4, 1, valueStatisticsDate, fundId);
-                for (OperationValueStatistics valueStatistics : operationValueStatistics3) {
-                    //合计TA应收
-                    if(valueStatistics!=null){
-                        num5=num5+valueStatistics.getTotalMoney();
+        if(operationValueStatistics.size()!=0) {
+            for (OperationValueStatistics operationValueStatistic : operationValueStatistics) {
+                if(operationValueStatistic!=null){
+                if (!accountId.equals(operationValueStatistic.getAccountId())) {
+                    //数据库插入次账户基本数据及余额
+                    ValueStatistics valueStatistics10 = new ValueStatistics(valueStatisticsDate, fundId, id, operationValueStatistic.getAccountName(), operationValueStatistic.getBlankCardCode(), operationValueStatistic.getCashBlance(), valueStatistics4.getProjectId());
+                    valueStatisticsService.insertValueStatistics(valueStatistics10);
+                    id++;
+                    //数据库插入次账户现金利息
+                    ValueStatistics valueStatistics11 = new ValueStatistics(valueStatisticsDate, fundId, id, "存款利息", operationValueStatistic.getTotalMoney(), valueStatistics10.getProjectId());
+                    valueStatisticsService.insertValueStatistics(valueStatistics11);
+                    id++;
+                    //根据账户ID循环TA应收
+                    List<OperationValueStatistics> operationValueStatistics3 = operationValueStatisticsService.selectOperationTA(operationValueStatistic.getAccountId(), 4, 1, valueStatisticsDate, fundId);
+                    if(operationValueStatistics3.size()!=0){
+                    for (OperationValueStatistics valueStatistics : operationValueStatistics3) {
+                        //合计TA应收
+                        if (valueStatistics != null) {
+                            num5 = num5 + valueStatistics.getTotalMoney();
+                        }
                     }
-
-                }
-                //根据账户ID循环TA应付
-                List<OperationValueStatistics> operationValueStatistics4 = operationValueStatisticsService.selectOperationTA(operationValueStatistic.getAccountId(), 4, -1, valueStatisticsDate, fundId);
-                for (OperationValueStatistics valueStatistics6 : operationValueStatistics4) {
-                    //合计TA应付
-                    if(valueStatistics6!=null){
-                        num6=num6+valueStatistics6.getTotalMoney();
                     }
-
-                }
-                //数据库插入次账户TA清算款
-                ValueStatistics  valueStatistics12=new ValueStatistics(valueStatisticsDate,fundId,id,"TA清算款",num5-num6,valueStatistics10.getProjectId());
-                valueStatisticsService.insertValueStatistics(valueStatistics12);
-                id++;
-                //根据次账户ID查询管理费
-                List<OperationValueStatistics> operationValueStatistics1 = operationValueStatisticsService.selectOperationCost(operationValueStatistic.getAccountId(), valueStatisticsDate, fundId, 1);
-                //得到次账户管理费
-                for (OperationValueStatistics valueStatistics : operationValueStatistics1) {
-                    if(valueStatistics!=null){
-                        num9=valueStatistics.getTotalMoney();
+                    //根据账户ID循环TA应付
+                    List<OperationValueStatistics> operationValueStatistics4 = operationValueStatisticsService.selectOperationTA(operationValueStatistic.getAccountId(), 4, -1, valueStatisticsDate, fundId);
+                        if(operationValueStatistics4.size()!=0){
+                             for (OperationValueStatistics valueStatistics6 : operationValueStatistics4) {
+                                //合计TA应付
+                                if (valueStatistics6 != null) {
+                                    num6 = num6 + valueStatistics6.getTotalMoney();
+                                 }
+                        }
                     }
-                }
-
-                //根据次账户ID查询托管费
-                List<OperationValueStatistics> operationValueStatistics2 = operationValueStatisticsService.selectOperationCost(operationValueStatistic.getAccountId(), valueStatisticsDate, fundId, 2);
-                //得到次账户托管费
-                for (OperationValueStatistics valueStatistics : operationValueStatistics2) {
-                    if(valueStatistics!=null){
-                        num10=valueStatistics.getTotalMoney();
+                    //数据库插入次账户TA清算款
+                    ValueStatistics valueStatistics12 = new ValueStatistics(valueStatisticsDate, fundId, id, "TA清算款", num5 - num6, valueStatistics10.getProjectId());
+                    valueStatisticsService.insertValueStatistics(valueStatistics12);
+                    id++;
+                    //根据次账户ID查询管理费
+                    List<OperationValueStatistics> operationValueStatistics1 = operationValueStatisticsService.selectOperationCost(operationValueStatistic.getAccountId(), valueStatisticsDate, fundId, 1);
+                    //得到次账户管理费
+                    if(operationValueStatistics1.size()!=0) {
+                        for (OperationValueStatistics valueStatistics : operationValueStatistics1) {
+                            if (valueStatistics != null) {
+                                num9 = valueStatistics.getTotalMoney();
+                            }
+                        }
                     }
-                }
-
+                    //根据次账户ID查询托管费
+                    List<OperationValueStatistics> operationValueStatistics2 = operationValueStatisticsService.selectOperationCost(operationValueStatistic.getAccountId(), valueStatisticsDate, fundId, 2);
+                    //得到次账户托管费
+                    if(operationValueStatistics2.size()!=0){
+                         for (OperationValueStatistics valueStatistics : operationValueStatistics2) {
+                            if (valueStatistics != null) {
+                                 num10 = valueStatistics.getTotalMoney();
+                             }
+                          }
+                        }
+                    }
+                 }
             }
+
         }
 
         //数据库插入运营模块外层对象
@@ -363,8 +399,12 @@ public class ValueStatisticsController {
         //调用方法查询TA数量
         double sum=0;
         List<TaInventory> taInventories = taValueStatisticsService.selectTaNum(fundId, valueStatisticsDate);
-        for (TaInventory taInventory : taInventories) {
-            sum=sum+taInventory.getTaNum();
+        if(taInventories.size()!=0){
+            for (TaInventory taInventory : taInventories) {
+                if(taInventory!=null){
+                     sum=sum+taInventory.getTaNum();
+                }
+            }
         }
         if(sum!=0){
             num14=(num13-num12)/sum;
