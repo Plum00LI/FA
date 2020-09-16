@@ -143,10 +143,12 @@
     <form id="editform" lay-filter="editform"
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
+        <input type="hidden" name="marketId" id="marketId">
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-blue">证券编号</label>
             <div class="layui-inline layui-show-xs-block" style="float: left">
-                <input type="text" class="layui-input" autocomplete="off" placeholder="请输入证券编号" name="securitiesId">
+                <input type="text" class="layui-input" autocomplete="off" placeholder="请输入证券编号" name="securitiesId" id="securities2">
+                <input name="ss2" type="hidden" id="ss2">
             </div>
         </div>
         <br/><br/>
@@ -236,9 +238,33 @@
             done: function (elem, data) {
                 var NEWJSON = []
                 layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.securitiesName)
+                    NEWJSON.push(item.securitiesId)
                     console.log(item.securitiesId)
                     $("#ss").val(item.securitiesId);
+                })
+                elem.val(NEWJSON.join(","))
+            }
+        });
+        tableSelect.render({
+            elem: '#securities2',
+            checkedKey: 'securitiesId',
+            table: {
+                url: '../Securities/selectSecurities',
+                cols: [
+                    [
+                        { type: 'checkbox' },
+                        { field: 'securitiesId', title: '证券编号', },
+                        { field: 'securitiesName', title: '证券名称', },
+                        { field: 'dateTime', title: '发行日期', }
+                    ]
+                ]
+            },
+            done: function (elem, data) {
+                var NEWJSON = []
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.securitiesId)
+                    console.log(item.securitiesId)
+                    $("#ss2").val(item.securitiesId);
                 })
                 elem.val(NEWJSON.join(","))
             }

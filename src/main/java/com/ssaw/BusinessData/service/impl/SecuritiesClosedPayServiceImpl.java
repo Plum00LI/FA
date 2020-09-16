@@ -37,7 +37,7 @@ public class SecuritiesClosedPayServiceImpl implements SecuritiesClosedPayServic
 
 
     @Override
-    public Map<String, Object> selectSecuritiesClosedPay(String pageSize, String page,String securitiesName,String securitiesId) {
+    public Map<String, Object> selectSecuritiesClosedPay(String pageSize, String page,String securitiesName,String dateTime) {
         //创建一个结果集Map,用于存放两个结果变量
         Map<String, Object> resultMap = new HashMap<>();
         //定义一个分页条数变量
@@ -56,12 +56,9 @@ public class SecuritiesClosedPayServiceImpl implements SecuritiesClosedPayServic
         }
         StringBuffer sqlWhere = new StringBuffer();
 
-        if (securitiesId!=null && !securitiesId.equals("")){
-            sqlWhere.append(" and securitiesId like '%"+securitiesId+"%'");
-        }
 
-        if (securitiesName!=null && !securitiesName.equals("")){
-            sqlWhere.append(" and securitiesName like '%"+securitiesName+"%'");
+        if (dateTime!=null && !dateTime.equals("")){
+            sqlWhere.append(" and dateTime like '%"+dateTime+"%'");
         }
 
         String tableName="(select * from " + SysTableNameListUtil.SCP +" s join (select securitiesName,securitiesId from "+SysTableNameListUtil.SE+" )  e on s.securitiesId=e.securitiesId)";

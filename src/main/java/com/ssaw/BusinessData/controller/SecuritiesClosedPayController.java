@@ -1,14 +1,15 @@
 package com.ssaw.BusinessData.controller;
 
-import com.ssaw.BusinessData.entity.Market;
+
 import com.ssaw.BusinessData.entity.SecuritiesClosedPay;
-import com.ssaw.BusinessData.service.MarketService;
 import com.ssaw.BusinessData.service.SecuritiesClosedPayService;
 import com.ssaw.GlobalManagement.util.DbUtil;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,9 +35,14 @@ public class SecuritiesClosedPayController {
     DbUtil dbUtil;
 
     @RequestMapping("selectSecuritiesClosedPay")
-    public Map<String,Object> selectSecuritiesClosedPay(String page, String limit,String securitiesName,String securitiesId){
+    public Map<String,Object> selectSecuritiesClosedPay(String page, String limit,String securitiesName,String dateTime){
         System.out.println("证券应收应付分页查询控制器");
-        Map<String,Object> map = securitiesClosedPayService.selectSecuritiesClosedPay(limit,page,securitiesName,securitiesId);
+        Map<String,Object> map = securitiesClosedPayService.selectSecuritiesClosedPay(limit,page,securitiesName,dateTime);
+        if (dateTime==null || dateTime.equals("")){
+            Date today= new Date();
+            dateTime = new SimpleDateFormat("yyyy-MM-dd").format(today);
+            System.out.println("dateTime=" + dateTime);
+        }
         List<SecuritiesClosedPay> securitiesClosedPayList = (List<SecuritiesClosedPay>) map.get("securitiesClosedPayList");
         int count = (int) map.get("count");
         //以layui要求存储响应数据格式
