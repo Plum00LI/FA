@@ -10,7 +10,7 @@
     <update id="updateBankTreasurer">
         	UPDATE bankTreasurer SET  accountId=#{accountId},
 		totalPrice=#{totalPrice},allocatingType=#{allocatingType},flag=#{flag},
-		dbTime=#{dbTime},bankTreasurerDesc=#{bankTreasurerDesc}  WHERE bankTreasurerId=#{bankTreasurerId}
+		dbTime=#{dbTime},bankTreasurerDesc=#{bankTreasurerDesc} ,dateTime=#{dateTime} WHERE bankTreasurerId=#{bankTreasurerId}
     </update>
     <delete id="deleteBankTreasurer" parameterType="list">
             delete from bankTreasurer where bankTreasurerId in

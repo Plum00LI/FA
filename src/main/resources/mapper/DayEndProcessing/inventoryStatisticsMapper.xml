@@ -50,8 +50,8 @@
        select (nvl(CASHBLANCE,0) + nvl(bt.totalNum,0)) as cashTotal,nvl(bt.accountId,ci.accountId) as accountId from
         (select * from CASHINVENTORY where DATETIME=to_char(to_date(#{dateTime},'yyyy-MM-dd')-1,'yyyy-MM-dd') and FUNDID=#{fundId} ) ci
             full join
-        (select accountId,sum(totalprice*flag) as totalNum from bankTreasurer where DBTIME=#{dateTime} and FUNDID=#{fundId}  group by accountId) bt
-        on ci.ACCOUNTID=bt.ACCOUNTID
+        (select accountId,sum(totalprice*flag) as totalNum,fundId from bankTreasurer where DBTIME=#{dateTime} and FUNDID=#{fundId}  group by accountId) bt
+        on ci.ACCOUNTID=bt.ACCOUNTID and ci.fundId=bt.fundId
     </select>
     <select id="selectSecuritiesClosedPayInventory"
             resultType="com.ssaw.DayEndProcessing.entity.SecuritiesClosedPayInventoryData">

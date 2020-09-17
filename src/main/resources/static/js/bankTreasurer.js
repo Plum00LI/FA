@@ -18,6 +18,14 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     laydate.render({
         elem: '#up'//指定元素
     });
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#date1'//指定元素
+    });
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#date2'//指定元素
+    });
     //表格加载
     table.render({
         elem: '#userTable',
