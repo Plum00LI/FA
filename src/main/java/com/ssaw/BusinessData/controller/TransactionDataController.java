@@ -50,8 +50,9 @@ public class TransactionDataController {
     }
 
     @RequestMapping("deleteTransactionData")
-    public int deleteTransactionData(String transactionDataId){
-        return transactionDataService.deleteTransactionData(transactionDataId);
+    public void deleteTransactionData(String transactionDataId){
+        System.out.println("删除进来了");
+         transactionDataService.deleteTransactionData(transactionDataId);
     }
 
     @RequestMapping("updateTransactionData")
