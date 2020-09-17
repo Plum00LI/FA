@@ -40,8 +40,9 @@
                elem: '#userTable',
                url: '../TaSettlement/selectTaSettlement?status=0',
                page: true,
-               height: 498,
+               height: 'full-20',
                minLength:80,
+               cellMinWidth:60,
                toolbar:'#userToolBar',
                cols: [
                    [ //表头
@@ -170,7 +171,7 @@
                            method: 'post'
                            , where: {
                                'dateTime': dateTime,
-                               'transactionType': transactionType,
+                               'transactionType': transactionType
                            }
                            , page: {
                                curr: 1
@@ -227,7 +228,7 @@
                        break;
                    case 'select':
                        var dateTime= $("#start").val();
-                       var transactionType= $("#transactionType2").val();
+                       var transactionType= $("#transactionType").val();
                        //表格的重新加载事件
                        table.reload('userTable', {
                            method: 'post'

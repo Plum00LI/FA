@@ -26,7 +26,7 @@ public class BondController  {
     @Resource
     DbUtil dbUtil;
 
-   @RequestMapping("/selectBond")
+   @RequestMapping("selectBond")
    public Map<String,Object> selectBond(String page, String limit,String securitiesId,String drawStartDate) {
        System.out.println(securitiesId+","+","+drawStartDate);
        Map<String,Object> map=bondService.selectBond(limit,page,securitiesId,drawStartDate);
@@ -46,7 +46,7 @@ public class BondController  {
 
     }
 
-    @RequestMapping("/insertBond")
+    @RequestMapping("insertBond")
     public int insertBond(Bond bond) {
         System.out.println("进来了");
         System.out.println("bond="+bond);
@@ -55,7 +55,7 @@ public class BondController  {
         return i;
     }
 
-    @RequestMapping("/deleteBond")
+    @RequestMapping("deleteBond")
     public int  deleteBond(String securitiesId) {
         System.out.println("进来了");
         int a = bondService.deleteBond(securitiesId);
@@ -63,7 +63,7 @@ public class BondController  {
 
     }
 
-    @RequestMapping("/updateBond")
+    @RequestMapping("updateBond")
     public int updateBond(Bond bond) {
         System.out.println("进来了");
         System.out.println(bond);

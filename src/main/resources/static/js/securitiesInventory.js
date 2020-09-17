@@ -107,7 +107,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
         , cellMinWidth: 60
         , cols: [
             [ //表头
-                {type: 'checkbox', fixed: 'left'}
+                {type: 'checkbox'}
                 , {field: 'securitiesInventoryId', title: '证券库存Id',hide:true, fixed: 'left', totalRowText: '合计：'}
                 , {field: 'dateTime', title: '日期'}
                 , {field: 'securitiesId', title: '证券代码'}
@@ -117,7 +117,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
                 , {field: 'price', title: '单位成本'}
                 , {field: 'total', title: '总金额'}
                 , {field: 'securitiesInventoryDesc', title: '备注'}
-                , {field: 'right',title:'操作', minWidth: 165, align: 'center', toolbar: '#barDemo'}
+                , {fixed: 'right',title:'操作', minWidth: 165, align: 'center', toolbar: '#barDemo'}
             ]
         ]
     });
@@ -139,12 +139,12 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
                     closeBtn: 1,
                     move: false,
                     content: $("#addContent"),
+                    area:['800px','600px'],
                     btn: []
                 });
                 }
                 form.render();
-                //全屏
-                layer.full(index);
+
                 break;
             case 'search':
                 alert("搜索");
@@ -191,7 +191,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
     //给表格编辑，删除按钮添加点击事件
     table.on('tool(userTable)', function (obj) {
         var data = obj.data;//得到删除行整行的数据
-        alert(data.securitiesInventoryId);
         if (obj.event === 'del') {
             layer.confirm('真的删除行么', {icon: 2}, function (index) {
                 layer.close(index);
@@ -200,19 +199,16 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
                 });
             });
         } else if (obj.event === 'edit') {
-            alert(JSON.stringify(data));
-
             form.val('editform', $.parseJSON(JSON.stringify(data)));
             var index = layer.open({
                 type: 1,
-                title: '修改行情数据',
+                title: '修改证券库存数据',
                 closeBtn: 1,
                 move: false,
-                area: ['500px', '400px'],
+                area:['800px','600px'],
                 content: $('#editContent')
             });
             form.render();
-            layer.full(index);
         }
     });
 });

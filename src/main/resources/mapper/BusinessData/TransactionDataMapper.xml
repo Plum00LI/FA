@@ -57,8 +57,7 @@
     </delete>
 
     <update id="updateTransactionData" parameterType="com.ssaw.BusinessData.entity.TransactionData">
-        update transactionData set dateTime=#{dateTime},settlementDate=#{settlementDate},fundId=#{fundId},
-    securitiesId=#{securitiesId},brokersId=#{brokersId},seateId=#{seateId},transactionDataMode=#{transactionDataMode},status=#{status},
+        update transactionData set dateTime=#{dateTime},settlementDate=#{settlementDate},fundId=#{fundId},securitiesId=#{securitiesId},brokersId=#{brokersId},seateId=#{seateId},transactionDataMode=#{transactionDataMode},status=#{status},
     price=#{price},num=#{num},accountId=#{accountId},netReceipts=#{netReceipts},totalSum=#{totalSum},flag=#{flag},
     commission=#{commission},transfer=#{transfer},brokerage=#{brokerage}, stamp=#{stamp},management=#{management},
     security=#{security},transactionDataDesc=#{transactionDataDesc}

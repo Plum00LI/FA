@@ -123,8 +123,8 @@ public class TaInventoryServiceImpl implements TaInventoryService {
      * @param dateTime
      */
     @Override
-    public void deleteTaInventoryDate(String dateTime) {
-        taInventoryMapper.deleteTaInventoryDate(dateTime);
+    public void deleteTaInventoryDate(String dateTime,String fundId) {
+        taInventoryMapper.deleteTaInventoryDate(dateTime,fundId);
     }
 
 

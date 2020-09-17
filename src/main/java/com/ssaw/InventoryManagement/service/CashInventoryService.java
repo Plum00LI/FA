@@ -52,5 +52,5 @@ public interface CashInventoryService {
      * 根据日期删除
      * @param dateTime
      */
-    public void deleteCashInventoryData(String dateTime);
+    public void deleteCashInventoryData(String dateTime,String fundId);
 }

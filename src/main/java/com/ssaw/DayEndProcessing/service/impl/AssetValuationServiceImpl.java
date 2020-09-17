@@ -1,31 +1,21 @@
 package com.ssaw.DayEndProcessing.service.impl;
 
-import com.ssaw.BusinessData.entity.Market;
-import com.ssaw.BusinessData.entity.SecuritiesClosedPay;
-import com.ssaw.BusinessData.service.CashClosedPayService;
-import com.ssaw.BusinessData.service.SecuritiesClosedPayService;
+
 import com.ssaw.DayEndProcessing.entity.AssetValuation;
 import com.ssaw.DayEndProcessing.entity.AssetValuationData;
 import com.ssaw.DayEndProcessing.mapper.AssetValuationMapper;
 import com.ssaw.DayEndProcessing.service.AssetValuationService;
 import com.ssaw.GlobalManagement.util.DbUtil;
-import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.InventoryManagement.entity.CashClosedPayInventory;
 import com.ssaw.InventoryManagement.entity.SecuritiesClosedPayInventory;
 import com.ssaw.InventoryManagement.service.CashClosedPayInventoryService;
 import com.ssaw.InventoryManagement.service.SecuritiesClosedPayInventoryService;
-import org.apache.tomcat.jni.User;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 /**
  *@program: FA
  *@description: 资产估值实现类
@@ -64,9 +54,13 @@ public class AssetValuationServiceImpl implements AssetValuationService {
     }
 
     @Override
-    public HashMap selectStockarket() {
+    public HashMap selectStockarket(String fundId,String dateTime) {
         HashMap stockarketMap = new HashMap();
-        stockarketMap.put("p_tableName","(select se.fundId,se.securitiesId,ROUND((se.securitiesNum*m.closingPrice),2) as totalPrice, SE.securityPeriodFlag from securitiesInventory se join market m on se.securitiesId=m.securitiesId)");
+        stockarketMap.put("p_tableName","(select se.fundId,se.securitiesId,total,SE.securitiesNum,M.closingPrice,\n" +
+                "       ROUND((nvl(SE.securitiesNum,0)*nvl(M.closingPrice,0)-total),2)as tootaIPrice,\n" +
+                "       SE.securityPeriodFlag  from (select * from securitiesInventory\n" +
+                "       where fundId='"+ fundId +"' and DATETIME='"+ dateTime+"') se\n" +
+                "           join (select * from market where datetime='"+ dateTime +"') m on se.securitiesId=m.securitiesId)");
         stockarketMap.put("p_condition","");
         stockarketMap.put("p_pageSize",10);
         stockarketMap.put("p_page",1);
@@ -86,7 +80,7 @@ public class AssetValuationServiceImpl implements AssetValuationService {
     @Override
     public HashMap selectTransactionData(String dateTime) {
         HashMap ransactionDataMap = new HashMap();
-        ransactionDataMap.put("p_tableName","(select securitiesId,dateTime,fundId,status,SUM((totalSum*status)) totalSum from transactionData\n" +
+        ransactionDataMap.put("p_tableName","(select securitiesId,dateTime,fundId,status,SUM((totalSum)+commission+transfer+brokerage+stamp+management) totalSum from transactionData\n" +
                 "where to_date(dateTime,'yyyy-MM-dd') <= to_date(dateTime,'yyyy-MM-dd') and transactionDataMode in (1,2,3,4)\n" +
                 "  and to_date(dateTime,'yyyy-MM-dd') < to_date(settlementDate,'yyyy-MM-dd') GROUP BY securitiesId,dateTime,fundId,status)");
         ransactionDataMap.put("p_condition","");
@@ -110,10 +104,10 @@ public class AssetValuationServiceImpl implements AssetValuationService {
      * @return
      */
     @Override
-    public HashMap selectTaTransaction() {
+    public HashMap selectTaTransaction(String dateTime,String fundId) {
         HashMap taTransactionMap = new HashMap();
-        taTransactionMap.put("p_tableName","(select sum(totalMoney) totalMoney,transactionType,accountId,dateTime ,fundId from taTransaction where to_date(dateTime,'yyyy-MM-dd')<= to_date('2020-09-13','yyyy-MM-dd')\n" +
-                "and to_date('2020-09-13','yyyy-MM-dd')<to_date(balanceDate,'yyyy-MM-dd') group by transactionType, accountId,fundId,dateTime)");
+        taTransactionMap.put("p_tableName","(select sum(totalMoney) totalMoney,transactionType,accountId,dateTime ,fundId from taTransaction where '"+dateTime+"'<BALANCEDATE and '"+dateTime+"'>=DATETIME\n" +
+                " group by transactionType, accountId,fundId,dateTime)");
         taTransactionMap.put("p_condition","");
         taTransactionMap.put("p_pageSize",5);
         taTransactionMap.put("p_page",1);

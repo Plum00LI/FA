@@ -165,17 +165,16 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 				break;
 			case 'search':
 				alert("搜索");
-				var securitiesIds = $("#securitiesId_3").val();
-				var securitiesTypes = $("#exchangeName_3").val();
-				var exchanges =  $("#rateType_3").val();
+				var securitiesId = $("#securitiesId_3").val();
+				var exchange = $("#exchange_3").val();
+				var securitiesType =  $("#securitiesType_3").val();
 				//表格的重新加载事件
 				table.reload('userTable', {
 					method: 'post'
 					, where: {
-						'securitiesIds': securitiesIds,
-						'securitiesNames': securitiesNames,
-						'securitiesTypes': securitiesTypes,
-						'exchanges': exchanges
+						'securitiesId': securitiesId,
+						'exchange': exchange,
+						'securitiesType': securitiesType
 					}
 					, page: {
 						curr: 1
@@ -194,7 +193,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 					}
 					layer.confirm('真的删除行么', {icon: 2}, function (index) {
 						layer.close(index);
-						$.post("/Securities/deleteSecurities2", {securitiesId: securitiesIds.join(',')}, function (msg) {
+						$.post("/Securities/deleteSecurities", {securitiesId: securitiesIds.join(',')}, function (msg) {
 							table.reload('userTable');
 							layer.msg('删除' + checkStatus.data.length + '条记录', {
 								title: '提示',
@@ -231,7 +230,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 				area: ['800px', '600px'],
 				content: $('#editContent')
 			});
-
 			form.render();
 		};
 	})

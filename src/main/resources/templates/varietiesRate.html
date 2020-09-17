@@ -34,8 +34,16 @@
             //新增提交
             form.on('submit(addsubmit)', function (data) {
                 var formData = $('#addform').serialize();
-                var dates=table.cache["userTable"];
-                
+                var datas=table.cache["userTable"];
+                //获取表格所有最新数据
+                var add1 = document.getElementById("exchangeName_1").value;
+                var add2 = document.getElementById("rateType_1").value;
+                for (var i = 0; i < datas.length; i++) {
+                    if (datas[i].exchangeName == add1 && datas[i].rateType == add2) {
+                        layer.msg('该交易所品种费率已存在！')
+                        return false;
+                    }
+                }
                 $.post("/varietiesRate/insertVarietiesRate", formData, function (msg) {
                     if (msg > 0) {
                         table.reload('userTable');
@@ -291,7 +299,8 @@
         <div class="layui-form-item" style="text-align: center;">
             <label class="layui-form-label layui-bg-gray">费率类型</label>
             <div class="layui-input-inline">
-                <select name="exchangeName" id="exchangeName_1">
+                <select name="rateType" id="rateType_1">
+
                     <option value="0">请选择</option>
                     <option value="1">股票</option>
                     <option value="2">债券</option>
@@ -300,7 +309,7 @@
             </div>
             <label class="layui-form-label layui-bg-gray">交易所名称</label>
             <div class="layui-input-inline">
-                <select name="rateType" id="rateType_1">
+                <select name="exchangeName" id="exchangeName_1">
                     <option value="0">请选择</option>
                     <option value="1">上交所</option>
                     <option value="2">深交所</option>
@@ -353,14 +362,15 @@
         <div class="layui-form-item" style="text-align: center;">
             <label class="layui-form-label layui-bg-gray">费率类型</label>
             <div class="layui-input-inline">
-                <select name="exchangeName" id="exchangeName_2">
+                <select name="rateType" id="rateType_2">
+
                     <option value="1">股票</option>
                     <option value="2">债券</option>
                 </select>
             </div>
             <label class="layui-form-label layui-bg-gray">交易所名称</label>
             <div class="layui-input-inline">
-                <select name="rateType" id="rateType_2">
+                <select name="exchangeName" id="exchangeName_2">
                     <option value="1">上交所</option>
                     <option value="2">深交所</option>
                 </select>
