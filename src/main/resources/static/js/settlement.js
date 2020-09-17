@@ -44,7 +44,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
                 }
             }
-                ,{fixed: 'right',field: 'status', title: '交易状态', width: 130, align:'center', templet: function(item){
+                ,{field: 'status', title: '交易状态', width: 130, align:'center', templet: function(item){
                     if(item.status=='0') {
                         return '未结算';
                     } else if(item.status=='1'){
@@ -116,7 +116,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 }
                 else {
                     layer.confirm('真的要结算嘛', function () {
-                        alert(settlement)
+                        // alert(settlement)
                         //向服务端发送结算指令
                         $.post("../updateSettlement","settlement="+settlement,function(msg){
                             if(msg>0){
@@ -145,7 +145,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 }
                 break;
             case 'select':
-                alert("搜索");
+                // alert("搜索");
                 var dateTime= $("#start").val();
                 var transactionDataMode= $("#cateId").val();
                 //表格的重新加载事件
@@ -158,6 +158,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     , page: {
                         curr: 1
                     }
+                });
+                laydate.render({
+                    elem: '#start' //指定元素
                 });
                 break;
         }
@@ -219,6 +222,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     , page: {
                         curr: 1
                     }
+                });
+                laydate.render({
+                    elem: '#start1' //指定元素
                 });
                 break;
         }

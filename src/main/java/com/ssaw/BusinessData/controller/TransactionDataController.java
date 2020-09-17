@@ -50,12 +50,14 @@ public class TransactionDataController {
     }
 
     @RequestMapping("deleteTransactionData")
-    public int deleteTransactionData(String transactionDataId){
-        return transactionDataService.deleteTransactionData(transactionDataId);
+    public void deleteTransactionData(String transactionDataId){
+        System.out.println("删除进来了");
+         transactionDataService.deleteTransactionData(transactionDataId);
     }
 
     @RequestMapping("updateTransactionData")
     public int updateTransactionData(TransactionData transactionData){
+        System.out.println("1111111111111111111111"+transactionData.getSecuritiesId());
         return transactionDataService.updateTransactionData(transactionData);
     }
 }
