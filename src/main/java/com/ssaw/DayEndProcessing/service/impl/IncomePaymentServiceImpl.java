@@ -13,10 +13,7 @@ import javax.annotation.Resource;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 收益支付 的impl层
@@ -55,15 +52,17 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
         //String类型时间减一天
         //new SimpleDateFormat对象
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+
         //创建一个 String类型的空时间
         String datetime="";
+        //创建Date类对象
+        Date date=new Date();
         //判断传入的statDate是否为null/空
         if(statDate!=null&& !statDate.equals("")){
             try {
                 //减一天 86400*1000
                 long dif= df.parse(statDate).getTime() - 86400 * 1000;
-                //创建Date类对象
-                Date date=new Date();
                 //把 dif 传给Date
                 date.setTime(dif);
                 //将使用format将date转换成日期类格式
@@ -71,7 +70,14 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+        }else{
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_MONTH,-1);
+            statDate=simpleDateFormat.format(date);
+            datetime=simpleDateFormat.format(calendar.getTime());
         }
+        System.out.println("statDate"+statDate);
         System.out.println("日期"+datetime);
 
         //查询表

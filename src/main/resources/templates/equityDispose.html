@@ -193,7 +193,7 @@
                             layer.confirm('真的要反结算嘛', function () {
                                 layer.close();
                                 //向服务端发送删除指令
-                                $.post("../updateEquityDispose","equityDisPose="+equityDisPose,function(msg){
+                                $.post("../updateEquityDisposeTwo","equityDisPose="+equityDisPose,function(msg){
                                     if(msg>0){
                                         table.reload('userTable2');
                                         table.reload('userTable');  /*渲染刷新*/
@@ -220,6 +220,22 @@
                                 return false;
                             });
                         }
+                        break;
+                    //搜索按钮的条件查询
+                    case 'search2':
+                        var equitiesExright= $("#equitiesExright2").val();
+                        var equitiesType= $("#equitiesType2").val();
+                        //表格的重新加载事件
+                        table.reload('userTable2', {
+                            method: 'post'
+                            , where: {
+                                'equitiesExright': equitiesExright,
+                                'equitiesType': equitiesType,
+                            }
+                            , page: {
+                                curr: 1
+                            }
+                        });
                         break;
                 }
             });
@@ -282,7 +298,7 @@
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn layui-btn-primary" lay-event="search" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <button class="layui-btn layui-btn-primary" lay-event="search2" lay-submit="" lay-filter="sreach2"><i class="layui-icon">&#xe615;</i>搜索</button>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <button class="layui-btn layui-btn-primary" type="button" onclick="return false" lay-submit="settlement" lay-filter="settlement2" lay-event="settlement2" name="settlement" id="settlement2" >反结算</button>

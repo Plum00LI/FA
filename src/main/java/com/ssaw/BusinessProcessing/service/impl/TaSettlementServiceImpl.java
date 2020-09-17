@@ -52,12 +52,12 @@ public class TaSettlementServiceImpl implements TaSettlementService {
             v_page=Integer.parseInt(page);
         }
         if(dateTime!=null&&!dateTime.equals("")){
-            sqlWhere.append(" AND dateTime LIKE  '%"+dateTime+"%'" );
+            sqlWhere.append(" AND dateTime = '"+dateTime+"'" );
         }
         int v_transactionType=0;
-        if(transactionType!=null&&!transactionType.equals("")){
+        if(transactionType!=null && !transactionType.equals("")){
             v_transactionType=Integer.parseInt(transactionType);
-            sqlWhere.append(" AND transactionType LIKE  '%"+v_transactionType+"%'" );
+            sqlWhere.append(" AND transactionType ="  +v_transactionType );
         }
         int v_status=0;
         if (status!=null&&!status.equals("")){
