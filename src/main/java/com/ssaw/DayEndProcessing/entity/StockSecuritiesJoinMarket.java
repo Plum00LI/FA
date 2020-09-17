@@ -3,7 +3,7 @@ package com.ssaw.DayEndProcessing.entity;
 public class StockSecuritiesJoinMarket {
     private String fundId;
     private String securitiesId;
-    private Double tootaIPrice;
+    private Double totalPrice;
     private int securityPeriodFlag;
 
     public StockSecuritiesJoinMarket() {
@@ -25,12 +25,12 @@ public class StockSecuritiesJoinMarket {
         this.securitiesId = securitiesId;
     }
 
-    public Double getTootaIPrice() {
-        return tootaIPrice;
+    public Double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTootaIPrice(Double tootaIPrice) {
-        this.tootaIPrice = tootaIPrice;
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public int getSecurityPeriodFlag() {
@@ -46,7 +46,7 @@ public class StockSecuritiesJoinMarket {
         return "StockSecuritiesJoinMarket{" +
                 "fundId='" + fundId + '\'' +
                 ", securitiesId='" + securitiesId + '\'' +
-                ", tootaIPrice='" + tootaIPrice + '\'' +
+                ", totalPrice='" + totalPrice + '\'' +
                 ", securityPeriodFlag='" + securityPeriodFlag + '\'' +
                 '}';
     }
