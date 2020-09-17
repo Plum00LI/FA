@@ -20,7 +20,7 @@ public interface SecuritiesService {
      * 分页查询 调用存储过程
      * @return 条件查询的集合
      */
-    public Map<String,Object> selectSecurities(String pageSize, String page,String securitiesIds,String securitiesNames,String securitiesTypes,String exchanges);
+    public Map<String,Object> selectSecurities(String pageSize, String page,String securitiesId,String exchange,String securitiesType);
     /**
      * 增加
      * @param securities
