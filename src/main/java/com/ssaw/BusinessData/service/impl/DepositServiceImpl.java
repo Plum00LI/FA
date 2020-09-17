@@ -68,7 +68,7 @@ public class DepositServiceImpl implements DepositService {
         //创建一个Map 用于存款过程的调用传值
         Map<String,Object> map=new HashMap<>();
         //传入存储过程需要查询的表名
-
+        //根据现金账户Id查询出现金账户名称
         map.put("p_tableName","(select deposit.*,account.accountName outAccountName, (select accountName from account where accountId=deposit.inAccountId) inAccountName from deposit join account on deposit.outAccountId = account.accountId)");
         //传入查询的条件
         StringBuffer sqlWhere=new StringBuffer();
@@ -110,18 +110,26 @@ public class DepositServiceImpl implements DepositService {
     public int insertDeposit(Deposit deposit) {
         deposit.setDepositId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.DE));
         BankTreasurer bankTreasurer=new BankTreasurer();
-        //流出账户
+        //流出账户产生的资金调拨
         bankTreasurer.setBankTreasurerId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.BT));
+        //基金Id
         bankTreasurer.setFundId(deposit.getFundId());
+        //金额
         bankTreasurer.setTotalPrice(deposit.getMoney());
+        //流出账户Id
         bankTreasurer.setAccountId(deposit.getOutAccountId());
+        //流出账户名称
         bankTreasurer.setAccountName(deposit.getOutAccountName());
         //调拨日期为存款业务的业务时间
         bankTreasurer.setDbTime(deposit.getBusinessDate());
         bankTreasurer.setDateTime(deposit.getEndDate());
+        //调拨类型
         bankTreasurer.setAllocatingType(5);
+        //业务标号就是存款业务的Id
         bankTreasurer.setBusinessId(deposit.getDepositId());
+        //备注
         bankTreasurer.setBankTreasurerDesc("");
+        //调拨方向
         bankTreasurer.setFlag(-1);
         bankTreasurerMapper.insertBankTreasurer(bankTreasurer);
         //流入账户
@@ -154,9 +162,7 @@ public class DepositServiceImpl implements DepositService {
         bankTreasurer.setAccountName(deposit.getOutAccountName());
         //调拨日期为存款业务的业务时间
         bankTreasurer.setDbTime(deposit.getBusinessDate());
-        //业务日期为当天的日期
-        String date=DateTimeUtil.getSystemDateTime("yyyy-MM-dd");
-        bankTreasurer.setDateTime(date);
+        bankTreasurer.setDateTime(deposit.getEndDate());
         bankTreasurer.setAllocatingType(5);
         bankTreasurer.setBusinessId(deposit.getDepositId());
         bankTreasurer.setBankTreasurerDesc("");
