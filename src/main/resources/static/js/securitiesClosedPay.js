@@ -100,8 +100,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         toolbar: '#userToolBar',//显示在表头的工具条
         cols: [
             [ //表头
-            {type: 'checkbox', fixed: 'left'}
-            ,{field: 'securitiesClosedPayId', title: '证券应收应付编号',fixed: 'left', align:'center'}
+            {type: 'checkbox',field:'left'}
+            ,{field: 'securitiesClosedPayId', title: '证券应收应付编号', align:'center'}
             ,{field: 'dateTime', title: '业务日期', align:'center'}
             ,{field: 'fundId', title: '基金代码',align:'center',hide:true}
             ,{field: 'accountId', title: '银行账户编号',align:'center'}
@@ -126,7 +126,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
             }
             ,{field: 'amount', title: '金额', align:'center'}
-            , {title: 'right', title:'操作',toolbar: '#barDemo', align:'center'}
+            , {fixed: 'right', title:'操作',toolbar: '#barDemo', align:'center'}
             ]
         ]
     });
@@ -143,11 +143,12 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     closeBtn: 1,
                     move:false,
                     content:$("#addContent"),
+                    area:['800px','600px'],
                     btn:[]
                 });
                 form.render();
-                //全屏
-                layer.full(index);
+               /* //全屏
+                layer.full(index);*/
                 break;
             case 'search':
                 alert("搜索");
@@ -193,7 +194,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //给表格编辑，删除按钮添加点击事件
     table.on('tool(userTable)', function(obj) {
         var data = obj.data;//得到删除行整行的数据
-        alert(data.securitiesClosedPayId);
         if (obj.event === 'del') {
             layer.confirm('真的删除行么',{icon: 2}, function(index){
                 layer.close(index);
@@ -203,18 +203,17 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 
             });
         } else if (obj.event === 'edit') {
-            alert(JSON.stringify(data));
             form.val('editform',$.parseJSON(JSON.stringify(data)));
             var index = layer.open({
                 type: 1,
                 title: '修改证券应收应付数据',
                 closeBtn: 1,
                 move:false,
-                area: ['500px', '400px'],
+                area:['800px','600px'],
                 content:$('#editContent')
             });
             form.render();
-            layer.full(index);
+            /*layer.full(index);*/
         };
     })
 });
