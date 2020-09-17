@@ -56,6 +56,7 @@ public class TransactionDataController {
 
     @RequestMapping("updateTransactionData")
     public int updateTransactionData(TransactionData transactionData){
+        System.out.println("1111111111111111111111"+transactionData.getSecuritiesId());
         return transactionDataService.updateTransactionData(transactionData);
     }
 }

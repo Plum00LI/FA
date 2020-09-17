@@ -167,7 +167,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 //全屏弹窗 layer.full(index);
                 break;
             case 'search':
-                alert("搜索");
+
                 var dateTime= $("#end").val();
                 var securitiesName= $("#equityId").val();
                 //表格的重新加载事件
@@ -188,7 +188,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //给表格编辑，删除按钮添加点击事件
     table.on('tool(userTable)', function(obj) {
         var data = obj.data;//得到行整行的数据
-        alert(data.transactionDataId);
+        // alert(data.transactionDataId);
         if (obj.event === 'del') {
             layer.confirm('真的删除行么',{icon: 2}, function(index){
                 layer.close(index);
@@ -198,7 +198,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 
             });
         } else if (obj.event === 'edit') {
-            //alert(JSON.stringify(data));
+            // alert(JSON.stringify(data));
             form.val('editform',$.parseJSON(JSON.stringify(data)));
             var index = layer.open({
                 type: 1,

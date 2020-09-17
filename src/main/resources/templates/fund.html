@@ -17,12 +17,6 @@
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 
-    <!--    <link rel="stylesheet" href="../lib/layui/css/layui.css">-->
-
-    <!--    static\lib\layuimini\lib\layui-v2.5.5\css\layui.css-->
-    <!--    static\lib\layuimini\css\public.css-->
-    <!--    static\lib\layuimini\lib\layui-v2.5.5\layui.js-->
-    <!--    static\lib\layuimini\js\lay-config.js-->
     <link rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
     <link rel="stylesheet" href="../lib/layuimini/css/public.css" media="all">
     <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
@@ -196,7 +190,6 @@
         </div>
     </form>
 </div>
-
 <!--修改的div内容-->
 <div id="editContent"
      style="display: none; height: 100%; height: 100%; text-align: center;">
@@ -239,15 +232,16 @@
         <div class="layui-form-item" style="text-align: center;">
             <label class="layui-form-label layui-bg-green" style="width: 140px;"> 基金管理公司 </label>
             <div class="layui-input-inline">
-                <input type="text"  name="managerId" placeholder="基金管理公司" autocomplete="off"
-                       class="layui-input" id="managerId2">
+                <input type="text"  name="managerCompany" placeholder="基金管理公司" autocomplete="off"
+                       class="layui-input" id="managerCompany2">
+                <input type="hidden" name="managerId" id="managerId2">
 
             </div>
             <label class="layui-form-label layui-bg-green" style="width: 140px;margin-left: 50px;">基金托管银行</label>
             <div class="layui-input-inline">
-                <input type="text" name="trusteeId" placeholder="基金托管银行" autocomplete="off" class="layui-input"
-                       id="trusteeId2">
-
+                <input type="text" name="trusteeCompany" placeholder="基金托管银行" autocomplete="off" class="layui-input"
+                       id="trusteeCompany2">
+                <input type="hidden" name="trusteeId" id="trusteeId2">
             </div>
         </div>
 
@@ -374,7 +368,7 @@
         });
         //修改托管人下拉表格
         tableSelect.render({
-            elem: '#trusteeId2',
+            elem: '#trusteeCompany2',
             checkedKey: 'trusteeId',
             table: {
                 url: '../selectTrustee',
@@ -390,6 +384,7 @@
                 var NEWJSON = [];
                 layui.each(data.data, function (index, item) {
                     NEWJSON.push(item.trusteeCompany)
+                    $("#trusteeId2").val(item.trusteeId)
                 });
                 elem.val(NEWJSON.join(","))
             }
@@ -402,7 +397,7 @@
         // managerFee
         // 管理费率
         tableSelect.render({
-            elem: '#managerId2',
+            elem: '#managerCompany2',
             checkedKey: 'managerId',
             table: {
                 url: '../selectManager',
@@ -418,6 +413,7 @@
                 var NEWJSON = [];
                 layui.each(data.data, function (index, item) {
                     NEWJSON.push(item.managerCompany)
+                    $("#managerId2").val(item.managerId)
                 });
                 elem.val(NEWJSON.join(","))
             }
