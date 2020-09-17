@@ -68,7 +68,7 @@ public class EquityDataServiceImpl implements EquityDataService {
         }
 
 
-
+        //条件查询
         int v_equitiesType = 0;
         StringBuffer sqlWhere=new StringBuffer();
         if(equitiesExright != null && !equitiesExright.equals("")){
@@ -80,9 +80,11 @@ public class EquityDataServiceImpl implements EquityDataService {
         }
 
 
+        //多表关联
         String p_tableName = "(select * from " + SysTableNameListUtil.ED +" e " +
                         "join (select securitiesName,securitiesId from "+SysTableNameListUtil.SE+" ) s " +
                         "on e.SECURITYID=s.securitiesId)";
+
 
 
         //创建一个Map，用于存储过程的调用传值

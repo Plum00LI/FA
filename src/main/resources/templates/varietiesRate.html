@@ -55,7 +55,7 @@
                             time: 0,
                             btn: ['知道了']
                         });
-                        $('#addform').fuls
+
                     } else {
                         layer.closeAll();
                         layer.msg('添加失败', {
@@ -65,10 +65,9 @@
                             time: 0,
                             btn: ['知道了']
                         });
-                        layer.empty();
                     }
                 });
-
+                form.reset();
                 return false;
             });
             //修改提交
@@ -172,6 +171,8 @@
                                 curr: 1
                             }
                         });
+                        $("#exchangeName_3").val(exchangeNameIds);
+                       $("#rateType_3").val(rateTypeIds);
                         break;
                     case 'deleteAll':
                         var data = checkStatus.data;
@@ -220,7 +221,7 @@
                     form.val('editform', $.parseJSON(JSON.stringify(data)));
                     var index = layer.open({
                         type: 1,
-                        title: '修改权益数据',
+                        title: '修改品种费率',
                         closeBtn: 1,
                         move: false,
                         area: ['800px', '600px'],

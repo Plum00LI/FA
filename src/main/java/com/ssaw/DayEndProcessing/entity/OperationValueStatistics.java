@@ -9,6 +9,8 @@ package com.ssaw.DayEndProcessing.entity;
  * @return
  */
 
+import java.math.BigDecimal;
+
 /**
  * ACCOUNTNAME
  * BLANKCARDCODE
@@ -19,18 +21,18 @@ public class OperationValueStatistics {
     private String accountId;
     private String accountName;
     private String blankCardCode;
-    private double cashBlance;
-    private double totalMoney;
+    private Double cashBlance;
+    private Double totalMoney;
 
     public OperationValueStatistics() {
     }
 
-    public OperationValueStatistics(String accountId, double totalMoney) {
+    public OperationValueStatistics(String accountId, Double totalMoney) {
         this.accountId = accountId;
         this.totalMoney = totalMoney;
     }
 
-    public OperationValueStatistics(String accountId, String accountName, String blankCardCode, double cashBlance, double totalMoney) {
+    public OperationValueStatistics(String accountId, String accountName, String blankCardCode, Double cashBlance, Double totalMoney) {
         this.accountId = accountId;
         this.accountName = accountName;
         this.blankCardCode = blankCardCode;
@@ -38,11 +40,11 @@ public class OperationValueStatistics {
         this.totalMoney = totalMoney;
     }
 
-    public OperationValueStatistics(double totalMoney) {
+    public OperationValueStatistics(Double totalMoney) {
         this.totalMoney = totalMoney;
     }
 
-    public OperationValueStatistics(String accountName, String blankCardCode, double cashBlance, double totalMoney) {
+    public OperationValueStatistics(String accountName, String blankCardCode, Double cashBlance, Double totalMoney) {
         this.accountName = accountName;
         this.blankCardCode = blankCardCode;
         this.cashBlance = cashBlance;
@@ -73,19 +75,19 @@ public class OperationValueStatistics {
         this.blankCardCode = blankCardCode;
     }
 
-    public double getCashBlance() {
+    public Double getCashBlance() {
         return cashBlance;
     }
 
-    public void setCashBlance(double cashBlance) {
+    public void setCashBlance(Double cashBlance) {
         this.cashBlance = cashBlance;
     }
 
-    public double getTotalMoney() {
+    public Double getTotalMoney() {
         return totalMoney;
     }
 
-    public void setTotalMoney(double totalMoney) {
+    public void setTotalMoney(Double totalMoney) {
         this.totalMoney = totalMoney;
     }
 

@@ -101,14 +101,14 @@ public class AssetValuationController {
                     securitiesClosedPayInventory.setSecuritiesType(2);
                     securitiesClosedPayInventory.setSecuritiesId(transactionData.getSecuritiesId());
                     securitiesClosedPayInventory.setTotalPrice(transactionData.getTotalSum());
-                    securitiesClosedPayInventory.setFlag(transactionData.getStatus());
+                    securitiesClosedPayInventory.setFlag(transactionData.getFlag());
                     securitiesClosedPayInventory.setSecurityPeriodFlag(1);
                     securitiesClosedPayInventory.setSecuritiesClosedPayDesc("投资有风险");
                     System.out.println("查清算款增加的实体类="+securitiesClosedPayInventory);
                     assetValuationService.deleteSecuritiesClosedPayInventoryTwo(securitiesClosedPayInventory);
                     securitiesClosedPayInventoryService.insertSecuritiesClosedPayInventory(securitiesClosedPayInventory);
                     System.out.println("查ta交易数据================================");
-                    HashMap taTransactionMap = assetValuationService.selectTaTransaction(toDay,fundId);
+                    HashMap taTransactionMap = assetValuationService.selectTaTransaction(fundId,toDay);
                     List<TaTransaction> taTransactionList = (List<TaTransaction>)taTransactionMap.get("p_cursor");
                     for (TaTransaction taTransaction : taTransactionList) {
                         System.out.println(taTransaction+"ta==========================================");
@@ -120,7 +120,7 @@ public class AssetValuationController {
                         cashClosedPayInventory.setBusinessType(4);
                         cashClosedPayInventory.setBusinessStatus(1);
                         cashClosedPayInventory.setInitialSigns(1);
-                        cashClosedPayInventory.setTotalMoney((double) taTransaction.getTotalMoney());
+                        cashClosedPayInventory.setTotalMoney(taTransaction.getTotalMoney());
 
                     }
 

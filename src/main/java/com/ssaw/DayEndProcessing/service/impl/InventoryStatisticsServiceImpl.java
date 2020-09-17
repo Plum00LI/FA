@@ -73,6 +73,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                         List<CashInventoryData> cashInventoryDataList=inventoryStatisticsMapper.selectCashInventory(dateTime,fundId);
                         cashInventory=new InventoryStatistics(1,"现金库存",fundId,"admain",dateTime,cashInventoryDataList.size(),"已统计");
                         for (CashInventoryData cashInventoryData : cashInventoryDataList) {
+                            System.out.println("现金库存"+cashInventoryData);
                             //删除原现金库存信息
                             cashInventoryMapper.deleteCashInventoryDate(dateTime,fundId);
                             //增加新数据
@@ -91,6 +92,8 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                             cashInventory1.setSecuritiesNum(0);
                             //备注
                             cashInventory1.setCashInventoryDesc("统计现金库存");
+                            //现金库存
+                            System.out.println("现金库存实体类"+cashInventory1);
                             //调用增加方法
                             cashInventoryMapper.insertCashInventory(cashInventory1);
                         }
@@ -124,6 +127,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                             securitiesInventory1.setTotal(securitiesInventoryData.getTodayTotal());
                             //备注
                             securitiesInventory1.setSecuritiesInventoryDesc("证券库存统计");
+                            System.out.println("证券库存实体类"+securitiesInventory1);
                             //调用增加方法
                             securitiesInventoryMapper.insertSecuritiesInventory(securitiesInventory1);
                         }
@@ -133,6 +137,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                         List<TaInventoryData> taInventoryDataList=inventoryStatisticsMapper.selectTaInventory(dateTime,fundId);
                         taInventory=new InventoryStatistics(3,"TA库存",fundId,"admin",dateTime,taInventoryDataList.size(),"已统计");
                         for (TaInventoryData taInventoryData : taInventoryDataList) {
+                            System.out.println("ta数据"+taInventoryData);
                             //根据日期删除原TA库存信息
                             taInventoryMapper.deleteTaInventoryDate(dateTime,fundId);
                             //新建TA库存
@@ -151,6 +156,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                             taInventory1.setSecurityPeriodFlag(0);
                             //备注
                             taInventory1.setTaInventoryDesc("统计Ta库存");
+                            System.out.println("ta库存实体类"+taInventory1);
                             //新增
                             taInventoryMapper.insertTaInventory(taInventory1);
                         }
