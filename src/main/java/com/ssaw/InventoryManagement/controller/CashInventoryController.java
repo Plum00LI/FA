@@ -33,9 +33,10 @@ public class CashInventoryController {
      * @return
      */
     @RequestMapping("/select")
-    public Map<String,Object> selectCashInventory(String page, String limit,String accountId,String dateTime){
+    public Map<String,Object> selectCashInventory(String page, String limit,String accountId,String dateTime,String fundId){
         //调用Service层执行查询，接收返回结果集Map
-        Map<String, Object> map =  cashInventoryService.selectCashInventory(limit,page,accountId,dateTime);
+        System.out.println("现金库存的fundId"+fundId);
+        Map<String, Object> map =  cashInventoryService.selectCashInventory(limit,page,accountId,dateTime,fundId);
 
         //从结果集中拿出结果
         List<CashInventory> cashInventoryList = (List<CashInventory>) map.get("cashInventory");
@@ -63,9 +64,7 @@ public class CashInventoryController {
     public int insertCashInventory(CashInventory cashInventory){
         //现金库存Id
         cashInventory.setCashInventoryId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.CI));
-        //基金Id
-        cashInventory.setFundId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.F));
-        //证券数量 来自证券库存 写死 securitiesNum;
+
         cashInventory.setSecuritiesNum(0);
         //是否从其他系统导入的期初数据  0：不是  1：是
         cashInventory.setSecurityPeriodFlag(1);
