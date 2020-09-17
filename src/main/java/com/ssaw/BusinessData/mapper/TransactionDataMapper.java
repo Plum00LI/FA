@@ -26,7 +26,7 @@ public interface TransactionDataMapper {
      * 删除交易数据
      * @param transactionDataId
      */
-    int deleteTransactionData(String transactionDataId);
+    void deleteTransactionData(String transactionDataId);
 
     /**
      *  修改交易数据

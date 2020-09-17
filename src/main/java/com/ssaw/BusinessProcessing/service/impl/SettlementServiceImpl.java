@@ -34,15 +34,13 @@ public class SettlementServiceImpl implements SettlementService {
     @Resource
     DbUtil dbUtil;
     @Override
-    public HashMap selectSettlement(int page, int limit, String dateTime, String transactionDataMode,String status) {
+    public HashMap selectSettlement(int page, int limit, String dateTime, String transactionType,String status) {
         StringBuffer sqlWhere=new StringBuffer();
         if(dateTime!=null && !dateTime.equals("")){
             sqlWhere.append(" AND dateTime LIKE  '%"+dateTime+"%'" );
         }
-        int v_transactionDataMode=0;
-        if(transactionDataMode!=null && !transactionDataMode.equals("")){
-            v_transactionDataMode=Integer.parseInt(transactionDataMode);
-            sqlWhere.append(" AND transactionDataMode LIKE '%"+v_transactionDataMode+"%'");
+        if(transactionType!=null && !transactionType.equals("")){
+            sqlWhere.append(" AND v_transactionType LIKE '%"+transactionType+"%'");
         }
         int v_status=-1;//结算状态 结算1 or 未结算0
         if(status!=null && !status.equals("")){
