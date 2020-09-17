@@ -65,9 +65,9 @@
                     ,{field: 'disposeStatus', title: '处理状态', align:'center', hide: true,
                         templet:function (item) {
                             if (item.disposeStatus==0){
-                                return '未处理';
+                                return "<span style='color: red'>未处理</span>";
                             }else if (item.disposeStatus==1){
-                                return '已处理';
+                                return "<span style='color: green'>已处理</span>";
                             }
                         }
                     }
@@ -105,9 +105,9 @@
                         ,{field: 'disposeStatus', title: '处理状态', align:'center', hide: true,
                         templet:function (item) {
                             if (item.disposeStatus==0){
-                                return '未处理';
+                                return "<span style='color: red'>未处理</span>";
                             }else if (item.disposeStatus==1){
-                                return '已处理';
+                                return "<span style='color: green'>已处理</span>";
                             }
                         }
                     }
@@ -157,6 +157,7 @@
                             });
                         }
                         break;
+
                     //搜索按钮的条件查询
                     case 'search':
                         var equitiesExright= $("#equitiesExright").val();
@@ -172,6 +173,11 @@
                                 curr: 1
                             }
                         });
+                        laydate.render({
+                            elem: '#equitiesExright' //指定元素
+                        });
+                        $("#equitiesExright").val(equitiesExright);
+                        $("#equitiesType").val(equitiesType);
                         break;
                        }
                      });
@@ -236,6 +242,11 @@
                                 curr: 1
                             }
                         });
+                        laydate.render({
+                            elem: '#equitiesExright2' //指定元素
+                        });
+                        $("#equitiesExright2").val(equitiesExright);
+                        $("#equitiesType2").val(equitiesType);
                         break;
                 }
             });
@@ -243,6 +254,7 @@
 </script>
 </head>
 <body>
+
 <!--结算表头-->
 <script type="text/html" id="userToolBar">
     <div style="margin-top: 20px; margin-left: 10px">
@@ -270,9 +282,9 @@
                 <button class="layui-btn layui-btn-primary" type="button" onclick=" return false" lay-submit="settlement" lay-filter="settlement" lay-event="settlement" name="settlement" id="settlement" >结算</button>
             </div>
         </form>
-        <ul class="layui-tab-title" style="border-bottom-color: #009688">
-            <li class="layui-this" lay-id="1">未结算</li>
-            <li lay-id="2">已结算</li>
+        <ul class="layui-tab-title" style="border-bottom-color: dodgerblue; color: dodgerblue">
+            <li  lay-id="1">未结算</li>
+            <li class="layui-this" lay-id="2">已结算</li>
         </ul>
     </div>
 </script>
@@ -304,7 +316,7 @@
                 <button class="layui-btn layui-btn-primary" type="button" onclick="return false" lay-submit="settlement" lay-filter="settlement2" lay-event="settlement2" name="settlement" id="settlement2" >反结算</button>
             </div>
         </form>
-        <ul class="layui-tab-title" style="border-bottom-color: #009688">
+        <ul class="layui-tab-title" style="border-bottom-color: dodgerblue; color: dodgerblue">
             <li class="layui-this" lay-id="1">未结算</li>
             <li lay-id="2">已结算</li>
         </ul>

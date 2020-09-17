@@ -126,9 +126,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 ,{field: 'disposeStatus', title: '处理状态', align:'center',
                 templet:function (item) {
                     if (item.disposeStatus==0){
-                        return '未处理';
+                        return "<span style='color: red'>未处理</span>";
                     }
-                    return '已处理';
+                    return "<span style='color: green'>已处理</span>";
                 }
             }
                 ,{title: 'operation', title: '操作' , toolbar:'#barDemo', align:'center',fixed: 'right'}
@@ -175,6 +175,11 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                         curr: 1
                     }
                 });
+                laydate.render({
+                    elem: '#equitiesExright'
+                });
+                $("#equitiesExright").val(equitiesExright);
+                $("#equitiesType").val(equitiesType);
                 break;
 
             //批量删除
