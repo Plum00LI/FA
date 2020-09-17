@@ -142,7 +142,7 @@ public class CashInventoryServiceImpl implements CashInventoryService {
      * @param dateTime
      */
     @Override
-    public void deleteCashInventoryData(String dateTime) {
-        cashInventoryMapper.deleteCashInventoryDate(dateTime);
+    public void deleteCashInventoryData(String dateTime,String fundId) {
+        cashInventoryMapper.deleteCashInventoryDate(dateTime,fundId);
     }
 }

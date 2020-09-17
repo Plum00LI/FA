@@ -28,13 +28,13 @@ public class SecuritiesController {
 
     //查询
     @RequestMapping("selectSecurities")
-    public Map<String,Object> selectSecurities(String page, String limit,String securitiesIds,String securitiesNames,String securitiesTypes,String exchanges){
+    public Map<String,Object> selectSecurities(String page, String limit,String securitiesId,String exchange,String securitiesType){
         System.out.println(page+limit);
-        System.out.println(securitiesIds);
-        System.out.println(securitiesNames);
-        System.out.println(securitiesTypes);
+        System.out.println(securitiesId);
+        System.out.println(exchange);
+        System.out.println(securitiesType);
         //调用Service层执行查询，接收返回结果集Map
-        Map<String, Object> map = securitiesService.selectSecurities(limit,page,securitiesIds,securitiesNames,securitiesTypes,exchanges);
+        Map<String, Object> map = securitiesService.selectSecurities(limit,page,securitiesId,exchange,securitiesType);
         System.out.printf(map.toString());
         //从结果集中拿出结果
         List<SecuritiesAndStock> securitiesList = (List<SecuritiesAndStock>) map.get("securities");

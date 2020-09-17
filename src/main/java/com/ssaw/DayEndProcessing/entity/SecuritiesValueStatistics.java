@@ -21,6 +21,11 @@ public class SecuritiesValueStatistics {
     public SecuritiesValueStatistics() {
     }
 
+    public SecuritiesValueStatistics(String securitiesId, double totalPrice) {
+        this.securitiesId = securitiesId;
+        this.totalPrice = totalPrice;
+    }
+
     public SecuritiesValueStatistics(String securitiesId, String securitiesName, String securitiesType, double closingPrice, double securitiesNum, double total, double marketValue, double totalPrice) {
         this.securitiesId = securitiesId;
         this.securitiesName = securitiesName;

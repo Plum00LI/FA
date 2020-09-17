@@ -47,12 +47,15 @@
 -- 	  on a.FUNDID=ta.FUNDID ;
     </select>
     <select id="selectCashInventory" resultType="com.ssaw.DayEndProcessing.entity.CashInventoryData">
-       select (nvl(CASHBLANCE,0) + nvl(bt.totalNum,0)) as cashTotal,nvl(bt.accountId,ci.accountId) as accountId from
-        (select * from CASHINVENTORY where DATETIME=to_char(to_date(#{dateTime},'yyyy-MM-dd')-1,'yyyy-MM-dd') and FUNDID=#{fundId} ) ci
+          select (nvl(ci.cashBlance,0) + nvl(bt.totalNum,0)) as cashTotal,nvl(bt.accountId,ci.accountId) as accountId from
+        (select nvl(CASHBLANCE,0) as cashBlance ,ACCOUNTID from CASHINVENTORY where DATETIME=to_char(to_date(#{dateTime},'yyyy-MM-dd')-1,'yyyy-MM-dd') and FUNDID=#{fundId} ) ci
             full join
-        (select accountId,sum(totalprice*flag) as totalNum,fundId from bankTreasurer where DBTIME=#{dateTime} and FUNDID=#{fundId}  group by accountId) bt
-        on ci.ACCOUNTID=bt.ACCOUNTID and ci.fundId=bt.fundId
+            (select accountId,sum(nvl(totalprice,0)*flag) as totalNum from bankTreasurer where DBTIME=#{dateTime} and FUNDID=#{fundId}   group by accountId) bt
+        on ci.ACCOUNTID=bt.ACCOUNTID
     </select>
+<!--    <resultMap id="" type="">-->
+
+<!--    </resultMap>-->
     <select id="selectSecuritiesClosedPayInventory"
             resultType="com.ssaw.DayEndProcessing.entity.SecuritiesClosedPayInventoryData">
         select nvl(ns.securitiesid,se.securitiesid)as securitiesid,nvl(ns.totalPrice,0)+nvl(se.amount,0) as
