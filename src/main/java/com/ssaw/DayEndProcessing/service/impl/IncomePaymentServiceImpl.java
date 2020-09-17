@@ -52,8 +52,6 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
         //String类型时间减一天
         //new SimpleDateFormat对象
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-
-
         //创建一个 String类型的空时间
         String datetime="";
         //创建Date类对象
@@ -71,13 +69,18 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
                 e.printStackTrace();
             }
         }else{
+            //new SimpleDateFormat对象
             SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+            //创建Calendar 的实例
             Calendar calendar = Calendar.getInstance();
+            //当前时间减去一天，即一天前的时间
             calendar.add(Calendar.DAY_OF_MONTH,-1);
+            //获取当天时间
             statDate=simpleDateFormat.format(date);
+            //获取当天-1的时间 calendar.getTime()
             datetime=simpleDateFormat.format(calendar.getTime());
         }
-        System.out.println("statDate"+statDate);
+        System.out.println("statDate="+statDate);
         System.out.println("日期"+datetime);
 
         //查询表
@@ -96,10 +99,11 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
         map.put("p_count", 0);
         //创建out游标变量，返回查询数据
         map.put("p_cursor", null);
-
-        incomePaymentMapper.selectCashInterestIncome(map);
         //接收返回数据
+        incomePaymentMapper.selectCashInterestIncome(map);
+
         List<CashInterestIncome> cashInterestIncomes = (List<CashInterestIncome>) map.get("p_cursor");
+
         for (CashInterestIncome cashInterestIncome : cashInterestIncomes) {
                     cashInterestIncome.setBusinessDate(statDate);
         }
@@ -135,18 +139,35 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
         //String类型时间减一天
         //new SimpleDateFormat对象
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        //判断传入的statDate是否为null/空
+        Date date=new Date();
+
+        //创建一个 String类型的空时间
         String datetime="";
+        //判断传入的statDate是否为null/空
         if(statDate!=null&& !statDate.equals("")){
             try {
+                //减一天 86400*1000
                 long dif= df.parse(statDate).getTime() - 86400 * 1000;
-                Date date=new Date();
+                //把 dif 传给Date
                 date.setTime(dif);
+                //将使用format将date转换成日期类格式
                 datetime=df.format(date);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+        }else{
+            //new SimpleDateFormat对象
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+            //创建Calendar 的实例
+            Calendar calendar = Calendar.getInstance();
+            //当前时间减去一天，即一天前的时间
+            calendar.add(Calendar.DAY_OF_MONTH,-1);
+            //获取当天时间
+            statDate=simpleDateFormat.format(date);
+            //获取当天-1的时间 calendar.getTime()
+            datetime=simpleDateFormat.format(calendar.getTime());
         }
+        System.out.println("statDate="+statDate);
         System.out.println("日期"+datetime);
         //查询表
         String sqlSelect=" (select * from (select * from securitiesClosedPayInventory where fundId='"+fundId+"' and securitiesType=3 and datetime='"+datetime+"' ) s  join securities se on se.securitiesId= s.securitiesId ) ";
@@ -205,13 +226,13 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         //创建一个 String类型的空时间
         String datetime="";
+        //创建Date类对象
+        Date date=new Date();
         //判断传入的statDate是否为null/空
         if(statDate!=null&& !statDate.equals("")){
             try {
                 //减一天 86400*1000
                 long dif= df.parse(statDate).getTime() - 86400 * 1000;
-                //创建Date类对象
-                Date date=new Date();
                 //把 dif 传给Date
                 date.setTime(dif);
                 //将使用format将date转换成日期类格式
@@ -219,7 +240,19 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+        }else{
+            //new SimpleDateFormat对象
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+            //创建Calendar 的实例
+            Calendar calendar = Calendar.getInstance();
+            //当前时间减去一天，即一天前的时间
+            calendar.add(Calendar.DAY_OF_MONTH,-1);
+            //获取当天时间
+            statDate=simpleDateFormat.format(date);
+            //获取当天-1的时间 calendar.getTime()
+            datetime=simpleDateFormat.format(calendar.getTime());
         }
+        System.out.println("statDate="+statDate);
         System.out.println("日期"+datetime);
 
         //查询表
@@ -246,7 +279,6 @@ public class IncomePaymentServiceImpl implements IncomePaymentService {
         for (PayTwoFees payTwoFee : payTwoFees) {
                 payTwoFee.setBusinessDate(statDate);
         }
-
         //接收返回总条数
         int count = (int) map.get("p_count");
         //将结果放入结果集Map
