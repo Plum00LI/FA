@@ -62,9 +62,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 ,{field: 'securityPeriodFlag', title: '期初标志',
                 templet:function (item) {
                     if (item.securityPeriodFlag==0){
-                        return '否';
+                        return "<span style='color: red'>否</span>";
                     }else if (item.securityPeriodFlag==1){
-                        return '是';
+                        return "<span style='color: green'>是</span>";
                     }
                 }
             }
@@ -181,6 +181,11 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                         curr: 1
                     }
                 });
+                laydate.render({
+                    elem: '#dateTime' //指定元素
+                });
+                $("#securitiesType2").val(securitiesType);
+                $("#dateTime").val(dateTime);
                 break;
 
                 //批量删除

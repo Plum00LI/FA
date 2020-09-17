@@ -59,6 +59,7 @@ public class EquityDisposeServiceImpl implements EquityDisposeService {
         }
 
 
+        //条件查询
         StringBuffer sqlWhere=new StringBuffer();
         int v_equitiesType = 0;
         if(equitiesExright != null && !equitiesExright.equals("")){
@@ -73,6 +74,7 @@ public class EquityDisposeServiceImpl implements EquityDisposeService {
             v_disposeStatus=Integer.parseInt(disposeStatus);
             sqlWhere.append(" and disposeStatus like '%"+v_disposeStatus+"%'" );
         }
+
 
 
         //多表查询
@@ -118,7 +120,7 @@ public class EquityDisposeServiceImpl implements EquityDisposeService {
     public int updateEquityDispose(String equityDisPose) {
         List<EquityDispose> equityDisposeList = SysUtil.jsonToArrayList(equityDisPose, EquityDispose.class);
         for (EquityDispose equityDispose2 : equityDisposeList) {
-            //new 一个交易数据的实体类对象
+            //new一个交易数据的实体类对象
             TransactionData transactionData = new TransactionData();
             //参数赋值
             transactionData.setTransactionDataId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.TD));//交易数据ID
@@ -156,6 +158,7 @@ public class EquityDisposeServiceImpl implements EquityDisposeService {
             String equityDataId = equityDispose2.getEquityDataId();
             if (disposeStatus==0){
                 equityDisposeMapper.updateEquityDispose(equityDataId,1);
+                //调用交易数据的增加方法
                 transactionDataMapper.insertTransactionData(transactionData);
             }
         }
@@ -170,6 +173,7 @@ public class EquityDisposeServiceImpl implements EquityDisposeService {
             String equityDataId = equityDispose2.getEquityDataId();
             if (disposeStatus==1){
                 equityDisposeMapper.updateEquityDispose(equityDataId,0);
+                //调用交易数据的删除方法
                 transactionDataMapper.deleteTransactionData(equityDataId);
             }
         }

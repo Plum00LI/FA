@@ -52,20 +52,13 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
                 strAppraisement.push(checked[i].assetValuationId);
             }
             var toDay = value;
-            table.reload('mytable', {
-                page: {curr: 1},
-                where:{
-                    toDay:toDay,
-                    strAppraisement:strAppraisement.join(",")
 
-                }
-            });
             date1(value);
         }
     })
     function date1(val){
         $("#valuation1").remove();
-        $("#valuation2").before('<input type="text" name="toDay" readonly="readonly"  style="height: 32px;" class="layui-input" id="valuation1" />');
+        $("#valuation2").before('<input type="text" name="toDay" style="height: 32px;" class="layui-input" id="valuation1" />');
         laydate.render({
             elem: '#valuation1',//指定元素
             value:val,
@@ -75,21 +68,14 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
                 for(var i=0;i<checked.length;i++){
                     strAppraisement.push(checked[i].assetValuationId);
                 }
-                table.reload('mytable', {
-                    page: {curr: 1},
-                    where:{
-                        dateTime:value,
-                        strAppraisement:strAppraisement.join(",")
-                    }
-                });
-                //$("#valuation1").val(value);
+
                 date2(value);
             }
         });
     }
     function date2(val){
         $("#valuation1").remove();
-        $("#valuation2").before('<input type="text" name="toDay" readonly="readonly"  style="height: 32px;" class="layui-input" id="valuation1" />');
+        $("#valuation2").before('<input type="text" name="toDay" style="height: 32px;" class="layui-input" id="valuation1" />');
         laydate.render({
             elem: '#valuation1',//指定元素
             value:val,
@@ -99,14 +85,7 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
                 for(var i=0;i<checked.length;i++){
                     strAppraisement.push(checked[i].assetValuationId);
                 }
-                table.reload('mytable', {
-                    page: {curr: 1},
-                    where:{
-                        toDay:value,
-                        strAppraisement:strAppraisement.join(",")
-                    }
-                });
-                //$("#valuation1").val(value);
+
                 date1(value);
             }
         });
@@ -121,6 +100,8 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
                     layer.msg("请选择估值项")
                 }else{
                     var toDay= $("#valuation1").val();
+                    var fundId = $("#fundId").val();
+                    var accountId = $("#accountId").val();
                     if(toDay == null || toDay == ''){
                         layer.msg("请输入日期")
                     }else{
@@ -138,7 +119,7 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
                             layer.closeAll('dialog');
 
 
-                            $.post('../assetValuationController/startValuation',{toDay:toDay,arrJson:arrJson},function(res){
+                            $.post('../assetValuationController/startValuation',{toDay:toDay,fundId:fundId,accountId:accountId,arrJson:arrJson},function(res){
                                 if(res.stockSecuritiesJoinMarketList == ''){
                                     //边缘弹出
                                     layer.open({

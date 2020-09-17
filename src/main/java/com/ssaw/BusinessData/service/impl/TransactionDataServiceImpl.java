@@ -58,8 +58,15 @@ public class TransactionDataServiceImpl implements TransactionDataService {
     }
 
     @Override
-    public int deleteTransactionData(String transactionDataId) {
-        return transactionDataMapper.deleteTransactionData(transactionDataId);
+    public void deleteTransactionData(String transactionDataId) {
+        String[] split=new String[0];
+        if (transactionDataId!=null&&!transactionDataId.equals("")){
+            split= transactionDataId.split(",");
+
+        }
+        for(int i=0;i<split.length;i++){
+            transactionDataMapper.deleteTransactionData(split[i]);
+        }
     }
 
     @Override

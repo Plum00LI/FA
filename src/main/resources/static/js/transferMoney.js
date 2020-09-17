@@ -109,6 +109,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 laydate.render({
                     elem: '#start',//指定元素
                 });
+                $("#start").val(crossSectionDate);
                 break;
             case 'deleteAll':
                 var data = checkStatus.data;

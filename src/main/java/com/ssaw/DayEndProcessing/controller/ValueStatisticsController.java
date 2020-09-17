@@ -107,9 +107,9 @@ public class ValueStatisticsController {
         }
         dateTimeTwo=dateTimeTwo.trim();
         //查询证券模块
-        List<SecuritiesValueStatistics> securitiesValueStatistics = securitiesValueStatisticsService.selectSecuritiesValueStatistics(valueStatisticsDate, fundId, dateTimeTwo,1);
+        List<SecuritiesValueStatistics> securitiesValueStatistics = securitiesValueStatisticsService.selectSecuritiesValueStatistics(valueStatisticsDate,fundId,dateTimeTwo);
         //查询债券利息
-        List<SecuritiesValueStatistics> securitiesValueStatistics1 = securitiesValueStatisticsService.selectSecuritiesValueStatistics(valueStatisticsDate, fundId, dateTimeTwo, 3);
+        List<SecuritiesValueStatistics> securitiesValueStatistics1 = securitiesValueStatisticsService.selectDebentureInterestValueStatistics(valueStatisticsDate, fundId,  3);
 
         //合计债券利息
         if(securitiesValueStatistics1.size()!=0) {
@@ -121,7 +121,7 @@ public class ValueStatisticsController {
         }
 
         //合计证券清算款所有流入
-        List<SecuritiesValueStatistics> securitiesValueStatistics2 = securitiesValueStatisticsService.selectSecuritiesValueStatisticsTwo(valueStatisticsDate, fundId, dateTimeTwo, 2, 1);
+        List<SecuritiesValueStatistics> securitiesValueStatistics2 = securitiesValueStatisticsService.selectSecuritiesClearingValueStatistics(valueStatisticsDate, fundId, 2, 1);
         if(securitiesValueStatistics2.size()!=0){
             for (SecuritiesValueStatistics valueStatistics : securitiesValueStatistics2) {
                 if(valueStatistics!=null) {
@@ -131,7 +131,7 @@ public class ValueStatisticsController {
         }
 
         //合计证券清算款所有流出
-        List<SecuritiesValueStatistics> securitiesValueStatistics3 = securitiesValueStatisticsService.selectSecuritiesValueStatisticsTwo(valueStatisticsDate, fundId, dateTimeTwo, 2, -1);
+        List<SecuritiesValueStatistics> securitiesValueStatistics3 = securitiesValueStatisticsService.selectSecuritiesClearingValueStatistics(valueStatisticsDate, fundId, 2,  -1);
         if(securitiesValueStatistics3.size()!=0){
             for (SecuritiesValueStatistics valueStatistics : securitiesValueStatistics3) {
                 if(valueStatistics!=null){
@@ -143,68 +143,48 @@ public class ValueStatisticsController {
         List<OperationValueStatistics> operationValueStatistics = operationValueStatisticsService.selectOperationValueStatistics(valueStatisticsDate, fundId, 3);
 
 
-
-//        for (OperationValueStatistics operationValueStatistic : operationValueStatistics) {
-//            //根据现金模块查询出的账户ID及其他条件查询TA清算款
-//            //根据账户ID循环查询TA应收
-//            List<OperationValueStatistics> operationValueStatistics1 = operationValueStatisticsService.selectOperationTA(operationValueStatistic.getAccountId(), 4, 1, valueStatisticsDate,fundId);
-//            for (OperationValueStatistics valueStatistics : operationValueStatistics1) {
-//                //合计TA应收
-//                num3=num3+valueStatistics.getTotalMoney();
-//            }
-//            //根据账户ID循环查询TA应付
-//            List<OperationValueStatistics>  operationValueStatistics2 = operationValueStatisticsService.selectOperationTA(operationValueStatistic.getAccountId(), 4, -1, valueStatisticsDate,fundId);
-//            for (OperationValueStatistics valueStatistics : operationValueStatistics2) {
-//                //合计TA应付
-//                num4=num4+valueStatistics.getTotalMoney();
-//            }
-//        }
-        //查询管理费
-//        List<OperationValueStatistics> operationValueStatistics1 = operationValueStatisticsService.selectOperationCost(valueStatisticsDate, fundId, 1);
-//        //查询托管费
-//        List<OperationValueStatistics> operationValueStatistics2 = operationValueStatisticsService.selectOperationCost(valueStatisticsDate, fundId, 2);
-
         //递增功能ID
         int id=3;
         //数据块插入证券模块外层对象
         ValueStatistics valueStatistics1 = new ValueStatistics(valueStatisticsDate, fundId,1, "证券",  -1);
         valueStatisticsService.insertValueStatistics(valueStatistics1);
-
-        //数据块插入股票模块外层对象
-        ValueStatistics valueStatistics2 = new ValueStatistics(valueStatisticsDate, fundId,2, "股票", 1 );
-        valueStatisticsService.insertValueStatistics(valueStatistics2);
-        //遍历证券模块数据集合
-        if(securitiesValueStatistics.size()!=0) {
-            for (SecuritiesValueStatistics securitiesValueStatistic : securitiesValueStatistics) {
-                if(securitiesValueStatistic!=null){
-                    //数据库插入股票板块据
-                     if (securitiesValueStatistic.getSecuritiesType().equals("股票")) {
-                         valueStatisticsService.insertValueStatistics(new ValueStatistics(valueStatisticsDate, fundId, id, securitiesValueStatistic.getSecuritiesName(), securitiesValueStatistic.getSecuritiesId(), securitiesValueStatistic.getSecuritiesNum(), securitiesValueStatistic.getClosingPrice(), securitiesValueStatistic.getTotal(), securitiesValueStatistic.getMarketValue(), securitiesValueStatistic.getTotalPrice(), 2));
+        if(securitiesValueStatistics.size() != 0) {
+            //数据块插入股票模块外层对象
+            ValueStatistics valueStatistics2 = new ValueStatistics(valueStatisticsDate, fundId, 2, "股票", 1);
+            valueStatisticsService.insertValueStatistics(valueStatistics2);
+            //遍历证券模块数据集合
+            if (securitiesValueStatistics.size() != 0) {
+                for (SecuritiesValueStatistics securitiesValueStatistic : securitiesValueStatistics) {
+                    if (securitiesValueStatistic != null) {
+                        //数据库插入股票板块据
+                        if (securitiesValueStatistic.getSecuritiesType().equals("股票")) {
+                            valueStatisticsService.insertValueStatistics(new ValueStatistics(valueStatisticsDate, fundId, id, securitiesValueStatistic.getSecuritiesName(), securitiesValueStatistic.getSecuritiesId(), securitiesValueStatistic.getSecuritiesNum(), securitiesValueStatistic.getClosingPrice(), securitiesValueStatistic.getTotal(), securitiesValueStatistic.getMarketValue(), securitiesValueStatistic.getTotalPrice(), 2));
                             id++;
-                  }
-                }
-            }
-        }
-        //数据块插入债券模块外层对象
-        ValueStatistics valueStatistics3=new ValueStatistics(valueStatisticsDate,fundId,id,"债券",1);
-        valueStatisticsService.insertValueStatistics(valueStatistics3);
-        //递增功能ID
-        id++;
-        //遍历证券模块数据集合
-        if(securitiesValueStatistics.size()!=0){
-            for (SecuritiesValueStatistics securitiesValueStatistic : securitiesValueStatistics) {
-                if(securitiesValueStatistic!=null){
-                    //合计总市值
-                    num13=num13+securitiesValueStatistic.getMarketValue();
-                    //合计证券模块估值增值
-                    num11=num11+securitiesValueStatistic.getTotalPrice();
-                    //数据库插入债券板块据
-                    if(securitiesValueStatistic.getSecuritiesType().equals("债券")){
-                    valueStatisticsService.insertValueStatistics(new ValueStatistics(valueStatisticsDate,fundId,id,securitiesValueStatistic.getSecuritiesName(),securitiesValueStatistic.getSecuritiesId(),securitiesValueStatistic.getSecuritiesNum(),securitiesValueStatistic.getClosingPrice(),securitiesValueStatistic.getTotal(),securitiesValueStatistic.getMarketValue(),securitiesValueStatistic.getTotalPrice(),valueStatistics3.getProjectId()));
-                    id++;
+                        }
                     }
                 }
-             }
+            }
+            //数据块插入债券模块外层对象
+            ValueStatistics valueStatistics3 = new ValueStatistics(valueStatisticsDate, fundId, id, "债券", 1);
+            valueStatisticsService.insertValueStatistics(valueStatistics3);
+            //递增功能ID
+            id++;
+            //遍历证券模块数据集合
+            if (securitiesValueStatistics.size() != 0) {
+                for (SecuritiesValueStatistics securitiesValueStatistic : securitiesValueStatistics) {
+                    if (securitiesValueStatistic != null) {
+                        //合计总市值
+                        num13 = num13 + securitiesValueStatistic.getMarketValue();
+                        //合计证券模块估值增值
+                        num11 = num11 + securitiesValueStatistic.getTotalPrice();
+                        //数据库插入债券板块据
+                        if (securitiesValueStatistic.getSecuritiesType().equals("债券")) {
+                            valueStatisticsService.insertValueStatistics(new ValueStatistics(valueStatisticsDate, fundId, id, securitiesValueStatistic.getSecuritiesName(), securitiesValueStatistic.getSecuritiesId(), securitiesValueStatistic.getSecuritiesNum(), securitiesValueStatistic.getClosingPrice(), securitiesValueStatistic.getTotal(), securitiesValueStatistic.getMarketValue(), securitiesValueStatistic.getTotalPrice(), valueStatistics3.getProjectId()));
+                            id++;
+                        }
+                    }
+                }
+            }
         }
         //数据块插入现金模块外层对象
         ValueStatistics valueStatistics4=new ValueStatistics(valueStatisticsDate,fundId,id,"现金",-1);
@@ -359,43 +339,50 @@ public class ValueStatisticsController {
         valueStatisticsService.insertValueStatistics(valueStatistics13);
         id++;
         //数据库插入运营模块管理费
-        ValueStatistics valueStatistics14=new ValueStatistics(valueStatisticsDate,fundId,id,"管理费",num7+num9,valueStatistics13.getProjectId());
-        valueStatisticsService.insertValueStatistics(valueStatistics14);
-        id++;
+        if((num7 + num9)!=0) {
+            ValueStatistics valueStatistics14 = new ValueStatistics(valueStatisticsDate, fundId, id, "管理费", num7 + num9, valueStatistics13.getProjectId());
+            valueStatisticsService.insertValueStatistics(valueStatistics14);
+            id++;
+        }
         //数据库插入运营模块托管费
-        ValueStatistics valueStatistics15=new ValueStatistics(valueStatisticsDate,fundId,id,"托管费",num8+num10,valueStatistics13.getProjectId());
-        valueStatisticsService.insertValueStatistics(valueStatistics15);
-        id++;
-
+        if((num8 + num10)!=0) {
+            ValueStatistics valueStatistics15 = new ValueStatistics(valueStatisticsDate, fundId, id, "托管费", num8 + num10, valueStatistics13.getProjectId());
+            valueStatisticsService.insertValueStatistics(valueStatistics15);
+            id++;
+        }
         //数据库插入合计模块外层对象
         ValueStatistics valueStatistics16=new ValueStatistics(valueStatisticsDate,fundId,id,"合计",-1);
         valueStatisticsService.insertValueStatistics(valueStatistics16);
         id++;
 
         //数据库插入合计模块估值增值数据
-        ValueStatistics valueStatistics17=new ValueStatistics(valueStatisticsDate,fundId,id,"估值增值",num11,valueStatistics16.getProjectId());
-        valueStatisticsService.insertValueStatistics(valueStatistics17);
-        id++;
-
+        if(num11!=0) {
+            ValueStatistics valueStatistics17 = new ValueStatistics(valueStatisticsDate, fundId, id, "估值增值", num11, valueStatistics16.getProjectId());
+            valueStatisticsService.insertValueStatistics(valueStatistics17);
+            id++;
+        }
         //合计总负债
         double num12=num7+num8+num9+num10+num4+num6+num2;
         //数据库插入合计模块负债数据
-        ValueStatistics valueStatistics18=new ValueStatistics(valueStatisticsDate,fundId,id,"负债",num12,valueStatistics16.getProjectId());
-        valueStatisticsService.insertValueStatistics(valueStatistics18);
-        id++;
-
+        if(num12!=0) {
+            ValueStatistics valueStatistics18 = new ValueStatistics(valueStatisticsDate, fundId, id, "负债", num12, valueStatistics16.getProjectId());
+            valueStatisticsService.insertValueStatistics(valueStatistics18);
+            id++;
+        }
         //合计总资产
         num13=num13+num+num1+num3+num5;
         //数据库插入合计模块资产合计数据
-        ValueStatistics valueStatistics19=new ValueStatistics(valueStatisticsDate,fundId,id,"资产合计",num13,valueStatistics16.getProjectId());
-        valueStatisticsService.insertValueStatistics(valueStatistics19);
-        id++;
-
+        if(num13!=0) {
+            ValueStatistics valueStatistics19 = new ValueStatistics(valueStatisticsDate, fundId, id, "资产合计", num13, valueStatistics16.getProjectId());
+            valueStatisticsService.insertValueStatistics(valueStatistics19);
+            id++;
+        }
         //数据库插入合计模块资产净值数据
-        ValueStatistics valueStatistics20=new ValueStatistics(valueStatisticsDate,fundId,id,"资产净值",num13-num12,valueStatistics16.getProjectId());
-        valueStatisticsService.insertValueStatistics(valueStatistics20);
-        id++;
-
+        if((num13-num12)!=0) {
+            ValueStatistics valueStatistics20 = new ValueStatistics(valueStatisticsDate, fundId, id, "资产净值", num13 - num12, valueStatistics16.getProjectId());
+            valueStatisticsService.insertValueStatistics(valueStatistics20);
+            id++;
+        }
         //调用方法查询TA数量
         double sum=0;
         List<TaInventory> taInventories = taValueStatisticsService.selectTaNum(fundId, valueStatisticsDate);
@@ -411,72 +398,26 @@ public class ValueStatisticsController {
         }
 
         //数据库插入合计模块单位资产净值数据
-        ValueStatistics valueStatistics21=new ValueStatistics(valueStatisticsDate,fundId,id,"单位净值",num14,valueStatistics16.getProjectId());
-        valueStatisticsService.insertValueStatistics(valueStatistics21);
+        if(num14!=0) {
+            ValueStatistics valueStatistics21 = new ValueStatistics(valueStatisticsDate, fundId, id, "单位净值", num14, valueStatistics16.getProjectId());
+            valueStatisticsService.insertValueStatistics(valueStatistics21);
+        }
 
-
-
-
-
-//            ValueStatistics valueStatistics3 = new ValueStatistics(valueStatisticsDate, "1",3,"南方航空", "600028", 2000.00, 4.43, 8820.00, 8860.00, 40.00, 2);
-//            ValueStatistics valueStatistics4 = new ValueStatistics(valueStatisticsDate, "1",4, "中达股份", "600074", 1500.00, 5.61, 6310.00, 8415.00, 2105.00, 2);
-//            ValueStatistics valueStatistics5 = new ValueStatistics(valueStatisticsDate, "1",5, "债券",1);
-//            ValueStatistics valueStatistics6 = new ValueStatistics(valueStatisticsDate, "1",6, "01三峡债", "120102", 1000.00, 99.08, 98730.00, 99080.00, 350.00, 5);
-//            ValueStatistics valueStatistics7 = new ValueStatistics(valueStatisticsDate, "1",7, "96国债⑹", "000696", 1200.00, 114.48, 120000.00, 137376.00, 17376.00, 5);
-//            ValueStatistics valueStatistics8 = new ValueStatistics(valueStatisticsDate, "1",8, "现金", -1);
-//            ValueStatistics valueStatistics9 = new ValueStatistics(valueStatisticsDate, "1",9, "基金托管副账户", "622233771139923", 1000000.00, 8);
-//            ValueStatistics valueStatistics10 = new ValueStatistics(valueStatisticsDate, "1",10, "存款利息A0008", 54.80, 9);
-//            ValueStatistics valueStatistics11 = new ValueStatistics(valueStatisticsDate, "1",11, "一度教育主托管账户", "622233771138842",  79040290.00,  8);
-//            ValueStatistics valueStatistics12 = new ValueStatistics(valueStatisticsDate, "1",12,"债券利息", 9.43,  11);
-//            ValueStatistics valueStatistics13 = new ValueStatistics(valueStatisticsDate, "1",13, "存款利息A0006",  4330.98,  11);
-//            ValueStatistics valueStatistics14 = new ValueStatistics(valueStatisticsDate, "1", 14,"证券清算款", 8888.0, 11);
-//            ValueStatistics valueStatistics15 = new ValueStatistics(valueStatisticsDate, "1",15, "TA清算款",  666.0,  11);
-//            ValueStatistics valueStatistics16 = new ValueStatistics(valueStatisticsDate, "1", 16,"运营", -1);
-//            ValueStatistics valueStatistics17 = new ValueStatistics(valueStatisticsDate, "1",17, "管理费", 5918.9,  16);
-//            ValueStatistics valueStatistics18 = new ValueStatistics(valueStatisticsDate, "1",18, "托管费", 7398.70, 16);
-//            ValueStatistics valueStatistics19 = new ValueStatistics(valueStatisticsDate, "1",19, "合计", -1);
-//            ValueStatistics valueStatistics20 = new ValueStatistics(valueStatisticsDate, "1",20, "估值增值", 20741.00, 19);
-//            ValueStatistics valueStatistics21 = new ValueStatistics(valueStatisticsDate, "1",21,"负债", 257167.66,  19);
-//            ValueStatistics valueStatistics22 = new ValueStatistics(valueStatisticsDate, "1",22, "资产合计", 80309276.21,  19);
-//            ValueStatistics valueStatistics23 = new ValueStatistics(valueStatisticsDate, "1",23, "资产净值", 80052108.55,  19);
-//            ValueStatistics valueStatistics24 = new ValueStatistics(valueStatisticsDate, "1",24, "单位净值", 1.00, 19);
-//            //确保数据的唯一性，先删后增
-//            valueStatisticsService.deleteValueStatistics(valueStatisticsDate,"1");
-//            //增加到数据库
-//            valueStatisticsService.insertValueStatistics(valueStatistics1);
-//            valueStatisticsService.insertValueStatistics(valueStatistics2);
-//            valueStatisticsService.insertValueStatistics(valueStatistics3);
-//            valueStatisticsService.insertValueStatistics(valueStatistics4);
-//            valueStatisticsService.insertValueStatistics(valueStatistics5);
-//            valueStatisticsService.insertValueStatistics(valueStatistics6);
-//            valueStatisticsService.insertValueStatistics(valueStatistics7);
-//            valueStatisticsService.insertValueStatistics(valueStatistics8);
-//            valueStatisticsService.insertValueStatistics(valueStatistics9);
-//            valueStatisticsService.insertValueStatistics(valueStatistics10);
-//            valueStatisticsService.insertValueStatistics(valueStatistics11);
-//            valueStatisticsService.insertValueStatistics(valueStatistics12);
-//            valueStatisticsService.insertValueStatistics(valueStatistics13);
-//            valueStatisticsService.insertValueStatistics(valueStatistics14);
-//            valueStatisticsService.insertValueStatistics(valueStatistics15);
-//            valueStatisticsService.insertValueStatistics(valueStatistics16);
-//            valueStatisticsService.insertValueStatistics(valueStatistics17);
-//            valueStatisticsService.insertValueStatistics(valueStatistics18);
-//            valueStatisticsService.insertValueStatistics(valueStatistics19);
-//            valueStatisticsService.insertValueStatistics(valueStatistics20);
-//            valueStatisticsService.insertValueStatistics(valueStatistics21);
-//            valueStatisticsService.insertValueStatistics(valueStatistics22);
-//            valueStatisticsService.insertValueStatistics(valueStatistics23);
-//            valueStatisticsService.insertValueStatistics(valueStatistics24);
-//
         //从数据库查询新增的数据
-        List<ValueStatistics> valueStatisticsList = valueStatisticsService.selectValueStatistics(valueStatisticsDate, fundId);
-
-
+        List<ValueStatistics> valueStatistics = valueStatisticsService.selectValueStatistics(valueStatisticsDate, fundId);
+//        //遍历集合格式化必要金额字段
+//        if(valueStatistics.size()!=0){
+//            for (ValueStatistics valueStatistic : valueStatistics) {
+//                if(valueStatistic!=null){
+//
+//                }
+//            }
+//        }
         Map<String,Object> josn = new HashMap<String,Object>();
         josn.put("code", 0);
-        josn.put("count",valueStatisticsList.size());
+        josn.put("count",valueStatistics.size());
         josn.put("msg", "");
-        josn.put("data", valueStatisticsList);
+        josn.put("data", valueStatistics);
         return josn;
     }
     /**
@@ -495,12 +436,12 @@ public class ValueStatisticsController {
 
         }
         valueStatisticsDate=valueStatisticsDate.trim();
-        List<ValueStatistics> valueStatisticsList = valueStatisticsService.selectValueStatistics(valueStatisticsDate,fundId);
+        List<ValueStatistics> valueStatistics = valueStatisticsService.selectValueStatistics(valueStatisticsDate, fundId);
         Map<String,Object> josn = new HashMap<String,Object>();
         josn.put("code", 0);
-        josn.put("count",valueStatisticsList.size());
+        josn.put("count",valueStatistics.size());
         josn.put("msg", "");
-        josn.put("data", valueStatisticsList);
+        josn.put("data", valueStatistics);
         return josn;
     }
 

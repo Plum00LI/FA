@@ -110,7 +110,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     closeBtn: 1,
                     move:false,
                     content:$("#addContent"),
-                    area:['700px','500px'],
+                    area:['700px','530px'],
                     btn:[]
                 });
                 form.render();
@@ -135,6 +135,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 laydate.render({
                     elem: '#selectEnd',//指定元素
                 });
+                $("#businessType").val(businessType);
+                $("#selectEnd").val(endDate);
                 break;
             case 'deleteAll':
                 var data = checkStatus.data;
@@ -220,51 +222,35 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         };
     })
     form.on('select(type)', function(data){
-        var today = new Date();
-        // 获取当前年
-        var year=today.getFullYear();
-        // 获取当前月
-        var month=today.getMonth()+1;
-        // 获取当前日
-        var date=today.getDate();
-        var day = null;
-        if($('#businessType2').val()==1){
-            day = 3;
-        }else if($('#businessType2').val()==2){
-            day = 7;
-        }
-        // 输出为yyyy-MM-hh格式的字符串
-        var datetime = year+'-'+buling(month)+"-"+buling(date);
-        $('#date1').val(datetime);
-        var date1 = new Date($('#date1').val()).getTime();
-        date2 = date1+1000*60*60*24*day;
-        var endDate = new Date(date3);
-        var endYear = endDate.getFullYear();
-        var endMonth = endDate.getMonth()+1;
-        var endday = endDate.getDate();
-        var endTime = endYear+"-"+buling(endMonth)+"-"+buling(endday);
-        $('#date2').val(endTime);
-
-    });
-/*    function myDate() {
-        alert("进来了")
-            if ($('#businessType2').val() == 1) {
-                day = 3;
-            } else if ($('#businessType2').val() == 2) {
-                day = 7;
+            if ($('#date1').val()!=""){
+                alert("进来了")
+                if ($('#businessType2').val() == 1) {
+                    day = 3;
+                    setTimeout(function () {
+                        var date1 = new Date($('#date1').val()).getTime();
+                        date2 = date1 + 1000 * 60 * 60 * 24 * day;
+                        var endDate = new Date(date2);
+                        var endYear = endDate.getFullYear();
+                        var endMonth = endDate.getMonth() + 1;
+                        var endday = endDate.getDate();
+                        var endTime = endYear+"-"+buling(endMonth)+"-"+buling(endday);
+                        $('#date2').val(endTime);
+                    }, 300);
+                } else if ($('#businessType2').val() == 2) {
+                    day = 7;
+                    setTimeout(function () {
+                        var date1 = new Date($('#date1').val()).getTime();
+                        date2 = date1 + 1000 * 60 * 60 * 24 * day;
+                        var endDate = new Date(date2);
+                        var endYear = endDate.getFullYear();
+                        var endMonth = endDate.getMonth() + 1;
+                        var endday = endDate.getDate();
+                        var endTime = endYear+"-"+buling(endMonth)+"-"+buling(endday);
+                        $('#date2').val(endTime);
+                    }, 300);
+                }
             }
-            var date1 = new Date($('#date1').val()).getTime()
-            date2 = date1+1000*60*60*24*day;
-            var endDate = new Date(date2);
-            var endYear = endDate.getFullYear();
-            var endMonth = endDate.getMonth()+1;
-            var endday = endDate.getDate();
-            var endTime = endYear+"-"+buling(endMonth)+"-"+buling(endday);
-            $('#date2').val(endTime);
-    }*/
-
-
-
+    });
 });
 function myclose() {
     layer.closeAll();
@@ -272,19 +258,29 @@ function myclose() {
 function myDate() {
     if ($('#businessType2').val() == 1) {
         day = 3;
+        setTimeout(function () {
+            var date1 = new Date($('#date1').val()).getTime();
+            date2 = date1 + 1000 * 60 * 60 * 24 * day;
+            var endDate = new Date(date2);
+            var endYear = endDate.getFullYear();
+            var endMonth = endDate.getMonth() + 1;
+            var endday = endDate.getDate();
+            var endTime = endYear+"-"+buling(endMonth)+"-"+buling(endday);
+            $('#date2').val(endTime);
+        }, 300);
     } else if ($('#businessType2').val() == 2) {
         day = 7;
+        setTimeout(function () {
+            var date1 = new Date($('#date1').val()).getTime();
+            date2 = date1 + 1000 * 60 * 60 * 24 * day;
+            var endDate = new Date(date2);
+            var endYear = endDate.getFullYear();
+            var endMonth = endDate.getMonth() + 1;
+            var endday = endDate.getDate();
+            var endTime = endYear+"-"+buling(endMonth)+"-"+buling(endday);
+            $('#date2').val(endTime);
+        }, 300);
     }
-    setTimeout(function () {
-        var date1 = new Date($('#date1').val()).getTime();
-    date2 = date1 + 1000 * 60 * 60 * 24 * day;
-    var endDate = new Date(date2);
-    var endYear = endDate.getFullYear();
-    var endMonth = endDate.getMonth() + 1;
-    var endday = endDate.getDate();
-    var endTime = endYear+"-"+buling(endMonth)+"-"+buling(endday);
-    $('#date2').val(endTime);
-    }, 300);
 };
 function buling(data) {
     if (data < 10) {
