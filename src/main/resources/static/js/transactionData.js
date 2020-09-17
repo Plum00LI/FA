@@ -56,6 +56,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 });
             }
         });
+        $("#addform")[0].reset();
         return false;
     });
     //修改提交
@@ -97,34 +98,34 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
-                ,{field: 'transactionDataId', title: '交易单号', width: 130, align:'center',hide:true}
-                ,{field: 'dateTime', title: '交易日期', width:130, align:'center'}
-                ,{field: 'num', title: '交易数量', width: 130, align:'center'}
-                ,{field: 'price', title: '交易单价', width:130, align:'center'}
-                ,{field: 'totalSum', title: '结算金额', width: 130, align:'center'}
-                ,{field: 'netReceipts', title: '交易金额', width:130, align:'center'}
-                ,{field: 'settlementDate', title: '结算日期', width: 130, align:'center'}
-                ,{field: 'accountName', title: ' 现金账户', width: 130, align:'center'}
-                ,{field: 'securitiesName', title: ' 证券名称', width: 130, align:'center'}
-                ,{field: 'brokersName', title: '券商名称', width: 130, align:'center'}
-                ,{field: 'fundId', title: '基金代码', width: 130, align:'center',hide:true}
-                ,{field: 'fundName', title: '基金名称', width: 130, align:'center',hide:true}
-                ,{field: 'securitiesId', title: '证券ID', width: 130, align:'center',hide:true}
-                ,{field: 'brokersId', title: '券商ID', width: 130, align:'center',hide:true}
-                ,{field: 'brokersName', title: '券商名称', width: 130, align:'center',hide:true}
-                ,{field: 'seateId', title: '席位ID', width: 130, align:'center',hide:true}
-                ,{field: 'seateName', title: '席位名称', width: 130, align:'center',hide:true}
-                ,{field: 'accountId', title: '现金账户ID', width: 130, align:'center',hide:true}
-                ,{field: 'blankName', title: '银行名称', width: 130, align:'center',hide:true}
-                ,{field: 'flag', title: '交易表示符1流入,-1流出', width: 130, align:'center',hide:true}
-                ,{field: 'commission', title: '佣金费用', width: 130, align:'center',hide:true}
-                ,{field: 'transfer', title: '过户费', width: 130, align:'center',hide:true}
-                ,{field: 'brokerage', title: '经手费', width: 130, align:'center',hide:true}
-                ,{field: 'stamp', title: '印花税', width: 130, align:'center',hide:true}
-                ,{field: 'management', title: '征管费', width: 130, align:'center',hide:true}
-                ,{field: 'security', title: '证券利息', width: 130, align:'center',hide:true}
-                ,{field: 'transactionDataDesc', title: '备注', width: 130, align:'center',hide:true}
-                ,{field: 'transactionDataMode', title: '交易方式', width: 130, align:'center', templet: function(item){
+                ,{field: 'transactionDataId', title: '交易单号',width:130,align:'center',hide:true}
+                ,{field: 'dateTime', title: '交易日期',  width:130, align:'center'}
+                ,{field: 'num', title: '交易数量',  width:130, align:'center'}
+                ,{field: 'price', title: '交易单价',  width:130,align:'center'}
+                ,{field: 'totalSum', title: '结算金额',  width:130, align:'center'}
+                ,{field: 'netReceipts', title: '交易金额',  width:130,align:'center'}
+                ,{field: 'settlementDate', title: '结算日期', width:130, align:'center'}
+                ,{field: 'accountName', title: ' 现金账户', width:130, align:'center'}
+                ,{field: 'securitiesName', title: ' 证券名称', width:130, align:'center'}
+                ,{field: 'brokersName', title: '券商名称', width:130,  align:'center'}
+                ,{field: 'fundId', title: '基金代码', width:130,  align:'center',hide:true}
+                ,{field: 'fundName', title: '基金名称',  width:130, align:'center',hide:true}
+                ,{field: 'securitiesId', title: '证券ID',  width:130, align:'center',hide:true}
+                ,{field: 'brokersId', title: '券商ID',  width:130, align:'center',hide:true}
+                ,{field: 'brokersName', title: '券商名称',  width:130, align:'center',hide:true}
+                ,{field: 'seateId', title: '席位ID',  width:130, align:'center',hide:true}
+                ,{field: 'seateName', title: '席位名称',  width:130, align:'center',hide:true}
+                ,{field: 'accountId', title: '现金账户ID',  width:130, align:'center',hide:true}
+                ,{field: 'blankName', title: '银行名称',  width:130, align:'center',hide:true}
+                ,{field: 'flag', title: '交易表示符1流入,-1流出',  width:130, align:'center',hide:true}
+                ,{field: 'commission', title: '佣金费用',  width:130,align:'center',hide:true}
+                ,{field: 'transfer', title: '过户费',  width:130, align:'center',hide:true}
+                ,{field: 'brokerage', title: '经手费',  width:130, align:'center',hide:true}
+                ,{field: 'stamp', title: '印花税',  width:130, align:'center',hide:true}
+                ,{field: 'management', title: '征管费', width:130, align:'center',hide:true}
+                ,{field: 'security', title: '证券利息',  width:130,align:'center',hide:true}
+                ,{field: 'transactionDataDesc', title: '备注',  width:130,align:'center',hide:true}
+                ,{field: 'transactionDataMode', title: '交易方式', width:130, align:'center', templet: function(item){
                     if(item.transactionDataMode=='1') {
                         return '买入';
                     } else if(item.transactionDataMode=='2'){
@@ -136,7 +137,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
                 }
             }
-                ,{field: 'status', title: '交易状态', width: 130, align:'center', templet: function(item){
+                ,{field: 'status', title: '交易状态', width:130, align:'center', templet: function(item){
                     if(item.status=='0') {
                         return '未结算';
                     } else if(item.status=='1'){
@@ -144,7 +145,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
                 }
             }
-                ,{fixed: 'right',field: 'operation', title: '操作' , width: 160, align:'center',toolbar:'#barDemo'}
+                ,{fixed: 'right',field: 'operation', title: '操作' ,  width:160, align:'center',toolbar:'#barDemo'}
             ]
         ]
     });
@@ -166,8 +167,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 form.render();
                 //全屏弹窗 layer.full(index);
                 break;
+
             case 'search':
-                alert("搜索");
                 var dateTime= $("#end").val();
                 var securitiesName= $("#equityId").val();
                 //表格的重新加载事件
@@ -181,24 +182,61 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                         curr: 1
                     }
                 });
+                laydate.render({
+                    elem: '#end' //指定元素
+                });
+                break;
+            case 'deleteAll':
+                var data = checkStatus.data;
 
+                if(data.length==0){
+                    layer.msg("请至少选择一条数据",)
+                }else
+                {
+                    var ids=[];
+                    for (var i = 0; i <data.length; i++) {
+                        ids.push(data[i].transactionDataId);
+                    }
+                    if(data.status==0){
+                        layer.confirm('真的删除行么',{icon: 2}, function(index){
+                            layer.close(index);
+                            $.post("../deleteTransactionData", {transactionDataId:ids.join(',')},function(msg){
+                                table.reload('userTable');
+                                layer.msg('删除'+checkStatus.data.length+'条记录', {
+                                    title:'提示',
+                                    area: ['200px', '140px'],
+                                    time: 0,
+                                    btn: ['知道了']
+                                });
+                            });
+                        });
+                    }else {
+                        layer.confirm('不能删除已结算数据');
+                    }
+                }
                 break;
         }
     });
     //给表格编辑，删除按钮添加点击事件
     table.on('tool(userTable)', function(obj) {
         var data = obj.data;//得到行整行的数据
-        alert(data.transactionDataId);
+        // alert(data.transactionDataId);
         if (obj.event === 'del') {
-            layer.confirm('真的删除行么',{icon: 2}, function(index){
-                layer.close(index);
-                $.post("../deleteTransactionData", {transactionDataId:data.transactionDataId+""},function(msg){
-                    table.reload('userTable');
-                });
+           var status= data.status;
+           if(status==0){
+               layer.confirm('真的删除行么',{icon: 2}, function(index){
+                   layer.close(index);
+                   $.post("../deleteTransactionData", {transactionDataId:data.transactionDataId+""},function(msg){
+                       table.reload('userTable');
+                   });
 
-            });
+               });
+           }else {
+               layer.confirm('不能删除已结算数据');
+           }
+
         } else if (obj.event === 'edit') {
-            //alert(JSON.stringify(data));
+            // alert(JSON.stringify(data));
             form.val('editform',$.parseJSON(JSON.stringify(data)));
             var index = layer.open({
                 type: 1,

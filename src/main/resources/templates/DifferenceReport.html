@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>成交清算轧差</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!--<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />-->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script src="../static/lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
+    <script src="../static/lib/layuimini/js/lay-config.js"></script>
+    <link type="text/css" rel="stylesheet" href="../static/lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
+</head>
+<body>
+<!--工具条-->
+<script type="text/html" id="myToolBar">
+    <!--搜索条件-->
+    <form class="layui-form layui-col-space5">
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">成交日期</label>
+            <div class="layui-inline layui-show-xs-block">
+                <input class="layui-input" autocomplete="off" placeholder="请选择日期" name="" id="date1">
+            </div>
+        </div>
+        <div class="layui-inline layui-show-xs-block">
+            <button class="layui-btn layui-btn-primary" lay-submit="" lay-event="search" lay-filter="sreach"><i
+                    class="layui-icon">&#xe615;</i>搜索
+            </button>
+        </div>
+    </form>
+</script>
+<table class="layui-hide" id="demo" lay-filter="test"></table>
+<script src="//res.layui.com/layui/dist/layui.js?t=1598935358933"></script>
+<script>
+    layui.config({
+        version: '1598935358933' //为了更新 js 缓存，可忽略
+    });
+
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider'], function(){
+        var laydate = layui.laydate //日期
+            ,laypage = layui.laypage //分页
+            ,layer = layui.layer //弹层
+            ,table = layui.table //表格
+        //日期
+        laydate.render({
+            elem: '#date1'
+        });
+        //执行一个 table 实例
+        table.render({
+            elem: '#demo'
+            ,height: 420
+            ,url: '/demo/table/user/' //数据接口
+            ,title: '用户表'
+            ,page: true //开启分页
+            ,toolbar: '#myToolBar' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+            ,totalRow: true //开启合计行
+            ,cellMinWidth:60
+            ,height:'full-20'
+            ,cols: [[ //表头
+                {type: 'checkbox', fixed: 'left'}
+                ,{field: 'id', title: 'ID', sort: true, fixed: 'left', totalRowText: '合计：'}
+                ,{field: 'username', title: '用户名'}
+                ,{field: 'experience', title: '积分',sort: true, totalRow: true}
+                ,{field: 'sex', title: '性别', sort: true}
+                ,{field: 'score', title: '评分', sort: true, totalRow: true}
+                ,{field: 'city', title: '城市'}
+                ,{field: 'sign', title: '签名'}
+                ,{field: 'classify', title: '职业'}
+                ,{field: 'wealth', title: '财富', sort: true, totalRow: true}
+            ]]
+        });
+
+
+
+
+        //分页
+        laypage.render({
+            elem: 'pageDemo' //分页容器的id
+            ,count: 100 //总页数
+            ,skin: '#1E9FFF' //自定义选中色值
+            //,skip: true //开启跳页
+            ,jump: function(obj, first){
+                if(!first){
+                    layer.msg('第'+ obj.curr +'页', {offset: 'b'});
+                }
+            }
+        });
+
+    });
+</script>
+</body>
+</html>
