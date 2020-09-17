@@ -92,11 +92,11 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 		cols: [
 			[ //表头
 				{type: 'checkbox', field: 'left'}
-				,{field: 'fundId', title: '基金代码', width:215, align:'center'}
-				,{field: 'fundName', title: '基金名称', width: 215, align:'center'}
-				,{field: 'managerCompany', title: '基金管理公司', width:215, align:'center'}
-				,{field: 'trusteeCompany', title: '基金托管银行', width: 215, align:'center'}
-				,{field: 'fundType', title: '基金类型', width:215, align:'center',templet: function(item){
+				,{field: 'fundId', title: '基金代码', align:'center'}
+				,{field: 'fundName', title: '基金名称',  align:'center'}
+				,{field: 'managerCompany', title: '基金管理公司', align:'center'}
+				,{field: 'trusteeCompany', title: '基金托管银行',  align:'center'}
+				,{field: 'fundType', title: '基金类型',  align:'center',templet: function(item){
 					if(item.fundType=='2') {return '封闭式';
 					} else if(item.fundType=='1'){ return '开放式';
 					}
@@ -116,7 +116,7 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 						return '366';
 					}
 				},
-				{fixed: 'right',field: 'operation', title: '操作' , width: 215, align:'center',toolbar:'#barDemo'}
+				{fixed: 'right',field: 'operation', title: '操作' , align:'center',toolbar:'#barDemo'}
 
 			]
 		]
@@ -141,7 +141,6 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 				layer.full(index);
 				break;
 			case 'search':
-				alert("搜索");
 				var fundId= $("#fundId").val();
 				var fundType= $("#fundType").val();
 				//表格的重新加载事件
@@ -170,7 +169,6 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 					}
 					layer.confirm('真的删除行么',{icon: 2}, function(index){
 						layer.close(index);
-						layer.alert(JSON.stringify(data));
 						$.post("../deleteFund", {fundId:ids.join(',')},function(msg){
 							table.reload('userTable');
 							layer.msg('删除'+checkStatus.data.length+'条记录', {
@@ -188,7 +186,7 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 	//给表格编辑，删除按钮添加点击事件
 	table.on('tool(userTable)', function(obj) {
 		var data = obj.data;//得到删除行整行的数据
-		alert(data.fundId);
+
 		if (obj.event === 'del') {
 			layer.confirm('真的删除行么',{icon: 2}, function(index){
 				layer.close(index);
@@ -198,7 +196,6 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 
 			});
 		} else if (obj.event === 'edit') {
-			alert(JSON.stringify(data));
 			form.val('editform',$.parseJSON(JSON.stringify(data)));
 			var index = layer.open({
 				type: 1,

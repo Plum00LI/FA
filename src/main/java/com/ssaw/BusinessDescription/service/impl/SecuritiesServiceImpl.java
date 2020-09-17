@@ -48,7 +48,7 @@ public class SecuritiesServiceImpl implements SecuritiesService {
      * @return 查询的结果集Map
      */
     @Override
-    public Map<String, Object> selectSecurities(String pageSize,String page,String securitiesIds,String securitiesNames,String securitiesTypes,String exchanges) {
+    public Map<String, Object> selectSecurities(String pageSize,String page,String securitiesId,String exchange,String securitiesType) {
         //创建一个结果集Map用于存放两个结果变量
         Map<String, Object> resultMap = new HashMap<>();
         //定义一个分页条数变量
@@ -65,20 +65,20 @@ public class SecuritiesServiceImpl implements SecuritiesService {
             //通过Integer包装类将String类型转换成int基础数据类型
             v_page=Integer.parseInt(page);
         }
+        int v_exchange=0;
         String sql="";
-        if(securitiesIds!=null && !securitiesIds.equals("")){
-            sql=sql+" and securitiesId like '%"+securitiesIds+"%'";
+        if (exchange!=null&&!exchange.equals("")){
+            v_exchange=Integer.parseInt(exchange);
+            sql=sql+" and exchange='"+v_exchange+"'";
         }
-        if(securitiesNames!=null && !securitiesNames.equals("")){
-            sql=sql+" and securitiesName='"+securitiesNames+"'";
+
+        if(securitiesId!=null && !securitiesId.equals("")){
+            sql=sql+" and securitiesId like '%"+securitiesId+"%'";
         }
-        if(securitiesTypes!=null && !securitiesTypes.equals("")){
-            int i = Integer.parseInt(securitiesTypes);
+
+        if(securitiesType!=null && !securitiesType.equals("")){
+            int i = Integer.parseInt(securitiesType);
             sql=sql+" and securitiesType='"+i+"'";
-        }
-        if(exchanges!=null && !exchanges.equals("")){
-            int i = Integer.parseInt(exchanges);
-            sql=sql+" and exchange='"+i+"'";
         }
         String p_tableName="(select * from securities se join stock st on st.stockId=se.stockId)";
         //创建一个Map，用于存储过程的调用传值

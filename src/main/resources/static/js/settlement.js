@@ -116,7 +116,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 }
                 else {
                     layer.confirm('真的要结算嘛', function () {
-                        alert(settlement)
+                        // alert(settlement)
                         //向服务端发送结算指令
                         $.post("../updateSettlement","settlement="+settlement,function(msg){
                             if(msg>0){
@@ -145,7 +145,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 }
                 break;
             case 'select':
-                alert("搜索");
+                // alert("搜索");
                 var dateTime= $("#start").val();
                 var transactionDataMode= $("#cateId").val();
                 //表格的重新加载事件

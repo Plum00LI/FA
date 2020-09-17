@@ -52,7 +52,7 @@
       </delete>
 
     <select id="selectValueStatistics"  resultType="com.ssaw.DayEndProcessing.entity.ValueStatistics">
-        select  projectId,projectName,NVL(projectCode,'') as projectCode,NVL(quantityint,'') as quantityint,NVL(peice,'') as peice,NVL(cost,'') as cost,NVL(marketValue,'') as marketValue,NVL(valuation,'') as valuation, projectFatherId  from valueStatistics where valueStatisticsDate=#{param1} and fundId=#{param2}
+        select  projectId,projectName,NVL(projectCode,'') as projectCode,NVL(quantityint,'') as quantityint,NVL(peice,'') as peice,NVL(cost,'') as cost,NVL(marketValue,'') as marketValue,NVL(valuation,'') as valuation, projectFatherId  from valueStatistics where valueStatisticsDate=#{param1} and fundId=#{param2} order by projectId
     </select>
 
 

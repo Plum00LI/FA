@@ -107,9 +107,9 @@ public class ValueStatisticsController {
         }
         dateTimeTwo=dateTimeTwo.trim();
         //查询证券模块
-        List<SecuritiesValueStatistics> securitiesValueStatistics = securitiesValueStatisticsService.selectSecuritiesValueStatistics(valueStatisticsDate, fundId, dateTimeTwo,1);
+        List<SecuritiesValueStatistics> securitiesValueStatistics = securitiesValueStatisticsService.selectSecuritiesValueStatistics(valueStatisticsDate,fundId,dateTimeTwo);
         //查询债券利息
-        List<SecuritiesValueStatistics> securitiesValueStatistics1 = securitiesValueStatisticsService.selectSecuritiesValueStatistics(valueStatisticsDate, fundId, dateTimeTwo, 3);
+        List<SecuritiesValueStatistics> securitiesValueStatistics1 = securitiesValueStatisticsService.selectDebentureInterestValueStatistics(valueStatisticsDate, fundId,  3);
 
         //合计债券利息
         if(securitiesValueStatistics1.size()!=0) {
@@ -121,7 +121,7 @@ public class ValueStatisticsController {
         }
 
         //合计证券清算款所有流入
-        List<SecuritiesValueStatistics> securitiesValueStatistics2 = securitiesValueStatisticsService.selectSecuritiesValueStatisticsTwo(valueStatisticsDate, fundId, dateTimeTwo, 2, 1);
+        List<SecuritiesValueStatistics> securitiesValueStatistics2 = securitiesValueStatisticsService.selectSecuritiesClearingValueStatistics(valueStatisticsDate, fundId, 2, 1);
         if(securitiesValueStatistics2.size()!=0){
             for (SecuritiesValueStatistics valueStatistics : securitiesValueStatistics2) {
                 if(valueStatistics!=null) {
@@ -131,7 +131,7 @@ public class ValueStatisticsController {
         }
 
         //合计证券清算款所有流出
-        List<SecuritiesValueStatistics> securitiesValueStatistics3 = securitiesValueStatisticsService.selectSecuritiesValueStatisticsTwo(valueStatisticsDate, fundId, dateTimeTwo, 2, -1);
+        List<SecuritiesValueStatistics> securitiesValueStatistics3 = securitiesValueStatisticsService.selectSecuritiesClearingValueStatistics(valueStatisticsDate, fundId, 2,  -1);
         if(securitiesValueStatistics3.size()!=0){
             for (SecuritiesValueStatistics valueStatistics : securitiesValueStatistics3) {
                 if(valueStatistics!=null){
@@ -469,15 +469,13 @@ public class ValueStatisticsController {
 //            valueStatisticsService.insertValueStatistics(valueStatistics24);
 //
         //从数据库查询新增的数据
-        List<ValueStatistics> valueStatisticsList = valueStatisticsService.selectValueStatistics(valueStatisticsDate, fundId);
-
-
+        List<ValueStatistics> valueStatistics = valueStatisticsService.selectValueStatistics(valueStatisticsDate, fundId);
         Map<String,Object> josn = new HashMap<String,Object>();
         josn.put("code", 0);
-        josn.put("count",valueStatisticsList.size());
+        josn.put("count",valueStatistics.size());
         josn.put("msg", "");
-        josn.put("data", valueStatisticsList);
-        return josn;
+        josn.put("data", valueStatistics);
+        return null;
     }
     /**
      * 净值查询方法
@@ -495,12 +493,12 @@ public class ValueStatisticsController {
 
         }
         valueStatisticsDate=valueStatisticsDate.trim();
-        List<ValueStatistics> valueStatisticsList = valueStatisticsService.selectValueStatistics(valueStatisticsDate,fundId);
+        List<ValueStatistics> valueStatistics = valueStatisticsService.selectValueStatistics(valueStatisticsDate, fundId);
         Map<String,Object> josn = new HashMap<String,Object>();
         josn.put("code", 0);
-        josn.put("count",valueStatisticsList.size());
+        josn.put("count",valueStatistics.size());
         josn.put("msg", "");
-        josn.put("data", valueStatisticsList);
+        josn.put("data", valueStatistics);
         return josn;
     }
 
