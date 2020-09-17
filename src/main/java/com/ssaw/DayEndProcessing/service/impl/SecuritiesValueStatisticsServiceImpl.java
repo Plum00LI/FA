@@ -21,18 +21,25 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class SecuritiesValueStatisticsServiceImpl implements SecuritiesValueStatisticsService {
+public class SecuritiesValueStatisticsServiceImpl implements SecuritiesValueStatisticsService{
     @Resource
-    SecuritiesValueStatisticsMapper ecuritiesValueStatisticsMapper;
+    SecuritiesValueStatisticsMapper securitiesValueStatisticsMapper;
 
     @Override
-    public List<SecuritiesValueStatistics> selectSecuritiesValueStatistics(String dateTime, String fundID, String dateTimeTwo,int type) {
+    public List<SecuritiesValueStatistics> selectSecuritiesValueStatistics(String dateTime, String fundID, String dateTimeTwo) {
 
-        return ecuritiesValueStatisticsMapper.selectSecuritiesValueStatistics(dateTime,fundID,dateTimeTwo,type);
+        return securitiesValueStatisticsMapper.selectSecuritiesValueStatistics(dateTime,fundID,dateTimeTwo);
     }
 
     @Override
-    public List<SecuritiesValueStatistics> selectSecuritiesValueStatisticsTwo(String dateTime, String fundID, String dateTimeTwo, int type, int typeTwo) {
-        return ecuritiesValueStatisticsMapper.selectSecuritiesValueStatisticsTwo(dateTime,fundID,dateTimeTwo,type,typeTwo);
+    public List<SecuritiesValueStatistics> selectDebentureInterestValueStatistics(String dateTime, String fundID, int type) {
+        return securitiesValueStatisticsMapper.selectDebentureInterestValueStatistics(dateTime,fundID,type);
     }
+
+    @Override
+    public List<SecuritiesValueStatistics> selectSecuritiesClearingValueStatistics(String dateTime, String fundID, int type, int flag) {
+        return securitiesValueStatisticsMapper.selectSecuritiesClearingValueStatistics(dateTime,fundID,type,flag);
+    }
+
+
 }
