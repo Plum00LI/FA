@@ -20,7 +20,7 @@
         </foreach>
     </delete>
     <delete id="deleteCashInventoryDate">
-        delete  from cashInventory where dateTime=#{dateTime}
+        delete  from cashInventory where SECURITYPERIODFLAG=0 and dateTime=#{dateTime} and fundId=#{fundId}
     </delete>
 
 
