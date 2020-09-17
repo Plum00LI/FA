@@ -158,6 +158,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                 laydate.render({
                     elem: '#dateTime' //指定元素
                 });
+                $("#securitiesId").val(securitiesId);
+                $("#dateTime").val(dateTime);
                 break;
             case 'deleteAll':
                 var data = checkStatus.data;
