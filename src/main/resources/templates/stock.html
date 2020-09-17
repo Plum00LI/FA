@@ -31,8 +31,8 @@
             var treetable = layui.treetable;
             var layer = layui.layer;
             var form = layui.form;
-            var formSelects = layui.formSelects;
-            var laydate = layui.laydate;
+            // var formSelects = layui.formSelects;
+            // var laydate = layui.laydate;
 
             //新增父类提交
             form.on('submit(addsubmitparent)', function (data) {
@@ -205,16 +205,6 @@
                 }
             });
 
-            <!--展开按钮-->
-            $('#btn-expand').click(function () {
-                treetable.expandAll('#stock-table');
-            });
-
-            <!--折叠按钮-->
-            $('#btn-fold').click(function () {
-                treetable.foldAll('#stock-table');
-            });
-
             //监听增加的工具栏
             table.on('toolbar(stock-table)', function (obj) {
                 //获取选中复选框的对象，
@@ -247,6 +237,14 @@
                         form.render();
                         //全屏
                         layer.full(index);
+                        break;
+                    <!--展开按钮-->
+                    case 'btn-expand':
+                        treetable.expandAll('#stock-table');
+                        break;
+                    case 'btn-fold':
+                        <!--折叠按钮-->
+                        treetable.foldAll('#stock-table');
                         break;
                 }
             });
@@ -316,8 +314,8 @@
     <script type="text/html" id="stockToolBar">
         <div style="float: left">
             <div class="layui-btn-group">
-                <button class="layui-btn layui-btn-primary" id="btn-expand">全部展开</button>
-                <button class="layui-btn layui-btn-primary" id="btn-fold">全部折叠</button>
+                <button class="layui-btn layui-btn-primary" id="btn-expand" lay-event="btn-expand">全部展开</button>
+                <button class="layui-btn layui-btn-primary" id="btn-fold" lay-event="btn-fold">全部折叠</button>
             </div>
         </div>
         <div style="float:right">

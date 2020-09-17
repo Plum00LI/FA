@@ -16,7 +16,7 @@
             var form = layui.form;
             var formSelects = layui.formSelects;
             var laydate = layui.laydate;
-
+            var fundId=$("#fundId").val();
             //执行一个laydate实例
             laydate.render({
                 elem: '#statDate' //指定元素
@@ -25,7 +25,7 @@
 
             table.render({
                 elem: '#userTable',
-                url: '/incomePayment/selectCashInterestIncome',
+                url: '/incomePayment/selectCashInterestIncome?fundId='+fundId,
                 page: true,
                 height: 'full-55',
                 minLength:80,
@@ -33,15 +33,14 @@
                 cols: [
                     [ //表头
                         {type: 'checkbox', fixed: 'left'}
+                        ,{field: 'businessDate', title: '业务时间', align:'center'}
                         ,{field: 'accountName', title: '账户名称', align:'center'}
                         ,{field: 'deposit', title: '存款类型', align:'center'
                         ,templet: function(item) {
-                            if (item.deposit == '3') {
+                            if (item.deposit == '1') {
                                 return '活期';
                             }else if(item.deposit == '2') {
-                                return '7天';
-                            }else if(item.deposit == '1') {
-                                return '3天';
+                                return '定期';
                             }
                         }}
                         ,{field: 'businessType', title: '业务类型', align:'center'
@@ -58,14 +57,14 @@
                                 return '流出';
                             }
                         }}
-                        ,{field: 'businessDate', title: '业务时间', align:'center'}
+
                     ]
                 ]
             });
 
             table.render({
                 elem: '#userTable2',
-                url: '/incomePayment/selectBondInterestIncome',
+                url: '/incomePayment/selectBondInterestIncome?fundId='+fundId,
                 page: true,
                 height: 'full-55',
                 minLength:80,
@@ -73,6 +72,7 @@
                 cols: [
                     [ //表头
                         {type: 'checkbox', fixed: 'left'}
+                        ,{field: 'dateTime', title: '业务时间', align:'center'}
                         ,{field: 'securitiesName', title: '证券名称', align:'center'}
                         ,{field: 'securitiesType', title: '业务类型', align:'center',templet: function(item) {
                             if (item.securitiesType == '3') {
@@ -85,15 +85,14 @@
                             }else if (item.flag == '-1') {
                                 return '流出';
                             }
-                        }}
-                        ,{field: 'dateTime', title: '业务时间', align:'center'}
+                        }
                         ,{field: 'totalPrice', title: '总金额', align:'center'}
                     ]
                 ]
             });
             table.render({
                 elem: '#userTable3',
-                url: '/incomePayment/selectPayTwoFees',
+                url: '/incomePayment/selectPayTwoFees?fundId='+fundId,
                 page: true,
                 height: 'full-55',
                 minLength:80,

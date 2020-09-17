@@ -118,9 +118,7 @@ public class DepositServiceImpl implements DepositService {
         bankTreasurer.setAccountName(deposit.getOutAccountName());
         //调拨日期为存款业务的业务时间
         bankTreasurer.setDbTime(deposit.getBusinessDate());
-        //业务日期为当天的日期
-        String date=DateTimeUtil.getSystemDateTime("yyyy-MM-dd");
-        bankTreasurer.setDateTime(date);
+        bankTreasurer.setDateTime(deposit.getEndDate());
         bankTreasurer.setAllocatingType(5);
         bankTreasurer.setBusinessId(deposit.getDepositId());
         bankTreasurer.setBankTreasurerDesc("");

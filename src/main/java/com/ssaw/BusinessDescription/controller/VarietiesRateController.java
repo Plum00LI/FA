@@ -77,13 +77,10 @@ public class VarietiesRateController {
             i=varietiesRateService.insertVarietiesRate(varietiesRate);
             System.out.println("i="+i);
             return i;
-
         }else {
             System.out.println("添加失败");
             return 0;
         }
-
-
     }
     //修改controller
     @RequestMapping("updateVarietiesRate")

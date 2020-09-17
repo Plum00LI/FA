@@ -48,6 +48,7 @@ public class IncomePaymentController {
     public Map<String, Object> selectCashInterestIncome(String page, String limit, String statDate, String fundId) {
         System.out.println("进入了现金利息收入查询controller");
         System.out.println("时间："+statDate);
+        System.out.println("fundId="+fundId);
         //调用service层，返回结果集map
         Map<String, Object> map = incomePaymentService.selectCashInterestIncome(limit, page,statDate,fundId);
         //从结果集中拿出结果
