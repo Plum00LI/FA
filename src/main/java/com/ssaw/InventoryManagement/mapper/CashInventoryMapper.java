@@ -44,5 +44,5 @@ public interface CashInventoryMapper {
      * 根据日期删除
      * @param dateTime
      */
-    public void deleteCashInventoryDate(String dateTime);
+    public void deleteCashInventoryDate(String dateTime,String fundId);
 }

@@ -44,7 +44,7 @@ public interface SecuritiesClosedPayInventoryMapper {
      * 根据时间删除
      * @param dateTime
      */
-    public void deleteSecuritiesClosedPayInventoryDate(String dateTime);
+    public void deleteSecuritiesClosedPayInventoryDate(String dateTime,String fundId);
 
     void deleteSecuritiesClosedPayInventoryDate(String securitiesId, String toDay, Integer securitiesType);
 }

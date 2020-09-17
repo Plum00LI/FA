@@ -16,7 +16,7 @@
         </foreach>
     </delete>
     <delete id="deleteTaInventoryDate">
-        delete from taInventory where dateTime=#{dateTime}
+        delete from taInventory where SECURITYPERIODFLAG=0 and dateTime=#{dateTime} and fundId=#{fundId}
     </delete>
 
     <select id="selectTaInventory" parameterType="java.util.Map" statementType="CALLABLE">
