@@ -2,10 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <title>收益支付</title>
-    <link type="text/css" rel="stylesheet" href="../lib/layui/css/layui.css"/>
-    <link rel="stylesheet" href="../lib/layuimini/css/public.css" media="all">
-    <script type="text/javascript" src="../lib/layui/layui.js"></script>
-    <script src="../lib/layuimini/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
+    <script src="../lib/layuimini/js/lay-config.js"></script>
+    <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
 
     <script type="text/javascript">
         var layid =11;
@@ -86,6 +87,7 @@
                                 return '流出';
                             }
                         }
+                    }
                         ,{field: 'totalPrice', title: '总金额', align:'center'}
                     ]
                 ]
@@ -100,6 +102,7 @@
                 cols: [
                     [ //表头
                         {type: 'checkbox', fixed: 'left'}
+                        ,{field: 'businessDate', title: '业务时间', align:'center'}
                         ,{field: 'accountName', title: '账户名称', align:'center'}
                         ,{field: 'businessType', title: '业务类型', align:'center',templet: function(item) {
                             if (item.businessType == '1') {
@@ -116,7 +119,7 @@
                                 return '流出';
                             }
                         }}
-                        ,{field: 'businessDate', title: '业务时间', align:'center'}
+
                     ]
                 ]
             });
@@ -199,15 +202,15 @@
                     //向服务端发送删除指令
                     $.post("/incomePayment/statisticCas", "cash="+cash,function(msg){
                         if(msg>0){
-                            // table.reload('myTable');
-                            // layer.closeAll();
-                            // layer.msg('删除成功',{
-                            //     title : '提示',
-                            //     area : [ '200px',
-                            //         '140px' ],
-                            //     time : 0,
-                            //     btn : [ '知道了' ]
-                            // });
+                            table.reload('myTable');
+                            layer.closeAll();
+                            layer.msg('统计成功',{
+                                title : '提示',
+                                area : [ '200px',
+                                    '140px' ],
+                                time : 0,
+                                btn : [ '知道了' ]
+                            });
                         }
                     });
 
@@ -229,15 +232,15 @@
                     //向服务端发送删除指令
                     $.post("/incomePayment/statisticSecurties", {Securities:Securities ,accountIds:accountIds},function(msg){
                         if(msg>0){
-                            // table.reload('myTable');
-                            // layer.closeAll();
-                            // layer.msg('删除成功',{
-                            //     title : '提示',
-                            //     area : [ '200px',
-                            //         '140px' ],
-                            //     time : 0,
-                            //     btn : [ '知道了' ]
-                            // });
+                            table.reload('myTable');
+                            layer.closeAll();
+                            layer.msg('统计成功',{
+                                title : '提示',
+                                area : [ '200px',
+                                    '140px' ],
+                                time : 0,
+                                btn : [ '知道了' ]
+                            });
                         }
                     });
                 }else{
@@ -256,15 +259,15 @@
                     //向服务端发送删除指令
                     $.post("/incomePayment/statisticPay", "TwoFees="+TwoFees,function(msg){
                         if(msg>0){
-                            // table.reload('myTable');
-                            // layer.closeAll();
-                            // layer.msg('删除成功',{
-                            //     title : '提示',
-                            //     area : [ '200px',
-                            //         '140px' ],
-                            //     time : 0,
-                            //     btn : [ '知道了' ]
-                            // });
+                            table.reload('myTable');
+                            layer.closeAll();
+                            layer.msg('统计成功',{
+                                title : '提示',
+                                area : [ '200px',
+                                    '140px' ],
+                                time : 0,
+                                btn : [ '知道了' ]
+                            });
                         }
                     });
                 }
@@ -292,7 +295,7 @@
             </button>
         </div>
         <div class="layui-inline layui-show-xs-block">
-            <button class="layui-btn" lay-submit="" lay-event="tongJi" lay-filter="tongJi" ><i class="layui-icon layui-icon-table"></i>统计
+            <button class="layui-btn" lay-submit="" type="button" lay-event="tongJi" lay-filter="tongJi" ><i class="layui-icon layui-icon-table"></i>统计
             </button>
 
         </div>
@@ -300,10 +303,10 @@
 </div>
 
 <div class="layui-tab" lay-filter="test1">
-    <ul class="layui-tab-title">
-        <li class="layui-this" lay-id="11">现金利息收入</li>
-        <li lay-id="22">债券利息收入</li>
-        <li lay-id="33">支付两费</li>
+    <ul class="layui-tab-title" style="border-bottom: 2px solid gray">
+        <li class="layui-this" lay-id="11" style="border: 1px solid gray">现金利息收入</li>
+        <li lay-id="22" style="border: 1px solid gray">债券利息收入</li>
+        <li lay-id="33" style="border: 1px solid gray">支付两费</li>
     </ul>
     <div class="layui-tab-content">
         <div class="layui-tab-item layui-show">

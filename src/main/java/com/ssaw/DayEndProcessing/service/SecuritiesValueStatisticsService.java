@@ -23,15 +23,26 @@ public interface SecuritiesValueStatisticsService {
      * @param dateTimeTwo 当为周六周日时，需要传入的时间条件
      * @return
      */
-    public List<SecuritiesValueStatistics> selectSecuritiesValueStatistics(String dateTime, String fundID, String dateTimeTwo,int type);
+    public List<SecuritiesValueStatistics> selectSecuritiesValueStatistics(String dateTime, String fundID, String dateTimeTwo);
+
     /**
-     * 证券查询方法-证券清算款
-     * @param dateTime 当日时间
+     * 债券信息方法
+     * @param dateTime 查询日期
      * @param fundID   基金ID
-     * @param dateTimeTwo 当为周六周日时，需要传入的时间条件
+     * @param type     类型
      * @return
      */
-    public List<SecuritiesValueStatistics> selectSecuritiesValueStatisticsTwo(String dateTime, String fundID, String dateTimeTwo,int type,int typeTwo);
+
+    public List<SecuritiesValueStatistics> selectDebentureInterestValueStatistics(String dateTime, String fundID,int type);
+    /**
+     *
+     * @param dateTime 查询日期
+     * @param fundID   基金ID
+     * @param type     类型
+     * @param flag     流入流出
+     * @return
+     */
+    public List<SecuritiesValueStatistics> selectSecuritiesClearingValueStatistics(String dateTime, String fundID, int type,int flag);
 }
 
 

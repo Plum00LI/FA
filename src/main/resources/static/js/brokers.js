@@ -119,6 +119,7 @@ layui.use(['element', 'form', 'table', 'layer'], function () {
                         curr: 1
                     }
                 });
+                $("#brokersName").val(brokersName);
                 break;
 
 
