@@ -104,11 +104,45 @@
                     {type: 'checkbox'},
                     {field: 'projectName', minWidth: 150, align: 'left', title: '项目名称'},
                     {field: 'projectCode', width: 150, align: 'center',title: '项目代码'},
-                    {field: 'quantityint', width: 150, align: 'center',title: '股数'},
+                    {field: 'quantityint', width: 150, align: 'center',title: '股数',templet: function (x) {
+                            if(x.quantityint==null){
+                                return "";
+                            }
+                            else{
+                                return fmoney(x.quantityint,2);
+                            }
+                        }
+                     },
                     {field: 'peice', width: 150, align: 'center',title: '行情'},
-                    {field: 'cost', width: 150, align: 'center',title: '成本'},
-                    {field: 'marketValue', width: 150, align: 'center',title: '市值'},
-                    {field: 'valuation', width: 150, align: 'center',title: '估值增值'}
+                    {field: 'cost', width: 150, align: 'center',title: '成本',templet: function (x) {
+                            if(x.cost==null){
+                                return "";
+                            }else if(x.projectName=='单位净值'){
+                                return fmoney(x.cost,3);
+                            }
+                            else{
+                                return fmoney(x.cost,2);
+                            }
+                        }
+                        },
+                    {field: 'marketValue', width: 150, align: 'center',title: '市值',templet: function (x) {
+                            if(x.marketValue==null){
+                                return "";
+                            }
+                            else{
+                                return fmoney(x.marketValue,2);
+                            }
+                        }
+                     },
+                    {field: 'valuation', width: 150, align: 'center',title: '估值增值',templet: function (x) {
+                            if(x.valuation==null){
+                                return "";
+                            }
+                            else{
+                                return fmoney(x.valuation,2);
+                            }
+                        }
+                    }
 
                 ]
             ],
@@ -143,11 +177,45 @@
                         {type: 'checkbox'},
                         {field: 'projectName', minWidth: 150, align: 'left', title: '项目名称'},
                         {field: 'projectCode', width: 150, align: 'center',title: '项目代码'},
-                        {field: 'quantityint', width: 150, align: 'center',title: '股数'},
+                        {field: 'quantityint', width: 150, align: 'center',title: '股数',templet: function (x) {
+                                if(x.quantityint==null){
+                                    return "";
+                                }
+                                else{
+                                    return fmoney(x.quantityint,2);
+                                }
+                            }
+                        },
                         {field: 'peice', width: 150, align: 'center',title: '行情'},
-                        {field: 'cost', width: 150, align: 'center',title: '成本'},
-                        {field: 'marketValue', width: 150, align: 'center',title: '市值'},
-                        {field: 'valuation', width: 150, align: 'center',title: '估值增值'}
+                        {field: 'cost', width: 150, align: 'center',title: '成本',templet: function (x) {
+                                if(x.cost==null){
+                                    return "";
+                                }else if(x.projectName=='单位净值'){
+                                    return fmoney(x.cost,3);
+                                }
+                                else{
+                                    return fmoney(x.cost,2);
+                                }
+                            }
+                        },
+                        {field: 'marketValue', width: 150, align: 'center',title: '市值',templet: function (x) {
+                                if(x.marketValue==null){
+                                    return "";
+                                }
+                                else{
+                                    return fmoney(x.marketValue,2);
+                                }
+                            }
+                        },
+                        {field: 'valuation', width: 150, align: 'center',title: '估值增值',templet: function (x) {
+                                if(x.valuation==null){
+                                    return "";
+                                }
+                                else{
+                                    return fmoney(x.valuation,2);
+                                }
+                            }
+                        }
 
                     ]
                 ],
@@ -176,11 +244,45 @@
                         {type: 'checkbox'},
                         {field: 'projectName', minWidth: 150, align: 'left', title: '项目名称'},
                         {field: 'projectCode', width: 150, align: 'center',title: '项目代码'},
-                        {field: 'quantityint', width: 150, align: 'center',title: '股数'},
+                        {field: 'quantityint', width: 150, align: 'center',title: '股数',templet: function (x) {
+                                if(x.quantityint==null){
+                                    return "";
+                                }
+                                else{
+                                    return fmoney(x.quantityint,2);
+                                }
+                            }
+                        },
                         {field: 'peice', width: 150, align: 'center',title: '行情'},
-                        {field: 'cost', width: 150, align: 'center',title: '成本'},
-                        {field: 'marketValue', width: 150, align: 'center',title: '市值'},
-                        {field: 'valuation', width: 150, align: 'center',title: '估值增值'}
+                        {field: 'cost', width: 150, align: 'center',title: '成本',templet: function (x) {
+                                if(x.cost==null){
+                                    return "";
+                                }else if(x.projectName=='单位净值'){
+                                    return fmoney(x.cost,3);
+                                }
+                                else{
+                                    return fmoney(x.cost,2);
+                                }
+                            }
+                        },
+                        {field: 'marketValue', width: 150, align: 'center',title: '市值',templet: function (x) {
+                                if(x.marketValue==null){
+                                    return "";
+                                }
+                                else{
+                                    return fmoney(x.marketValue,2);
+                                }
+                            }
+                        },
+                        {field: 'valuation', width: 150, align: 'center',title: '估值增值',templet: function (x) {
+                                if(x.valuation==null){
+                                    return "";
+                                }
+                                else{
+                                    return fmoney(x.valuation,2);
+                                }
+                            }
+                        }
 
                     ]
                 ],
@@ -191,4 +293,29 @@
         })
 
     });
+    function fmoney(s, n)
+
+    {
+
+        n = n > 0 && n <= 20 ? n : 2;
+
+        s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";
+
+        var l = s.split(".")[0].split("").reverse(),
+
+            r = s.split(".")[1];
+
+        t = "";
+
+        for(i = 0; i < l.length; i ++ )
+
+        {
+
+            t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");
+
+        }
+
+        return t.split("").reverse().join("") + "." + r;
+
+    }
 </script>

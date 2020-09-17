@@ -127,9 +127,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 ,{field: 'initialSigns', title: '期初标志', align:'center',
                 templet:function (item) {
                     if (item.initialSigns==1){
-                        return '是';
+                        return "<span style='color: green'>是</span>";
                     }
-                    return '否';
+                    return "<span style='color: red'>否</span>";
                 }
             }
                 ,{field: 'totalMoney', title: '总金额', align:'center'}
@@ -171,6 +171,11 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                         curr: 1
                     }
                 });
+                laydate.render({
+                    elem: '#businessDate' //指定元素
+                });
+                $("#businessType").val(businessType);
+                $("#businessDate").val(businessDate);
                 break;
 
 
