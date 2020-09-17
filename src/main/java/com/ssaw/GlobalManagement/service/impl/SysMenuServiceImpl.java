@@ -42,6 +42,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         logo.put("title","FA SSAW");
         //往logo中放入网页LOGO文件路径
         logo.put("image","../images/logo.png");//静态资源文件路径,可使用默认的logo.png
+        logo.put("href","./");
         //将home对象放入菜单Map
         map.put("homeInfo", home);
         //将logo对象放入菜单Map
