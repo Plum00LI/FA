@@ -25,11 +25,11 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
     laydate.render({
         elem: '#endTime3'
     });
-
     //执行一个laydate实例
     laydate.render({
         elem: '#dateTime' //指定元素
     });
+
 
 
     //新增提交
@@ -94,20 +94,19 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
         , title: '行情数据表'
         , page: true //开启分页
         , toolbar: '#toolbar1' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
-        , totalRow: true //开启合计行
         , height: 'full-50'
         , cellMinWidth: 60
         , cols: [
             [ //表头
-                {type: 'checkbox', fixed: 'left'}
-                , {field: 'marketId', title: '行情ID', sort: true, fixed: 'left', totalRowText: '合计：'}
+                {type: 'checkbox',field:'left'}
+                , {field: 'marketId', title: '行情ID', sort: true}
                 , {field: 'securitiesId', title: '证券编号'}
                 , {field: 'securitiesName', title: '证券名称'}
                 , {field: 'dateTime', title: '日期', sort: true}
                 , {field: 'openPrice', title: '开盘价格', sort: true, totalRow: true}
                 , {field: 'closingPrice', title: '闭市价格'}
-                , {field: 'desc', title: '备注'}
-                , {field: 'right', title:'操作', minWidth: 165, align: 'center', toolbar: '#barDemo'}
+                , {field: 'marketDesc', title: '备注'}
+                , {fixed: 'right', title:'操作',width: 187, align: 'center', toolbar: '#barDemo'}
             ]
         ]
     });
@@ -133,11 +132,12 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                     closeBtn: 1,
                     move: false,
                     content: $("#addContent"),
+                    area:['800px','600px'],
                     btn: []
                 });
                 form.render();
-                //全屏
-                layer.full(index);
+                /*//全屏
+                layer.full(index);*/
                 break;
             case 'search':
                 alert("搜索");
@@ -153,6 +153,10 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                         'securitiesId': securitiesId
                         ,'dateTime':dateTime
                     }
+                });
+                //执行一个laydate实例
+                laydate.render({
+                    elem: '#dateTime' //指定元素
                 });
                 break;
             case 'deleteAll':
@@ -186,9 +190,10 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                     closeBtn: 1,
                     move:false,
                     content:$('#uploadOnSeaMarket'),
+                    area:['800px','600px'],
                     btn:[]
                 });
-                layer.full(index);
+               /* layer.full(index);*/
                 break;
             case 'shenZhen':
                 var index = layer.open({
@@ -197,16 +202,16 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                     closeBtn: 1,
                     move:false,
                     content:$('#uploadOnSeaMarket'),
+                    area:['800px','600px'],
                     btn:[]
                 });
-                layer.full(index);
+               /* layer.full(index);*/
                 break;
         }
     });
     //给表格编辑，删除按钮添加点击事件
     table.on('tool(userTable)', function (obj) {
         var data = obj.data;//得到删除行整行的数据
-        alert(data.marketId);
         if (obj.event === 'del') {
             layer.confirm('真的删除行么', {icon: 2}, function (index) {
                 layer.close(index);
@@ -216,19 +221,17 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
 
             });
         } else if (obj.event == 'edit') {
-            alert(JSON.stringify(data));
-
             form.val('editform', $.parseJSON(JSON.stringify(data)));
             var index = layer.open({
                 type: 1,
                 title: '修改行情数据',
                 closeBtn: 1,
                 move: false,
-                area: ['500px', '400px'],
-                content: $('#editContent')
+                content: $('#editContent'),
+                area:['800px','600px']
             });
             form.render();
-            layer.full(index);
+           /* layer.full(index);*/
         }
     });
 });

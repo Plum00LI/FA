@@ -12,22 +12,6 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
         layer.closeAll();
     });
 
-    // table.render({
-    //     elem: '#myTable' //实例化表格的ID名称
-    //     , url: '/Appraisement/selectValuationProcessing' //接收JSON数据的路径
-    //     , toolbar: '#userToolBar' //开启头部工具栏，并为其绑定左侧模板
-    //     , title: '用户数据表'//表格名称
-    //     , cellMinWidth: 100
-    //     , cols: [
-    //         [ //表头既列名  title列名名称
-    //             {type: 'checkbox', fixed: 'left'}
-    //             , {field: 'status', title: '业务类型', align: 'center'}
-    //             , {field: 'statusName', title: '状态', align: 'center'}
-    //
-    //         ]
-    //     ]
-    //     , page: true//开启分页
-    // });
     table.render({
         elem : '#mytable',
         url : '../assetValuationController/selectAssetValuationData',
@@ -37,8 +21,13 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
         toolbar : '#toolbarDemo',
         cols : [
             [
-
-                {type: 'checkbox', fixed: 'left'}
+                {
+                    field:'left',
+                    checkbox:true,
+                },
+                {field:'assetValuationId',
+                    hide:true
+                }
                 , {
                 field : 'assetValuationType',
                 align: 'center',
@@ -60,23 +49,16 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
             var checked = table.checkStatus('mytable').data;
             var strAppraisement = [];
             for(var i=0;i<checked.length;i++){
-                strAppraisement.push(checked[i].appraisementId);
+                strAppraisement.push(checked[i].assetValuationId);
             }
             var toDay = value;
-            table.reload('mytable', {
-                page: {curr: 1},
-                where:{
-                    toDay:toDay,
-                    strAppraisement:strAppraisement.join(",")
 
-                }
-            });
             date1(value);
         }
     })
     function date1(val){
         $("#valuation1").remove();
-        $("#valuation2").before('<input type="text" name="toDay" readonly="readonly"  style="height: 32px;" class="layui-input" id="valuation1" />');
+        $("#valuation2").before('<input type="text" name="toDay" style="height: 32px;" class="layui-input" id="valuation1" />');
         laydate.render({
             elem: '#valuation1',//指定元素
             value:val,
@@ -84,23 +66,16 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
                 var checked = table.checkStatus('mytable').data;
                 var strAppraisement = [];
                 for(var i=0;i<checked.length;i++){
-                    strAppraisement.push(checked[i].appraisementId);
+                    strAppraisement.push(checked[i].assetValuationId);
                 }
-                table.reload('mytable', {
-                    page: {curr: 1},
-                    where:{
-                        toDay:value,
-                        strAppraisement:strAppraisement.join(",")
-                    }
-                });
-                //$("#valuation1").val(value);
+
                 date2(value);
             }
         });
     }
     function date2(val){
         $("#valuation1").remove();
-        $("#valuation2").before('<input type="text" name="toDay" readonly="readonly"  style="height: 32px;" class="layui-input" id="valuation1" />');
+        $("#valuation2").before('<input type="text" name="toDay" style="height: 32px;" class="layui-input" id="valuation1" />');
         laydate.render({
             elem: '#valuation1',//指定元素
             value:val,
@@ -108,16 +83,9 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
                 var checked = table.checkStatus('mytable').data;
                 var strAppraisement = [];
                 for(var i=0;i<checked.length;i++){
-                    strAppraisement.push(checked[i].appraisementId);
+                    strAppraisement.push(checked[i].assetValuationId);
                 }
-                table.reload('mytable', {
-                    page: {curr: 1},
-                    where:{
-                        toDay:value,
-                        strAppraisement:strAppraisement.join(",")
-                    }
-                });
-                //$("#valuation1").val(value);
+
                 date1(value);
             }
         });
@@ -132,6 +100,8 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
                     layer.msg("请选择估值项")
                 }else{
                     var toDay= $("#valuation1").val();
+                    var fundId = $("#fundId").val();
+                    var accountId = $("#accountId").val();
                     if(toDay == null || toDay == ''){
                         layer.msg("请输入日期")
                     }else{
@@ -147,22 +117,10 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
                             icon:1
                         }, function(){
                             layer.closeAll('dialog');
-                            // $.post("/Appraisement/startValuation", "cash="+cash,function(msg){
-                            //     if(msg>0){
-                            //         // table.reload('myTable');
-                            //         // layer.closeAll();
-                            //         // layer.msg('删除成功',{
-                            //         //     title : '提示',
-                            //         //     area : [ '200px',
-                            //         //         '140px' ],
-                            //         //     time : 0,
-                            //         //     btn : [ '知道了' ]
-                            //         // });
-                            //     }
-                            // });
 
-                            $.post('../assetValuationController/startValuation',{toDay:toDay,arrJson:arrJson},function(res){
-                                if(res.appraisementsList == ''){
+
+                            $.post('../assetValuationController/startValuation',{toDay:toDay,fundId:fundId,accountId:accountId,arrJson:arrJson},function(res){
+                                if(res.stockSecuritiesJoinMarketList == ''){
                                     //边缘弹出
                                     layer.open({
                                         type: 1
@@ -177,7 +135,7 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
                                             layer.closeAll();
                                         }
                                     });
-                                }else if(res.nsrcsList != '' || res.taTransactionList != ''){
+                                }else if(res.assetValuationDataList != '' || res.transactionDataList != ''){
                                     table.reload('mytable', {
                                         page: {curr: 1},
                                         where:{
@@ -209,34 +167,34 @@ layui.use(['form', 'table', 'layer','laydate','jquery'], function() {
                         });
 
 
-                        // $("#valuation1").val(toDay);
-                        /*$.post('appraisementController/selectAllSecuritiesType',{toDay:toDay},function(res){
+                        /* $("#valuation1").val(toDay);
+                        $.post('assetValuationController/startValuation',{toDay:toDay},function(res){
                             console.log(res)
                             if(res == null || res ==''){
                                 for(var i=0;i<data.length;i++){
-                                    if(data[i].appraisementId == 1){
+                                    if(data[i].assetValuationId == 1){
                                         dataz[0].state = '未估值'
                                     }
-                                    if(data[i].appraisementId == 2){
+                                    if(data[i].assetValuationId == 2){
                                         dataz[1].state = '未结算'
                                     }
                                 }
                                 table.reload('mytable');
                             }else{
                                 $.each(res,function(item,value){
-                                        for(var i=0;i<data.length;i++){
-                                            if(value == 1 && value == data[i].appraisementId){
-                                                dataz[0].state = '已估值'
-                                            }
-                                            if(value == 2  && value == data[i].appraisementId){
-                                                dataz[1].state = '已结算'
-                                            }
+                                    for(var i=0;i<data.length;i++){
+                                        if(value == 1 && value == data[i].assetValuationId){
+                                            dataz[0].state = '已估值'
                                         }
+                                        if(value == 2  && value == data[i].assetValuationId){
+                                            dataz[1].state = '已结算'
+                                        }
+                                    }
                                 })
                             }
 
-                        })
-                */
+     })*/
+
                     }
                 }
                 break;

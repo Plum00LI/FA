@@ -9,6 +9,13 @@ public class StockSecuritiesJoinMarket {
     public StockSecuritiesJoinMarket() {
     }
 
+    public StockSecuritiesJoinMarket(String fundId, String securitiesId, Double tootaIPrice, int securityPeriodFlag) {
+        this.fundId = fundId;
+        this.securitiesId = securitiesId;
+        this.tootaIPrice = tootaIPrice;
+        this.securityPeriodFlag = securityPeriodFlag;
+    }
+
     public String getFundId() {
         return fundId;
     }

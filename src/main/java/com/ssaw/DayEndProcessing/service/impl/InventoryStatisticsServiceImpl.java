@@ -74,7 +74,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                         cashInventory=new InventoryStatistics(1,"现金库存",fundId,"admain",dateTime,cashInventoryDataList.size(),"已统计");
                         for (CashInventoryData cashInventoryData : cashInventoryDataList) {
                             //删除原现金库存信息
-                            cashInventoryMapper.deleteCashInventoryDate(dateTime);
+                            cashInventoryMapper.deleteCashInventoryDate(dateTime,fundId);
                             //增加新数据
                             CashInventory cashInventory1=new CashInventory();
                             //现金库存Id
@@ -103,7 +103,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                         for (SecuritiesInventoryData securitiesInventoryData : securitiesInventoryList) {
                             System.out.println("我是证券库存统计 我查询到的结果为："+securitiesInventoryData);
                             //删除证券库存信息
-                            securitiesInventoryMapper.deleteSecuritiesInventoryDate(dateTime);
+                            securitiesInventoryMapper.deleteSecuritiesInventoryDate(dateTime,fundId);
                             //增加证券库存数据
                             SecuritiesInventory securitiesInventory1=new SecuritiesInventory();
                             //证券库存ID
@@ -134,7 +134,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                         taInventory=new InventoryStatistics(3,"TA库存",fundId,"admin",dateTime,taInventoryDataList.size(),"已统计");
                         for (TaInventoryData taInventoryData : taInventoryDataList) {
                             //根据日期删除原TA库存信息
-                            taInventoryMapper.deleteTaInventoryDate(dateTime);
+                            taInventoryMapper.deleteTaInventoryDate(dateTime,fundId);
                             //新建TA库存
                             TaInventory taInventory1=new TaInventory();
                             //TA库存ID
@@ -161,7 +161,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                         securitiesClosedPayInventory=new InventoryStatistics(4,"证券应收应付库存",fundId,"admin",dateTime,securitiesClosedPayInventoryDataList.size(),"已统计");
                         for (SecuritiesClosedPayInventoryData securitiesClosedPayInventoryData : securitiesClosedPayInventoryDataList) {
                             //根据日期删除
-                            securitiesClosedPayInventoryMapper.deleteSecuritiesClosedPayInventoryDate(dateTime);
+                            securitiesClosedPayInventoryMapper.deleteSecuritiesClosedPayInventoryDate(dateTime,fundId);
                             //定义新证券应收应付库存对象
                             SecuritiesClosedPayInventory securitiesClosedPayInventory1=new SecuritiesClosedPayInventory();
                             //证券应收应付ID
@@ -192,7 +192,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                         cashClosedPayInventory=new InventoryStatistics(5,"现金应收应付库存",fundId,"admin",dateTime,cashClosedPayInventoryDataList.size(),"已统计");
                         for (CashClosedPayInventoryData cashClosedPayInventoryData : cashClosedPayInventoryDataList) {
                             //根据日期删除
-                            cashClosedPayInventoryMapper.deleteCashClosedPayInventoryDate(dateTime);
+                            cashClosedPayInventoryMapper.deleteCashClosedPayInventoryDate(dateTime,fundId);
                             //定义新现金应收应付库存对象
                             CashClosedPayInventory cashClosedPayInventory1=new CashClosedPayInventory();
                             //现金应收应付库存Id

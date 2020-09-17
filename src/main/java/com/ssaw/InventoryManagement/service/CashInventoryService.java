@@ -25,7 +25,7 @@ public interface CashInventoryService {
      * @param page 页数
      * @return
      */
-    public Map<String,Object> selectCashInventory(String pageSize,String page,String accountId,String dateTime);
+    public Map<String,Object> selectCashInventory(String pageSize,String page,String accountId,String dateTime,String fundId);
 
     /**
      * 增加
@@ -52,5 +52,5 @@ public interface CashInventoryService {
      * 根据日期删除
      * @param dateTime
      */
-    public void deleteCashInventoryData(String dateTime);
+    public void deleteCashInventoryData(String dateTime,String fundId);
 }

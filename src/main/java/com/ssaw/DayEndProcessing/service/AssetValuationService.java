@@ -30,17 +30,17 @@ public interface AssetValuationService {
     //查询应收应付状态
     public List<AssetValuation> selectValuationProcessing();
     //证券库存join行情表查询
-    public HashMap selectStockarket();
+    public HashMap selectStockarket(String fundId,String dateTime);
     //删除证券应收应付库存
     public int deleteSecuritiesClosedPayInventory(SecuritiesClosedPayInventory securitiesClosedPayInventory);
 
     //查交易数据 按证券代码分组 插入证券应收应付库存
-    public HashMap selectTransactionData();
+    public HashMap selectTransactionData(String dateTime);
     //查交易数据后 按条件删除 证券应收应付表的内容
     public int deleteSecuritiesClosedPayInventoryTwo(SecuritiesClosedPayInventory securitiesClosedPayInventory);
 
     //查询ta交易数据
-    public HashMap selectTaTransaction();
+    public HashMap selectTaTransaction(String dateTime,String fundId);
 
     //删除现金应收应付
     public int deleteCashClosedPaylnventory(CashClosedPayInventory cashClosedPayInventory);

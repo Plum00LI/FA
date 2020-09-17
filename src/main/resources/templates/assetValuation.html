@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -15,16 +15,18 @@
     <table id="mytable" lay-filter="mytable"></table>
     <div style="display: none;" id="toolbarDemo">
         <div style="position: absolute; left: 5px;top:10px;">
+
             <div class="layui-form-item layui-form-pane" style="text-align: center;">
                 <label style="height: 32px; width: 100px;" class="layui-form-label">估值日期</label>
                 <div class="layui-input-inline">
                     <input type="text" name="toDay" style="height: 32px;" class="layui-input"
-                           readonly="readonly" id="valuation1">
+                            id="valuation1" >
                     <span id="valuation2"></span>
                 </div>
                 <button type="button" id="valuationBtn" lay-event="valuation"
-                        class="layui-btn layui-btn-sm">
-                    <i class="layui-icon">&#xe615;</i>估值
+                        class="layui-btn layui-btn-sm">估值
+                    <input type="hidden" name="fundId" id="fundId" th:value="${session.fundId}">
+                    <input type="hidden" name="accountId" id="accountId" th:value="${session.accountId}">
                 </button>
             </div>
         </div>

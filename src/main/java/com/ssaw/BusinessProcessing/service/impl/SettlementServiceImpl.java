@@ -80,8 +80,10 @@ public class SettlementServiceImpl implements SettlementService {
             bankTreasurerPojo.setDbTime(settlement1.getDateTime());
             bankTreasurerPojo.setDateTime(settlement1.getSettlementDate());
             bankTreasurerPojo.setBusinessId(settlement1.getTransactionDataId());
-            bankTreasurerPojo.setAllocatingType(4);
-            settlement1.setTransactionDataDesc("结算资金调拨");
+
+            bankTreasurerPojo.setAllocatingType(3);
+
+            settlement1.setTransactionDataDesc("交易结算资金调拨");
             bankTreasurerPojo.setBankTreasurerDesc(settlement1.getTransactionDataDesc());
             int status = settlement1.getStatus();
             String transactionDataId = settlement1.getTransactionDataId();

@@ -53,15 +53,17 @@ public class AssetValuationController {
     }
 
     @RequestMapping("startValuation")
-    public int startValuation(String toDay,String arrJson ){
+    public int startValuation(String toDay,String arrJson,String fundId){
         System.out.println("进来了");
         System.out.println(arrJson+" "+toDay);
         List<AssetValuationData> assetValuationDataList = SysUtil.jsonToArrayList(arrJson, AssetValuationData.class);
         for (AssetValuationData assetValuationData : assetValuationDataList) {
 
-            if(assetValuationData.getState().equals("证券估值增值")){
+            if(assetValuationData.getAssetValuationType().equals("证券估值增值")){
                 System.out.println("证券估值增值开始估值");
-                HashMap stockarketMap = assetValuationService.selectStockarket();
+                //基金代码  业务日期
+                HashMap stockarketMap = assetValuationService.selectStockarket(fundId,toDay);
+                System.out.println("stockarketMap="+stockarketMap);
                 List<StockSecuritiesJoinMarket> stockSecuritiesJoinMarketList = (List<StockSecuritiesJoinMarket>) stockarketMap.get("p_cursor");
                 for (StockSecuritiesJoinMarket stockSecuritiesJoinMarket : stockSecuritiesJoinMarketList) {
                     System.out.println( stockSecuritiesJoinMarket.getSecuritiesId()+"========================================");
@@ -76,11 +78,11 @@ public class AssetValuationController {
                     securitiesClosedPayInventory.setSecuritiesType(1);
                     securitiesClosedPayInventory.setFlag(1);
                     securitiesClosedPayInventory.setTotalPrice(stockSecuritiesJoinMarket.getTootaIPrice());
+                    securitiesClosedPayInventory.setSecurityPeriodFlag(1);
                     securitiesClosedPayInventory.setSecuritiesClosedPayDesc("投资有风险");
-                    System.out.println("=============================增加的实体类"+securitiesClosedPayInventory);
+                    System.out.println("增加的实体类="+securitiesClosedPayInventory);
 //                        执行删除
                     int i = assetValuationService.deleteSecuritiesClosedPayInventory(securitiesClosedPayInventory);
-                    System.out.println("============================================="+i);
                     //调用增加方法
                     securitiesClosedPayInventoryService.insertSecuritiesClosedPayInventory(securitiesClosedPayInventory);
 
@@ -88,7 +90,7 @@ public class AssetValuationController {
             }else {
                 System.out.println("清算款清算中");
                 //查交易数据 按证券代码分组 插入证券应收应付库存
-                HashMap hashMap = assetValuationService.selectTransactionData();
+                HashMap hashMap = assetValuationService.selectTransactionData(toDay);
                 List<TransactionData> transactionDataList = (List<TransactionData>)hashMap.get("p_cursor");
                 for (TransactionData transactionData : transactionDataList) {
                     System.out.println("TransactionData================="+transactionData);
@@ -99,12 +101,14 @@ public class AssetValuationController {
                     securitiesClosedPayInventory.setSecuritiesType(2);
                     securitiesClosedPayInventory.setSecuritiesId(transactionData.getSecuritiesId());
                     securitiesClosedPayInventory.setTotalPrice(transactionData.getTotalSum());
-                    securitiesClosedPayInventory.setFlag(transactionData.getFlag());
-                    securitiesClosedPayInventory.setSecurityPeriodFlag(2);
+                    securitiesClosedPayInventory.setFlag(transactionData.getStatus());
+                    securitiesClosedPayInventory.setSecurityPeriodFlag(1);
+                    securitiesClosedPayInventory.setSecuritiesClosedPayDesc("投资有风险");
+                    System.out.println("查清算款增加的实体类="+securitiesClosedPayInventory);
                     assetValuationService.deleteSecuritiesClosedPayInventoryTwo(securitiesClosedPayInventory);
                     securitiesClosedPayInventoryService.insertSecuritiesClosedPayInventory(securitiesClosedPayInventory);
                     System.out.println("查ta交易数据================================");
-                    HashMap taTransactionMap = assetValuationService.selectTaTransaction();
+                    HashMap taTransactionMap = assetValuationService.selectTaTransaction(toDay,fundId);
                     List<TaTransaction> taTransactionList = (List<TaTransaction>)taTransactionMap.get("p_cursor");
                     for (TaTransaction taTransaction : taTransactionList) {
                         System.out.println(taTransaction+"ta==========================================");
