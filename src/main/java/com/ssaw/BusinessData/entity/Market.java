@@ -43,20 +43,20 @@ public class Market {
     /**
      * 备注
      */
-    private String marketdesc;
+    private String marketDesc;
 
 
     public Market() {
     }
 
-    public Market(String marketId, String securitiesId, String securitiesName, String dateTime, double openPrice, double closingPrice, String marketdesc) {
+    public Market(String marketId, String securitiesId, String securitiesName, String dateTime, double openPrice, double closingPrice, String marketDesc) {
         this.marketId = marketId;
         this.securitiesId = securitiesId;
         this.securitiesName = securitiesName;
         this.dateTime = dateTime;
         this.openPrice = openPrice;
         this.closingPrice = closingPrice;
-        this.marketdesc = marketdesc;
+        this.marketDesc = marketDesc;
     }
 
     public String getMarketId() {
@@ -107,12 +107,12 @@ public class Market {
         this.closingPrice = closingPrice;
     }
 
-    public String getMarketdesc() {
-        return marketdesc;
+    public String getMarketDesc() {
+        return marketDesc;
     }
 
-    public void setMarketdesc(String marketdesc) {
-        this.marketdesc = marketdesc;
+    public void setMarketDesc(String marketDesc) {
+        this.marketDesc = marketDesc;
     }
 
 
@@ -125,7 +125,7 @@ public class Market {
                 ", 日期='" + dateTime + '\'' +
                 ", 开盘价格=" + openPrice +
                 ", 闭市价格=" + closingPrice +
-                ", 备注='" + marketdesc + '\'' +
+                ", 备注='" + marketDesc + '\'' +
                 '}';
     }
 }
