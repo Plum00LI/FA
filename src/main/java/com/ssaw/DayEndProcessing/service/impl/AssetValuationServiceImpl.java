@@ -49,12 +49,12 @@ public class AssetValuationServiceImpl implements AssetValuationService {
     //查询表格内容
     @Override
     public List<AssetValuationData> selectBiaoge(){
-        AssetValuationData valuationProcessing = new AssetValuationData("证券估值增值","未估值");
-        AssetValuationData valuationProcessing1 = new AssetValuationData("清算款","未清算");
-        List<AssetValuationData> valuationProcessingList = new ArrayList();
-        valuationProcessingList.add(valuationProcessing);
-        valuationProcessingList.add(valuationProcessing1);
-        return valuationProcessingList;
+        AssetValuationData assetValuation = new AssetValuationData(1,"证券估值增值","未估值");
+        AssetValuationData assetValuation1 = new AssetValuationData(2,"清算款","未清算");
+        List<AssetValuationData> assetValuationList = new ArrayList();
+        assetValuationList.add(assetValuation);
+        assetValuationList.add(assetValuation1);
+        return assetValuationList;
     }
 
     // 查询是否处理的实现类
@@ -66,7 +66,7 @@ public class AssetValuationServiceImpl implements AssetValuationService {
     @Override
     public HashMap selectStockarket() {
         HashMap stockarketMap = new HashMap();
-        stockarketMap.put("p_tableName","(select se.fundId,se.securitiesId,ROUND((SE.securitiesNum*M.closingPrice ),2)as tootaIPrice, SE.securityPeriodFlag from securitiesInventory se join market m on se.securitiesId=m.securitiesId)");
+        stockarketMap.put("p_tableName","(select se.fundId,se.securitiesId,ROUND((se.securitiesNum*m.closingPrice),2) as totalPrice, SE.securityPeriodFlag from securitiesInventory se join market m on se.securitiesId=m.securitiesId)");
         stockarketMap.put("p_condition","");
         stockarketMap.put("p_pageSize",10);
         stockarketMap.put("p_page",1);
@@ -84,16 +84,17 @@ public class AssetValuationServiceImpl implements AssetValuationService {
 
     //查交易数据 按证券代码分组 插入证券应收应付库存
     @Override
-    public HashMap selectTransactionData() {
+    public HashMap selectTransactionData(String dateTime) {
         HashMap ransactionDataMap = new HashMap();
-        ransactionDataMap.put("p_tableName","(select securitiesId,dateTime,FUNDID,FLAG,SUM((totalSum*flag)) totalSum from transactionData\n" +
-                "where to_date(dateTime,'yyyy-MM-dd') <= to_date('2020-09-02','yyyy-MM-dd') and transactionDataMode in (1,2,3,4)\n" +
-                "  and to_date('2020-09-14','yyyy-MM-dd') < to_date(settlementDate,'yyyy-MM-dd') GROUP BY securitiesId,dateTime,FUNDID,FLAG)");
+        ransactionDataMap.put("p_tableName","(select securitiesId,dateTime,fundId,status,SUM((totalSum*status)) totalSum from transactionData\n" +
+                "where to_date(dateTime,'yyyy-MM-dd') <= to_date(dateTime,'yyyy-MM-dd') and transactionDataMode in (1,2,3,4)\n" +
+                "  and to_date(dateTime,'yyyy-MM-dd') < to_date(settlementDate,'yyyy-MM-dd') GROUP BY securitiesId,dateTime,fundId,status)");
         ransactionDataMap.put("p_condition","");
         ransactionDataMap.put("p_pageSize",5);
         ransactionDataMap.put("p_page",1);
         ransactionDataMap.put("p_count",0);
         ransactionDataMap.put("p_cursor",null);
+        System.out.println("插入="+ransactionDataMap);
         assetValuationMapper.selectTransactionData(ransactionDataMap);
         return ransactionDataMap;
     }
@@ -104,6 +105,10 @@ public class AssetValuationServiceImpl implements AssetValuationService {
         return assetValuationMapper.deleteSecuritiesClosedPayInventoryTwo(securitiesClosedPayInventory);
     }
 
+    /**
+     * 查询TA交易清算款数据
+     * @return
+     */
     @Override
     public HashMap selectTaTransaction() {
         HashMap taTransactionMap = new HashMap();
