@@ -130,8 +130,8 @@ public class SecuritiesClosedPayInventoryServiceImpl implements SecuritiesClosed
     }
 
     @Override
-    public void deleteSecuritiesClosedPayInventoryDate(String dateTime) {
-        securitiesClosedPayInventoryMapper.deleteSecuritiesClosedPayInventoryDate(dateTime);
+    public void deleteSecuritiesClosedPayInventoryDate(String dateTime,String fundId) {
+        securitiesClosedPayInventoryMapper.deleteSecuritiesClosedPayInventoryDate(dateTime,fundId);
     }
 
     @Override

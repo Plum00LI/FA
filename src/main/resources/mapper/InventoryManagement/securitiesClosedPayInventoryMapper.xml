@@ -19,7 +19,7 @@
     </delete>
 
     <delete id="deleteSecuritiesClosedPayInventoryDate">
-        delete from securitiesClosedPayInventory where dateTime=#{dateTime}
+        delete from securitiesClosedPayInventory where SECURITYPERIODFLAG=0 and dateTime=#{dateTime} and fundId=#{fundId}
     </delete>
 
     <resultMap id="securitiesClosedPayInventoryMap" type="com.ssaw.InventoryManagement.entity.SecuritiesClosedPayInventory">
