@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * create by: 曾钦辉
@@ -50,9 +51,17 @@ public class TransactionDataController {
     }
 
     @RequestMapping("deleteTransactionData")
-    public void deleteTransactionData(String transactionDataId){
+    public Map<String,Object> deleteTransactionData(String transactionData){
         System.out.println("删除进来了");
-         transactionDataService.deleteTransactionData(transactionDataId);
+        String s = transactionDataService.deleteTransactionData(transactionData);
+        Map<String, Object> msgMap = new HashMap<>();
+        if (s.equals("删除成功")){
+            msgMap.put("code",0);
+        }else {
+            msgMap.put("code",1);
+        }
+        msgMap.put("msg",s);
+        return msgMap;
     }
 
     @RequestMapping("updateTransactionData")
