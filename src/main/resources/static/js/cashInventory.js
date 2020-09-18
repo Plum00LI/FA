@@ -115,7 +115,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 case 'add':
                     var index=layer.open({
                         type: 1,
-                        title: '添加数据信息',
+                        title: '添加现金库存信息',
                         closeBtn: 1,
                         move:false,
                         area:['800px','600px'],
@@ -143,6 +143,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     laydate.render({
                         elem: '#dateTime' //指定元素
                     });
+                    $("#searchAccountId").val(accountId5);
+                    $("#dateTime").val(dateTime5);
                     break;
                 case 'deleteAll':
                     var data = checkStatus.data;
@@ -186,7 +188,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 form.val('editform',$.parseJSON(JSON.stringify(data)));
                 var index = layer.open({
                     type: 1,
-                    title: '修改现金库存',
+                    title: '修改现金库存信息',
                     closeBtn: 1,
                     move:false,
                     area: ['800px', '600px'],

@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +40,8 @@ public class EquityDisposeServiceImpl implements EquityDisposeService {
     DbUtil dbUtil;
     @Resource
     TransactionDataMapper transactionDataMapper;
-
+    @Resource
+    HttpServletRequest request;
     @Override
     public Map<String, Object> selectEquityDispose(String pageSize, String page, String equitiesType,String equitiesExright, String disposeStatus) {
         //创建一个结果集Map用于存放两个结果变量
@@ -119,28 +122,34 @@ public class EquityDisposeServiceImpl implements EquityDisposeService {
     @Override
     public int updateEquityDispose(String equityDisPose) {
         List<EquityDispose> equityDisposeList = SysUtil.jsonToArrayList(equityDisPose, EquityDispose.class);
+        HttpSession session = request.getSession(false);
+        String fundId = (String) session.getAttribute("fundId");
+        String accountName = (String) session.getAttribute("accountName");
+        String accountId = (String) session.getAttribute("accountId");
+
+
         for (EquityDispose equityDispose2 : equityDisposeList) {
             //new一个交易数据的实体类对象
             TransactionData transactionData = new TransactionData();
             //参数赋值
             transactionData.setTransactionDataId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.TD));//交易数据ID
             transactionData.setDateTime(equityDispose2.getEquitiesExright());//业务日期
-            transactionData.setNum(1000.0);//交易数量
-            transactionData.setPrice(12.0);//交易单价
-            transactionData.setTotalSum(1200.00);//交易总金额
-            transactionData.setNetReceipts(12000.0);//实收金额
+            transactionData.setNum((double) equityDispose2.getSecuritiesNum());//交易数量
+            transactionData.setPrice(0.0);//交易单价
+            transactionData.setTotalSum(equityDispose2.getSettlementAmount());//交易总金额
+            transactionData.setNetReceipts(equityDispose2.getSettlementAmount());//实收金额
             transactionData.setSettlementDate(equityDispose2.getReceivedDate());//到账日期
-            transactionData.setAccountName(equityDispose2.getAccountName());//账户名称
+            transactionData.setAccountName(accountName);//账户名称
             transactionData.setSecuritiesName(equityDispose2.getSecuritiesName());//证券名称
             transactionData.setBrokersName("长城证券");//券商名称
-            transactionData.setBrokersName("长城证券");
-            transactionData.setFundId("000899");//基金代码
+            //transactionData.setBrokersName("长城证券");
+            transactionData.setFundId(fundId);//基金代码
             transactionData.setFundName("华宝高端制造股票型证券投资基金");//基金名称
             transactionData.setSecuritiesId("600031");//证券ID
             transactionData.setBrokersId("10050000");//券商ID
             transactionData.setSeateId("10050000001");//席位ID
             transactionData.setSeateName("长城上海");//席位名称
-            transactionData.setAccountId("000899001");//账户ID
+            transactionData.setAccountId(accountId);//账户ID
             transactionData.setBlankName("中国建设银行");//银行名称
             transactionData.setFlag(1);//交易标识
             transactionData.setCommission(0.0);//佣金费用
@@ -167,6 +176,8 @@ public class EquityDisposeServiceImpl implements EquityDisposeService {
 
     @Override
     public int updateEquityDisposeTwo(String equityDisPose) {
+        //new一个交易数据的实体类对象
+        TransactionData transactionData = new TransactionData();
         List<EquityDispose> equityDisposeList = SysUtil.jsonToArrayList(equityDisPose, EquityDispose.class);
         for (EquityDispose equityDispose2 : equityDisposeList) {
             int disposeStatus = equityDispose2.getDisposeStatus();

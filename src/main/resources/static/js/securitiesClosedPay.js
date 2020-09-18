@@ -139,7 +139,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             case 'add':
                 var index=layer.open({
                     type: 1,
-                    title: '添加数据信息',
+                    title: '添加证券应收应付信息',
                     closeBtn: 1,
                     move:false,
                     content:$("#addContent"),
@@ -163,6 +163,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                         curr: 1
                     }
                 });
+                $("#dateTime").val(dateTime);
                 break;
             case 'deleteAll':
                 var data = checkStatus.data;
