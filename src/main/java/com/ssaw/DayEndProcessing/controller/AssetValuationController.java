@@ -105,8 +105,15 @@ public class AssetValuationController {
                     securitiesClosedPayInventory.setFundId(transactionData.getFundId());
                     securitiesClosedPayInventory.setSecuritiesType(2);
                     securitiesClosedPayInventory.setSecuritiesId(transactionData.getSecuritiesId());
-                    securitiesClosedPayInventory.setTotalPrice(transactionData.getTotalSum());
+                    Double totalSum=0.0;
+                    if (transactionData.getFlag()==-1){
+                        totalSum=transactionData.getTotalSum()*-1;
+                    }else{
+                        totalSum=transactionData.getTotalSum()*1;
+                    }
+                    System.out.println("类型="+transactionData.getFlag());
                     securitiesClosedPayInventory.setFlag(transactionData.getFlag());
+                    securitiesClosedPayInventory.setTotalPrice(totalSum);
                     securitiesClosedPayInventory.setSecurityPeriodFlag(1);
                     securitiesClosedPayInventory.setSecuritiesClosedPayDesc("投资有风险");
                     System.out.println("查清算款增加的实体类="+securitiesClosedPayInventory);

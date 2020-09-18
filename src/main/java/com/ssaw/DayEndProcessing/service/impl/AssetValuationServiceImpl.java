@@ -80,9 +80,9 @@ public class AssetValuationServiceImpl implements AssetValuationService {
     @Override
     public HashMap selectTransactionData(String dateTime) {
         HashMap ransactionDataMap = new HashMap();
-        ransactionDataMap.put("p_tableName","(select securitiesId,dateTime,fundId,status,SUM((totalSum)+commission+transfer+brokerage+stamp+management) totalSum from transactionData\n" +
+        ransactionDataMap.put("p_tableName","(select securitiesId,flag,dateTime,fundId,status,SUM(totalSum*flag) totalSum from transactionData\n" +
                 "where to_date(dateTime,'yyyy-MM-dd') <= to_date(dateTime,'yyyy-MM-dd') and transactionDataMode in (1,2,3,4)\n" +
-                "  and to_date(dateTime,'yyyy-MM-dd') < to_date(settlementDate,'yyyy-MM-dd') GROUP BY securitiesId,dateTime,fundId,status)");
+                "  and to_date(dateTime,'yyyy-MM-dd') < to_date(settlementDate,'yyyy-MM-dd') GROUP BY securitiesId,dateTime,fundId,status,flag)");
         ransactionDataMap.put("p_condition","");
         ransactionDataMap.put("p_pageSize",5);
         ransactionDataMap.put("p_page",1);
