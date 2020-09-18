@@ -8,57 +8,49 @@
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" href="../css/font.css">
-    <link rel="stylesheet" href="../css/xadmin.css">
-    <link rel="stylesheet" href="../css/theme9.css">
-
-    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-    <!--[if lt IE 9]-->
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-
-    <link rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
-    <link rel="stylesheet" href="../lib/layuimini/css/public.css" media="all">
-    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-    <script src="../lib/layuimini/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
-    <!--工具条-->
-    <script type="text/html" id="userToolBar">
-        <div style="float:right">
-            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
-                    class="layui-icon">&#xe654;</i>添加数据
-            </button>
-            <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll"><i
-                    class="layui-icon">&#xe640;</i>批量删除
-            </button>
-        </div>
-        <br/>
-        <form class="layui-form layui-col-space5">
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-blue" style="width: 110px;text-align: center">基金代码</label>
-            </div>
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" autocomplete="off" placeholder="请输入基金代码" name="fundId" id="fundId">
-            </div>
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-blue" style="width: 110px;text-align: center">基金类型</label>
-            </div>
-            <div class="layui-inline layui-show-xs-block">
-                <select name="fundType" id="fundType">
-                    <option placeholder="请选择"></option>
-                    <option value="2">封闭式</option>
-                    <option value="1">开放式</option>
-                </select>
-            </div>
-            <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn layui-btn-normal" lay-submit="" lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索
-                </button>
-            </div>
-        </form>
-    </script>
+    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
+    <script src="../lib/layuimini/js/lay-config.js"></script>
+    <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
 
 </head>
-<body style="overflow: auto; background-color: white;"
-      class="layui-view-body layui-content">
+<body>
+
+<!--工具条-->
+<script type="text/html" id="userToolBar">
+    <div style="float:right">
+        <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
+                class="layui-icon">&#xe654;</i>添加数据
+        </button>
+        <button class="layui-btn layui-btn-primary layui-btn layui-btn-sm" lay-event="deleteAll" style="color: #FF0000"><i
+                class="layui-icon">&#xe640;</i>批量删除
+        </button>
+    </div>
+    <form class="layui-form layui-col-space5">
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">基金代码</label>
+        </div>
+        <div class="layui-inline layui-show-xs-block">
+            <input class="layui-input" autocomplete="off" placeholder="请输入基金代码" name="fundId" id="fundId">
+        </div>
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">基金类型</label>
+        </div>
+        <div class="layui-inline layui-show-xs-block">
+            <select name="fundType" id="fundType">
+                <option placeholder="请选择"></option>
+                <option value="2">封闭式</option>
+                <option value="1">开放式</option>
+            </select>
+        </div>
+        <div class="layui-inline layui-show-xs-block">
+            <button class="layui-btn layui-btn-primary" lay-submit="" lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索
+            </button>
+        </div>
+    </form>
+</script>
+
 <div>
     <!--表格-->
     <table id="userTable" lay-filter="userTable"></table>
@@ -78,12 +70,12 @@
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 140px;">基金代码</label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;">基金代码</label>
             <div class="layui-input-inline">
                 <input type="number" lay-verify="required"
                        autocomplete="off" placeholder="基金代码" class="layui-input" name="fundId">
             </div>
-            <label class="layui-form-label layui-bg-green" style=" width: 140px;margin-left: 50px;">基金名称</label>
+            <label class="layui-form-label layui-bg-gray" style=" width: 140px;margin-left: 50px;">基金名称</label>
             <div class="layui-input-inline">
                 <input type="text" lay-verify="required" name="fundName"
                        autocomplete="off" placeholder="基金名称" class="layui-input"
@@ -92,14 +84,14 @@
             </div>
         </div>
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 140px;"> 成立日期</label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;"> 成立日期</label>
             <div class="layui-input-inline">
                 <input type="text" placeholder="成立日期" name="setUpDate" id="start2" style="width: 190px;"
                        lay-verify="start2" autocomplete="off" class="layui-input">
             </div>
 
 
-            <label class="layui-form-label layui-bg-green" style="width: 140px;margin-left: 50px;"> 基金类型 </label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;margin-left: 50px;"> 基金类型 </label>
             <div class="layui-input-inline">
                 <select xm-select-radio=""
                         xm-select-search="" lay-verify="required"
@@ -111,13 +103,13 @@
             </div>
         </div>
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 140px;"> 基金管理公司 </label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;"> 基金管理公司 </label>
             <div class="layui-input-inline">
                 <input type="text"  name="managerCompany" placeholder="基金管理公司" autocomplete="off"
                        class="layui-input" id="managerCompany">
                 <input type="hidden" name="managerId" id="managerId">
             </div>
-            <label class="layui-form-label layui-bg-green" style="width: 140px;margin-left: 50px;">基金托管银行</label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;margin-left: 50px;">基金托管银行</label>
             <div class="layui-input-inline">
                 <!--                <input type="text" name="trusteeName" placeholder="基金托管银行" autocomplete="off" class="layui-input" id="fundbank">-->
                 <input type="text" name="trusteeCompany" placeholder="基金托管银行" autocomplete="off" class="layui-input"
@@ -127,14 +119,14 @@
         </div>
 
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 140px;"> 初期净值 </label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;"> 初期净值 </label>
             <div class="layui-input-inline">
                 <input type="text" lay-verify="required" name="initNetWorth"
                        autocomplete="off" placeholder="初期净值 " class="layui-input"
                        onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
                        onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}">
             </div>
-            <label class="layui-form-label layui-bg-green" style="width: 140px;margin-left: 50px;">基金规模</label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;margin-left: 50px;">基金规模</label>
             <div class="layui-input-inline">
                 <input type="text" name="sizeOfThe" lay-verify="numbers" autocomplete="off" placeholder="基金规模"
                        class="layui-input"
@@ -143,14 +135,14 @@
             </div>
         </div>
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 140px;"> 管理人费率 </label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;"> 管理人费率 </label>
             <div class="layui-input-inline">
                 <input type="number" oninput="if(value.length>4)value=value.slice(0,4)" lay-verify="required"
                        placeholder="管理人费率" name="managerRate"
                        autocomplete="off" class="layui-input" style="width: 140px;"/>
                 <div style="margin-top: -27px;margin-left: 125px;"><a style="font-size:18px;">%</a></div>
             </div>
-            <label class="layui-form-label layui-bg-green" style="width: 140px;margin-left: 50px;"> 托管人费率 </label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;margin-left: 50px;"> 托管人费率 </label>
             <div class="layui-input-inline">
                 <input type="number" lay-verify="required" oninput="if(value.length>4)value=value.slice(0,4)"
                        autocomplete="off" placeholder="  托管人费率" class="layui-input" name="hostingRate"
@@ -161,7 +153,7 @@
             </div>
         </div>
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 140px;"> 计提天数</label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;"> 计提天数</label>
             <div class="layui-input-inline">
                 <select name="provisionDays">
                     <option></option>
@@ -173,7 +165,7 @@
 
         </div>
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green"
+            <label class="layui-form-label layui-bg-gray"
                    style="width: 140px;height: 100px;line-height: 100px;">备注</label>
             <div class="layui-input-inline">
 					<textarea rows="" name="fundDesc" placeholder="备注" cols=""
@@ -184,7 +176,7 @@
             <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
-            <button class="layui-btn layui-bg-red cancel" type="button"onclick="myclose()">
+            <button class="layui-btn layui-btn-primary" type="button"onclick="myclose()" style="color: #FF0000">
                 <i class="layui-icon">&#x1006;</i>取消
             </button>
         </div>
@@ -197,12 +189,12 @@
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 140px;">基金代码</label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;">基金代码</label>
             <div class="layui-input-inline">
                 <input type="text" lay-verify="required"
                        autocomplete="off" placeholder="基金代码" class="layui-input" name="fundId">
             </div>
-            <label class="layui-form-label layui-bg-green" style=" width: 140px;margin-left: 50px;">基金名称</label>
+            <label class="layui-form-label layui-bg-gray" style=" width: 140px;margin-left: 50px;">基金名称</label>
             <div class="layui-input-inline">
                 <input type="text" lay-verify="required" name="fundName"
                        autocomplete="off" placeholder="基金名称" class="layui-input"
@@ -211,14 +203,14 @@
             </div>
         </div>
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 140px;"> 成立日期</label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;"> 成立日期</label>
             <div class="layui-input-inline">
                 <input type="text" placeholder="成立日期" name="setUpDate" id="start" style="width: 190px;"
                        lay-verify="start2" autocomplete="off" class="layui-input">
             </div>
 
 
-            <label class="layui-form-label layui-bg-green" style="width: 140px;margin-left: 50px;"> 基金类型 </label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;margin-left: 50px;"> 基金类型 </label>
             <div class="layui-input-inline">
                 <select xm-select-radio=""
                         xm-select-search="" lay-verify="required"
@@ -230,14 +222,14 @@
             </div>
         </div>
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 140px;"> 基金管理公司 </label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;"> 基金管理公司 </label>
             <div class="layui-input-inline">
                 <input type="text"  name="managerCompany" placeholder="基金管理公司" autocomplete="off"
                        class="layui-input" id="managerCompany2">
                 <input type="hidden" name="managerId" id="managerId2">
 
             </div>
-            <label class="layui-form-label layui-bg-green" style="width: 140px;margin-left: 50px;">基金托管银行</label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;margin-left: 50px;">基金托管银行</label>
             <div class="layui-input-inline">
                 <input type="text" name="trusteeCompany" placeholder="基金托管银行" autocomplete="off" class="layui-input"
                        id="trusteeCompany2">
@@ -246,28 +238,28 @@
         </div>
 
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 140px;"> 初期净值 </label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;"> 初期净值 </label>
             <div class="layui-input-inline">
                 <input type="text" lay-verify="required" name="initNetWorth"
                        autocomplete="off" placeholder="初期净值 " class="layui-input"
                        onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
                        onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}">
             </div>
-            <label class="layui-form-label layui-bg-green" style="width: 140px;margin-left: 50px;">基金规模</label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;margin-left: 50px;">基金规模</label>
             <div class="layui-input-inline">
                 <input type="text" name="sizeOfThe" lay-verify="numbers" autocomplete="off" placeholder="基金规模"
                        class="layui-input">
             </div>
         </div>
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 140px;"> 管理人费率 </label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;"> 管理人费率 </label>
             <div class="layui-input-inline">
                 <input type="number" oninput="if(value.length>4)value=value.slice(0,4)" lay-verify="required"
                        placeholder="管理人费率" name="managerRate"
                        autocomplete="off" class="layui-input" style="width: 140px;"/>
                 <div style="margin-top: -27px;margin-left: 125px;"><a style="font-size:18px;">%</a></div>
             </div>
-            <label class="layui-form-label layui-bg-green" style="width: 140px;margin-left: 50px;"> 托管人费率 </label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;margin-left: 50px;"> 托管人费率 </label>
             <div class="layui-input-inline">
                 <input type="number" lay-verify="required" oninput="if(value.length>4)value=value.slice(0,4)"
                        autocomplete="off" placeholder="  托管人费率" class="layui-input" name="hostingRate"
@@ -278,7 +270,7 @@
             </div>
         </div>
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green" style="width: 140px;"> 计提天数</label>
+            <label class="layui-form-label layui-bg-gray" style="width: 140px;"> 计提天数</label>
             <div class="layui-input-inline">
                 <select name="provisionDays">
                     <option></option>
@@ -290,7 +282,7 @@
 
         </div>
         <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label layui-bg-green"
+            <label class="layui-form-label layui-bg-gray"
                    style="width: 140px;height: 100px;line-height: 100px;">备注</label>
             <div class="layui-input-inline">
 					<textarea rows="" name="fundDesc" placeholder="备注" cols=""
@@ -301,7 +293,7 @@
             <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
                 <i class="layui-icon">&#x1005;</i>修改
             </button>
-            <button class="layui-btn layui-bg-red cancel" type="button"onclick="myclose()">
+            <button class="layui-btn layui-btn-primary" type="button"onclick="myclose()" style="color: #FF0000">
                 <i class="layui-icon">&#x1006;</i>取消
             </button>
         </div>

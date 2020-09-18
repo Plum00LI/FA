@@ -233,7 +233,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 content:$('#editContent')
             });
             form.render();
-            //layer.full(index);
         };
     })
 });

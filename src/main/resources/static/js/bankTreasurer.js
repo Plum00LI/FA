@@ -168,6 +168,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 laydate.render({
                     elem: '#selectDate',//指定元素
                 });
+                $("#allocatingType").val(allocatingType);
+                $("#flag").val(flag);
+                $("#selectDate").val(dbTime);
                 break;
             case 'deleteAll':
                 var data = checkStatus.data;

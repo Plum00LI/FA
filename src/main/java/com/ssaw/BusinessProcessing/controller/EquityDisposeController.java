@@ -55,6 +55,7 @@ public class EquityDisposeController {
 
     @RequestMapping("updateEquityDispose")
     public int updateEquityDispose(String equityDisPose){
+
         return equityDisposeService.updateEquityDispose(equityDisPose);
     }
 

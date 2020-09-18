@@ -30,7 +30,7 @@ public class TatransactionController {
     @RequestMapping ("/insertTatTransaction")
     public int insertTatTransaction(TaTransaction taTransaction){
         taTransaction.setTaTransactionId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.TT));
-        taTransaction.setFundId("60001");
+
         System.out.println("taTransaction=" + taTransaction);
         int i= tatransactionService.insertTatransaction(taTransaction);
         return i;
