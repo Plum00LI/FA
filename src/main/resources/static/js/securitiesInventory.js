@@ -160,6 +160,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
                               curr: 1
                     }
                 });
+                $("#dateTime").val(dateTime);
+                $("#securitiesName").val(securitiesName);
                 break;
             case 'deleteAll':
                 var data = checkStatus.data;

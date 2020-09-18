@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.DayEndProcessing.mapper.InventoryStatisticsMapper">
+<!-- 证券库存统计-->
     <select id="selectSecuritiesInventory"
             resultType="com.ssaw.DayEndProcessing.entity.SecuritiesInventoryData" >
     select
@@ -18,7 +19,6 @@
     <select id="selectTaInventory" resultType="com.ssaw.DayEndProcessing.entity.TaInventoryData">
 	SELECT
          sum(tatotal) AS taTotal,sum(tanum) AS taNum,fundId FROM
-
 	(select tatotal,tanum,fundId from
     TAINVENTORY where fundId=#{fundId} and
     dateTime=to_char(to_date(#{dateTime},'yyyy-MM-dd')-1,'yyyy-MM-dd')
@@ -30,21 +30,6 @@
     DATETIME=#{dateTime}  AND fundId=#{fundId}  group by
     fundid) a
 	GROUP BY a.fundId
--- 	版本2
--- 		SELECT
---         (nvl(tatotal,0)+NVL(totalMoney,0)) AS taTotal,(nvl(tanum,0)+nvl(fundNum,0))AS taNum,nvl(ta.fundId,a.FUNDID) as fundId FROM
---
--- 	(select tatotal,tanum,fundId from
---     TAINVENTORY where fundId='000899' and
---     datetime='2020-09-10') ta
---     full join
---     (select sum(totalMoney*(case transactionType when 3 then -1 else 1 end)) as totalMoney,
---     sum(fundNum*(case transactionType when 3 then -1 else 1 end)) AS fundNum,fundId
---     from
---     TATransaction WHERE
---     DATETIME='2020-09-11' AND fundId='000899' group by
---     FUNDID) a
--- 	  on a.FUNDID=ta.FUNDID ;
     </select>
     <select id="selectCashInventory" resultType="com.ssaw.DayEndProcessing.entity.CashInventoryData">
           select (nvl(ci.cashBlance,0) + nvl(bt.totalNum,0)) as cashTotal,nvl(bt.accountId,ci.accountId) as accountId from
@@ -53,13 +38,10 @@
             (select accountId,sum(nvl(totalprice,0)*flag) as totalNum from bankTreasurer where DBTIME=#{dateTime} and FUNDID=#{fundId}   group by accountId) bt
         on ci.ACCOUNTID=bt.ACCOUNTID
     </select>
-<!--    <resultMap id="" type="">-->
-
-<!--    </resultMap>-->
     <select id="selectSecuritiesClosedPayInventory"
             resultType="com.ssaw.DayEndProcessing.entity.SecuritiesClosedPayInventoryData">
         select nvl(ns.securitiesid,se.securitiesid)as securitiesid,nvl(ns.totalPrice,0)+nvl(se.amount,0) as
-		total,nvl(se.flag,ns.flag) as flag
+		total,nvl(ns.flag,se.flag) as flag
         from
         (select * from SECURITIESCLOSEDPAYINVENTORY where fundid=#{fundId}
         and securitiesType = 3  and DATETIME=to_char(to_date(#{dateTime},'yyyy-MM-dd')-1,'yyyy-MM-dd')) ns
@@ -71,12 +53,20 @@
     </select>
     <select id="selectCashClosedPayInventory"
             resultType="com.ssaw.DayEndProcessing.entity.CashClosedPayInventoryData">
-        select nvl(xj.serviceType,kc.businessType) as BUSINESSTYPE,(NVL(totalMoney,0)+nvl(xj.tocal,0)) as cashTotal,nvl(kc.INITIALSIGNS,xj.FLAG) as flag,nvl(xj.accountId,kc.accountId) as accountId
-        from
-        (select * from cashClosedPayInventory where FUNDID=#{fundId} and businessDate=to_char(to_date(#{dateTime},'yyyy-MM-dd')-1,'yyyy-MM-dd')) kc
-        full join
-        (select serviceType,dateTime,ACCOUNTID,sum(nvl(amount,0)*nvl(FLAG,0)) as tocal,FLAG
-        from (select * from cashClosedPay where DATETIME=#{dateTime} and fundId=#{fundId}) group by serviceType,DATETIME,ACCOUNTID,FLAG) xj on xj.ACCOUNTID=kc.ACCOUNTID
+select nvl(tr.accountId,ca.accountId) as accountId,
+    nvl(tr.serviceType,ca.businessType) as businessType,
+    nvl(ca.totalPrice,0)+nvl(tr.amount,0) as casheTotal
+    ,nvl(tr.flag,ca.BUSINESSSTATUS) as flag
+    from
+    (select sum(nvl(TOTALMONEY*BUSINESSSTATUS,0)) AS totalPrice,accountId,businesstype,BUSINESSSTATUS from CASHCLOSEDPAYINVENTORY
+    where fundId=#{fundId} and BUSINESSDATE=to_char(to_date(#{dateTime},'yyyy-MM-dd')-1,'yyyy-MM-dd') and businessType in(1,2,3)
+    GROUP BY accountId,businesstype,BUSINESSSTATUS) ca
+    full join
+        (select sum(nvl(amount*flag,0)) as amount,accountId,serviceType,flag
+        from cashClosedPay where
+    fundid=#{fundId} and dateTime=#{dateTime} and serviceType in(1,2,3)
+    group by accountId,serviceType,flag) tr
+    on ca.accountId=tr.accountId AND tr.serviceType=ca.businesstype AND ca.BUSINESSSTATUS=tr.flag
     </select>
 
 </mapper>

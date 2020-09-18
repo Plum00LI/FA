@@ -54,19 +54,38 @@ public class TransactionDataServiceImpl implements TransactionDataService {
     public int insertTransactionData(TransactionData transactionData) {
         System.out.println(transactionData.getFundId());
         transactionData.setTransactionDataId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.TD));
+        int transactionDataMode = transactionData.getTransactionDataMode();
+        if(transactionDataMode==1){
+            transactionData.setFlag(-1);
+        }else if(transactionDataMode==2){
+            transactionData.setFlag(1);
+        }
+        else if(transactionDataMode==3){
+            transactionData.setFlag(1);
+        } 
+        else if(transactionDataMode==4){
+            transactionData.setFlag(1);
+        }
+
         return transactionDataMapper.insertTransactionData(transactionData);
     }
 
     @Override
-    public void deleteTransactionData(String transactionDataId) {
+    public String deleteTransactionData(String transactionData) {
         String[] split=new String[0];
-        if (transactionDataId!=null&&!transactionDataId.equals("")){
-            split= transactionDataId.split(",");
-
+        if (transactionData!=null&&!transactionData.equals("")){
+            split= transactionData.split(",");
         }
         for(int i=0;i<split.length;i++){
-            transactionDataMapper.deleteTransactionData(split[i]);
+            String[] split1 = split[i].split("-");
+            if (split1[1].equals("0")){
+                transactionDataMapper.deleteTransactionData(split1[0]);
+                return "删除成功";
+            }else {
+                return "您选中的数据中含有已结算数据";
+            }
         }
+        return "数据异常";
     }
 
     @Override
