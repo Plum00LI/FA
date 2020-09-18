@@ -39,7 +39,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function(){
                     align: 'center',
                     title: '库存名称',
                 }, {
-                field: 'inventoryId',
+                field: 'fundId',
                 title: '基金编号',
                 align: 'center',
                 sort: true

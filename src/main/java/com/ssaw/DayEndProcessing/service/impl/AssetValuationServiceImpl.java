@@ -104,9 +104,11 @@ public class AssetValuationServiceImpl implements AssetValuationService {
      * @return
      */
     @Override
-    public HashMap selectTaTransaction(String dateTime,String fundId) {
+    public HashMap selectTaTransaction(String fundId,String dateTime) {
+        System.out.println("信息="+fundId+dateTime);
         HashMap taTransactionMap = new HashMap();
-        taTransactionMap.put("p_tableName","(select sum(totalMoney) totalMoney,transactionType,accountId,dateTime ,fundId from taTransaction where '"+dateTime+"'<BALANCEDATE and '"+dateTime+"'>=DATETIME\n" +
+        taTransactionMap.put("p_tableName","(select sum(totalMoney) totalMoney,transactionType,accountId,dateTime ,fundId from (select * from taTransaction\n" +
+                "where fundId='"+fundId+"' and '"+dateTime+"'<BALANCEDATE and '"+dateTime+"'<=DATETIME)\n" +
                 " group by transactionType, accountId,fundId,dateTime)");
         taTransactionMap.put("p_condition","");
         taTransactionMap.put("p_pageSize",5);

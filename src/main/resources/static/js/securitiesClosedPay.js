@@ -63,7 +63,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     });
     //修改提交
     form.on('submit(editsubmit)', function(data){
-        alert("进来了")
         var formData=$('#editform').serialize();
         $.post("../securitiesClosedPay/updateSecuritiesClosedPay",formData,function(msg){
             if(msg>0){
@@ -139,7 +138,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             case 'add':
                 var index=layer.open({
                     type: 1,
-                    title: '添加数据信息',
+                    title: '添加证券应收应付信息',
                     closeBtn: 1,
                     move:false,
                     content:$("#addContent"),
@@ -151,7 +150,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 layer.full(index);*/
                 break;
             case 'search':
-                alert("搜索");
                 var dateTime= $("#dateTime").val();
                 //表格的重新加载事件
                 table.reload('userTable', {
@@ -163,6 +161,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                         curr: 1
                     }
                 });
+                $("#dateTime").val(dateTime);
                 break;
             case 'deleteAll':
                 var data = checkStatus.data;

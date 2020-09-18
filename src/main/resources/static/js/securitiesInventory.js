@@ -147,7 +147,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
 
                 break;
             case 'search':
-                alert("搜索");
                 var dateTime = $("#dateTime").val();
                 var securitiesName = $("#securitiesName").val();
                 //表格的重新加载事件
@@ -160,6 +159,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage'], function (
                               curr: 1
                     }
                 });
+                $("#dateTime").val(dateTime);
+                $("#securitiesName").val(securitiesName);
                 break;
             case 'deleteAll':
                 var data = checkStatus.data;

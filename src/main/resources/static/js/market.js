@@ -140,7 +140,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                 layer.full(index);*/
                 break;
             case 'search':
-                alert("搜索");
                 var securitiesId = $("#securitiesId").val();
                 var dateTime = $("#dateTime").val();
                 //表格的重新加载事件
@@ -158,6 +157,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                 laydate.render({
                     elem: '#dateTime' //指定元素
                 });
+                $("#securitiesId").val(securitiesId);
+                $("#dateTime").val(dateTime);
                 break;
             case 'deleteAll':
                 var data = checkStatus.data;

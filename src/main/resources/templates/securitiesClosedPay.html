@@ -26,7 +26,7 @@
                     class="layui-icon">&#xe640;</i>批量删除</button>
         </div>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label" style="width: 110px;text-align: center;background-color: #8c8c8c;color: #FFFFFF">期日</label>
+            <label class="layui-form-label" style="width: 110px;text-align: center;background-color: #8c8c8c;color: #FFFFFF">日期</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input"  autocomplete="off" placeholder="日期" name="end" id="dateTime">
             </div>
@@ -201,7 +201,7 @@
                 url: '../account/selectAccount',
                 cols: [
                     [
-                        { type: 'checkbox' },
+                        { type: 'radio' },
                         { field: 'accountId', title: '账户编号', },
                         { field: 'blankCardCode', title: '银行卡号', },
                         { field: 'blankName', title: '银行名称', }
@@ -258,7 +258,7 @@
                 url: '../selectAccount',
                 cols: [
                     [
-                        { type: 'checkbox' },
+                        { type: 'radio' },
                         { field: 'accountId', title: '账户编号', },
                         { field: 'blankCardCode', title: '银行卡号', },
                         { field: 'blankName', title: '银行名称', }

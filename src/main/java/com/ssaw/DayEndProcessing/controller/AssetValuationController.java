@@ -10,6 +10,7 @@ import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.GlobalManagement.util.SysUtil;
 import com.ssaw.InventoryManagement.entity.CashClosedPayInventory;
 import com.ssaw.InventoryManagement.entity.SecuritiesClosedPayInventory;
+import com.ssaw.InventoryManagement.service.CashClosedPayInventoryService;
 import com.ssaw.InventoryManagement.service.SecuritiesClosedPayInventoryService;
 import com.ssaw.TAManagement.entity.TaTransaction;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,9 @@ public class AssetValuationController {
     SecuritiesClosedPayInventoryService securitiesClosedPayInventoryService;
 
     @Resource
+    CashClosedPayInventoryService cashClosedPayInventoryService;
+
+    @Resource
     DbUtil dbUtil;
 
     @RequestMapping("selectAssetValuationData")
@@ -56,6 +60,7 @@ public class AssetValuationController {
     public int startValuation(String toDay,String arrJson,String fundId){
         System.out.println("进来了");
         System.out.println(arrJson+" "+toDay);
+        int i =0;
         List<AssetValuationData> assetValuationDataList = SysUtil.jsonToArrayList(arrJson, AssetValuationData.class);
         for (AssetValuationData assetValuationData : assetValuationDataList) {
 
@@ -82,7 +87,7 @@ public class AssetValuationController {
                     securitiesClosedPayInventory.setSecuritiesClosedPayDesc("投资有风险");
                     System.out.println("增加的实体类="+securitiesClosedPayInventory);
 //                        执行删除
-                    int i = assetValuationService.deleteSecuritiesClosedPayInventory(securitiesClosedPayInventory);
+                    i = assetValuationService.deleteSecuritiesClosedPayInventory(securitiesClosedPayInventory);
                     //调用增加方法
                     securitiesClosedPayInventoryService.insertSecuritiesClosedPayInventory(securitiesClosedPayInventory);
 
@@ -101,14 +106,14 @@ public class AssetValuationController {
                     securitiesClosedPayInventory.setSecuritiesType(2);
                     securitiesClosedPayInventory.setSecuritiesId(transactionData.getSecuritiesId());
                     securitiesClosedPayInventory.setTotalPrice(transactionData.getTotalSum());
-                    securitiesClosedPayInventory.setFlag(transactionData.getStatus());
+                    securitiesClosedPayInventory.setFlag(transactionData.getFlag());
                     securitiesClosedPayInventory.setSecurityPeriodFlag(1);
                     securitiesClosedPayInventory.setSecuritiesClosedPayDesc("投资有风险");
                     System.out.println("查清算款增加的实体类="+securitiesClosedPayInventory);
                     assetValuationService.deleteSecuritiesClosedPayInventoryTwo(securitiesClosedPayInventory);
                     securitiesClosedPayInventoryService.insertSecuritiesClosedPayInventory(securitiesClosedPayInventory);
                     System.out.println("查ta交易数据================================");
-                    HashMap taTransactionMap = assetValuationService.selectTaTransaction(toDay,fundId);
+                    HashMap taTransactionMap = assetValuationService.selectTaTransaction(fundId,toDay);
                     List<TaTransaction> taTransactionList = (List<TaTransaction>)taTransactionMap.get("p_cursor");
                     for (TaTransaction taTransaction : taTransactionList) {
                         System.out.println(taTransaction+"ta==========================================");
@@ -120,14 +125,14 @@ public class AssetValuationController {
                         cashClosedPayInventory.setBusinessType(4);
                         cashClosedPayInventory.setBusinessStatus(1);
                         cashClosedPayInventory.setInitialSigns(1);
-                        cashClosedPayInventory.setTotalMoney((double) taTransaction.getTotalMoney());
-
+                        cashClosedPayInventory.setTotalMoney(taTransaction.getTotalMoney());
+                        i = cashClosedPayInventoryService.insertCashClosedPayInventory(cashClosedPayInventory);
                     }
 
                 }
 
             }
         }
-        return 0;
+        return i;
     }
 }
