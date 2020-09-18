@@ -14,10 +14,11 @@ import java.util.Map;
  */
 @Service
 public interface ClosingDateService {
+
     /**
-     * 查询成交清算数据持久层
-     * @param closingDate
+     * 查询成交清算数据
+     * @param closingDate 成交清算数据实体对象
      * @return
      */
-    Map<String,Object> selectClosingDate(ClosingDate closingDate);
+    Map<String,Object> selectClosingDate(ClosingDate closingDate,String fundId);
 }

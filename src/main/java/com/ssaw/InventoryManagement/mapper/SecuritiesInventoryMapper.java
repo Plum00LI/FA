@@ -50,6 +50,6 @@ public interface SecuritiesInventoryMapper {
      */
     void selectSecuritiesInventoryInfo(Map map);
 
-    void deleteSecuritiesInventoryDate(String dateTime,String fundId);
+    void deleteSecuritiesInventoryDate(String securitiesId,String dateTime,String fundId);
 
 }
