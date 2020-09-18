@@ -238,3 +238,59 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 function myclose() {
     layer.closeAll();
 }
+
+
+//下拉表格
+layui.use(['tableSelect'], function () {
+    var tableSelect = layui.tableSelect;
+    var $ = layui.$;
+    //新增账户名称下拉选择器
+    tableSelect.render({
+        elem: '#accountName',
+        checkedKey: 'accountId',
+        table: {
+            url: '../account/selectAccount',
+            cols: [
+                [
+                    {type: 'radio'},
+                    {field: 'accountId', title: '账户编号', width:250},
+                    {field: 'accountName', title: '账户名称', width:250}
+                ]
+            ]
+        },
+        done: function (elem, data) {
+            var NEWJSON=[]
+            layui.each(data.data, function (index, item) {
+                NEWJSON.push(item.accountName)
+                console.log(item.accountId)
+                $("#accountId").val(item.accountId);
+            })
+            elem.val(NEWJSON.join(","))
+        }
+    })
+
+    //修改账户名称下拉选择器
+    tableSelect.render({
+        elem: '#accountName2',
+        checkedKey: 'accountId',
+        table: {
+            url: '../account/selectAccount',
+            cols: [
+                [
+                    {type: 'radio'},
+                    {field: 'accountId', title: '账户编号', width:250},
+                    {field: 'accountName', title: '账户名称', width:250}
+                ]
+            ]
+        },
+        done: function (elem, data) {
+            var NEWJSON=[]
+            layui.each(data.data, function (index, item) {
+                NEWJSON.push(item.accountName)
+                console.log(item.accountId)
+                $("#accountId2").val(item.accountId);
+            })
+            elem.val(NEWJSON.join(","))
+        }
+    })
+})
