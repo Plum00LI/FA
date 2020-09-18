@@ -28,7 +28,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         height:'full-55',
         cols: [
             [ //表头
-                {field: 'depositId', title: '存款业务Id',align:'center',hide:true}
+                ,{field: 'depositId', title: '存款业务Id',align:'center',hide:true}
                 ,{field: 'fundId', title: '基金Id',align:'center',hide:true}
                 ,{field: 'outAccountId', title: '流出账户Id',align:'center',hide:true}
                 ,{field: 'outAccountName', title: '流出账户名称',align:'center'}
@@ -147,11 +147,11 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 {
                     var ids=[];
                     for (var i = 0; i <data.length; i++) {
-                        ids.push(data[i].userId);
+                        ids.push(data[i].depositId);
                     }
                     layer.confirm('真的删除行么',{icon: 2}, function(index){
                         layer.close(index);
-                        $.post("../deposit/deleteUser", {userId:ids.join(',')},function(msg){
+                        $.post("../deposit/deleteDeposit", {depositId:ids.join(',')},function(msg){
                             table.reload('userTable');
                             layer.msg('删除'+checkStatus.data.length+'条记录', {
                                 title:'提示',
@@ -223,7 +223,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     })
     form.on('select(type)', function(data){
             if ($('#date1').val()!=""){
-                alert("进来了")
                 if ($('#businessType2').val() == 1) {
                     day = 3;
                     setTimeout(function () {

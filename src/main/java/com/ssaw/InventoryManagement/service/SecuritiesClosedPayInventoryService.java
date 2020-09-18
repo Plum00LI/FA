@@ -46,11 +46,6 @@ public interface SecuritiesClosedPayInventoryService {
      */
     public int deleteSecuritiesClosedPayInventory(String securitiesClosedPayInventoryId);
 
-    /**
-     * 按照日期删除
-     * @param dateTime
-     */
-    public void deleteSecuritiesClosedPayInventoryDate(String dateTime,String fundId);
 
     void deleteSecuritiesClosedPayInventoryDate(String securitiesId,String toDay,Integer securitiesType);
 }

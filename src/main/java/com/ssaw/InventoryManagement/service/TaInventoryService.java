@@ -46,9 +46,5 @@ public interface TaInventoryService {
      */
     public int deleteTaInventory(String taInventoryId);
 
-    /**
-     * 根据日期删除
-     * @param dateTime
-     */
-    public void deleteTaInventoryDate(String dateTime ,String fundId);
+
 }
