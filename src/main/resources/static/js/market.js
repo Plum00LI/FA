@@ -140,7 +140,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                 layer.full(index);*/
                 break;
             case 'search':
-                alert("搜索");
                 var securitiesId = $("#securitiesId").val();
                 var dateTime = $("#dateTime").val();
                 //表格的重新加载事件
