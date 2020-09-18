@@ -14,6 +14,7 @@
     <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
     <script src="../lib/layuimini/js/lay-config.js"></script>
     <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
+    <script src="../js/securitiesClosedPaylnventory.js"></script>
 
     <!--工具条-->
     <script type="text/html" id="securitiesClosedPayInventoryToolBar">
@@ -221,121 +222,6 @@
         </div>
     </form>
 </div>
-
-
-
-<script src="../js/securitiesClosedPaylnventory.js"></script>
-<script type="text/javascript">
-    layui.use([ 'tableSelect'], function () {
-        var $=layui.jquery,
-            tableSelect=layui.tableSelect;
-        //增加账户下拉表格
-        tableSelect.render({
-            elem:'#accountName',
-            checkedKey:'accountName',
-            table:{
-                url:'../account/selectAccount',
-
-                cols:[
-                    [   {type:'radio'},
-                        {field:'accountName',title:'账户名称',width:250},
-                        {field: 'accountId',title: '账号Id',width:250}
-                    ]
-                ]
-            },
-            done:function (elem,data) {
-                //elem:返回之前input对象；data:表格返回的选中的数据 []
-                var newJson=[];
-                //遍历选中的数据
-                $.each(data.data,function (index,item) {
-                    newJson.push(item.accountName);
-                    console.log(item.accountId);
-                    $("#accountId").val(item.accountId);//给隐藏域中的val赋值
-                });
-                elem.val(newJson.join(","));//给输入框里显示的值赋值
-            }
-        })
-
-        //新增证券下拉选择器
-        tableSelect.render({
-            elem: '#securitiesName'
-            , checkedKey: 'securitiesId'
-            , table: {
-                url: '../Securities/selectSecurities'
-                , cols: [
-                    [
-                        {type: 'radio'},
-                        {field: 'securitiesId', title: '证券ID',width:250},
-                        {field: 'securitiesName', title: '证券名称',width: 250},
-                    ]
-                ]
-            }
-            , done: function (elem, data) {
-                var NEWJSON = []
-                layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.securitiesName)
-                    console.log(item.securitiesId)
-                    $("#securitiesId").val(item.securitiesId);
-                })
-                elem.val(NEWJSON.join(","))
-            }
-        })
-
-        //修改证券代码下拉选择器
-        tableSelect.render({
-            elem: '#securitiesName2'
-            , checkedKey: 'fundId'
-            , table: {
-                url: '../securitiesClosedPayInventory/select'
-                , cols: [
-                    [
-                        {type: 'radio'},
-                        {field: 'fundId', title: '基金编号', width:250},
-                        {field: 'securitiesName', title: '证券名称', width:250},
-                    ]
-                ]
-            }
-            , done: function (elem, data) {
-                var NEWJSON = []
-                layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.securitiesName)
-                    console.log(item.securitiesId)
-                    console.log(item.fundId)
-                    $("#securitiesId2").val(item.securitiesId);
-                    $("#fundId").val(item.fundId)
-                })
-                elem.val(NEWJSON.join(","))
-            }
-        })
-
-        //修改账户下拉选择器
-        tableSelect.render({
-            elem:'#accountName2',
-            checkedKey:'accountName',
-            table:{
-                url:'../account/selectAccount',
-
-                cols:[
-                    [   {type:'radio'},
-                        {field:'accountName',title:'账户名称',width:250},
-                        {field: 'accountId',title: '账号Id',width:250}
-                    ]
-                ]
-            },
-            done:function (elem,data) {
-                //elem:返回之前input对象；data:表格返回的选中的数据 []
-                var newJson=[];
-                //遍历选中的数据
-                $.each(data.data,function (index,item) {
-                    newJson.push(item.accountName);
-                    console.log(item.accountId);
-                    $("#accountId2").val(item.accountId);//给隐藏域中的val赋值
-                });
-                elem.val(newJson.join(","));//给输入框里显示的值赋值
-            }
-        })
-    })
-</script>
 </body>
 </html>
 

@@ -245,7 +245,7 @@ function myclose() {
 
 layui.use(['tableSelect'], function () {
     var tableSelect = layui.tableSelect;
-
+    var $ = layui.$;
     //新增证券下拉选择器
     tableSelect.render({
         elem: '#securityName'
