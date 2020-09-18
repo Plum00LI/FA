@@ -148,7 +148,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             case 'add':
                 var index=layer.open({
                     type: 1,
-                    title: '添加数据信息',
+                    title: '添加权益数据',
                     closeBtn: 1,
                     move:false,
                     content:$("#addContent"),
