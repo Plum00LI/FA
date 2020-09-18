@@ -93,11 +93,11 @@ layui.use(['element', 'form', 'table', 'layer'], function () {
             case 'add':
                 var index=layer.open({
                     type: 1,
-                    title: '添加券商设置',
+                    title: '添加券商信息',
                     closeBtn: 1,
                     move:false,
                     content:$("#addContent"),
-                    area: ['800px', '600px'],
+                    area: ['400px', '450px'],
                     btn:[]
                 });
                 form.render();
@@ -167,10 +167,10 @@ layui.use(['element', 'form', 'table', 'layer'], function () {
             form.val('editform',$.parseJSON(JSON.stringify(data)));
             var index = layer.open({
                 type: 1,
-                title: '修改券商设置',
+                title: '修改券商信息',
                 closeBtn: 1,
                 move:false,
-                area: ['800px', '600px'],
+                area: ['400px', '450px'],
                 content:$('#editContent')
             });
             form.render();

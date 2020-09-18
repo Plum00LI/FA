@@ -85,7 +85,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 		elem: '#userTable',
 		url: '../selectBond',
 		page: true,
-		height: 'full-30',
+		height: 'full-20',
 		toolbar: '#userToolBar',//显示在表头的工具条
 		cellMinWidth:60,
 		cols: [
@@ -133,7 +133,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 					move:false,
 					content:$("#addContent"),
 					btn:[],
-					area:['800px','600px']
+					area:['800px','550px']
 				});
 
 				form.render();
@@ -203,7 +203,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 				title: '修改',
 				closeBtn: 1,
 				move:false,
-				area: ['800px', '600px'],
+				area: ['800px', '550px'],
 				content:$('#editContent')
 			});
 
@@ -215,3 +215,35 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 function quxiao() {
 	layer.closeAll();
 }
+
+layui.use([ 'tableSelect'], function () {
+	var $=layui.jquery,
+		tableSelect=layui.tableSelect;
+	//增加得下拉表格
+	tableSelect.render({
+		elem:'#insertSecurities',
+		checkedKey:'securitiesId',
+		table:{
+			url:'../Securities/selectSecurities',
+			cellMinWidth:60,
+
+			cols:[
+				[   {type:'radio'},
+					{field:'securitiesId',title:'证券编号',width:250},
+					{field: 'securitiesName',title: '证券名称',width:250}
+				]
+			]
+		},
+		done:function (elem,data) {
+			//elem:返回之前input对象；data:表格返回的选中的数据 []
+			var newJson=[];
+			//遍历选中的数据
+			$.each(data.data,function (index,item) {
+				newJson.push(item.securitiesId);
+			});
+			elem.val(newJson.join(","));//给输入框里显示的值赋值
+
+		}
+	})
+
+})

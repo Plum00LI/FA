@@ -29,14 +29,6 @@
 
         <div id="funTree" lay-filter="funTree" ></div>
 
-        <div style="position: absolute; bottom: 0px; left: 45%; display: none"  id="buttonID">
-            <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="addsubmit" >
-                <i class="layui-icon">&#x1005;</i>添加
-            </button>
-            <button class="layui-btn layui-bg-red cancel" type="button"  id="xy">
-                <i class="layui-icon">&#x1006;</i>取消
-            </button>
-        </div>
     </form>
 </div>
 
@@ -87,7 +79,6 @@
 
                 case 'edit':
                     //基本演示
-                    $("#buttonID").css("display","block")
                     var roleId=obj.data.roleId;
                     $.ajax({
                         url:'../Fun/SelectFun?roleId='+roleId,
@@ -114,43 +105,38 @@
                         move:false,
                         area: ['90%', '80%'],
                         shade: 0.8,
-
                         content:$("#editTree"),
-                        btn:[]
-                    });
-
-
-
-                    form.on('submit(addsubmit)',function () {
-                        var checkedData = tree.getChecked('id'); //获取选中节点的数据
-                        var ids =[];
-                        $.each(checkedData,function (i,parent) {
-                            ids.push(parent.id);
-                            $.each(parent.children,function (i,child) {
-                                ids.push(child.id);
-                                $.each(child.children,function (i,childSun) {
-                                    ids.push(childSun.id);
+                        btn:['添加','取消'],
+                        yes: function(index, layero){
+                            alert(1)
+                            var checkedData = tree.getChecked('id'); //获取选中节点的数据
+                            alert(checkedData)
+                            var ids =[];
+                            $.each(checkedData,function (i,parent) {
+                                ids.push(parent.id);
+                                $.each(parent.children,function (i,child) {
+                                    ids.push(child.id);
+                                    $.each(child.children,function (i,childSun) {
+                                        ids.push(childSun.id);
+                                    });
+                                });
                             });
+                            var strIds=ids.join(",");
+                            $.ajax({
+                                url:'../Endow/deInEndow?strIds='+strIds,
+                                data:'roldId='+roleId,
+                                dataType:'json',
+                                type:'post',
                             });
-                        });
-                        var strIds=ids.join(",");
-                        $.ajax({
-                            url:'../Endow/deInEndow?strIds='+strIds,
-                            data:'roldId='+roleId,
-                            dataType:'json',
-                            type:'post',
-                        });
-                    });
-                    $('#xy').click(function () {
+                            $("#funTree").css("display","none");
+                            layer.closeAll();
 
-                        $("#buttonID").css("display","none");
-                        $("#funTree").css("display","none");
+                        },
+                        btn2: function(index, layero){
 
-                        layer.close(index);
-
-
-
-
+                            $("#funTree").css("display","none");
+                            layer.closeAll();
+                        }
                     });
 
                     break;

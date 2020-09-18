@@ -4,58 +4,52 @@
     <title>权益数据设置</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <!--<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" /-->>
+    <!--<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" /-->
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../js/xadmin.js"></script>
-    <script src="../lib/layuimini/js/lay-config.js?v=1.0.4" charset="utf-8"></script><!--下拉表格-->
-    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-    <!--[if lt IE 9]-->
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
+    <script src="../lib/layuimini/js/lay-config.js"></script>
     <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
-    <link type="text/css" rel="stylesheet" href="..lib/layuimini/css/public.css"/>
+    <!--下拉表格-->
+    <script src="../js/equityData.js"></script>
+
+</head>
 
 
-
-    <!--头部工具-->
-    <script type="text/html" id="userToolBar">
-        <div style="float:right">
+<body>
+<!--头部工具-->
+<script type="text/html" id="userToolBar">
+    <div style="float:right">
         <button class="layui-btn layui-btn-sm" lay-event="add"><i
                 class="layui-icon">&#xe654;</i>添加数据</button>
         <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="deleteAll" style="color: #ff0000"><i
                 class="layui-icon">&#xe640;</i>批量删除</button>
-        </div>
-        <br/>
-        <form class="layui-form layui-col-space5">
+    </div>
+    <form class="layui-form layui-col-space5">
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label" style="width: 110px; text-align: center;">权益类型</label>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label" style="width: 110px; text-align: center;">权益类型</label>
-            <div class="layui-inline layui-show-xs-block">
-                    <select name="equitiesType" id="equitiesType">
+                <select name="equitiesType" id="equitiesType">
                     <option value="">请选择</option>
                     <option value="2">分红</option>
                     <option value="1">送股</option>
                 </select>
             </div>
-            </div>
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label" style="width: 110px;text-align: center;">权益除权日</label>
+        </div>
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label" style="width: 110px;text-align: center;">权益除权日</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input"  autocomplete="off" placeholder="请输入统计日期" name="end" id="equitiesExright">
             </div>
-            </div>
-            <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn layui-btn-primary" lay-event="search" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
-            </div>
-        </form>
-    </script>
-</head>
-
-
-<body style="overflow: auto; background-color: white;"
-      class="layui-view-body layui-content">
-<div>
+        </div>
+        <div class="layui-inline layui-show-xs-block">
+            <button class="layui-btn layui-btn-primary" lay-event="search" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+        </div>
+    </form>
+</script>
+<div class="layuimini-main">
     <!--表格-->
     <table id="userTable" lay-filter="userTable"></table>
     <!--工具条-->
@@ -138,7 +132,7 @@
             </div>
 
 
-            <div style="position: absolute; bottom: 0px; margin-left: 200px">
+            <div style="position: absolute; bottom: 20px; left: 38%">
                 <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="addsubmit">
                     <i class="layui-icon">&#x1005;</i>添加
                 </button>
@@ -228,7 +222,7 @@
         </div>
 
 
-        <div style="position: absolute; bottom: 30px; margin-left: 200px">
+        <div style="position: absolute; bottom: 30px; left: 38%">
             <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="editsubmit">
                 <i class="layui-icon">&#x1005;</i>编辑
             </button>
@@ -238,116 +232,5 @@
         </div>
     </form>
 </div>
-
-
-
-
-<!--下拉表格-->
-<script src="../js/equityData.js"></script>
-<script type="text/javascript">
-    layui.use(['tableSelect'], function () {
-        var tableSelect = layui.tableSelect;
-
-        //新增证券下拉选择器
-        tableSelect.render({
-            elem: '#securityName'
-            , checkedKey: 'securitiesId'
-            , table: {
-                url: '../Securities/selectSecurities'
-                , cols: [
-                    [
-                        {type: 'radio'},
-                        {field: 'securitiesId', title: '证券ID',width:250},
-                        {field: 'securitiesName', title: '证券名称',width: 250},
-                    ]
-                ]
-            }
-            , done: function (elem, data) {
-                var NEWJSON = []
-                layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.securitiesName)
-                    console.log(item.securitiesId)
-                    $("#securityId").val(item.securitiesId);
-                })
-                elem.val(NEWJSON.join(","))
-            }
-        })
-
-        //新增账户名称下拉选择器
-        tableSelect.render({
-            elem: '#accountName',
-            checkedKey: 'accountId',
-            table: {
-                url: '../account/selectAccount',
-                cols: [
-                    [
-                        {type: 'radio'},
-                        {field: 'accountId', title: '账户编号', width:250},
-                        {field: 'accountName', title: '账户名称', width:250}
-                    ]
-                ]
-            },
-            done: function (elem, data) {
-                var NEWJSON=[]
-                layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.accountName)
-                    console.log(item.accountId)
-                    $("#accountId").val(item.accountId);
-                })
-                elem.val(NEWJSON.join(","))
-            }
-        })
-
-        //修改证券下拉选择器
-        tableSelect.render({
-            elem: '#securityName2'
-            , checkedKey: 'securitiesId'
-            , table: {
-                url: '../Securities/selectSecurities'
-                , cols: [
-                    [
-                        {type: 'radio'},
-                        {field: 'securitiesId', title: '证券ID',width:250},
-                        {field: 'securitiesName', title: '证券名称',width: 250},
-                    ]
-                ]
-            }
-            , done: function (elem, data) {
-                var NEWJSON = []
-                layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.securitiesName)
-                    console.log(item.securitiesId)
-                    $("#securityId2").val(item.securitiesId);
-                })
-                elem.val(NEWJSON.join(","))
-            }
-        })
-
-        //修改账户名称下拉选择器
-        tableSelect.render({
-            elem: '#accountName2',
-            checkedKey: 'accountId',
-            table: {
-                url: '../account/selectAccount',
-                cols: [
-                    [
-                        {type: 'radio'},
-                        {field: 'accountId', title: '账户编号', width:250},
-                        {field: 'accountName', title: '账户名称', width:250}
-                    ]
-                ]
-            },
-            done: function (elem, data) {
-                var NEWJSON=[]
-                layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.accountName)
-                    console.log(item.accountId)
-                    $("#accountId2").val(item.accountId);
-                })
-                elem.val(NEWJSON.join(","))
-            }
-        })
-    })
-</script>
 </body>
 </html>

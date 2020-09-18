@@ -132,7 +132,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                     closeBtn: 1,
                     move: false,
                     content: $("#addContent"),
-                    area:['800px','600px'],
+                    area:['400px','500px'],
                     btn: []
                 });
                 form.render();
@@ -229,10 +229,62 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
                 closeBtn: 1,
                 move: false,
                 content: $('#editContent'),
-                area:['800px','600px']
+                area:['400px','500px']
             });
             form.render();
            /* layer.full(index);*/
+        }
+    });
+});
+
+layui.use('tableSelect',function(){
+    var tableSelect=layui.tableSelect;
+    tableSelect.render({
+        elem: '#securities',
+        checkedKey: 'securitiesId',
+        table: {
+            url: '../Securities/selectSecurities',
+            cols: [
+                [
+                    { type: 'radio' },
+                    { field: 'securitiesId', title: '证券编号', },
+                    { field: 'securitiesName', title: '证券名称', },
+                    { field: 'dateTime', title: '发行日期', }
+                ]
+            ]
+        },
+        done: function (elem, data) {
+            var NEWJSON = []
+            layui.each(data.data, function (index, item) {
+                NEWJSON.push(item.securitiesId)
+                console.log(item.securitiesId)
+                $("#ss").val(item.securitiesId);
+            })
+            elem.val(NEWJSON.join(","))
+        }
+    });
+    tableSelect.render({
+        elem: '#securities2',
+        checkedKey: 'securitiesId',
+        table: {
+            url: '../Securities/selectSecurities',
+            cols: [
+                [
+                    { type: 'radio' },
+                    { field: 'securitiesId', title: '证券编号', },
+                    { field: 'securitiesName', title: '证券名称', },
+                    { field: 'dateTime', title: '发行日期', }
+                ]
+            ]
+        },
+        done: function (elem, data) {
+            var NEWJSON = []
+            layui.each(data.data, function (index, item) {
+                NEWJSON.push(item.securitiesId)
+                console.log(item.securitiesId)
+                $("#ss2").val(item.securitiesId);
+            })
+            elem.val(NEWJSON.join(","))
         }
     });
 });

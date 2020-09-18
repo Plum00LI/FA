@@ -13,6 +13,7 @@
     <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
     <script src="../lib/layuimini/js/lay-config.js"></script>
     <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
+    <script src="../js/securities.js"></script>
 </head>
 <body>
 <!--工具条-->
@@ -148,7 +149,7 @@
             </div>
         </div>
 
-        <div style="position: absolute; bottom: 0px; left: 45%;">
+        <div style="position: absolute; bottom: 20px; left: 38%;">
             <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
@@ -236,7 +237,7 @@
                    autocomplete="off" placeholder="" class="layui-input">
         </div>
     </div>
-        <div style="position: absolute; bottom: 0px; left: 45%;">
+        <div style="position: absolute; bottom: 40px; left: 35%;">
             <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
                 <i class="layui-icon">&#x1005;</i>确认修改
             </button>
@@ -246,70 +247,5 @@
         </div>
     </form>
 </div>
-<!--新增下拉表格-->
-<script src="../js/securities.js"></script>
-<script type="text/javascript">
-    layui.use([ 'tableSelect'], function () {
-        var $=layui.jquery,
-            tableSelect=layui.tableSelect;
-        //增加得下拉表格
-        tableSelect.render({
-            elem:'#addStockName',
-            checkedKey:'stockName',
-            table:{
-                url:'../Stock/selectSonStock',
-                cols:[
-                    [   {type:'radio'},
-                        {field:'stockName',title:'股票名称'},
-                        {field: 'stockId',title: '股票Id'}
-                    ]
-                ]
-            },
-            done:function (elem,data) {
-                //elem:返回之前input对象；data:表格返回的选中的数据 []
-                var newJson=[];
-                //遍历选中的数据
-                $.each(data.data,function (index,item) {
-                    newJson.push(item.stockName);
-                    console.log(item.stockId)
-                    $("#addStockId").val(item.stockId);//给隐藏域中的val赋值
-                });
-                elem.val(newJson.join(","));//给输入框里显示的值赋值
-            }
-        })
-    })
-</script>
-<!--修改下拉表格-->
-<script type="text/javascript">
-    layui.use([ 'tableSelect'], function () {
-        var $=layui.jquery,
-            tableSelect=layui.tableSelect;
-        //增加得下拉表格
-        tableSelect.render({
-            elem:'#addStockName2',
-            checkedKey:'stockName',
-            table:{
-                url:'../Stock/selectSonStock',
-                cols:[
-                    [   {type:'radio'},
-                        {field:'stockName',title:'股票名称'},
-                        {field: 'stockId',title: '股票Id'}
-                    ]
-                ]
-            },
-            done:function (elem,data) {
-                //elem:返回之前input对象；data:表格返回的选中的数据 []
-                var newJson=[];
-                //遍历选中的数据
-                $.each(data.data,function (index,item) {
-                    newJson.push(item.stockName);
-                    console.log(item.stockId)
-                    $("#addStockId2").val(item.stockId);//给隐藏域中的val赋值
-                });
-                elem.val(newJson.join(","));//给输入框里显示的值赋值
-            }
-        })
-    })
-</script>
 </body>
 </html>

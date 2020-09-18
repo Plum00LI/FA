@@ -289,3 +289,68 @@ function buling(data) {
         return data;
     }
 };
+
+layui.use([ 'tableSelect', 'layer'], function () {
+    var $ = layui.$;
+    tableSelect=layui.tableSelect;
+    //增加得下拉表格
+    tableSelect.render({
+        elem:'#insertAccount',
+        checkedKey:'blankCardCode',
+        table:{
+            url:'../account/selectAccount',
+            cellMinWidth:60,
+
+            cols:[
+                [   {type:'radio'},
+                    {field: 'blankCardCode',title: '银行卡号',width:250},
+                    {field:'accountName',title:'账户名称',width:250},
+                    {field:'blankName',title:'银行名称',width:250}
+                ]
+            ]
+        },
+        done:function (elem,data) {
+            //elem:返回之前input对象；data:表格返回的选中的数据 []
+            var newJson=[];
+            //遍历选中的数据
+            $.each(data.data,function (index,item) {
+                newJson.push(item.blankCardCode);
+                $("#outAccountId").val(item.accountId);//给隐藏域中的val赋值
+                $("#outAccountName").val(item.accountName);
+                $("#outBlankName").val(item.blankName);
+            });
+            elem.val(newJson.join(","));//给输入框里显示的值赋值
+
+        }
+    })
+    //增加的第二个
+    tableSelect.render({
+        elem:'#insertAccount2',
+        checkedKey:'blankCardCode',
+        table:{
+            url:'../account/selectAccount',
+            cellMinWidth:60,
+
+            cols:[
+                [   {type:'radio'},
+                    {field: 'blankCardCode',title: '银行卡号',width:250},
+                    {field:'accountName',title:'账户名称',width:250},
+                    {field:'blankName',title:'银行名称',width:250}
+                ]
+            ]
+        },
+        done:function (elem,data) {
+            //elem:返回之前input对象；data:表格返回的选中的数据 []
+            var newJson=[];
+            //遍历选中的数据
+            $.each(data.data,function (index,item) {
+                newJson.push(item.blankCardCode);
+                $("#inAccountId").val(item.accountId);//给隐藏域中的val赋值
+                $("#inAccountName").val(item.accountName);
+                $("#inBlankName").val(item.blankName);
+            });
+            elem.val(newJson.join(","));//给输入框里显示的值赋值
+
+        }
+    })
+});

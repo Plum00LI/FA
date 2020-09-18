@@ -7,20 +7,11 @@
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="../css/font.css">
-    <link rel="stylesheet" href="../css/xadmin.css">
-    <link rel="stylesheet" href="../css/theme9.css">
-    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../js/xadmin.js"></script>
-    <script src="../lib/layuimini/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
-    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-    <!--[if lt IE 9]-->
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-
-    <link rel="stylesheet" href="../lib/layui/css/layui.css">
-
-
+    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
+    <script src="../lib/layuimini/js/lay-config.js"></script>
+    <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
    <script type="text/javascript">
 
        layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
@@ -40,22 +31,21 @@
                elem: '#userTable',
                url: '../TaSettlement/selectTaSettlement?status=0',
                page: true,
-               height: 'full-20',
-               minLength:80,
-               cellMinWidth:60,
+               height: 'full-30',
+               cellMinWidth:80,
                toolbar:'#userToolBar',
                cols: [
                    [ //表头
                        {type: 'checkbox', fixed: 'left'}
-                       , {field: 'fundId', title: '基金', width: 176, align: 'center'}
-                       , {field: 'taTransactionId', title: 'TA交易编号', width: 176, align: 'center',hidden:true}
-                       , {field: 'accountId', title: '现金账户', width: 176, align: 'center'}
-                       , {field: 'price', title: '单价', width: 176, align: 'center'}
-                       , {field: 'fundNum', title: '数量', width: 176, align: 'center'}
-                       , {field: 'totalMoney', title: '总金额', width: 176, align: 'center'}
-                       , {field: 'dateTime', title: '交易日期', width: 176, align: 'center'}
+                       , {field: 'fundId', title: '基金',  align: 'center'}
+                       , {field: 'taTransactionId', title: 'TA交易编号',  align: 'center',hidden:true}
+                       , {field: 'accountId', title: '现金账户', align: 'center'}
+                       , {field: 'price', title: '单价',  align: 'center'}
+                       , {field: 'fundNum', title: '数量',  align: 'center'}
+                       , {field: 'totalMoney', title: '总金额',align: 'center'}
+                       , {field: 'dateTime', title: '交易日期',  align: 'center'}
                        , {
-                       field: 'transactionType', title: '类型', width: 176, align: 'center', templet: function (item) {
+                       field: 'transactionType', title: '类型',  align: 'center', templet: function (item) {
                            if (item.transactionType == '1') {
                                return '认购';
                            } else if (item.transactionType == '2') {
@@ -66,11 +56,11 @@
                        }
                    }
                        , {
-                       field: 'transactionStatus', title: '状态', width: 176, align: 'center', templet: function (item) {
+                       fixed: 'right',field: 'transactionStatus', title: '状态', align: 'center', templet: function (item) {
                            if (item.transactionStatus == '1') {
-                               return '已结算';
+                               return "<span style='color: green'>已结算</span>";
                            } else if (item.transactionStatus == '0') {
-                               return '未结算';
+                               return "<span style='color: red'>未结算</span>";
                            }
                        }
                    }
@@ -84,21 +74,21 @@
                elem: '#userTable2',
                url: '../TaSettlement/selectTaSettlement?status=1',
                page: true,
-               height: 498,
-               minLength:80,
+               height: 'full-30',
+               cellMinWidth:80,
                toolbar:'#userToolBar2',
                cols: [
                    [ //表头
                        {type: 'checkbox', fixed: 'left'}
-                       , {field: 'fundId', title: '基金', width: 176, align: 'center'}
-                       , {field: 'taTransactionId', title: 'TA交易编号', width: 176, align: 'center',hidden:true}
-                       , {field: 'accountId', title: '现金账户', width: 176, align: 'center'}
-                       , {field: 'price', title: '单价', width: 176, align: 'center'}
-                       , {field: 'fundNum', title: '数量', width: 176, align: 'center'}
-                       , {field: 'totalMoney', title: '总金额', width: 176, align: 'center'}
-                       , {field: 'dateTime', title: '交易日期', width: 176, align: 'center'}
+                       , {field: 'fundId', title: '基金',  align: 'center'}
+                       , {field: 'taTransactionId', title: 'TA交易编号',  align: 'center',hidden:true}
+                       , {field: 'accountId', title: '现金账户', align: 'center'}
+                       , {field: 'price', title: '单价',  align: 'center'}
+                       , {field: 'fundNum', title: '数量',  align: 'center'}
+                       , {field: 'totalMoney', title: '总金额',align: 'center'}
+                       , {field: 'dateTime', title: '交易日期',  align: 'center'}
                        , {
-                       field: 'transactionType', title: '类型', width: 176, align: 'center', templet: function (item) {
+                       field: 'transactionType', title: '类型',  align: 'center', templet: function (item) {
                            if (item.transactionType == '1') {
                                return '认购';
                            } else if (item.transactionType == '2') {
@@ -109,11 +99,11 @@
                        }
                    }
                        , {
-                       field: 'transactionStatus', title: '状态', width: 176, align: 'center', templet: function (item) {
+                       fixed: 'right',field: 'transactionStatus', title: '状态', align: 'center', templet: function (item) {
                            if (item.transactionStatus == '1') {
-                               return '已结算';
+                               return "<span style='color: green'>已结算</span>";
                            } else if (item.transactionStatus == '0') {
-                               return '未结算';
+                               return "<span style='color: red'>未结算</span>";
                            }
                        }
                    }
@@ -304,13 +294,13 @@
     <div style="margin-top: 0px;margin-left: 0px" >
         <form class="layui-form layui-col-space5">
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">成交日期</label>
+                <label class="layui-form-label" style="width: 110px;text-align: center">成交日期</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input"  autocomplete="off" placeholder="请输入成交日期" name="dateTime" id="start">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易方式</label>
+                <label class="layui-form-label" style="width: 110px;text-align: center">交易方式</label>
 
                 <div class="layui-inline layui-show-xs-block">
                     <select name="transactionType" id="transactionType">
@@ -322,7 +312,7 @@
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit=""  lay-event="select" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <button class="layui-btn layui-btn-primary"  lay-submit=""  lay-event="select" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <button class="layui-btn" type="button" onclick=" return false" lay-submit="settlement" lay-filter="search" lay-event="search" name="settlement" id="settlement" >结算</button>
@@ -340,13 +330,13 @@
     <div style="margin-top: 0px;margin-left: 0px" >
         <form class="layui-form layui-col-space5">
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">成交日期</label>
+                <label class="layui-form-label" style="width: 110px;text-align: center">成交日期</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input"  autocomplete="off" placeholder="请输入成交日期" name="dateTime" id="start1">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易方式</label>
+                <label class="layui-form-label" style="width: 110px;text-align: center">交易方式</label>
                 <div class="layui-inline layui-show-xs-block">
                     <select name="transactionType" id="transactionType2">
                         <option value="">请选择</option>
@@ -357,7 +347,7 @@
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit="" lay-event="select" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <button class="layui-btn layui-btn-primary"  lay-submit="" lay-event="select" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <button class="layui-btn" type="button" onclick="return false"  lay-submit="settlement" lay-filter="search2" lay-event="search2" name="settlement" id="settlement1" >反结算</button>

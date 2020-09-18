@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>menu</title>
-    <link rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
+    <script src="../lib/layuimini/js/lay-config.js"></script>
+    <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
 
     <style>
         .layui-btn:not(.layui-btn-lg ):not(.layui-btn-sm):not(.layui-btn-xs) {
@@ -45,9 +49,9 @@
     </div>
 
         <div>
-            <div class="layui-btn-group">
-                <button class="layui-btn" id="btn-expand">全部展开</button>
-                <button class="layui-btn layui-btn-normal" id="btn-fold">全部折叠</button>
+            <div class="layui-btn-group" id="toolbarDemo3" style="display: none;" >
+                <button class="layui-btn" id="btn-expand" lay-event="btn-expand">全部展开</button>
+                <button class="layui-btn layui-btn-normal" id="btn-fold" lay-event="btn-fold">全部折叠</button>
             </div>
             <table id="munu-table" class="layui-table" lay-filter="munu-table"></table>
         </div>
@@ -91,7 +95,7 @@
             treeSpid: -1,
             treeIdName: 'projectId',
             treePidName: 'projectFatherId',
-            toolbar: '#toolbarDemo2',
+            toolbar: '#toolbarDemo3',
             defaultToolbar: ['filter', 'exports', 'print'],
             elem: '#munu-table',
             // url: '../lib/layuimini/api/test.json',
@@ -150,21 +154,27 @@
                 layer.closeAll('loading');
             }
         });
-
-        $('#btn-expand').click(function () {
-            treetable.expandAll('#munu-table');
+        table.on('toolbar(munu-table)', function (obj) {
+            switch (obj.event) {
+                <!--展开按钮-->
+                case 'btn-expand':
+                    treetable.expandAll('#munu-table');
+                    break;
+                case 'btn-fold':
+                    <!--折叠按钮-->
+                    treetable.foldAll('#munu-table');
+                    break;
+            }
         });
 
-        $('#btn-fold').click(function () {
-            treetable.foldAll('#munu-table');
-        });
+
         $('#statisticsButton').click(function(){
             treetable.render({
                 treeColIndex: 1,
                 treeSpid: -1,
                 treeIdName: 'projectId',
                 treePidName: 'projectFatherId',
-                toolbar: '#toolbarDemo2',
+                toolbar: '#toolbarDemo3',
                 defaultToolbar: ['filter', 'exports', 'print'],
                 elem: '#munu-table',
                 // url: '../lib/layuimini/api/test.json',
@@ -231,7 +241,7 @@
                 treeSpid: -1,
                 treeIdName: 'projectId',
                 treePidName: 'projectFatherId',
-                toolbar: '#toolbarDemo2',
+                toolbar: '#toolbarDemo3',
                 defaultToolbar: ['filter', 'exports', 'print'],
                 elem: '#munu-table',
                 // url: '../lib/layuimini/api/test.json',
@@ -291,6 +301,7 @@
                 }
             });
         })
+
 
     });
     function fmoney(s, n)

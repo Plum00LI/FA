@@ -2,10 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <title>收益计提页面</title>
-    <link type="text/css" rel="stylesheet" href="../lib/layui/css/layui.css"/>
-    <link rel="stylesheet" href="../lib/layuimini/css/public.css" media="all">
-    <script type="text/javascript" src="../lib/layui/layui.js"></script>
-    <script src="../lib/layuimini/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
+    <script src="../lib/layuimini/js/lay-config.js"></script>
+    <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
 
     <script type="text/javascript">
         var layid = 11;
@@ -209,7 +210,7 @@
 <div style="margin-top: 20px;margin-left: 10px">
     <form id="searchDate" class="layui-form layui-col-space5">
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">业务日期</label>
+            <label class="layui-form-label" style="width: 110px;text-align: center">业务日期</label>
 
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input" autocomplete="off" placeholder="请输入统计日期" name="statDate" id="statDate">

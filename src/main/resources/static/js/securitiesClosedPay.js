@@ -142,7 +142,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     closeBtn: 1,
                     move:false,
                     content:$("#addContent"),
-                    area:['800px','600px'],
+                    area:['800px','350px'],
                     btn:[]
                 });
                 form.render();
@@ -208,11 +208,130 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 title: '修改证券应收应付数据',
                 closeBtn: 1,
                 move:false,
-                area:['800px','600px'],
+                area:['800px','300px'],
                 content:$('#editContent')
             });
             form.render();
             /*layer.full(index);*/
         };
     })
+});
+
+
+layui.use('tableSelect',function(){
+    var tableSelect=layui.tableSelect;
+    tableSelect.render({
+        elem: '#account',
+        checkedKey: 'accountId',
+        table: {
+            url: '../account/selectAccount',
+            cols: [
+                [
+                    { type: 'radio' },
+                    { field: 'accountId', title: '账户编号', },
+                    { field: 'blankCardCode', title: '银行卡号', },
+                    { field: 'blankName', title: '银行名称', }
+                ]
+            ]
+        },
+        done: function (elem, data) {
+            var NEWJSON = []
+            layui.each(data.data, function (index, item) {
+                NEWJSON.push(item.accountId)
+                console.log(item.accountId)
+                $("#addAccountId").val(item.accountId);
+            })
+            elem.val(NEWJSON.join(","))
+        }
+    });
+    tableSelect.render({
+        elem: '#addSecuritiesName',	//定义输入框input对象 必填
+        checkedKey: 'securitiesId', //表格的唯一建值，非常重要，影响到选中状态 必填
+        table: {	//定义表格参数，与LAYUI的TABLE模块一致，只是无需再定义表格elem
+            url:'../Securities/selectSecurities',
+            cols: [
+                [
+                    {type:'radio',field : 'securitiesId'},
+                    { field: 'securitiesId', title: '证券代码',align: 'center'},
+                    { field: 'securitiesName', title: '证券名称',align: 'center'},
+                    { field: 'securitiesType', title: '证券类型',align: 'center',
+                        templet :function(item){
+                            if(item.securitiesType==1){
+                                return '债券';
+                            }
+                            return '股票';
+                        }
+                    }
+                ]
+            ]
+        },
+        done: function (elem, data) {
+            //选择完后的回调，包含2个返回值 elem:返回之前input对象；data:表格返回的选中的数据 []
+            //拿到data[]后 就按照业务需求做想做的事情啦~比如加个隐藏域放ID...
+            var NEWJSON = []
+            layui.each(data.data, function (index, item) {
+                NEWJSON.push(item.securitiesId);
+                console.log(item.securitiesId)
+                $('#addSecuritiesId').val(item.securitiesId);
+            })
+            elem.val(NEWJSON.join(","))
+        }
+    });
+    tableSelect.render({
+        elem: '#account1',
+        checkedKey: 'accountId',
+        table: {
+            url: '../selectAccount',
+            cols: [
+                [
+                    { type: 'radio' },
+                    { field: 'accountId', title: '账户编号', },
+                    { field: 'blankCardCode', title: '银行卡号', },
+                    { field: 'blankName', title: '银行名称', }
+                ]
+            ]
+        },
+        done: function (elem, data) {
+            var NEWJSON = []
+            layui.each(data.data, function (index, item) {
+                NEWJSON.push(item.accountId)
+                console.log(item.accountId)
+                $("#addAccountId").val(item.accountId);
+            })
+            elem.val(NEWJSON.join(","))
+        }
+    });
+    tableSelect.render({
+        elem: '#addSecuritiesName1',	//定义输入框input对象 必填
+        checkedKey: 'securitiesId', //表格的唯一建值，非常重要，影响到选中状态 必填
+        table: {	//定义表格参数，与LAYUI的TABLE模块一致，只是无需再定义表格elem
+            url:'../Securities/selectSecurities',
+            cols: [
+                [
+                    {type:'radio',field : 'securitiesId'},
+                    { field: 'securitiesId', title: '证券代码',align: 'center'},
+                    { field: 'securitiesName', title: '证券名称',align: 'center'},
+                    { field: 'securitiesType', title: '证券类型',align: 'center',
+                        templet :function(item){
+                            if(item.securitiesType==1){
+                                return '债券';
+                            }
+                            return '股票';
+                        }
+                    }
+                ]
+            ]
+        },
+        done: function (elem, data) {
+            //选择完后的回调，包含2个返回值 elem:返回之前input对象；data:表格返回的选中的数据 []
+            //拿到data[]后 就按照业务需求做想做的事情啦~比如加个隐藏域放ID...
+            var NEWJSON = []
+            layui.each(data.data, function (index, item) {
+                NEWJSON.push(item.securitiesId);
+                console.log(item.securitiesId)
+                $('#addSecuritiesId').val(item.securitiesId);
+            })
+            elem.val(NEWJSON.join(","))
+        }
+    });
 });

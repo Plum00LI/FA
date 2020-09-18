@@ -131,7 +131,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     closeBtn: 1,
                     move:false,
                     content:$("#addContent"),
-                    area:['800px','600px'],
+                    area:['800px','500px'],
                     btn:[]
                 });
                 form.render();
@@ -204,7 +204,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 title: '修改账户信息',
                 closeBtn: 1,
                 move:false,
-                area:['800px','600px'],
+                area:['800px','500px'],
                 content:$('#editContent')
             });
             form.render();

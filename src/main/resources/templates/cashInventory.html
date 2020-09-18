@@ -9,32 +9,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="../css/font.css">
-    <link rel="stylesheet" href="../css/xadmin.css">
-    <link rel="stylesheet" href="../css/theme9.css">
-    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../js/xadmin.js"></script>
-    <script src="../lib/layuimini/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-
-    <link rel="stylesheet" href="../lib/layui/css/layui.css">
+    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
+    <script src="../lib/layuimini/js/lay-config.js"></script>
+    <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
 
 
     <!--工具条-->
     <script type="text/html" id="cashInventoryToolBar">
         <div style="float:right">
             <input type="checkbox" lay-event="initialSigns" title="是否为期初数据" lay-filter="initialSigns">&nbsp&nbsp&nbsp&nbsp
-            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm layui-btn-disabled" lay-event="" id="addbtn" style="background-color: #8c8c8c;color: #FFFFFF"><i
+            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm layui-btn-disabled" lay-event="" id="addbtn"><i
                     class="layui-icon">&#xe654;</i>添加数据</button>
-            <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll" style="background-color: #2c3e50;color: #FFFFFF"><i
+            <button class="layui-btn layui-btn-primary layui-btn layui-btn-sm" lay-event="deleteAll" style="color: #FF0000"><i
                     class="layui-icon">&#xe640;</i>批量删除</button>
         </div>
-        <br/>
         <form class="layui-form layui-col-space5">
 
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-blue" style="width: 110px;text-align: center">账户名称</label>
+                <label class="layui-form-label" style="width: 110px;text-align: center">账户名称</label>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input"  autocomplete="off" placeholder="请选择现金账户" name="accountName" id="searchAccountName">
@@ -43,13 +37,13 @@
             </div>
             <input type="hidden" name="fundId" id="searchFundId" th:value="${session.fundId}">
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label " style="width: 110px;text-align: center ;background-color: #8c8c8c;color: #FFFFFF">统计日期</label>
+                <label class="layui-form-label " style="width: 110px;text-align: center ;">统计日期</label>
             </div>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input"  autocomplete="off" placeholder="请输入统计日期"  id="dateTime">
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <a class="layui-btn "  lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</a>
+                <a class="layui-btn layui-btn-primary"  lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</a>
             </div>
         </form>
     </script>
@@ -66,7 +60,7 @@
     <div style="display: none;" id="barDemo">
         <a class="layui-btn layui-btn-xs" lay-event="edit"><i
                 class="layui-icon">&#xe642;</i>编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="del" style="color: #FF0000"><i
                 class="layui-icon">&#xe640;</i>删除</a>
 
     </div>

@@ -139,7 +139,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 					title: '添加现金应收应付数据',
 					closeBtn: 1,
 					move: false,
-					area: ['800px', '500px'],
+					area: ['400px', '500px'],
 					content: $("#addContent"),
 					btn: []
 				});
@@ -216,7 +216,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 				title: '修改现金应收应付数据',
 				closeBtn: 1,
 				move: false,
-				area: ['800px', '500px'],
+				area: ['400px', '500px'],
 				content: $('#editContent')
 			});
 
@@ -229,3 +229,95 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 function myclose() {
 	layer.closeAll();
 }
+
+layui.use(['tableSelect'],function () {
+
+	var $ = layui.jquery,
+		tableSelect = layui.tableSelect;
+	//新增的下拉表格
+	tableSelect.render({
+		elem: '#insertAccountName',
+		checkedKey: 'accountName',
+		table: {
+			url: '../account/selectAccount',
+			cellMinWidth: 60,
+			cols: [
+				[{type: 'radio'},
+					{field: 'accountName', title: '账户名称', width: 100},
+					{field: 'blankCardCode', title: '银行卡号', width: 100},
+					{field: 'blankName', title: '银行名称'},
+					{field: 'accountId', title: '账号Id', hidden: true}
+				]
+			]
+		},
+		done: function (elem, data) {
+			//elem:返回之前input对象；data:表格返回的选中的数据 []
+			var newJson = [];
+			//遍历选中的数据
+			$.each(data.data, function (index, item) {
+				newJson.push(item.accountName);
+				$("#insertAccountId").val(item.accountId);//给隐藏域中的val赋值
+				$("#insertFundId").val(item.fundId)
+			});
+			elem.val(newJson.join(","));//给输入框里显示的值赋值
+
+		}
+
+	})
+
+	tableSelect.render({
+		elem: '#updateAccountName',
+		checkedKey: 'accountId',
+		table: {
+			url: '../account/selectAccount',
+			cellMinWidth: 60,
+			cols: [
+				[{type: 'radio'},
+					{field: 'accountName', title: '账户名称', width: 100},
+					{field: 'blankCardCode', title: '银行卡号', width: 100},
+					{field: 'blankName', title: '银行名称'},
+					{field: 'accountId', title: '账号Id', hidden: true}
+				]
+			]
+		},
+		done: function (elem, data) {
+			//elem:返回之前input对象；data:表格返回的选中的数据 []
+			var newJson = [];
+			//遍历选中的数据
+			$.each(data.data, function (index, item) {
+				newJson.push(item.accountId);
+			});
+			elem.val(newJson.join(","));//给输入框里显示的值赋值
+
+		}
+
+	})
+
+	tableSelect.render({
+		elem: '#updateAccountName',
+		checkedKey: 'accountId',
+		table: {
+			url: '../account/selectAccount',
+			cellMinWidth: 60,
+			cols: [
+				[{type: 'radio'},
+					{field: 'accountName', title: '账户名称', width: 100},
+					{field: 'blankCardCode', title: '银行卡号', width: 100},
+					{field: 'blankName', title: '银行名称'},
+					{field: 'accountId', title: '账号Id', hidden: true}
+				]
+			]
+		},
+		done: function (elem, data) {
+			//elem:返回之前input对象；data:表格返回的选中的数据 []
+			var newJson = [];
+			//遍历选中的数据
+			$.each(data.data, function (index, item) {
+				newJson.push(item.accountId);
+			});
+			elem.val(newJson.join(","));//给输入框里显示的值赋值
+
+		}
+
+	})
+});

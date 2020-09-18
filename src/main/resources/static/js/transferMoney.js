@@ -86,7 +86,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     closeBtn: 1,
                     move:false,
                     content:$("#addContent"),
-                    area:['700px','500px'],
+                    area:['700px','450px'],
                     btn:[]
                 });
                 form.render();
@@ -160,7 +160,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 title: '指令设置',
                 closeBtn: 1,
                 move:false,
-                area:['700px','500px'],
+                area:['700px','400px'],
                 content:$('#editContent')
             });
             form.render();
@@ -192,3 +192,67 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 function myclose() {
     layer.closeAll();
 }
+
+
+layui.use([ 'tableSelect'], function () {
+    var $=layui.jquery,
+        tableSelect=layui.tableSelect;
+    //增加得下拉表格
+    tableSelect.render({
+        elem:'#insertAccount',
+        checkedKey:'inAccountName',
+        table:{
+            url:'../account/selectAccount',
+            cellMinWidth:60,
+            cols:[
+                [   {type:'radio'},
+                    {field: 'accountId',title: '账户Id'},
+                    {field:'accountName',title:'账户名称'},
+                    {field: 'blankCardCode',title: '银行卡号'},
+                    {field:'blankName',title:'银行名称'}
+                ]
+            ]
+        },
+        done:function (elem,data) {
+            //elem:返回之前input对象；data:表格返回的选中的数据 []
+            var newJson=[];
+            //遍历选中的数据
+            $.each(data.data,function (index,item) {
+                newJson.push(item.accountName);
+                $("#inAccountId").val(item.accountId);//给隐藏域中的val赋值
+                $("#inBlankName").val(item.blankName);
+            });
+            elem.val(newJson.join(","));//给输入框里显示的值赋值
+
+        }
+    })
+    //增加的第二个
+    tableSelect.render({
+        elem:'#insertAccount2',
+        checkedKey:'outAccountName',
+        table:{
+            url:'../account/selectAccount',
+            cellMinWidth:60,
+            cols:[
+                [   {type:'radio'},
+                    {field: 'accountId',title: '账户Id'},
+                    {field:'accountName',title:'账户名称'},
+                    {field: 'blankCardCode',title: '银行卡号'},
+                    {field:'blankName',title:'银行名称'}
+                ]
+            ]
+        },
+        done:function (elem,data) {
+            //elem:返回之前input对象；data:表格返回的选中的数据 []
+            var newJson=[];
+            //遍历选中的数据
+            $.each(data.data,function (index,item) {
+                newJson.push(item.accountName);
+                $("#outAccount").val(item.accountId);//给隐藏域中的val赋值
+                $("#outBlankName").val(item.blankName);
+            });
+            elem.val(newJson.join(","));//给输入框里显示的值赋值
+
+        }
+    })
+});

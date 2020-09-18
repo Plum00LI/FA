@@ -7,40 +7,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" href="../css/font.css">
-    <link rel="stylesheet" href="../css/xadmin.css">
-    <link rel="stylesheet" href="../css/theme9.css">
-    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="UTF-8"></script>
-    <script type="text/javascript" src="../js/xadmin.js"></script>
-    <script src="../lib/layuimini/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
-    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-    <!--[if lt IE 9]-->
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-
-    <link rel="stylesheet" href="../lib/layui/css/layui.css" type="text/css">
+    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
+    <script src="../lib/layuimini/js/lay-config.js"></script>
+    <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
 
 
 </head>
 
-<body style="overflow: auto; background-color: white;"
-      class="layui-view-body layui-content">
+<body>
+<div class="layuimini-main">
+    <table id="userTable" lay-filter="userTable"></table>
+</div>
 <!--表格-->
-<table id="userTable" lay-filter="userTable"></table>
 <div style="display: none;" id="toolbar1">
-    <br />
-    <div style="position: absolute; left: 10px; margin-top: 10px;">
+    <div style="position: absolute; float: left">
         <form id="searchform" lay-filter="searchform"
               class="layui-form layui-form-pane">
             <div class="layui-form-item" style="text-align: center;">
-                <label class="layui-form-label layui-bg-green"
+                <label class="layui-form-label"
                        style="width: 100px;text-align: center;float: left">统计日期</label>
                 <div class="layui-input-inline">
                     <input type="text" id="dateTime"
                            name="dateTime" autocomplete="off"
                            placeholder="请输入时间" class="layui-input">
                 </div>
-                <label class="layui-form-label layui-bg-green"
+                <label class="layui-form-label"
                        style="width: 110px;text-align: center">证券名称</label>
                 <div class="layui-input-inline">
                     <input type="text"  id="securitiesName"
@@ -48,21 +41,19 @@
                            class="layui-input">
                 </div>
                 <button style="position: absolute;height: 38px;text-align: center" type="button"
-                        lay-event="search" class="layui-btn layui-btn-sm">
+                        lay-event="search" class="layui-btn layui-btn-primary layui-btn-sm">
                     <i class="layui-icon">&#xe615;</i>搜索
                 </button>
             </div>
         </form>
     </div>
-    <br>
-    <div style="margin-top:10px;"></div>
     <div class="layui-btn-container"
          style="position: absolute; right: 115px; top: 10px;">
-        <button class="layui-btn layui-btn-sm layui-btn-danger"
-                lay-event="deleteAll">
+        <button class="layui-btn layui-btn-sm layui-btn-primary"
+                lay-event="deleteAll" style="color: #FF0000">
             <i class="layui-icon">&#xe640;</i>批量删除
         </button>
-        <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm layui-btn-disabled" lay-event="" id="addbtn" style="background-color: #8c8c8c;color: #FFFFFF"><i
+        <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm layui-btn-disabled" lay-event="" id="addbtn"><i
                 class="layui-icon">&#xe654;</i>添加证券库存
         </button>
         <div class="layui-inline" style="top: -4px;">

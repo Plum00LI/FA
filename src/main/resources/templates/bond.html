@@ -12,6 +12,7 @@
     <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
     <script src="../lib/layuimini/js/lay-config.js"></script>
     <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
+    <script src="../js/bond.js"></script>
 </head>
 <body>
 
@@ -140,7 +141,7 @@
                 <textarea name="bondDesc" required lay-verify="required" placeholder="备注" class="layui-textarea" style="width: 467px"></textarea>
             </div>
         </div>
-        <div style="position: absolute; bottom: 10px; left: 40%;">
+        <div style="position: absolute; bottom: 20px; left: 38%;">
             <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
@@ -235,7 +236,7 @@
                 <textarea name="bondDesc" required lay-verify="required" placeholder="备注" class="layui-textarea" style="width: 480px"></textarea>
             </div>
         </div>
-        <div style="position: absolute; bottom: 10px; left: 40%;">
+        <div style="position: absolute; bottom: 30px; left: 38%;">
             <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
                 <i class="layui-icon">&#x1005;</i>修改
             </button>
@@ -246,40 +247,5 @@
 
     </form>
 </div>
-<script src="../js/bond.js"></script>
-<script type="text/javascript">
-    layui.use([ 'tableSelect'], function () {
-        var $=layui.jquery,
-            tableSelect=layui.tableSelect;
-        //增加得下拉表格
-        tableSelect.render({
-            elem:'#insertSecurities',
-            checkedKey:'securitiesId',
-            table:{
-                url:'../Securities/selectSecurities',
-                cellMinWidth:60,
-
-                cols:[
-                    [   {type:'radio'},
-                        {field:'securitiesId',title:'证券编号',width:250},
-                        {field: 'securitiesName',title: '证券名称',width:250}
-                    ]
-                ]
-            },
-            done:function (elem,data) {
-                //elem:返回之前input对象；data:表格返回的选中的数据 []
-                var newJson=[];
-                //遍历选中的数据
-                $.each(data.data,function (index,item) {
-                    newJson.push(item.securitiesId);
-                });
-                elem.val(newJson.join(","));//给输入框里显示的值赋值
-
-            }
-        })
-
-    })
-
-</script>
 </body>
 </html>

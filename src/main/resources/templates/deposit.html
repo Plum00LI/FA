@@ -7,66 +7,53 @@
 <!--    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />-->
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="../css/font.css">
-    <link rel="stylesheet" href="../css/xadmin.css">
-    <link rel="stylesheet" href="../css/theme9.css">
-    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../js/xadmin.js"></script>
-    <script src="../lib/layuimini/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-
-    <link rel="stylesheet" href="../lib/layui/css/layui.css">
-    <!--工具条-->
-    <script type="text/html" id="userToolBar">
-        <div style="float:right">
-            <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm" lay-event="add"><i
-                    class="layui-icon">&#xe654;</i>添加存款</button>
-        </div>
-        <br/>
-        <form class="layui-form layui-col-space5">
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center" >业务类型</label>
-                <div class="layui-inline layui-show-xs-block" style="text-align: center">
-                    <select name="businessType" id="businessType">
-                        <option value="" placeholder="请选择业务类型"></option>
-                        <option value="1">定期三天</option>
-                        <option value="2">定期七天</option>
-                        <option value="3">活期存款</option>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">到期时间</label>
-                <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input"  autocomplete="off" placeholder="请选择日期" name="endDate" id="selectEnd">
-                </div>
-            </div>
-            </div>
-            <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit="" lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
-            </div>
-        </form>
-    </script>
-
-
-    <script type="text/javascript">
-
-
-    </script>
+    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
+    <script src="../lib/layuimini/js/lay-config.js"></script>
+    <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
+    <script src="../js/deposit.js"></script>
 </head>
-<body style="overflow: auto; background-color: white;"
-      class="layui-view-body layui-content">
-<div>
+<body>
+<!--工具条-->
+<script type="text/html" id="userToolBar">
+    <div style="float:right">
+        <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add"><i
+                class="layui-icon">&#xe654;</i>添加存款</button>
+    </div>
+    <form class="layui-form layui-col-space5">
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center" >业务类型</label>
+            <div class="layui-inline layui-show-xs-block" style="text-align: center">
+                <select name="businessType" id="businessType">
+                    <option value="" placeholder="请选择业务类型"></option>
+                    <option value="1">定期三天</option>
+                    <option value="2">定期七天</option>
+                    <option value="3">活期存款</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline layui-show-xs-block">
+            <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">到期时间</label>
+            <div class="layui-inline layui-show-xs-block">
+                <input class="layui-input"  autocomplete="off" placeholder="请选择日期" name="endDate" id="selectEnd">
+            </div>
+        </div>
+        </div>
+        <div class="layui-inline layui-show-xs-block">
+            <button class="layui-btn layui-btn-primary"  lay-submit="" lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</button>
+        </div>
+    </form>
+</script>
+<div class="layuimini-main">
     <!--表格-->
     <table id="userTable" lay-filter="userTable"></table>
     <!--工具条-->
     <div style="display: none;" id="barDemo">
         <a class="layui-btn layui-btn-xs" lay-event="edit"><i
                 class="layui-icon">&#xe642;</i>到期处理</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="del" style="color: #FF0000"><i
                 class="layui-icon">&#xe640;</i>删除</a>
-
     </div>
 </div>
 <!--增加的div内容-->
@@ -80,7 +67,7 @@
         </fieldset>
         <div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">流出账户</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">流出账户</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input type="hidden" name="fundId" th:value="${session.fundId}">
                     <input type="hidden" name="outAccountId" id="outAccountId"/>
@@ -88,7 +75,7 @@
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户名称</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">账户名称</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input"  autocomplete="off" placeholder="请选择账户名称" type="text" name="outAccountName" id="outAccountName">
                 </div>
@@ -97,13 +84,13 @@
         <br>
         <div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户银行</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">账户银行</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input"  autocomplete="off" placeholder="请选择账户银行" name="outBlankName" id="outBlankName">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">存款金额</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">存款金额</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input"  autocomplete="off" type="number" placeholder="请输入存款金额" name="money">
                 </div>
@@ -114,14 +101,14 @@
         </fieldset>
         <div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">流入账户</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">流入账户</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input type="hidden" name="inAccountId" id="inAccountId"/>
                     <input class="layui-input"  autocomplete="off" placeholder="请选择流入账户" name="blankCardCode" id="insertAccount2">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户名称</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">账户名称</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input"  autocomplete="off" placeholder="请选择账户名称" name="inAccountName" id="inAccountName">
                 </div>
@@ -130,13 +117,13 @@
         <br>
         <div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">账户银行</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">账户银行</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input"  autocomplete="off" placeholder="请选择账户银行" name="inBlankName" id="inBlankName">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center" >业务类型</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center" >业务类型</label>
                 <div class="layui-inline layui-show-xs-block" style="text-align: center;width: 187px" >
                     <select name="businessType" id="businessType2" lay-filter="type" >
                         <option value="" placeholder="请选择业务类型"></option>
@@ -150,97 +137,27 @@
         <br>
         <div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">业务日期</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">业务日期</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input"  autocomplete="off" placeholder="请选择业务日期" name="businessDate" id="date1" onblur="myDate()">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">到期日期</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">到期日期</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input"  autocomplete="off" placeholder="请选择到期日期" name="endDate" id="date2">
                 </div>
             </div>
         </div>
-        <div style="position: absolute; bottom: 0px; margin-left: 220px">
+        <div style="position: absolute; bottom: 10px; left: 38%">
             <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
-            <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
+            <button class="layui-btn layui-btn-primary" type="button" onclick="myclose()" style="color: #FF0000">
                 <i class="layui-icon">&#x1006;</i>取消
             </button>
         </div>
     </form>
 </div>
-<script src="../js/deposit.js"></script>
-<script type="text/javascript">
-    layui.use([ 'tableSelect', 'layer'], function () {
-        var $ = layui.$;
-            tableSelect=layui.tableSelect;
-        //增加得下拉表格
-        tableSelect.render({
-            elem:'#insertAccount',
-            checkedKey:'blankCardCode',
-            table:{
-                url:'../account/selectAccount',
-                cellMinWidth:60,
-
-                cols:[
-                    [   {type:'radio'},
-                        {field: 'blankCardCode',title: '银行卡号',width:250},
-                        {field:'accountName',title:'账户名称',width:250},
-                        {field:'blankName',title:'银行名称',width:250}
-                    ]
-                ]
-            },
-            done:function (elem,data) {
-                //elem:返回之前input对象；data:表格返回的选中的数据 []
-                var newJson=[];
-                //遍历选中的数据
-                $.each(data.data,function (index,item) {
-                    newJson.push(item.blankCardCode);
-                    $("#outAccountId").val(item.accountId);//给隐藏域中的val赋值
-                    $("#outAccountName").val(item.accountName);
-                    $("#outBlankName").val(item.blankName);
-                });
-                elem.val(newJson.join(","));//给输入框里显示的值赋值
-
-            }
-        })
-        //增加的第二个
-        tableSelect.render({
-            elem:'#insertAccount2',
-            checkedKey:'blankCardCode',
-            table:{
-                url:'../account/selectAccount',
-                cellMinWidth:60,
-
-                cols:[
-                    [   {type:'radio'},
-                        {field: 'blankCardCode',title: '银行卡号',width:250},
-                        {field:'accountName',title:'账户名称',width:250},
-                        {field:'blankName',title:'银行名称',width:250}
-                    ]
-                ]
-            },
-            done:function (elem,data) {
-                //elem:返回之前input对象；data:表格返回的选中的数据 []
-                var newJson=[];
-                //遍历选中的数据
-                $.each(data.data,function (index,item) {
-                    newJson.push(item.blankCardCode);
-                    $("#inAccountId").val(item.accountId);//给隐藏域中的val赋值
-                    $("#inAccountName").val(item.accountName);
-                    $("#inBlankName").val(item.blankName);
-                });
-                elem.val(newJson.join(","));//给输入框里显示的值赋值
-
-            }
-        })
-
-
-    });
-
-</script>
 </body>
 </html>

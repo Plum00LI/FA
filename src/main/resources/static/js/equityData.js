@@ -131,7 +131,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     return "<span style='color: green'>已处理</span>";
                 }
             }
-                ,{title: 'operation', title: '操作' , toolbar:'#barDemo', align:'center',fixed: 'right'}
+                ,{ title: '操作' , toolbar:'#barDemo', align:'center',fixed: 'right'}
             ]
         ]
     });
@@ -152,7 +152,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     closeBtn: 1,
                     move:false,
                     content:$("#addContent"),
-                    area:['800px','500px'],
+                    area:['800px','450px'],
                     btn:[]
                 });
                 form.render();
@@ -229,7 +229,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 title: '修改权益数据',
                 closeBtn: 1,
                 move:false,
-                area: ['800px', '500px'],
+                area: ['800px', '450px'],
                 content:$('#editContent')
             });
             form.render();
@@ -242,3 +242,107 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 function myclose() {
     layer.closeAll();
 }
+
+layui.use(['tableSelect'], function () {
+    var tableSelect = layui.tableSelect;
+
+    //新增证券下拉选择器
+    tableSelect.render({
+        elem: '#securityName'
+        , checkedKey: 'securitiesId'
+        , table: {
+            url: '../Securities/selectSecurities'
+            , cols: [
+                [
+                    {type: 'radio'},
+                    {field: 'securitiesId', title: '证券ID',width:250},
+                    {field: 'securitiesName', title: '证券名称',width: 250},
+                ]
+            ]
+        }
+        , done: function (elem, data) {
+            var NEWJSON = []
+            layui.each(data.data, function (index, item) {
+                NEWJSON.push(item.securitiesName)
+                console.log(item.securitiesId)
+                $("#securityId").val(item.securitiesId);
+            })
+            elem.val(NEWJSON.join(","))
+        }
+    })
+
+    //新增账户名称下拉选择器
+    tableSelect.render({
+        elem: '#accountName',
+        checkedKey: 'accountId',
+        table: {
+            url: '../account/selectAccount',
+            cols: [
+                [
+                    {type: 'radio'},
+                    {field: 'accountId', title: '账户编号', width:250},
+                    {field: 'accountName', title: '账户名称', width:250}
+                ]
+            ]
+        },
+        done: function (elem, data) {
+            var NEWJSON=[]
+            layui.each(data.data, function (index, item) {
+                NEWJSON.push(item.accountName)
+                console.log(item.accountId)
+                $("#accountId").val(item.accountId);
+            })
+            elem.val(NEWJSON.join(","))
+        }
+    })
+
+    //修改证券下拉选择器
+    tableSelect.render({
+        elem: '#securityName2'
+        , checkedKey: 'securitiesId'
+        , table: {
+            url: '../Securities/selectSecurities'
+            , cols: [
+                [
+                    {type: 'radio'},
+                    {field: 'securitiesId', title: '证券ID',width:250},
+                    {field: 'securitiesName', title: '证券名称',width: 250},
+                ]
+            ]
+        }
+        , done: function (elem, data) {
+            var NEWJSON = []
+            layui.each(data.data, function (index, item) {
+                NEWJSON.push(item.securitiesName)
+                console.log(item.securitiesId)
+                $("#securityId2").val(item.securitiesId);
+            })
+            elem.val(NEWJSON.join(","))
+        }
+    })
+
+    //修改账户名称下拉选择器
+    tableSelect.render({
+        elem: '#accountName2',
+        checkedKey: 'accountId',
+        table: {
+            url: '../account/selectAccount',
+            cols: [
+                [
+                    {type: 'radio'},
+                    {field: 'accountId', title: '账户编号', width:250},
+                    {field: 'accountName', title: '账户名称', width:250}
+                ]
+            ]
+        },
+        done: function (elem, data) {
+            var NEWJSON=[]
+            layui.each(data.data, function (index, item) {
+                NEWJSON.push(item.accountName)
+                console.log(item.accountId)
+                $("#accountId2").val(item.accountId);
+            })
+            elem.val(NEWJSON.join(","))
+        }
+    })
+})

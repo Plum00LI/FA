@@ -25,7 +25,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 
 	//新增提交
 	form.on('submit(addsubmit)', function (data) {
-		alert("jinlail");
 		var formData = $('#addform').serialize();
 		$.post("/Securities/insertSecurities", formData, function (msg) {
 			if (msg > 0) {
@@ -159,12 +158,11 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 					move: false,
 					content: $("#addContent"),
 					btn: [],
-					area:['800px','600px']
+					area:['800px','400px']
 				});
 				form.render();
 				break;
 			case 'search':
-				alert("搜索");
 				var securitiesId = $("#securitiesId_3").val();
 				var exchange = $("#exchange_3").val();
 				var securitiesType =  $("#securitiesType_3").val();
@@ -183,7 +181,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 				break;
 			case 'deleteAll':
 				var data = checkStatus.data;
-				//    layer.alert(JSON.stringify(data));
 				if (data.length == 0) {
 					layer.msg("请至少选择一条数据",)
 				} else {
@@ -210,7 +207,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 	//给表格编辑，删除按钮添加点击事件
 	table.on('tool(userTable)', function (obj) {
 		var data = obj.data;//得到删除行整行的数据
-		alert(data.securitiesId);
 		if (obj.event === 'del') {
 			layer.confirm('真的删除行么', {icon: 2}, function (index) {
 				layer.close(index);
@@ -220,14 +216,13 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 
 			});
 		} else if (obj.event === 'edit') {
-			alert(JSON.stringify(data));
 			form.val('editform', $.parseJSON(JSON.stringify(data)));
 			var index = layer.open({
 				type: 1,
 				title: '修改证券信息',
 				closeBtn: 1,
 				move: false,
-				area: ['800px', '600px'],
+				area: ['800px', '400px'],
 				content: $('#editContent')
 			});
 			form.render();
@@ -237,3 +232,63 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 function myclose() {
 	layer.closeAll();
 }
+
+layui.use([ 'tableSelect'], function () {
+	var $=layui.jquery,
+		tableSelect=layui.tableSelect;
+	//增加得下拉表格
+	tableSelect.render({
+		elem:'#addStockName',
+		checkedKey:'stockName',
+		table:{
+			url:'../Stock/selectSonStock',
+			cols:[
+				[   {type:'radio'},
+					{field:'stockName',title:'股票名称'},
+					{field: 'stockId',title: '股票Id'}
+				]
+			]
+		},
+		done:function (elem,data) {
+			//elem:返回之前input对象；data:表格返回的选中的数据 []
+			var newJson=[];
+			//遍历选中的数据
+			$.each(data.data,function (index,item) {
+				newJson.push(item.stockName);
+				console.log(item.stockId)
+				$("#addStockId").val(item.stockId);//给隐藏域中的val赋值
+			});
+			elem.val(newJson.join(","));//给输入框里显示的值赋值
+		}
+	})
+})
+
+layui.use([ 'tableSelect'], function () {
+	var $=layui.jquery,
+		tableSelect=layui.tableSelect;
+	//增加得下拉表格
+	tableSelect.render({
+		elem:'#addStockName2',
+		checkedKey:'stockName',
+		table:{
+			url:'../Stock/selectSonStock',
+			cols:[
+				[   {type:'radio'},
+					{field:'stockName',title:'股票名称'},
+					{field: 'stockId',title: '股票Id'}
+				]
+			]
+		},
+		done:function (elem,data) {
+			//elem:返回之前input对象；data:表格返回的选中的数据 []
+			var newJson=[];
+			//遍历选中的数据
+			$.each(data.data,function (index,item) {
+				newJson.push(item.stockName);
+				console.log(item.stockId)
+				$("#addStockId2").val(item.stockId);//给隐藏域中的val赋值
+			});
+			elem.val(newJson.join(","));//给输入框里显示的值赋值
+		}
+	})
+})
