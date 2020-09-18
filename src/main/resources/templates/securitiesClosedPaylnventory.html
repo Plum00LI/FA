@@ -30,13 +30,13 @@
             <input type="checkbox" lay-event="initialSigns" title="是否为期初数据" lay-filter="initialSigns">&nbsp&nbsp&nbsp&nbsp
             <button class="layui-btn layui-btn-normal layui-btn layui-btn-sm layui-btn-disabled" lay-event="" id="addbtn"><i
                     class="layui-icon">&#xe654;</i>添加数据</button>
-            <button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="deleteAll"><i
+            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="deleteAll" style="color: #ff0000"><i
                     class="layui-icon">&#xe640;</i>批量删除</button>
         </div>
         <br/>
         <form class="layui-form layui-col-space5">
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">证券类型</label>
+                <label class="layui-form-label" style="width: 110px;text-align: center">证券类型</label>
             <div class="layui-inline layui-show-xs-block">
                 <select name="securitiesType" id="securitiesType2">
                     <option value="">请选择</option>
@@ -48,29 +48,27 @@
             </div>
 
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">业务日期</label>
+                <label class="layui-form-label" style="width: 110px;text-align: center">业务日期</label>
             <div class="layui-inline layui-show-xs-block">
                 <input class="layui-input"  autocomplete="off" placeholder="请输入业务日期"  id="dateTime">
             </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <a class="layui-btn"  lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</a>
+                <a class="layui-btn layui-btn-primary" lay-event="search" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>搜索</a>
             </div>
         </form>
     </script>
 </head>
-<body style="overflow: auto; background-color: white;"
-      class="layui-view-body layui-content">
+<body style="overflow: auto; background-color: white" class="layui-view-body layui-content">
 <div>
     <!--表格-->
     <table id="securitiesClosedPayInventoryTable" lay-filter="securitiesClosedPayInventoryTable"></table>
     <!--工具条-->
     <div style="display: none;" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="edit"><i
+        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
                 class="layui-icon">&#xe642;</i>编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="del" style="color: #ff0000"><i
                 class="layui-icon">&#xe640;</i>删除</a>
-
     </div>
 </div>
 
@@ -149,24 +147,13 @@
                 <input class="layui-input" placeholder="请输入备注（可写可不写）" name="securitiesClosedPayDesc" id="securitiesClosedPayDesc">
             </div>
         </div>
-        <div class="layui-inline layui-show-xs-block" style="float: left">
-            <label class="layui-form-label" style="text-align: center;">备注</label>
-            <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input" placeholder="请输入备注（可写可不写）" name="securitiesClosedPayDesc" id="securitiesClosedPayDesc">
-            </div>
-        </div>
-
-
-
-
-
 
 
         <div style="position: absolute; bottom: 20px; margin-left:220px;">
-            <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
+            <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="addsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
-            <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
+            <button class="layui-btn layui-btn-primary" type="button" onclick="myclose()" style="color: #ff0000">
                 <i class="layui-icon">&#x1006;</i>取消
             </button>
         </div>
@@ -234,14 +221,11 @@
         </div>
 
 
-
-
-
-        <div style="position: absolute;  bottom: 20px; margin-left:220px;">
-            <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
+        <div style="position: absolute; bottom: 50px; margin-left:220px; ">
+            <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="editsubmit">
                 <i class="layui-icon">&#x1005;</i>编辑
             </button>
-            <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
+            <button class="layui-btn layui-btn-primary" type="button" onclick="myclose()" style="color: #ff0000">
                 <i class="layui-icon">&#x1006;</i>取消
             </button>
         </div>

@@ -93,7 +93,7 @@ layui.use(['element', 'form', 'table', 'layer'], function () {
             case 'add':
                 var index=layer.open({
                     type: 1,
-                    title: '添加数据信息',
+                    title: '添加券商设置',
                     closeBtn: 1,
                     move:false,
                     content:$("#addContent"),
