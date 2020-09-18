@@ -207,14 +207,18 @@ public class ValueStatisticsController {
                         valueStatisticsService.insertValueStatistics(valueStatistics6);
                         id++;
                         //数据库插入主账户债券利息
-                        ValueStatistics valueStatistics7 = new ValueStatistics(valueStatisticsDate, fundId, id, "债券利息", num, valueStatistics5.getProjectId());
-                        valueStatisticsService.insertValueStatistics(valueStatistics7);
-                        id++;
-                        //数据库插入主账户证券清算款
-                        ValueStatistics valueStatistics8 = new ValueStatistics(valueStatisticsDate, fundId, id, "证券清算款", num1 - num2, valueStatistics5.getProjectId());
-                        valueStatisticsService.insertValueStatistics(valueStatistics8);
-                        id++;
+                        if(num!=0){
+                            ValueStatistics valueStatistics7 = new ValueStatistics(valueStatisticsDate, fundId, id, "债券利息", num, valueStatistics5.getProjectId());
+                            valueStatisticsService.insertValueStatistics(valueStatistics7);
+                            id++;
+                        }
 
+                        //数据库插入主账户证券清算款
+                        if((num1-num2)!=0) {
+                            ValueStatistics valueStatistics8 = new ValueStatistics(valueStatisticsDate, fundId, id, "证券清算款", num1 - num2, valueStatistics5.getProjectId());
+                            valueStatisticsService.insertValueStatistics(valueStatistics8);
+                            id++;
+                        }
 
                         //根据账户ID查询TA应收
                         List<OperationValueStatistics> operationValueStatistics3 = operationValueStatisticsService.selectOperationTA(operationValueStatistic.getAccountId(), 4, 1, valueStatisticsDate, fundId);
@@ -240,9 +244,11 @@ public class ValueStatisticsController {
                             }
                         }
                         //数据库插入主账户TA清算款
-                        ValueStatistics valueStatistics9 = new ValueStatistics(valueStatisticsDate, fundId, id, "TA清算款", num3 - num4, valueStatistics5.getProjectId());
-                        valueStatisticsService.insertValueStatistics(valueStatistics9);
-                        id++;
+                        if((num3 - num4)!=0) {
+                            ValueStatistics valueStatistics9 = new ValueStatistics(valueStatisticsDate, fundId, id, "TA清算款", num3 - num4, valueStatistics5.getProjectId());
+                            valueStatisticsService.insertValueStatistics(valueStatistics9);
+                            id++;
+                        }
                         //根据主账户ID查询管理费
                         List<OperationValueStatistics> operationValueStatistics1 = operationValueStatisticsService.selectOperationCost(operationValueStatistic.getAccountId(), valueStatisticsDate, fundId, 1);
 
@@ -305,9 +311,11 @@ public class ValueStatisticsController {
                         }
                     }
                     //数据库插入次账户TA清算款
-                    ValueStatistics valueStatistics12 = new ValueStatistics(valueStatisticsDate, fundId, id, "TA清算款", num5 - num6, valueStatistics10.getProjectId());
-                    valueStatisticsService.insertValueStatistics(valueStatistics12);
-                    id++;
+                    if((num5 - num6)!=0) {
+                        ValueStatistics valueStatistics12 = new ValueStatistics(valueStatisticsDate, fundId, id, "TA清算款", num5 - num6, valueStatistics10.getProjectId());
+                        valueStatisticsService.insertValueStatistics(valueStatistics12);
+                        id++;
+                    }
                     //根据次账户ID查询管理费
                     List<OperationValueStatistics> operationValueStatistics1 = operationValueStatisticsService.selectOperationCost(operationValueStatistic.getAccountId(), valueStatisticsDate, fundId, 1);
                     //得到次账户管理费
