@@ -27,6 +27,7 @@ public class TransactionDataController {
 
     @Resource
     DbUtil dbUtil;
+
     @RequestMapping("selectTransactionData")
     public HashMap selectTransactionData(int page,int limit,String dateTime,String securitiesName){
         HashMap hashMap = transactionDataService.selectTransactionData(page,limit,dateTime,securitiesName);
@@ -51,10 +52,15 @@ public class TransactionDataController {
     }
 
     @RequestMapping("deleteTransactionData")
-    public Map<String,Object> deleteTransactionData(String transactionData){
+    public Map<String,Object> deleteTransactionData(String transactionDataId,String transactionData){
         System.out.println("删除进来了");
-        String s = transactionDataService.deleteTransactionData(transactionData);
+        String s = null;
         Map<String, Object> msgMap = new HashMap<>();
+        if (transactionDataId!=null&&!transactionDataId.equals("")){
+            s=transactionDataService.deleteTransactionData(transactionDataId,null);
+        }else {
+            s=transactionDataService.deleteTransactionData(null,transactionData);
+        }
         if (s.equals("删除成功")){
             msgMap.put("code",0);
         }else {

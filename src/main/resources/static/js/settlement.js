@@ -17,22 +17,22 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         elem: '#userTable',
         url: '../selectSettlement?status=0',
         page: true,
-        height: 498,
+        height: 'full-50',
         minLength:80,
         toolbar:'#userToolBar',
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
-                ,{field: 'dateTime', title: '交易日期', width:130, align:'center'}
-                ,{field: 'num', title: '交易数量', width: 130, align:'center'}
-                ,{field: 'price', title: '交易单价', width:130, align:'center'}
-                ,{field: 'totalSum', title: '结算金额', width: 130, align:'center'}
-                ,{field: 'netReceipts', title: '交易金额', width:130, align:'center'}
-                ,{field: 'settlementDate', title: '结算日期', width: 130, align:'center'}
-                ,{field: 'accountName', title: ' 现金账户', width: 130, align:'center'}
-                ,{field: 'securitiesName', title: ' 证券名称', width: 130, align:'center'}
-                ,{field: 'brokersName', title: '券商名称', width: 130, align:'center'}
-                ,{field: 'transactionDataMode', title: '交易方式', width: 130, align:'center', templet: function(item){
+                ,{field: 'dateTime', title: '交易日期', width:150, align:'center'}
+                ,{field: 'num', title: '交易数量', width: 150, align:'center'}
+                ,{field: 'price', title: '交易单价', width:150, align:'center'}
+                ,{field: 'totalSum', title: '结算金额', width: 150, align:'center'}
+                ,{field: 'netReceipts', title: '交易金额', width:150, align:'center'}
+                ,{field: 'settlementDate', title: '结算日期', width: 150, align:'center'}
+                ,{field: 'accountName', title: ' 现金账户', width: 210, align:'center'}
+                ,{field: 'securitiesName', title: ' 证券名称', width: 150, align:'center'}
+                ,{field: 'brokersName', title: '券商名称', width: 150, align:'center'}
+                ,{field: 'transactionDataMode', title: '交易方式', width: 150, align:'center', templet: function(item){
                     if(item.transactionDataMode=='1') {
                         return '买入';
                     } else if(item.transactionDataMode=='2'){
@@ -44,7 +44,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
                 }
             }
-                ,{field: 'status', title: '交易状态', width: 130, align:'center', templet: function(item){
+                ,{fixed: 'right',field: 'status', title: '交易状态', width: 150, align:'center', templet: function(item){
                     if(item.status=='0') {
                         return '未结算';
                     } else if(item.status=='1'){
@@ -62,22 +62,22 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         elem: '#userTable2',
         url: '../selectSettlement?status=1',
         page: true,
-        height: 498,
+        height: 'full-100',
         minLength:80,
         toolbar:'#userToolBar2',
         cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
-                ,{field: 'dateTime', title: '交易日期', width:130, align:'center'}
-                ,{field: 'num', title: '交易数量', width: 130, align:'center'}
-                ,{field: 'price', title: '交易单价', width:130, align:'center'}
-                ,{field: 'totalSum', title: '结算金额', width: 130, align:'center'}
-                ,{field: 'netReceipts', title: '交易金额', width:130, align:'center'}
-                ,{field: 'settlementDate', title: '结算日期', width: 130, align:'center'}
-                ,{field: 'accountName', title: ' 现金账户', width: 130, align:'center'}
-                ,{field: 'securitiesName', title: ' 证券名称', width: 130, align:'center'}
-                ,{field: 'brokersName', title: '券商名称', width: 130, align:'center'}
-                ,{field: 'transactionDataMode', title: '交易方式', width: 130, align:'center', templet: function(item){
+                ,{field: 'dateTime', title: '交易日期', width:150, align:'center'}
+                ,{field: 'num', title: '交易数量', width: 150, align:'center'}
+                ,{field: 'price', title: '交易单价', width:150, align:'center'}
+                ,{field: 'totalSum', title: '结算金额', width: 150, align:'center'}
+                ,{field: 'netReceipts', title: '交易金额', width:150, align:'center'}
+                ,{field: 'settlementDate', title: '结算日期', width: 150, align:'center'}
+                ,{field: 'accountName', title: ' 现金账户', width: 210, align:'center'}
+                ,{field: 'securitiesName', title: ' 证券名称', width: 150, align:'center'}
+                ,{field: 'brokersName', title: '券商名称', width: 150, align:'center'}
+                ,{field: 'transactionDataMode', title: '交易方式', width: 150, align:'center', templet: function(item){
                     if(item.transactionDataMode=='1') {
                         return '买入';
                     } else if(item.transactionDataMode=='2'){
@@ -89,7 +89,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
                 }
             }
-                ,{fixed: 'right',field: 'status', title: '交易状态', width: 130, align:'center', templet: function(item){
+                ,{fixed: 'right',field: 'status', title: '交易状态', width: 150, align:'center', templet: function(item){
                     if(item.status=='0') {
                         return '未结算';
                     } else if(item.status=='1'){
@@ -226,6 +226,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 laydate.render({
                     elem: '#start1' //指定元素
                 });
+                $("#start1").val(dateTime);
+                $("#cateId1").val(transactionDataMode);
                 break;
         }
     });

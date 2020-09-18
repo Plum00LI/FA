@@ -157,7 +157,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             case 'add':
                 var index=layer.open({
                     type: 1,
-                    title: '添加数据信息',
+                    title: '添加交易数据信息',
                     closeBtn: 1,
                     move:false,
                     area: ['893px','600px'],
@@ -223,11 +223,22 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
         // alert(data.transactionDataId);
         if (obj.event === 'del') {
            var status= data.status;
+           // alert(status);
            if(status==0){
                layer.confirm('真的删除行么',{icon: 2}, function(index){
                    layer.close(index);
-                   $.post("../deleteTransactionData", {transactionDataId:data.transactionDataId+""},function(msg){
+                   $.post("../deleteTransactionData", {transactionDataId:data.transactionDataId+""},function(obj){
                        table.reload('userTable');
+                       if (obj.code==0){
+                           layer.msg('删除成功', {
+                               title:'提示',
+                               area: ['200px', '140px'],
+                               time: 0,
+                               btn: ['知道了']
+                           });
+                       }else {
+                           layer.msg(obj.msg);
+                       }
                    });
 
                });

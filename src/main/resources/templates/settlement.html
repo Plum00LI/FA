@@ -7,20 +7,11 @@
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="../css/font.css">
-    <link rel="stylesheet" href="../css/xadmin.css">
-    <link rel="stylesheet" href="../css/theme9.css">
-
-    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-    <!--[if lt IE 9]-->
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-
-
-    <link rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
-    <link rel="stylesheet" href="../lib/layuimini/css/public.css" media="all">
-    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-    <script src="../lib/layuimini/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
+    <script src="../lib/layuimini/js/lay-config.js"></script>
+    <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
 
 </head>
 <body>
@@ -30,13 +21,13 @@
     <div style="margin-top: 0px;margin-left: 0px" >
         <form class="layui-form layui-col-space5">
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">成交日期</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">成交日期</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input"  autocomplete="off" placeholder="请输入成交日期" name="dateTime" id="start">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易方式</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">交易方式</label>
 
                 <div class="layui-inline layui-show-xs-block">
                     <select name="transactionDataMode" id="cateId">
@@ -49,14 +40,14 @@
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit="" lay-filter="select" lay-event="select"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <button class="layui-btn layui-btn-primary"  lay-submit="" lay-filter="select" lay-event="select"><i class="layui-icon">&#xe615;</i>搜索</button>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  type="button" lay-submit="settlement" lay-filter="search" lay-event="search" name="settlement" id="settlement" onclick="return false;" >结算</button>
+                <button class="layui-btn layui-btn-normal"  type="button" lay-submit="settlement" lay-filter="search" lay-event="search" name="settlement" id="settlement" onclick="return false;" >结算</button>
             </div>
         </form>
-        <ul class="layui-tab-title" style="border-bottom-color: #009688">
-            <li class="layui-this" lay-id="1">未结算</li>
+        <ul class="layui-tab-title" style="border-bottom-color: #D0D0D0">
+            <li class="layui-this" lay-id="1" style="color:#FF00FF">未结算</li>
             <li lay-id="2">已结算</li>
         </ul>
     </div>
@@ -67,13 +58,13 @@
     <div style="margin-top: 0px;margin-left: 0px" >
         <form class="layui-form layui-col-space5">
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">成交日期</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">成交日期</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input"  autocomplete="off" placeholder="请输入成交日期" name="dateTime" id="start1">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">交易方式</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">交易方式</label>
                 <div class="layui-inline layui-show-xs-block">
                     <select name="transactionDataMode" id="cateId1">
                         <option placeholder="请选择"></option>
@@ -85,15 +76,15 @@
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  lay-submit="" lay-filter="select" lay-event="select"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <button class="layui-btn layui-btn-primary"  lay-submit="" lay-filter="select" lay-event="select"><i class="layui-icon">&#xe615;</i>搜索</button>
             </div>
             <div class="layui-inline layui-show-xs-block">
-                <button class="layui-btn"  type="button" lay-submit="settlement" lay-filter="search2" lay-event="search2" name="settlement" id="settlement1" onclick="return false"; >反结算</button>
+                <button class="layui-btn layui-btn-normal"  type="button" lay-submit="settlement" lay-filter="search2" lay-event="search2" name="settlement" id="settlement1" onclick="return false"; >反结算</button>
             </div>
         </form>
-        <ul class="layui-tab-title" style="border-bottom-color: #009688">
+        <ul class="layui-tab-title" style="border-bottom-color: #D0D0D0">
             <li class="layui-this" lay-id="1">未结算</li>
-            <li lay-id="2">已结算</li>
+            <li lay-id="2" class="layui-this " style="color:#FF00FF">已结算</li>
         </ul>
     </div>
 </script>
