@@ -10,6 +10,7 @@ import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.GlobalManagement.util.SysUtil;
 import com.ssaw.InventoryManagement.entity.CashClosedPayInventory;
 import com.ssaw.InventoryManagement.entity.SecuritiesClosedPayInventory;
+import com.ssaw.InventoryManagement.service.CashClosedPayInventoryService;
 import com.ssaw.InventoryManagement.service.SecuritiesClosedPayInventoryService;
 import com.ssaw.TAManagement.entity.TaTransaction;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,9 @@ public class AssetValuationController {
     SecuritiesClosedPayInventoryService securitiesClosedPayInventoryService;
 
     @Resource
+    CashClosedPayInventoryService cashClosedPayInventoryService;
+
+    @Resource
     DbUtil dbUtil;
 
     @RequestMapping("selectAssetValuationData")
@@ -56,6 +60,7 @@ public class AssetValuationController {
     public int startValuation(String toDay,String arrJson,String fundId){
         System.out.println("进来了");
         System.out.println(arrJson+" "+toDay);
+        int i =0;
         List<AssetValuationData> assetValuationDataList = SysUtil.jsonToArrayList(arrJson, AssetValuationData.class);
         for (AssetValuationData assetValuationData : assetValuationDataList) {
 
@@ -82,7 +87,7 @@ public class AssetValuationController {
                     securitiesClosedPayInventory.setSecuritiesClosedPayDesc("投资有风险");
                     System.out.println("增加的实体类="+securitiesClosedPayInventory);
 //                        执行删除
-                    int i = assetValuationService.deleteSecuritiesClosedPayInventory(securitiesClosedPayInventory);
+                    i = assetValuationService.deleteSecuritiesClosedPayInventory(securitiesClosedPayInventory);
                     //调用增加方法
                     securitiesClosedPayInventoryService.insertSecuritiesClosedPayInventory(securitiesClosedPayInventory);
 
@@ -121,13 +126,13 @@ public class AssetValuationController {
                         cashClosedPayInventory.setBusinessStatus(1);
                         cashClosedPayInventory.setInitialSigns(1);
                         cashClosedPayInventory.setTotalMoney(taTransaction.getTotalMoney());
-
+                        i = cashClosedPayInventoryService.insertCashClosedPayInventory(cashClosedPayInventory);
                     }
 
                 }
 
             }
         }
-        return 0;
+        return i;
     }
 }

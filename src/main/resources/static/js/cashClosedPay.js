@@ -136,19 +136,20 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 			case 'add':
 				var index = layer.open({
 					type: 1,
-					title: '添加数据信息',
+					title: '添加现金应收应付数据',
 					closeBtn: 1,
 					move: false,
+					area: ['800px', '500px'],
 					content: $("#addContent"),
 					btn: []
 				});
 				form.render();
 				//全屏
-				layer.full(index);
+
 				break;
 
 			case 'search':
-				alert("搜索");
+
 				var dateTime = $("#start").val();
 				var serviceType=$("#serviceType").val();
 				//表格的重新加载事件
@@ -197,7 +198,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 	//给表格编辑，删除按钮添加点击事件
 	table.on('tool(userTable)', function (obj) {
 		var data = obj.data;//得到删除行整行的数据
-		alert(data.cashClosedPayId);
+
 		if (obj.event === 'del') {
 			layer.confirm('真的删除行么', {icon: 2}, function (index) {
 				layer.close(index);
@@ -207,20 +208,20 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 
 			});
 		} else if (obj.event === 'edit') {
-			alert(JSON.stringify(data));
+
 
 			form.val('editform', $.parseJSON(JSON.stringify(data)));
 			var index = layer.open({
 				type: 1,
-				title: '修改应收应付数据',
+				title: '修改现金应收应付数据',
 				closeBtn: 1,
 				move: false,
-				area: ['500px', '400px'],
+				area: ['800px', '500px'],
 				content: $('#editContent')
 			});
 
 			form.render();
-			layer.full(index);
+
 		};
 	})
 });

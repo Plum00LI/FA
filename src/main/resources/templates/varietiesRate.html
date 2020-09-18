@@ -147,17 +147,16 @@
                     case 'add':
                         var index = layer.open({
                             type: 1,
-                            title: '添加数据信息',
+                            title: '添加交易所品种费率',
                             closeBtn: 1,
                             move: false,
                             content: $("#addContent"),
                             btn: [],
-                            area:['800px','600px']
+                            area:['800px','500px']
                         });
                         form.render();
                         break;
                     case 'search':
-                        alert("搜索");
                         var exchangeNameIds = $("#exchangeName_3").val();
                         var rateTypeIds = $("#rateType_3").val();
                         //表格的重新加载事件
@@ -172,7 +171,7 @@
                             }
                         });
                         $("#exchangeName_3").val(exchangeNameIds);
-                       $("#rateType_3").val(rateTypeIds);
+                        $("#rateType_3").val(rateTypeIds);
                         break;
                     case 'deleteAll':
                         var data = checkStatus.data;
@@ -207,7 +206,6 @@
             //给表格编辑，删除按钮添加点击事件
             table.on('tool(userTable)', function (obj) {
                 var data = obj.data;//得到删除行整行的数据
-                alert(data.exchangeName);
                 if (obj.event === 'del') {
                     layer.confirm('真的删除行么', {icon: 2}, function (index) {
                         layer.close(index);
@@ -217,17 +215,15 @@
 
                     });
                 } else if (obj.event === 'edit') {
-                    alert(JSON.stringify(data));
                     form.val('editform', $.parseJSON(JSON.stringify(data)));
                     var index = layer.open({
                         type: 1,
                         title: '修改品种费率',
                         closeBtn: 1,
                         move: false,
-                        area: ['800px', '600px'],
+                        area: ['800px', '500px'],
                         content: $('#editContent')
                     });
-
                     form.render();
                 };
             })
@@ -308,6 +304,8 @@
 
                 </select>
             </div>
+        </div>
+        <div class="layui-form-item" style="text-align: center;">
             <label class="layui-form-label layui-bg-gray">交易所名称</label>
             <div class="layui-input-inline">
                 <select name="exchangeName" id="exchangeName_1">
@@ -317,12 +315,15 @@
                 </select>
             </div>
         </div>
+
         <div class="layui-form-item" style="text-align: center;">
             <label class="layui-form-label layui-bg-gray"> 过户费</label>
             <div class="layui-input-inline">
                 <input type="number" name="stampDuty" lay-verify="required"
                        autocomplete="off" placeholder="" class="layui-input">
             </div>
+        </div>
+        <div class="layui-form-item" style="text-align: center;">
             <label class="layui-form-label layui-bg-gray"> 印花税</label>
             <div class="layui-input-inline">
                 <input type="number" name="transferFee" lay-verify="required"
@@ -336,14 +337,15 @@
                 <input type="number" name="collectionRate" lay-verify="required"
                        autocomplete="off" placeholder="" class="layui-input">
             </div>
+        </div>
+        <div class="layui-form-item" style="text-align: center;">
             <label class="layui-form-label layui-bg-gray"> 征管费</label>
             <div class="layui-input-inline">
                 <input type="number" name="brokerage" lay-verify="required"
                        autocomplete="off" placeholder="" class="layui-input">
             </div>
         </div>
-
-        <div style="position: absolute; bottom: 0px; left: 45%;">
+        <div style="position: absolute; bottom: 0px; left: 40%;">
             <button class="layui-btn" lay-submit="" lay-filter="addsubmit">
                 <i class="layui-icon">&#x1005;</i>添加
             </button>
@@ -369,6 +371,8 @@
                     <option value="2">债券</option>
                 </select>
             </div>
+        </div>
+        <div class="layui-form-item" style="text-align: center;">
             <label class="layui-form-label layui-bg-gray">交易所名称</label>
             <div class="layui-input-inline">
                 <select name="exchangeName" id="exchangeName_2">
@@ -383,6 +387,8 @@
                 <input type="number" name="stampDuty" lay-verify="required"
                        autocomplete="off" placeholder="" class="layui-input">
             </div>
+        </div>
+        <div class="layui-form-item" style="text-align: center;">
             <label class="layui-form-label layui-bg-gray"> 印花税</label>
             <div class="layui-input-inline">
                 <input type="number" name="transferFee" lay-verify="required"
@@ -396,6 +402,9 @@
                 <input type="number" name="collectionRate" lay-verify="required"
                        autocomplete="off" placeholder="" class="layui-input">
             </div>
+
+        </div>
+        <div class="layui-form-item" style="text-align: center;">
             <label class="layui-form-label layui-bg-gray"> 征管费</label>
             <div class="layui-input-inline">
                 <input type="number" name="brokerage" lay-verify="required"
@@ -403,9 +412,9 @@
             </div>
         </div>
 
-        <div style="position: absolute; bottom: 0px; left: 45%;">
+        <div style="position: absolute; bottom: 0px; left: 40%;margin-bottom: 30px;">
             <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
-                <i class="layui-icon">&#x1005;</i>添加
+                <i class="layui-icon">&#x1005;</i>修改
             </button>
             <button class="layui-btn layui-btn-primary cancel" type="button" onclick="myclose()" style="color: #FF0000">
                 <i class="layui-icon">&#x1006;</i>取消

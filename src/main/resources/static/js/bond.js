@@ -57,7 +57,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 	//修改提交
 	form.on('submit(editsubmit)', function(data){
 		var formData=$('#editform').serialize();
-		alert("修改提交的数据：" + formData);
 		$.post("../updateBond",formData,function(msg){
 			if(msg>0){
 				table.reload('userTable');
@@ -140,7 +139,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 				form.render();
 				break;
 			case 'search':
-				alert("搜索");
+
 				var bondName= $("#bondName").val();
 				var drawStartDate= $("#start").val();
 				//表格的重新加载事件
@@ -186,7 +185,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 	//给表格编辑，删除按钮添加点击事件
 	table.on('tool(userTable)', function(obj) {
 		var data = obj.data;//得到删除行整行的数据
-		//  alert(data.taTransactionId);
 		if (obj.event === 'del') {
 
 			layer.confirm('真的删除行么',{icon: 2}, function(index){

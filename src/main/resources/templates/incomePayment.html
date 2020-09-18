@@ -129,8 +129,7 @@
 
                 console.log($("#statDate").val());
                 console.log($("#fundId").val());
-                alert(  "layid=" + layid);
-                alert($("#statDate").val());
+
                 if(layid==11){
 
                     table.reload('userTable', {
@@ -184,7 +183,7 @@
             form.on('submit(tongJi)', function (data) {
                 //console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
                 //console.log(data.field.statDate);
-                alert(  "layid=" + layid);
+
                 if(layid==11){
                     var checkStatus = table.checkStatus("userTable"); // 获得选中行所有数据
                     // 其中 ID 为基础参数 id 对应的值（见：设定容器唯一ID）
@@ -195,7 +194,7 @@
                     });
                     // alert(cashs);
                     var cash = JSON.stringify(cashs);
-                    alert(cash);
+
 
                     // layer.close();
                     //向服务端发送删除指令
@@ -225,8 +224,7 @@
                     // alert(cashs);
                     var Securities = JSON.stringify(Securitie);
                     var accountIds=$("#accountIds").val();
-                    alert(Securities);
-                    alert(accountIds);
+
                     // layer.close();
                     //向服务端发送删除指令
                     $.post("/incomePayment/statisticSecurties", {Securities:Securities ,accountIds:accountIds},function(msg){
@@ -252,7 +250,7 @@
                     });
                     // alert(cashs);
                     var TwoFees = JSON.stringify(TwoFee);
-                    alert(TwoFees);
+
 
                     // layer.close();
                     //向服务端发送删除指令
@@ -332,7 +330,7 @@
         });
         element.on('tab(test1)', function () {
             layid = this.getAttribute('lay-id');
-            alert(layid);
+
 
         });
     });
