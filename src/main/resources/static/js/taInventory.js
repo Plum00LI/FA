@@ -143,6 +143,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 laydate.render({
                     elem: '#dateTime' //指定元素
                 });
+                $("#dateTime").val(dateTime);
                 break;
             case 'deleteAll':
                 var data = checkStatus.data;

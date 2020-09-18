@@ -124,7 +124,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 					}
 				}}
 				, {field: 'amount', title: '金额', align: 'center'}
-				, {title: '操作', minWidth: 100, toolbar: '#barDemo', align: "center"}
+				, {fixed: 'right',title: '操作', minWidth: 100, toolbar: '#barDemo', align: "center"}
 			]
 		]
 	});
@@ -165,6 +165,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 				laydate.render({
 					elem: '#start' //指定元素
 				});
+				$("#start").val(dateTime);
+				$("#serviceType").val(serviceType);
 				break;
 
 			case 'deleteAll':
@@ -210,7 +212,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 			form.val('editform', $.parseJSON(JSON.stringify(data)));
 			var index = layer.open({
 				type: 1,
-				title: '修改权益数据',
+				title: '修改应收应付数据',
 				closeBtn: 1,
 				move: false,
 				area: ['500px', '400px'],
