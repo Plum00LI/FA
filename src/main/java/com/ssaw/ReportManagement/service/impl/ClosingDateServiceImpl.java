@@ -1,11 +1,15 @@
 package com.ssaw.ReportManagement.service.impl;
 
+import com.ssaw.BusinessData.entity.Market;
+import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.ReportManagement.entity.ClosingDate;
 import com.ssaw.ReportManagement.mapper.ClosingDateMapper;
 import com.ssaw.ReportManagement.service.ClosingDateService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,7 +25,9 @@ public class ClosingDateServiceImpl implements ClosingDateService {
     ClosingDateMapper closingDateMapper;
 
     @Override
-    public Map<String, Object> selectClosingDate(ClosingDate closingDate) {
+    public Map<String, Object> selectClosingDate(ClosingDate closingDate,String fundId) {
+
+
         return null;
     }
 }

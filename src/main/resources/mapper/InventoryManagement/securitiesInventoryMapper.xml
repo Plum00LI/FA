@@ -18,7 +18,7 @@
         </foreach>
     </delete>
     <delete id="deleteSecuritiesInventoryDate"  parameterType="com.ssaw.InventoryManagement.entity.SecuritiesInventory">
-        delete from securitiesInventory where SECURITYPERIODFLAG=0 and dateTime=#{dateTime} and fundId=#{fundId}
+        delete from securitiesInventory where SECURITYPERIODFLAG=0 and dateTime=#{dateTime} and fundId=#{fundId} and securitiesId=#{securitiesId}
     </delete>
 
 
