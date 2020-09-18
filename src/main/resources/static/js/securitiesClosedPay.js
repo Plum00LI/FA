@@ -63,7 +63,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     });
     //修改提交
     form.on('submit(editsubmit)', function(data){
-        alert("进来了")
         var formData=$('#editform').serialize();
         $.post("../securitiesClosedPay/updateSecuritiesClosedPay",formData,function(msg){
             if(msg>0){
@@ -151,7 +150,6 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 layer.full(index);*/
                 break;
             case 'search':
-                alert("搜索");
                 var dateTime= $("#dateTime").val();
                 //表格的重新加载事件
                 table.reload('userTable', {
