@@ -105,8 +105,8 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 ,{field: 'totalSum', title: '结算金额',  width:130, align:'center'}
                 ,{field: 'netReceipts', title: '交易金额',  width:130,align:'center'}
                 ,{field: 'settlementDate', title: '结算日期', width:130, align:'center'}
-                ,{field: 'accountName', title: ' 现金账户', width:130, align:'center'}
-                ,{field: 'securitiesName', title: ' 证券名称', width:130, align:'center'}
+                ,{field: 'accountName', title: ' 现金账户', width:200, align:'center'}
+                ,{field: 'securitiesName', title: ' 证券名称', width:200, align:'center'}
                 ,{field: 'brokersName', title: '券商名称', width:130,  align:'center'}
                 ,{field: 'fundId', title: '基金代码', width:130,  align:'center',hide:true}
                 ,{field: 'fundName', title: '基金名称',  width:130, align:'center',hide:true}
@@ -117,7 +117,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 ,{field: 'seateName', title: '席位名称',  width:130, align:'center',hide:true}
                 ,{field: 'accountId', title: '现金账户ID',  width:130, align:'center',hide:true}
                 ,{field: 'blankName', title: '银行名称',  width:130, align:'center',hide:true}
-                ,{field: 'flag', title: '交易表示符1流入,-1流出',  width:130, align:'center',hide:true}
+                ,{field: 'flag', title: '交易方向 1流入,-1流出',  width:130, align:'center',hide:true}
                 ,{field: 'commission', title: '佣金费用',  width:130,align:'center',hide:true}
                 ,{field: 'transfer', title: '过户费',  width:130, align:'center',hide:true}
                 ,{field: 'brokerage', title: '经手费',  width:130, align:'center',hide:true}
@@ -185,34 +185,34 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 laydate.render({
                     elem: '#end' //指定元素
                 });
+                $("#end").val(dateTime);
+                $("#equityId").val(securitiesName);
                 break;
             case 'deleteAll':
                 var data = checkStatus.data;
-
                 if(data.length==0){
                     layer.msg("请至少选择一条数据",)
-                }else
-                {
+                }else {
                     var ids=[];
                     for (var i = 0; i <data.length; i++) {
-                        ids.push(data[i].transactionDataId);
+                        ids.push(data[i].transactionDataId+'-'+data[i].status);
                     }
-                    if(data.status==0){
                         layer.confirm('真的删除行么',{icon: 2}, function(index){
                             layer.close(index);
-                            $.post("../deleteTransactionData", {transactionDataId:ids.join(',')},function(msg){
+                            $.post("../deleteTransactionData", {transactionData:ids.join(',')},function(obj){
                                 table.reload('userTable');
-                                layer.msg('删除'+checkStatus.data.length+'条记录', {
-                                    title:'提示',
-                                    area: ['200px', '140px'],
-                                    time: 0,
-                                    btn: ['知道了']
-                                });
+                                if (obj.code==0){
+                                    layer.msg('删除'+checkStatus.data.length+'条记录', {
+                                        title:'提示',
+                                        area: ['200px', '140px'],
+                                        time: 0,
+                                        btn: ['知道了']
+                                    });
+                                }else {
+                                    layer.msg(obj.msg);
+                                }
                             });
                         });
-                    }else {
-                        layer.confirm('不能删除已结算数据');
-                    }
                 }
                 break;
         }

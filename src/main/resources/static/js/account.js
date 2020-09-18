@@ -154,7 +154,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                     }
                 });
                 $("#accountName").val(accountName);
-                $("#accountName").val(blankName);
+                $("#blankName").val(blankName);
                 break;
             case 'deleteAll':
                 var data = checkStatus.data;
