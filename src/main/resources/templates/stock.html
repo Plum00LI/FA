@@ -218,11 +218,12 @@
                             closeBtn: 1,
                             move: false,
                             content: $("#addParentContent"),
+                            area:['700px','500px'],
                             btn: []
                         });
                         form.render();
                         //全屏
-                        layer.full(index);
+                        //layer.full(index);
                         break;
                     case 'addChild':
                         var index = layer.open({
@@ -232,11 +233,12 @@
                             closeBtn: 1,
                             move: false,
                             content: $("#addSonContent"),
+                            area:['700px','500px'],
                             btn: []
                         });
                         form.render();
                         //全屏
-                        layer.full(index);
+                        //layer.full(index);
                         break;
                     <!--展开按钮-->
                     case 'btn-expand':
@@ -290,11 +292,11 @@
                         title: '修改股票信息',
                         closeBtn: 1,
                         move: false,
-                        area: ['500px', '400px'],
+                        area:['700px','500px'],
                         content: $('#updatContent')
                     });
                     form.render();
-                    layer.full(index);
+                    //layer.full(index);
                 };
             })
         });
@@ -371,9 +373,9 @@
             </div>
         </div>
         <br>
-        <div style="position: absolute; bottom: 0px; left: 37%;">
+        <div style="position: absolute; bottom: 0px; margin-left: 220px;left: 35%">
             <button class="layui-btn" lay-submit="" lay-filter="addsubmitparent">
-                <i class="layui-icon">&#x1005;</i>提交
+                <i class="layui-icon">&#x1005;</i>添加
             </button>
             <button class="layui-btn layui-bg-red cancel" type="button" onclick="myclose()">
                 <i class="layui-icon">&#x1006;</i>取消
@@ -428,9 +430,9 @@
             </div>
         </div>
         <br>
-        <div style="position: absolute; bottom: 0px; left: 37%;">
+        <div style="position: absolute; bottom: 0px; margin-left: 220px;left: 35%">
             <button class="layui-btn" lay-submit="" lay-filter="editsubmit">
-                <i class="layui-icon">&#x1005;</i>提交
+                <i class="layui-icon">&#x1005;</i>添加
             </button>
             <button class="layui-btn layui-btn-primary" type="button" onclick="myclose()" style="color: #FF0000">
                 <i class="layui-icon">&#x1006;</i>取消
@@ -449,7 +451,7 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">板块编号</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input" autocomplete="off" placeholder="例如：001" name="stockId">
+                    <input class="layui-input" autocomplete="off" placeholder="例如：001" name="stockId" readonly="readonly">
                 </div>
             </div>
         </div>
@@ -469,7 +471,7 @@
                 <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">父类板块编号</label>
                 <div class="layui-inline layui-show-xs-block">
                     <input class="layui-input" autocomplete="off" placeholder="请输入父类板块编号"
-                           name="stockParentId">
+                           name="stockParentId" readonly="readonly">
                 </div>
             </div>
         </div>
@@ -485,9 +487,9 @@
             </div>
         </div>
         <br>
-        <div style="position: absolute; bottom: 0px; left: 37%;">
+        <div style="position: absolute; bottom: 20px; margin-left: 220px;left: 35%">
             <button class="layui-btn" lay-submit="" lay-filter="updatesubmit">
-                <i class="layui-icon">&#x1005;</i>提交
+                <i class="layui-icon">&#x1005;</i>修改
             </button>
             <button class="layui-btn layui-btn-primary" type="button" onclick="myclose()" style="color: #FF0000">
                 <i class="layui-icon">&#x1006;</i>取消
@@ -497,7 +499,6 @@
 </div>
 
 <!--添加子模块的父类下拉表格  只显示父类-->
-<!--修改下拉表格-->
 <script src="../js/securities.js"></script>
 <script type="text/javascript">
     layui.use(['tableSelect'], function () {
@@ -530,5 +531,6 @@
         })
     })
 </script>
+<!--修改下拉表格-->
 </body>
 </html>
