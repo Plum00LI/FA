@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org/">
 <head>
     <title>TA交易数据信息页面</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -376,7 +376,7 @@
     <form id="addform" lay-filter="addform"
           class="layui-form layui-form-pane"
           style="margin: 30px auto; display: inline-block;">
-
+        <input type="hidden" name="fundId" th:value="${session.fundId}">
         <div class="layui-form-item" style="text-align: center;">
             <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center" >账户</label>
             <div class="layui-input-inline">

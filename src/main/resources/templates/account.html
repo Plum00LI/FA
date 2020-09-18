@@ -74,7 +74,7 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">银行卡号</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input" autocomplete="off" placeholder="请输入银行卡号" name="blankCardCode">
+                    <input class="layui-input" autocomplete="off" type="number" placeholder="请输入银行卡号" name="blankCardCode">
                     <input type="hidden" name="fundId" th:value="${session.fundId}">
                 </div>
             </div>
@@ -107,9 +107,9 @@
         <br>
         <div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">卡号利率</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">卡号利率%</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input" autocomplete="off" placeholder="请输入利率%" name="cardRate">
+                    <input class="layui-input" autocomplete="off"  type="number" placeholder="请输入利率%" name="cardRate">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">
@@ -169,7 +169,7 @@
             <div class="layui-inline layui-show-xs-block">
                 <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">银行卡号</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input" autocomplete="off" placeholder="请输入银行卡号" name="blankCardCode"
+                    <input class="layui-input" autocomplete="off"  type="number" placeholder="请输入银行卡号" name="blankCardCode"
                            readonly="readonly">
                     <input name="accountId" type="hidden">
                 </div>
@@ -205,9 +205,9 @@
         <br>
         <div>
             <div class="layui-inline layui-show-xs-block">
-                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">卡号利率</label>
+                <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">卡号利率%</label>
                 <div class="layui-inline layui-show-xs-block">
-                    <input class="layui-input" autocomplete="off" placeholder="请输入利率%" name="cardRate">
+                    <input class="layui-input" autocomplete="off"  type="number" placeholder="请输入利率%" name="cardRate">
                 </div>
             </div>
             <div class="layui-inline layui-show-xs-block">

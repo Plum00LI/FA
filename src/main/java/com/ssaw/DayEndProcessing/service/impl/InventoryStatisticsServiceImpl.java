@@ -8,7 +8,7 @@ import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.InventoryManagement.entity.*;
 
 import com.ssaw.InventoryManagement.mapper.*;
-import com.ssaw.InventoryManagement.service.*;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,6 +53,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
 
     @Override
     public List<InventoryStatistics> selectInventoryStatistics(String fundId,String dateTime, String invId) {
+        System.out.println("fundId="+fundId);
         //创建List保持库存统计信息
         List<InventoryStatistics>  list=new ArrayList<InventoryStatistics>();
         //库存信息
