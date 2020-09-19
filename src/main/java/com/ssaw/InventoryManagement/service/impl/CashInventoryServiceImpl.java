@@ -137,12 +137,4 @@ public class CashInventoryServiceImpl implements CashInventoryService {
         return cashInventoryMapper.deleteCashInventory(cashInventoryIdList);
     }
 
-    /**
-     * 根据日期删除
-     * @param dateTime
-     */
-    @Override
-    public void deleteCashInventoryData(String dateTime,String fundId) {
-        cashInventoryMapper.deleteCashInventoryDate(dateTime,fundId);
-    }
 }

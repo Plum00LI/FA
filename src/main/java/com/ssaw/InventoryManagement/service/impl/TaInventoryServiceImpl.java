@@ -117,15 +117,4 @@ public class TaInventoryServiceImpl implements TaInventoryService {
         }
         return taInventoryMapper.deleteTaInventory(taInventoryIdList);
     }
-
-    /**
-     * g根据日期删除
-     * @param dateTime
-     */
-    @Override
-    public void deleteTaInventoryDate(String dateTime,String fundId) {
-        taInventoryMapper.deleteTaInventoryDate(dateTime,fundId);
-    }
-
-
 }

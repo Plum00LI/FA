@@ -37,17 +37,26 @@ public class SeatScheduleImpl implements SeatScheduleService {
         if (seateId != null && !seateId.equals("")){
             sql = sql + " and seateId='" + seateId + "'";
         }
-        String[] split = settlementDate.split("-");
-        String v_settlementDate=split[0]+"-"+split[1];
-        System.out.println(v_settlementDate);
+//        String[] split = settlementDate.split("-");
+//        String v_settlementDate=split[0]+"-"+split[1];
+//        System.out.println(v_settlementDate);
         if (datefind=="1"){
+            String[] split = settlementDate.split("-");
+            String v_settlementDate=split[0]+"-"+split[1];
+            System.out.println(v_settlementDate);
             sql=sql+" and settlementDate='" + v_settlementDate + "'";
         }else if (datefind=="2"){
+            String[] split = settlementDate.split("-");
+            String v_settlementDate=split[0]+"-"+split[1];
+            System.out.println(v_settlementDate);
             sql=sql+ " and securitiesId like '%" + v_settlementDate + "%'";
         }
-
-        sql=sql + " group by seateId,seateName,fundName,securitiesId,price,num,flag,commission,transfer,brokerage,stamp,management,netReceipts,totalSum,settlementDate";
-        String p_tableName="(select seateId,seateName,fundName,securitiesId,price,num,flag,commission,transfer,brokerage,stamp,management,netReceipts,totalSum,settlementDate from TransactionData)";
+        String p_tableName="(select s.settlementDate,s.fundId,t_netreceipts, t_totalSum,t_num,t_commission, t_ransfer,t_brokerage,t_stamp,t_management,seateId,securitiesId,f.fundName  FROM (\n" +
+                "select  settlementDate,fundid,sum(netreceipts) as t_netreceipts,sum(totalSum) as t_totalSum,\n" +
+                "       sum(num) as t_num,sum(commission) as t_commission,sum(transfer) as t_ransfer,sum(brokerage) as t_brokerage,sum(stamp) as t_stamp,\n" +
+                "       sum(management) as t_management,seateId,securitiesId from transactionData group by fundid,seateId,securitiesId,settlementDate)\n" +
+                "    s join (select * from fund) f on s.fundId=f.fundId)";
+        System.out.println(p_tableName);
         //创建一个Map，用于存储过程的调用传值
         Map<String, Object> map = new HashMap<>();
         //传入存储过程需要查询的表名
