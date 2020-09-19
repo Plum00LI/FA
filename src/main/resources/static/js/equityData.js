@@ -187,8 +187,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
                 var data = checkStatus.data;
                 if(data.length==0){
                     layer.msg("请至少选择一条数据",)
-                }else
-                {
+                }else {
                     var ids=[];
                     for (var i = 0; i <data.length; i++) {
                         ids.push(data[i].equityDataId);
@@ -214,13 +213,15 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     //给表格编辑，删除按钮添加点击事件
     table.on('tool(userTable)', function(obj) {
         var data = obj.data;//得到删除行整行的数据
+        if (data.disposeStatus == 1){
+            layer.msg('已处理的业务无法删除或修改')
+        }else if (data.disposeStatus == 0){
         if (obj.event === 'del') {
-            layer.confirm('真的删除行么',{icon: 2}, function(index){
+            layer.confirm('真的删除行么', {icon: 2}, function (index) {
                 layer.close(index);
-                $.post("../deleteEquityData", {equityDataId:data.equityDataId+""},function(msg){
+                $.post("../deleteEquityData", {equityDataId: data.equityDataId + ""}, function (msg) {
                     table.reload('userTable');
                 });
-
             });
         } else if (obj.event === 'edit') {
             form.val('editform',$.parseJSON(JSON.stringify(data)));
@@ -234,6 +235,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             });
             form.render();
         };
+        }
     })
 });
 
