@@ -66,7 +66,6 @@ public class TransactionDataServiceImpl implements TransactionDataService {
         else if(transactionDataMode==4){
             transactionData.setFlag(1);
         }
-
         return transactionDataMapper.insertTransactionData(transactionData);
     }
 

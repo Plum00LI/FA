@@ -73,12 +73,14 @@ public class SettlementServiceImpl implements SettlementService {
             BankTreasurer bankTreasurerPojo = new BankTreasurer();
             bankTreasurerPojo.setBankTreasurerId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.BT));
             bankTreasurerPojo.setFundId(settlement1.getFundId());
-            bankTreasurerPojo.setTotalPrice(settlement1.getTotalSum());
+
             bankTreasurerPojo.setAccountId(settlement1.getAccountId());
             bankTreasurerPojo.setAccountName(settlement1.getAccountName());
             bankTreasurerPojo.setFlag(settlement1.getFlag());
-            bankTreasurerPojo.setDbTime(settlement1.getDateTime());
-            bankTreasurerPojo.setDateTime(settlement1.getSettlementDate());
+            int flag = settlement1.getFlag();
+            bankTreasurerPojo.setTotalPrice(settlement1.getTotalSum()*flag);
+            bankTreasurerPojo.setDbTime(settlement1.getSettlementDate());
+            bankTreasurerPojo.setDateTime(settlement1.getDateTime());
             bankTreasurerPojo.setBusinessId(settlement1.getTransactionDataId());
 
             bankTreasurerPojo.setAllocatingType(3);

@@ -178,6 +178,9 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
 						curr: 1
 					}
 				});
+				$("#securitiesId_3").val(securitiesId);
+				$("#exchange_3").val(exchange);
+				$("#securitiesType_3").val(securitiesType);
 				break;
 			case 'deleteAll':
 				var data = checkStatus.data;
