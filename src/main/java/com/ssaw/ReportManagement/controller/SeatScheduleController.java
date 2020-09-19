@@ -1,6 +1,5 @@
 package com.ssaw.ReportManagement.controller;
 
-import com.ssaw.BusinessDescription.entity.SecuritiesAndStock;
 import com.ssaw.ReportManagement.entity.SeatSchedule;
 import com.ssaw.ReportManagement.service.SeatScheduleService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,12 +11,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("SeatSchedule")
+@RequestMapping("SeatSchedule2")
 public class SeatScheduleController {
     @Resource
     SeatScheduleService seatScheduleService;
 
-    @RequestMapping("selectSeatSchedule")
+    @RequestMapping("selectSeatSchedule2")
     public Map<String,Object> selectSeatSchedule(String page, String limit, String seateId, String datefind, String settlementDate){
         System.out.println(page+limit);
         System.out.println(seateId);

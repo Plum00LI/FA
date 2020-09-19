@@ -211,3 +211,115 @@ layui.use([ 'element', 'form', 'table', 'layer','laydate'], function () {
 function myclose() {
 	layer.closeAll();
 }
+
+layui.use(['table', 'form', 'tableSelect'], function () {
+	var $ = layui.jquery,
+		table = layui.table,
+		form = layui.form,
+		tableSelect = layui.tableSelect;
+	//新增托管人下拉表格
+	tableSelect.render({
+		elem: '#trusteeCompany',
+		checkedKey: 'trusteeCompany',
+		table: {
+			url: '../selectTrustee',
+			cols: [
+				[
+					{type: 'radio'},
+					{field: 'trusteeId', align: 'center', title: '托管人ID'},
+					{field: 'trusteeCompany', align: 'center', title: '托管公司'},
+					{field: 'trusteeDesc', align: 'center', title: '托管费率'}
+				]]
+		},
+		done: function (elem, data) {
+			var NEWJSON = [];
+			layui.each(data.data, function (index, item) {
+				NEWJSON.push(item.trusteeCompany)
+				$("#trusteeId").val(item.trusteeId)
+			});
+			elem.val(NEWJSON.join(","))
+		}
+	});
+	//新增管理人下拉表格
+	// managerId
+	// 管理人id
+	// managerCompany
+	// 管理人名称
+	// managerFee
+	// 管理费率
+	tableSelect.render({
+		elem: '#managerCompany',
+		checkedKey: 'managerCompany',
+		table: {
+			url: '../selectManager',
+			cols: [
+				[
+					{type: 'radio'},
+					{field: 'managerId', align: 'center', title: '管理人id'},
+					{field: 'managerCompany', align: 'center', title: '管理人名称'},
+					{field: 'managerFee', align: 'center', title: '管理费率'}
+				]]
+		},
+		done: function (elem, data) {
+			var NEWJSON = [];
+			layui.each(data.data, function (index, item) {
+				NEWJSON.push(item.managerCompany)
+				$("#managerId").val(item.managerId)
+			});
+			elem.val(NEWJSON.join(","))
+		}
+	});
+	//修改托管人下拉表格
+	tableSelect.render({
+		elem: '#trusteeCompany2',
+		checkedKey: 'trusteeId',
+		table: {
+			url: '../selectTrustee',
+			cols: [
+				[
+					{type: 'radio'},
+					{field: 'trusteeId', align: 'center', title: '托管人ID'},
+					{field: 'trusteeCompany', align: 'center', title: '托管公司'},
+					{field: 'trusteeDesc', align: 'center', title: '托管费率'}
+				]]
+		},
+		done: function (elem, data) {
+			var NEWJSON = [];
+			layui.each(data.data, function (index, item) {
+				NEWJSON.push(item.trusteeCompany)
+				$("#trusteeId2").val(item.trusteeId)
+			});
+			elem.val(NEWJSON.join(","))
+		}
+	});
+	//修改管理人下拉表格
+	// managerId
+	// 管理人id
+	// managerCompany
+	// 管理人名称
+	// managerFee
+	// 管理费率
+	tableSelect.render({
+		elem: '#managerCompany2',
+		checkedKey: 'managerId',
+		table: {
+			url: '../selectManager',
+			cols: [
+				[
+					{type: 'radio'},
+					{field: 'managerId', align: 'center', title: '管理人id'},
+					{field: 'managerCompany', align: 'center', title: '管理人名称'},
+					{field: 'managerFee', align: 'center', title: '管理费率'}
+				]]
+		},
+		done: function (elem, data) {
+			var NEWJSON = [];
+			layui.each(data.data, function (index, item) {
+				NEWJSON.push(item.managerCompany)
+				$("#managerId2").val(item.managerId)
+			});
+			elem.val(NEWJSON.join(","))
+		}
+	});
+
+});
