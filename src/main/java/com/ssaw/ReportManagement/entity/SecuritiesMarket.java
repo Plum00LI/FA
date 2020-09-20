@@ -16,6 +16,9 @@ public class SecuritiesMarket {
     private Double closingPrice;// 行情价格
     private Double mvcr;// 市值变动比
     private Double mvnv;// 市值占净值
+    private String fundId;//基金ID
+    private Double projectName;//资产净值
+    private String dateTime;//除权日期
 
     public SecuritiesMarket(){
 
@@ -31,6 +34,19 @@ public class SecuritiesMarket {
         this.mvnv = mvnv;
     }
 
+    public SecuritiesMarket(String securitiesId, String securitiesName, Double securitiesNum, Double price, Double closingPrice, Double mvcr, Double mvnv, String fundId, Double projectName, String dateTime) {
+        this.securitiesId = securitiesId;
+        this.securitiesName = securitiesName;
+        this.securitiesNum = securitiesNum;
+        this.price = price;
+        this.closingPrice = closingPrice;
+        this.mvcr = mvcr;
+        this.mvnv = mvnv;
+        this.fundId = fundId;
+        this.projectName = projectName;
+        this.dateTime = dateTime;
+    }
+
     @Override
     public String toString() {
         return "SecuritiesMarket{" +
@@ -41,6 +57,9 @@ public class SecuritiesMarket {
                 ", closingPrice=" + closingPrice +
                 ", mvcr=" + mvcr +
                 ", mvnv=" + mvnv +
+                ", fundId='" + fundId + '\'' +
+                ", projectName=" + projectName +
+                ", dateTime='" + dateTime + '\'' +
                 '}';
     }
 
@@ -98,5 +117,29 @@ public class SecuritiesMarket {
 
     public void setMvnv(Double mvnv) {
         this.mvnv = mvnv;
+    }
+
+    public String getFundId() {
+        return fundId;
+    }
+
+    public void setFundId(String fundId) {
+        this.fundId = fundId;
+    }
+
+    public Double getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(Double projectName) {
+        this.projectName = projectName;
+    }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 }
