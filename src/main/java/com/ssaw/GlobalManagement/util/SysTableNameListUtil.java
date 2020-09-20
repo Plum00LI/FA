@@ -36,6 +36,7 @@ public class SysTableNameListUtil {
     public static final String TM = "transferMoney";
     public static final String UI = "userInfo";
     public static final String R = "role";
+    public static final String SL = "ssawLog";
 
     /**
      * 获取表名简写
@@ -125,6 +126,9 @@ public class SysTableNameListUtil {
                 break;
             case VS:
                 tNa="VS";
+                break;
+            case SL:
+                tNa="SL";
                 break;
         }
         return tNa;

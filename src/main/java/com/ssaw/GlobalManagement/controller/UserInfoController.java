@@ -1,7 +1,9 @@
 package com.ssaw.GlobalManagement.controller;
 
 import com.ssaw.GlobalManagement.entity.UserInfo;
+import com.ssaw.GlobalManagement.log.OperLog;
 import com.ssaw.GlobalManagement.service.UserInfoService;
+import com.ssaw.GlobalManagement.util.OperationType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,6 +35,7 @@ public class UserInfoController {
      * @param limit 分页数据条目数
      * @return UI界面要求的数据格式
      */
+    @OperLog(message = "用户查询",operation = OperationType.QUERY)
     @RequestMapping("selectUserInfo")
     public Map<String,Object> getUserInfos(String page,String limit){
         //调用Service层执行查询，接收返回结果集Map

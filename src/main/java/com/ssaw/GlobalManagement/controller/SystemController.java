@@ -2,8 +2,10 @@ package com.ssaw.GlobalManagement.controller;
 
 import com.ssaw.BusinessDescription.entity.Account;
 import com.ssaw.BusinessDescription.service.AccountService;
+import com.ssaw.GlobalManagement.log.OperLog;
 import com.ssaw.GlobalManagement.service.SysMenuService;
 import com.ssaw.GlobalManagement.service.UserInfoService;
+import com.ssaw.GlobalManagement.util.OperationType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +29,7 @@ public class SystemController {
     AccountService accountService;
     //checkLogin验证登录方法
     @RequestMapping("checkLogin")
+    @OperLog(message = "用户登录",operation = OperationType.LOGIN)
     public Map<String,Object> checkLogin(String userName, String userPwd, String fundMsg, HttpServletRequest req){
         //创建存放回调对象的map
         Map<String, Object> map = new HashMap<>();
@@ -60,6 +63,7 @@ public class SystemController {
     }
     //logoff注销Session，退出登录方法
     @RequestMapping("logoff")
+    @OperLog(message = "用户注销",operation = OperationType.LOGOUT)
     public Map<String,Object> logoff(HttpServletRequest req){
         //从请求中拿出session对象
         HttpSession session = req.getSession(false);
