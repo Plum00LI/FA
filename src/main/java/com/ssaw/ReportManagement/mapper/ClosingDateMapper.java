@@ -4,6 +4,7 @@ import com.ssaw.ReportManagement.entity.ClosingDate;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: TescComment
@@ -19,5 +20,5 @@ public interface ClosingDateMapper {
      * @param closingDate
      * @return
      */
-    List<ClosingDate> selectClosingDate(ClosingDate closingDate);
+    List<ClosingDate> selectClosingDate(ClosingDate closingDate,String fundId);
 }

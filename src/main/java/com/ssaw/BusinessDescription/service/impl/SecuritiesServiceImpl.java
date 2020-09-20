@@ -53,6 +53,7 @@ public class SecuritiesServiceImpl implements SecuritiesService {
         Map<String, Object> resultMap = new HashMap<>();
         //定义一个分页条数变量
         int v_pageSize = 0;
+
         //判断传入的pageSize是否为null/空
         if (pageSize!=null&&!pageSize.equals("")){
             //通过Integer包装类将String类型转换成int基础数据类型

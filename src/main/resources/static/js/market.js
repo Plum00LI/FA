@@ -239,6 +239,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
 
 layui.use('tableSelect',function(){
     var tableSelect=layui.tableSelect;
+    var $ = layui.$;
     tableSelect.render({
         elem: '#securities',
         checkedKey: 'securitiesId',
@@ -256,7 +257,7 @@ layui.use('tableSelect',function(){
         done: function (elem, data) {
             var NEWJSON = []
             layui.each(data.data, function (index, item) {
-                NEWJSON.push(item.securitiesId)
+                NEWJSON.push(item.securitiesName)
                 console.log(item.securitiesId)
                 $("#ss").val(item.securitiesId);
             })

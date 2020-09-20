@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js" charset="UTF-8"></script>
+    <script src="../js/closingDate.js"></script>
+
+</head>
+<body style="overflow: auto; background-color: white;"
+      class="layui-view-body layui-content">
+<div>
+    <table id="userTable" lay-filter="userTable"></table>
+    <div style="display: none;" id="toolbarDemo">
+        <div style="position: absolute; left: 10px;">
+            <form id="searchform" lay-filter="searchform"
+                  class="layui-form layui-form-pane">
+                <input type="hidden" name="fundId" th:value="${session.fundId}">
+                <div class="layui-form-item" style="text-align: center;">
+                    <label style="width:120px;" class="layui-form-label">成交日期</label>
+                    <div class="layui-input-inline" >
+                        <input type="text" name="date" id="date" style="width: 190px;"  lay-verify="date"  autocomplete="off" class="layui-input">
+                        <input id="date2" type="hidden">
+                    </div>
+                    <button type="button" lay-event="search" class="layui-btn layui-btn-sm" style="height: 40px">
+                        <i class="layui-icon">&#xe615;</i>搜索
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

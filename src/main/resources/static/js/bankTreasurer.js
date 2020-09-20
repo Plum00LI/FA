@@ -217,7 +217,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
             form.val('editform',$.parseJSON(JSON.stringify(data)));
             var index = layer.open({
                 type: 1,
-                title: '修改资金调拨信息',
+                title: '修改资金调拨',
                 closeBtn: 1,
                 move:false,
                 area:['700px','500px'],

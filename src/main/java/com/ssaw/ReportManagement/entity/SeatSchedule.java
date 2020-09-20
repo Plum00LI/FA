@@ -1,41 +1,109 @@
 package com.ssaw.ReportManagement.entity;
 
 public class SeatSchedule {
-    private String seateId;         //FK 席位Id 排序
-    private String seateName;                //席位名称
-    private String fundName;        //基金名称
-    private String securitiesId;    //FK 证券编号ID （证券表的ID） 排序
-    private Double price;           //交易价格(单价)
-    private Double num;             //交易数量
-    private int flag;              //交易标识,1流入，-1流出
-    private Double commission;        //佣金费用（券商）
-    private Double transfer;        //过户费（交易所）
-    private Double brokerage;        //经手费（交易所）
-    private Double stamp;            //印花税（上交国家的税）
-    private Double management;        //征管费（上交国家的税）
-    private Double netReceipts;        //实收金额
-    private Double totalSum;        //交易总金额
-    private String settlementDate;  //结算日期(交易结算的日期)
+    private Double t_netreceipts;//实收金额
+    private Double t_totalSum;//交易总金额
+    private Double t_num;//数量
+    private Double t_commission;//佣金费用
+    private Double t_ransfer;//过户费
+    private Double t_brokerage;//经手费
+    private Double t_stamp;//印花税
+    private Double t_management;//征管税
+    private String fundid;//基金代码
+    private String seateId;//席位Id
+    private String  securitiesId;//证券代码
+    private String fundName;//基金名称
+    private String settlementDate;//结算日期
 
     public SeatSchedule() {
     }
 
-    public SeatSchedule(String seateId, String seateName, String fundName, String securitiesId, Double price, Double num, int flag, Double commission, Double transfer, Double brokerage, Double stamp, Double management, Double netReceipts, Double totalSum, String settlementDate) {
+    public SeatSchedule(Double t_netreceipts, Double t_totalSum, Double t_num, Double t_commission, Double t_ransfer, Double t_brokerage, Double t_stamp, Double t_management, String fundid, String seateId, String securitiesId, String fundName, String settlementDate) {
+        this.t_netreceipts = t_netreceipts;
+        this.t_totalSum = t_totalSum;
+        this.t_num = t_num;
+        this.t_commission = t_commission;
+        this.t_ransfer = t_ransfer;
+        this.t_brokerage = t_brokerage;
+        this.t_stamp = t_stamp;
+        this.t_management = t_management;
+        this.fundid = fundid;
         this.seateId = seateId;
-        this.seateName = seateName;
-        this.fundName = fundName;
         this.securitiesId = securitiesId;
-        this.price = price;
-        this.num = num;
-        this.flag = flag;
-        this.commission = commission;
-        this.transfer = transfer;
-        this.brokerage = brokerage;
-        this.stamp = stamp;
-        this.management = management;
-        this.netReceipts = netReceipts;
-        this.totalSum = totalSum;
+        this.fundName = fundName;
         this.settlementDate = settlementDate;
+    }
+
+    public Double getT_netreceipts() {
+        return t_netreceipts;
+    }
+
+    public void setT_netreceipts(Double t_netreceipts) {
+        this.t_netreceipts = t_netreceipts;
+    }
+
+    public Double getT_totalSum() {
+        return t_totalSum;
+    }
+
+    public void setT_totalSum(Double t_totalSum) {
+        this.t_totalSum = t_totalSum;
+    }
+
+    public Double getT_num() {
+        return t_num;
+    }
+
+    public void setT_num(Double t_num) {
+        this.t_num = t_num;
+    }
+
+    public Double getT_commission() {
+        return t_commission;
+    }
+
+    public void setT_commission(Double t_commission) {
+        this.t_commission = t_commission;
+    }
+
+    public Double getT_ransfer() {
+        return t_ransfer;
+    }
+
+    public void setT_ransfer(Double t_ransfer) {
+        this.t_ransfer = t_ransfer;
+    }
+
+    public Double getT_brokerage() {
+        return t_brokerage;
+    }
+
+    public void setT_brokerage(Double t_brokerage) {
+        this.t_brokerage = t_brokerage;
+    }
+
+    public Double getT_stamp() {
+        return t_stamp;
+    }
+
+    public void setT_stamp(Double t_stamp) {
+        this.t_stamp = t_stamp;
+    }
+
+    public Double getT_management() {
+        return t_management;
+    }
+
+    public void setT_management(Double t_management) {
+        this.t_management = t_management;
+    }
+
+    public String getFundid() {
+        return fundid;
+    }
+
+    public void setFundid(String fundid) {
+        this.fundid = fundid;
     }
 
     public String getSeateId() {
@@ -46,22 +114,6 @@ public class SeatSchedule {
         this.seateId = seateId;
     }
 
-    public String getSeateName() {
-        return seateName;
-    }
-
-    public void setSeateName(String seateName) {
-        this.seateName = seateName;
-    }
-
-    public String getFundName() {
-        return fundName;
-    }
-
-    public void setFundName(String fundName) {
-        this.fundName = fundName;
-    }
-
     public String getSecuritiesId() {
         return securitiesId;
     }
@@ -70,84 +122,12 @@ public class SeatSchedule {
         this.securitiesId = securitiesId;
     }
 
-    public Double getPrice() {
-        return price;
+    public String getFundName() {
+        return fundName;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Double getNum() {
-        return num;
-    }
-
-    public void setNum(Double num) {
-        this.num = num;
-    }
-
-    public int getFlag() {
-        return flag;
-    }
-
-    public void setFlag(int flag) {
-        this.flag = flag;
-    }
-
-    public Double getCommission() {
-        return commission;
-    }
-
-    public void setCommission(Double commission) {
-        this.commission = commission;
-    }
-
-    public Double getTransfer() {
-        return transfer;
-    }
-
-    public void setTransfer(Double transfer) {
-        this.transfer = transfer;
-    }
-
-    public Double getBrokerage() {
-        return brokerage;
-    }
-
-    public void setBrokerage(Double brokerage) {
-        this.brokerage = brokerage;
-    }
-
-    public Double getStamp() {
-        return stamp;
-    }
-
-    public void setStamp(Double stamp) {
-        this.stamp = stamp;
-    }
-
-    public Double getManagement() {
-        return management;
-    }
-
-    public void setManagement(Double management) {
-        this.management = management;
-    }
-
-    public Double getNetReceipts() {
-        return netReceipts;
-    }
-
-    public void setNetReceipts(Double netReceipts) {
-        this.netReceipts = netReceipts;
-    }
-
-    public Double getTotalSum() {
-        return totalSum;
-    }
-
-    public void setTotalSum(Double totalSum) {
-        this.totalSum = totalSum;
+    public void setFundName(String fundName) {
+        this.fundName = fundName;
     }
 
     public String getSettlementDate() {
@@ -161,20 +141,18 @@ public class SeatSchedule {
     @Override
     public String toString() {
         return "SeatSchedule{" +
-                "seateId='" + seateId + '\'' +
-                ", seateName='" + seateName + '\'' +
-                ", fundName='" + fundName + '\'' +
+                "t_netreceipts=" + t_netreceipts +
+                ", t_totalSum=" + t_totalSum +
+                ", t_num=" + t_num +
+                ", t_commission=" + t_commission +
+                ", t_ransfer=" + t_ransfer +
+                ", t_brokerage=" + t_brokerage +
+                ", t_stamp=" + t_stamp +
+                ", t_management=" + t_management +
+                ", fundid='" + fundid + '\'' +
+                ", seateId='" + seateId + '\'' +
                 ", securitiesId='" + securitiesId + '\'' +
-                ", price=" + price +
-                ", num=" + num +
-                ", flag=" + flag +
-                ", commission=" + commission +
-                ", transfer=" + transfer +
-                ", brokerage=" + brokerage +
-                ", stamp=" + stamp +
-                ", management=" + management +
-                ", netReceipts=" + netReceipts +
-                ", totalSum=" + totalSum +
+                ", fundName='" + fundName + '\'' +
                 ", settlementDate='" + settlementDate + '\'' +
                 '}';
     }
