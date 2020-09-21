@@ -1,6 +1,8 @@
 package com.ssaw.BusinessDescription.controller;
 import com.ssaw.BusinessDescription.entity.Seate;
 import com.ssaw.BusinessDescription.service.SeateService;
+import com.ssaw.GlobalManagement.log.OperLog;
+import com.ssaw.GlobalManagement.util.OperationType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +27,7 @@ public class SeateController {
      * @param seate
      * @return
      */
+    @OperLog(message = "增加交易席位",operation = OperationType.ADD)
     @RequestMapping("/seateInsert")
     public int seateInsert(Seate seate){
         System.out.println("--------------------------");
@@ -38,6 +41,7 @@ public class SeateController {
      * @param seateId
      * @return
      */
+    @OperLog(message = "删除交易席位",operation = OperationType.DELETE)
     @RequestMapping("/seateDelete")
     public int delete(String seateId){
         System.out.println(seateId);
@@ -50,6 +54,7 @@ public class SeateController {
      * @param seate
      * @return
      */
+    @OperLog(message = "修改交易席位",operation = OperationType.UPDATE)
     @RequestMapping("/seateUpdate")
     public int seateUpdate(Seate seate){
         System.out.println("BrokersId"+seate.getBrokersId());
@@ -61,6 +66,7 @@ public class SeateController {
      * 查询
      * @return
      */
+    @OperLog(message = "查询交易席位",operation = OperationType.QUERY)
     @RequestMapping("/seateSelect")
     public HashMap seateSelect(String page, String limit, String seateName,String brokersId,String modules) {
         System.out.println("进来了");

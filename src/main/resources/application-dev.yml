@@ -1,6 +1,6 @@
 server:
   port: 9100
-  address: 192.168.136.254
+  address: 127.0.0.1
   servlet:
     context-path: /
   tomcat:

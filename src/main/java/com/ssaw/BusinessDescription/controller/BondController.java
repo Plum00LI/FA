@@ -3,7 +3,9 @@ package com.ssaw.BusinessDescription.controller;
 import com.ssaw.BusinessDescription.entity.Bond;
 import com.ssaw.BusinessDescription.mapper.BondMapper;
 import com.ssaw.BusinessDescription.service.BondService;
+import com.ssaw.GlobalManagement.log.OperLog;
 import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.OperationType;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +27,7 @@ public class BondController  {
     BondService bondService;
     @Resource
     DbUtil dbUtil;
-
+    @OperLog(message = "查询债券信息设置",operation = OperationType.QUERY)
    @RequestMapping("selectBond")
    public Map<String,Object> selectBond(String page, String limit,String securitiesId,String drawStartDate) {
        System.out.println(securitiesId+","+","+drawStartDate);
@@ -45,7 +47,7 @@ public class BondController  {
 
 
     }
-
+    @OperLog(message = "添加债券信息设置",operation = OperationType.ADD)
     @RequestMapping("insertBond")
     public int insertBond(Bond bond) {
         System.out.println("进来了");
@@ -54,7 +56,7 @@ public class BondController  {
         System.out.println(bond);
         return i;
     }
-
+    @OperLog(message = "删除债券信息设置",operation = OperationType.DELETE)
     @RequestMapping("deleteBond")
     public int  deleteBond(String securitiesId) {
         System.out.println("进来了");
@@ -62,7 +64,7 @@ public class BondController  {
         return a;
 
     }
-
+    @OperLog(message = "修改债券信息设置",operation = OperationType.UPDATE)
     @RequestMapping("updateBond")
     public int updateBond(Bond bond) {
         System.out.println("进来了");

@@ -53,7 +53,7 @@ public class StockPriceFluctuationTableServiceImpl implements StockPriceFluctuat
         String  v_dateTime="";
         //判断传入的dateTime是否为null/空
         if(dateTime!=null&&!dateTime.equals("")){
-          v_dateTime=dateTime;
+            v_dateTime=dateTime;
         }else {
             SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
             Date date=new Date();
@@ -84,7 +84,6 @@ public class StockPriceFluctuationTableServiceImpl implements StockPriceFluctuat
         for (StockPriceFluctuationTable list : stockPriceFluctuationTableList) {
             //计算出增跌幅
             list.setQuoteChange((list.getTodayIce()-list.getBeforeIce())/list.getBeforeIce()*100);
-
         }
         System.out.println("集合值:"+stockPriceFluctuationTableList);
         //接收返回总条数

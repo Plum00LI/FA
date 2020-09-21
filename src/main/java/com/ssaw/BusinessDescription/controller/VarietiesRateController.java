@@ -3,6 +3,8 @@ package com.ssaw.BusinessDescription.controller;
 
 import com.ssaw.BusinessDescription.entity.VarietiesRate;
 import com.ssaw.BusinessDescription.service.VarietiesRateService;
+import com.ssaw.GlobalManagement.log.OperLog;
+import com.ssaw.GlobalManagement.util.OperationType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +28,7 @@ public class VarietiesRateController {
     VarietiesRateService varietiesRateService;
 
     //查询controller
+    @OperLog(message = "查询交易所品种费率数据",operation = OperationType.QUERY)
     @RequestMapping("selectVarietiesRate")
     public Map<String,Object> selectVarietiesRate(String page,String limit,String exchangeNameIds,String rateTypeIds){
         System.out.println("进入了查询Controller");
@@ -47,13 +50,16 @@ public class VarietiesRateController {
     }
 
     //删除方法
+    @OperLog(message = "删除交易所品种费率数据",operation = OperationType.DELETE)
     @RequestMapping("deleteVarietiesRate")
     public void deleteVarietiesRate(int exchangeName, int rateType){
         System.out.println("进入删除controller了");
-            varietiesRateService.deleteVarietiesRate(exchangeName,rateType);
+        varietiesRateService.deleteVarietiesRate(exchangeName,rateType);
     }
 
+
     //批量刪除
+    @OperLog(message = "批量删除交易所品种费率数据",operation = OperationType.DELETE)
     @RequestMapping("deleteVarietiesRate2")
     public void deleteVarietiesRate2(String exchangeName, String rateType){
 
@@ -64,6 +70,7 @@ public class VarietiesRateController {
     }
 
     //增加controller
+    @OperLog(message = "增加交易所品种费率数据",operation = OperationType.ADD)
     @RequestMapping("insertVarietiesRate")
     public int insertVarietiesRate(VarietiesRate varietiesRate){
         System.out.println("进入了增加controller了");
@@ -83,6 +90,7 @@ public class VarietiesRateController {
         }
     }
     //修改controller
+    @OperLog(message = "修改交易所品种费率数据",operation = OperationType.UPDATE)
     @RequestMapping("updateVarietiesRate")
     public int updateVarietiesRate(VarietiesRate varietiesRate){
         System.out.println("进入了修改controller了");

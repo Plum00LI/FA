@@ -85,10 +85,10 @@ public class StockEquityInformationSheetServiceImpl implements StockEquityInform
         List<StockEquityInformationSheet> stockEquityInformationSheetList= (List<StockEquityInformationSheet>) map.get("p_cursor");
         for (StockEquityInformationSheet list : stockEquityInformationSheetList) {
             //为送股计算出送股数量，金额为0
-            if(list.getEquitiesType()==2){
+            if(list.getEquitiesType()==1){
                 list.setTotal(0);
                 list.setSecuritiesNum(list.getSecuritiesNum()*list.getProportion()/100);
-            }else if(list.getEquitiesType()==1){
+            }else if(list.getEquitiesType()==2){
                 //判断是否为分红，分红的话计算出金额
                 list.setTotal(list.getSecuritiesNum()*list.getProportion()/100);
             }

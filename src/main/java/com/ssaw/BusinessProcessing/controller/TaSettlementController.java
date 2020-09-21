@@ -3,7 +3,9 @@ package com.ssaw.BusinessProcessing.controller;
 import com.ssaw.BusinessDescription.entity.Account;
 import com.ssaw.BusinessProcessing.entity.TaSettlement;
 import com.ssaw.BusinessProcessing.service.TaSettlementService;
+import com.ssaw.GlobalManagement.log.OperLog;
 import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.OperationType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +24,7 @@ public class TaSettlementController {
     TaSettlementService taSettlementService;
     @Resource
     DbUtil dbUtil;
+    @OperLog(message = "查询TA交易结算",operation = OperationType.QUERY)
     @RequestMapping("selectTaSettlement")
     public Map<String,Object> selectTaSettlement(String page,String limit,String dateTime,String transactionType,String status) {
         System.out.println("进来了==================");
@@ -40,6 +43,7 @@ public class TaSettlementController {
         return json;
 
     }
+    @OperLog(message = "修改债券信息设置",operation = OperationType.UPDATE)
     @RequestMapping("/updateTaSettlement")
     public int updateTransactionData(String settlement){
         return taSettlementService.updateSettlement(settlement);

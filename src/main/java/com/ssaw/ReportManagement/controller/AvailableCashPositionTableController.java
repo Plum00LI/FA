@@ -1,5 +1,7 @@
 package com.ssaw.ReportManagement.controller;
 
+import com.ssaw.GlobalManagement.log.OperLog;
+import com.ssaw.GlobalManagement.util.OperationType;
 import com.ssaw.ReportManagement.entity.AvailableCashPositionTable;
 import com.ssaw.ReportManagement.entity.SeatSchedule;
 import com.ssaw.ReportManagement.service.AvailableCashPositionTableService;
@@ -25,6 +27,7 @@ public class AvailableCashPositionTableController {
     @Resource
     AvailableCashPositionTableService availableCashPositionTableService;
 
+    @OperLog(message = "查询可用现金头寸表",operation = OperationType.QUERY)
     @RequestMapping("selectAvailable")
     public Map<String,Object> selectAvailable(String page, String limit,String dateTime){
         System.out.println("进入可用现金寸头报表controller");
