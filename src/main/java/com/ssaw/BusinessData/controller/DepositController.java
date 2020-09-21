@@ -4,7 +4,9 @@ import com.ssaw.BusinessData.entity.Deposit;
 import com.ssaw.BusinessData.service.DepositService;
 import com.ssaw.BusinessDescription.entity.Account;
 import com.ssaw.BusinessDescription.service.AccountService;
+import com.ssaw.GlobalManagement.log.OperLog;
 import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.OperationType;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,6 +45,7 @@ public class DepositController {
      * @return 界面要求的数据格式
      */
     @RequestMapping("selectDeposit")
+    @OperLog(message = "查询所有存款业务",operation = OperationType.QUERY)
     public Map<String,Object> selectDeposit(String page, String limit,String businessType,String endDate){
         //调用Service层执行查询，接收返回结果集Map
         Map<String, Object> map = depositService.selectDeposit(limit,page,businessType,endDate);
@@ -65,6 +68,7 @@ public class DepositController {
      * @return 返回影响的行数 判断是否增加成功
      */
     @RequestMapping("insertDeposit")
+    @OperLog(message = "增加所有存款业务",operation = OperationType.ADD)
     public int insertDeposit(Deposit deposit){
         System.out.println(deposit);
         int i = depositService.insertDeposit(deposit);
@@ -77,6 +81,7 @@ public class DepositController {
      * @return 返回影响的行数 判断是否删除成功
      */
     @RequestMapping("deleteDeposit")
+    @OperLog(message = "删除存款业务",operation = OperationType.DELETE)
     public int deleteDeposit(String depositId){
         System.out.println(depositId);
         int i = depositService.deleteDeposit(depositId);
@@ -89,6 +94,7 @@ public class DepositController {
      * @return
      */
     @RequestMapping("updateDeposit")
+    @OperLog(message = "存款业务的到期处理",operation = OperationType.UPDATE)
     public int updateDeposit(Deposit deposit){
         System.out.println("deposit进去了===========");
         int i = depositService.updateDeposit(deposit);

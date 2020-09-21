@@ -170,7 +170,7 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate'], function () {
     form.on('submit(editsubmit)', function(data){
         //$('#outBlankName').val(data.outBlankName);
         var transferMoney=$('#editform').serialize();
-        alert(transferMoney);
+        //alert(transferMoney);
         window.location.href="../transferOrderController/export?"+transferMoney;
         $('#editform')[0].reset();  //清空原有数据
         layer.closeAll();
