@@ -1,7 +1,9 @@
 package com.ssaw.TAManagement.controller;
 
 import com.ssaw.BusinessDescription.entity.Bond;
+import com.ssaw.GlobalManagement.log.OperLog;
 import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.OperationType;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.TAManagement.entity.TaTransaction;
 import com.ssaw.TAManagement.service.TatransactionService;
@@ -27,6 +29,7 @@ public class TatransactionController {
     TatransactionService tatransactionService;
     @Resource
     DbUtil dbUtil;
+    @OperLog(message = "增加TA交易数据",operation = OperationType.ADD)
     @RequestMapping ("/insertTatTransaction")
     public int insertTatTransaction(TaTransaction taTransaction){
         taTransaction.setTaTransactionId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.TT));
@@ -35,12 +38,14 @@ public class TatransactionController {
         int i= tatransactionService.insertTatransaction(taTransaction);
         return i;
     }
+    @OperLog(message = "删除TA交易数据",operation = OperationType.DELETE)
     @RequestMapping("/deleteTaTransaction")
     public int deleteTatransaction(String taTransactionId){
         System.out.println("进来了");
         int i = tatransactionService.deleteTatransaction(taTransactionId);
         return i;
     }
+    @OperLog(message = "修改TA交易数据",operation = OperationType.UPDATE)
     @RequestMapping("/updateTaTransaction")
     public int updataTatransaction(TaTransaction taTransaction){
         System.out.println("进来了");
@@ -49,6 +54,7 @@ public class TatransactionController {
 
         return b;
     }
+    @OperLog(message = "查询TA交易数据",operation = OperationType.QUERY)
     @RequestMapping("/selectTaTransaction")
     public Map<String,Object> selectTatransaction(String page, String limit,String dateTime,String transactionStatus,String transactionType) {
         System.out.println("进来了");
