@@ -1,5 +1,7 @@
 package com.ssaw.ReportManagement.controller;
 
+import com.ssaw.GlobalManagement.log.OperLog;
+import com.ssaw.GlobalManagement.util.OperationType;
 import com.ssaw.ReportManagement.entity.StockEquityInformationSheet;
 import com.ssaw.ReportManagement.entity.StockPriceFluctuationTable;
 import com.ssaw.ReportManagement.service.StockPriceFluctuationTableService;
@@ -25,6 +27,7 @@ public class StockPriceFluctuationTableController {
     @Resource
     StockPriceFluctuationTableService stockPriceFluctuationTableService;
 
+    @OperLog(message = "查询股票价格波动表",operation = OperationType.QUERY)
     @RequestMapping("SelectStockPrice")
     public Map<String,Object> SelectStockPrice(String page,String limit,String dateTimes){
         System.out.println("进入股票价格波动表controller");

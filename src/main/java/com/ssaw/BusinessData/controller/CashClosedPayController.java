@@ -3,7 +3,9 @@ package com.ssaw.BusinessData.controller;
 
 import com.ssaw.BusinessData.entity.CashClosedPay;
 import com.ssaw.BusinessData.service.CashClosedPayService;
+import com.ssaw.GlobalManagement.log.OperLog;
 import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.OperationType;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +32,7 @@ public class CashClosedPayController {
     @Resource
     DbUtil dbUtil;
 
+    @OperLog(message = "添加现金应收应付数据",operation = OperationType.ADD)
     @RequestMapping("insertCashClosedPay")
     public int insertCash(CashClosedPay cashClosedPay){
         System.out.println("进入了新增Controller");
@@ -37,12 +40,14 @@ public class CashClosedPayController {
         int i = cashClosedPayService.insertCashClosedPay(cashClosedPay);
         return i;
     };
+    @OperLog(message = "删除现金应收应付数据",operation = OperationType.DELETE)
     @RequestMapping("deleteCashClosedPay")
     public int deleteCashClosedPay(String cashClosedPayId){
         System.out.println("进入了删除Controller");
         int i = cashClosedPayService.deleteCashClosedPay(cashClosedPayId);
         return i;
     };
+    @OperLog(message = "修改现金应收应付数据",operation = OperationType.UPDATE)
     @RequestMapping("updateCashClosedPay")
     public int updateCashClosedPay(CashClosedPay cashClosePay){
         System.out.println("进入了修改Controller");
@@ -50,6 +55,7 @@ public class CashClosedPayController {
         int i = cashClosedPayService.updateCashClosedPay(cashClosePay);
         return i;
     };
+    @OperLog(message = "查询现金应收应付数据",operation = OperationType.QUERY)
     @RequestMapping("selectCashClosedPay")
     public Map<String,Object> selectCashClosedPay(String page, String limit,String dateTime,String serviceType){
         System.out.println("进入了查询Controller");
@@ -74,6 +80,7 @@ public class CashClosedPayController {
     };
 
     //傅赛赢
+    @OperLog(message = "删除现金接口",operation = OperationType.DELETE)
     @RequestMapping("deleteNew2")
     public int deleteNew2(CashClosedPay cashClosedPay){
         int i = cashClosedPayService.deleteNew2(cashClosedPay);
