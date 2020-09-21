@@ -1,11 +1,8 @@
-layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], function () {
+layui.use(['form', 'table', 'layer', 'laydate'], function () {
     var layer = layui.layer;
     var $ = layui.$;
     var table = layui.table;
-    var form = layui.form;
-    var upload = layui.upload;
     var laydate = layui.laydate;
-    var laypage = layui.laypage;
 
     //执行一个实例
     table.render({
@@ -18,137 +15,32 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
         cellMinWidth: 60,
         cols: [
             [
-                {type: 'checkbox', field: 'left'}
-                , {field: 'securitiesId', title: '证券代码', align: 'center'}
+                 {field: 'securitiesId', title: '证券代码', align: 'center'}
                 , {field: 'securitiesName', title: '证券名称', align: 'center'}
-                , {
-                field: 'num', title: '交易数量', align: 'center',
-                templet: function (item) {
-                    if (item.securitiesId == '流入合计') {
-                        return '';
-                    }
-                    if (item.securitiesId == '流出合计') {
-                        return '';
-                    }
-                    if (item.securitiesId == '清算合计') {
-                        return '';
-                    }
-                }
-            }
-                , {
-                field: 'price', title: '交易金额', align: 'center',
-                templet: function (item) {
-                    if (item.securitiesId == '流入合计') {
-                        return '';
-                    }
-                    if (item.securitiesId == '流出合计') {
-                        return '';
-                    }
-                    if (item.securitiesId == '清算合计') {
-                        return '';
-                    }
-                }
-            }
-                , {
-                field: 'commission', title: '佣金费用', align: 'center',
-                templet: function (item) {
-                    if (item.securitiesId == '流入合计') {
-                        return '';
-                    }
-                    if (item.securitiesId == '流出合计') {
-                        return '';
-                    }
-                    if (item.securitiesId == '清算合计') {
-                        return '';
-                    }
-                }
-            }
-                , {
-                field: 'stamp', title: '印花税', align: 'center',
-                templet: function (item) {
-                    if (item.securitiesId == '流入合计') {
-                        return '';
-                    }
-                    if (item.securitiesId == '流出合计') {
-                        return '';
-                    }
-                    if (item.securitiesId == '清算合计') {
-                        return '';
-                    }
-                }
-            }
-                , {
-                field: 'brokerage', title: '经手费', align: 'center',
-                templet: function (item) {
-                    if (item.securitiesId == '流入合计') {
-                        return '';
-                    }
-                    if (item.securitiesId == '流出合计') {
-                        return '';
-                    }
-                    if (item.securitiesId == '清算合计') {
-                        return '';
-                    }
-                }
-            }
-                , {
-                field: 'transfer', title: '过户费', align: 'center',
-                templet: function (item) {
-                    if (item.securitiesId == '流入合计') {
-                        return '';
-                    }
-                    if (item.securitiesId == '流出合计') {
-                        return '';
-                    }
-                    if (item.securitiesId == '清算合计') {
-                        return '';
-                    }
-                }
-            }
-                , {
-                field: 'management', title: '征管费', align: 'center',
-                templet: function (item) {
-                    if (item.securitiesId == '流入合计') {
-                        return '';
-                    }
-                    if (item.securitiesId == '流出合计') {
-                        return '';
-                    }
-                    if (item.securitiesId == '清算合计') {
-                        return '';
-                    }
-                }
-            }
-                , {
-                field: 'security', title: '国债利息', align: 'center',
-                templet: function (item) {
-                    if (item.securitiesId == '流入合计') {
-                        return '';
-                    }
-                    if (item.securitiesId == '流出合计') {
-                        return '';
-                    }
-                    if (item.securitiesId == '清算合计') {
-                        return '';
-                    }
-                }
-            }
+                , {field: 'num', title: '交易数量', align: 'center',}
+                , {field: 'netReceipts', title: '交易金额', align: 'center'}
+                , {field: 'commission', title: '佣金费用', align: 'center'}
+                , {field: 'stamp', title: '印花税', align: 'center'}
+                , {field: 'brokerage', title: '经手费', align: 'center'}
+                , {field: 'transfer', title: '过户费', align: 'center'}
+                , {field: 'management', title: '征管费', align: 'center'}
+                , {field: 'security', title: '国债利息', align: 'center'}
                 , {field: 'flag', title: '交易标识', align: 'center', hide: true}
                 , {field: 'securitiesType', title: '证券类型', align: 'center', hide: true}
                 , {
-                field: 'netReceipts', title: '实际清算金额', align: 'center',
+                field: 'totalSum', title: '实际清算金额', align: 'center',
                 templet: function (items) {
-                    if (items.netReceipts != null) {
+                    if (items.totalSum != null) {
                         if (items.flag == -1) {
-                            return "<span style='color: red'>" + items.netReceipts + "</span>"
+                            return "<span style='color: red'>" + items.totalSum + "</span>"
                         }
                         if (items.securitiesId == '流出合计') {
-                            return "<span style='color: red'>" + items.netReceipts + "</span>"
+                            return "<span style='color: red'>" + items.totalSum + "</span>"
                         }
-                        if (items.netReceipts < 0) {
-                            return "<span style='color: red'>" + items.netReceipts + "</span>"
+                        if (items.totalSum < 0) {
+                            return "<span style='color: red'>" + (-Number(items.totalSum)) + "</span>"
                         }
-                        return items.netReceipts
+                        return items.totalSum
                     } else {
                         return 0;
                     }
@@ -182,28 +74,26 @@ layui.use(['element', 'form', 'table', 'layer', 'laydate','laypage','upload'], f
     });
 
     laydate.render({
-        elem: '#date'
+        elem: '#dateTime', //指定元素
     });
 
     table.on('toolbar(userTable)', function (obj) {
-        var checkStatus = table.checkStatus(obj.config.id);
-        switch (objs.event) {
+        switch (obj.event) {
             case 'search':
-                var a = $("#date").val();
+                var dateTime = $("#dateTime").val();
                 table.reload('userTable', {
+                    method:'post',
                     page: {
                         curr: 1
                     },
-                    url: '',
                     where: {
-                        dateTime: $('#date').val(),
+                        dateTime: dateTime,
                     }
                 });
-                $("#date").remove();
-                $("#date2").before('<input type="text" name="date" id="date" style="width: 190px;"  lay-verify="date"  autocomplete="off" class="layui-input">');
                 laydate.render({
-                    elem: '#date', //指定元素
+                    elem: '#dateTime', //指定元素
                 });
+                $("#dateTime").val(dateTime);
                 break;
         }
     })

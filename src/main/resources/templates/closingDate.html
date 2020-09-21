@@ -17,14 +17,12 @@
         <div style="position: absolute; left: 10px;">
             <form id="searchform" lay-filter="searchform"
                   class="layui-form layui-form-pane">
-                <input type="hidden" name="fundId" th:value="${session.fundId}">
                 <div class="layui-form-item" style="text-align: center;">
                     <label style="width:120px;" class="layui-form-label">成交日期</label>
                     <div class="layui-input-inline" >
-                        <input type="text" name="date" id="date" style="width: 190px;"  lay-verify="date"  autocomplete="off" class="layui-input">
-                        <input id="date2" type="hidden">
+                        <input type="text" name="dateTime" id="dateTime" style="width: 190px;"  lay-verify="dateTime"  autocomplete="off" class="layui-input">
                     </div>
-                    <button type="button" lay-event="search" class="layui-btn layui-btn-sm" style="height: 40px">
+                    <button type="button" lay-event="search" class="layui-btn layui-btn-sm layui-btn-primary" style="height: 40px">
                         <i class="layui-icon">&#xe615;</i>搜索
                     </button>
                 </div>

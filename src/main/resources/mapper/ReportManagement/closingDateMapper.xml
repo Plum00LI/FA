@@ -4,33 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.ReportManagement.mapper.ClosingDateMapper">
 
-    <select id="selectClosingDate" parameterType="com.ssaw.ReportManagement.entity.ClosingDate"
+    <select id="selectClosingDate" parameterType="String"
             resultType="com.ssaw.ReportManagement.entity.ClosingDate">
-         select t.securitiesid,s.securitiesType,t.transactionDataMode,sum(t.netreceipts)as netreceipts,sum(t.num)as
-		num,s.securitiesName,
-		t.flag,sum(t.totalSum)as totalSum,sum(t.commission)as commission,sum(t.stamp)as stamp,
-		sum(t.brokerage)as brokerage,sum(t.transfer)as transfer
-		,sum(t.management)as management,sum(t.security)as security
-		from transactionData t,
-		securities s
-		 where s.securitiesId= t.securitiesId and t.fundId=#{fundId}
-		and t.dateTime=to_date(#{dateTime},'yyyy-MM-dd')
-		group by t.securitiesid,t.transactionDataMode,s.securitiesName, t.flag,s.securitiesType
-		union all
-		select '流入合计',0,0,sum(netreceipts),0,null,0,0,0,0,0,0,0,0 from transactionData
-		where flag=1
-		and fundId=#{fundId} and dateTime=to_date(#{dateTime},'yyyy-MM-dd')
-		union all
-		select '流出合计',0,0,sum(netreceipts),0,null,0,0,0,0,0,0,0,0 from transactionData
-		where flag=-1
-		and fundId=#{fundId} and dateTime=to_date(#{dateTime},'yyyy-MM-dd')
-		union
-		select '清算合计',0,0,(select sum(netreceipts) from transactionData where flag=1
-		and
-		fundId=#{fundId} and dateTime=to_date(#{dateTime},'yyyy-MM-dd'))-
-		(select sum(netreceipts) from transactionData where flag=-1 and
-		fundId=#{fundId}
-		and dateTime=to_date(#{dateTime},'yyyy-MM-dd')),0,null,0,0,0,0,0,0,0,0
-		from transactionData
+        select td.*,s.securitiesName,s.securitiesType from((select sum(num) num,sum(netReceipts) netReceipts,sum(totalSum) totalSum,sum(commission) commission,max(securitiesId)  securitiesId
+    ,sum(brokerage) brokerage,sum(stamp) stamp,sum(transfer) transfer,sum(management) management,max(flag) flag,sum(security) security,max(transactionDataMode) transactionDataMode from
+        transactionData where DATETIME=#{dateTime} group by SECURITIESID,transactionDataMode)) td join securities s on td.securitiesId=s.SECURITIESID
     </select>
 </mapper>

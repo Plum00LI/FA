@@ -1,6 +1,7 @@
 package com.ssaw.ReportManagement.service.impl;
 
 import com.ssaw.BusinessData.entity.Market;
+import com.ssaw.GlobalManagement.util.DateTimeUtil;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.ReportManagement.entity.ClosingDate;
 import com.ssaw.ReportManagement.mapper.ClosingDateMapper;
@@ -9,11 +10,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.xml.crypto.Data;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  *@program: FA
@@ -28,26 +27,49 @@ public class ClosingDateServiceImpl implements ClosingDateService {
     ClosingDateMapper closingDateMapper;
 
     @Override
-    public Map<String, Object> selectClosingDate(ClosingDate closingDate,String fundId) {
+    public HashMap selectClosingDate(String dateTime) {
 
-        Map<String,Object> map = (Map<String, Object>) closingDateMapper.selectClosingDate(closingDate,fundId);
-        //如果业务日期为null
-        if (closingDate.getDateTime()==null){
-            //创建一个Date对象
-            Date date = new Date();
-            //定义时间格式
-            String strDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
-            //设置业务日期
-            closingDate.setDateTime(strDate);
+        if (dateTime==null){
+            dateTime = DateTimeUtil.getSystemDateTime("yyyy-MM-dd");
         }
-        List<ClosingDate> closingDates = closingDateMapper.selectClosingDate(closingDate,fundId);
-        int count = (int) map.get("count");
-        Map<String,Object>  hashMap = new HashMap<>();
-        hashMap.put("code",0);
-        hashMap.put("msg","");
+
+        ArrayList<ClosingDate> cdsList = (ArrayList<ClosingDate>) closingDateMapper.selectClosingDate(dateTime);
+        int count = cdsList.size();
+        //添加流出合计，流入合计，清算合计实体类
+        double inTotalMoney=0;
+        double outTotalMoney=0;
+        for (ClosingDate closingDate : cdsList) {
+            if (closingDate.getFlag()==1){
+                inTotalMoney=inTotalMoney+closingDate.getTotalSum();
+            }
+            else {
+                outTotalMoney=outTotalMoney+closingDate.getTotalSum();
+            }
+        }
+        double finalToalMoney=inTotalMoney-outTotalMoney;    //大于0
+        //double留2个小数点
+        BigDecimal bg = new BigDecimal(inTotalMoney);
+        inTotalMoney = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        BigDecimal bg1 = new BigDecimal(outTotalMoney);
+        outTotalMoney = bg1.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        BigDecimal bg2 = new BigDecimal(finalToalMoney);
+        finalToalMoney = bg2.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        ClosingDate closingDate = new ClosingDate();
+        closingDate.setSecuritiesId("流入合计");
+        closingDate.setTotalSum(inTotalMoney);
+        ClosingDate closingDate1 = new ClosingDate();
+        closingDate1.setSecuritiesId("流出合计");
+        closingDate1.setTotalSum(outTotalMoney);
+        ClosingDate closingDate3 =new ClosingDate();
+        closingDate3.setSecuritiesId("清算合计");
+        closingDate3.setTotalSum(finalToalMoney);
+        cdsList.add(closingDate);
+        cdsList.add(closingDate1);
+        cdsList.add(closingDate3);
+        System.out.println(cdsList);
+        HashMap<Object, Object> hashMap = new HashMap<>();
+        hashMap.put("list",cdsList);
         hashMap.put("count",count);
-        hashMap.put("data",closingDates);
-        System.out.println("信息的大小："+closingDates.size());
-        return null;
+        return hashMap;
     }
 }

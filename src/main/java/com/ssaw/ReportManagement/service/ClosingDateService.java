@@ -3,6 +3,7 @@ package com.ssaw.ReportManagement.service;
 import com.ssaw.ReportManagement.entity.ClosingDate;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,8 +18,8 @@ public interface ClosingDateService {
 
     /**
      * 查询成交清算数据
-     * @param closingDate 成交清算数据实体对象
+     * @param dateTime
      * @return
      */
-    Map<String,Object> selectClosingDate(ClosingDate closingDate,String fundId);
+    public HashMap selectClosingDate(String dateTime);
 }

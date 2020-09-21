@@ -17,8 +17,8 @@ import java.util.Map;
 public interface ClosingDateMapper {
     /**
      * 查询成交清算日报表
-     * @param closingDate
+     * @param dateTime
      * @return
      */
-    List<ClosingDate> selectClosingDate(ClosingDate closingDate,String fundId);
+    public List<ClosingDate> selectClosingDate(String  dateTime);
 }

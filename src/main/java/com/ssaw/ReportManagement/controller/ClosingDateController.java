@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *@program: FA
@@ -27,8 +29,18 @@ public class ClosingDateController {
     ClosingDateService closingDateService;
 
     @RequestMapping("selectClosingDate")
-    public Object selectClosingDate(ClosingDate closingDate,String fundId){
-        return closingDateService.selectClosingDate(closingDate,fundId);
+    public HashMap selectClosingDate(int page,int limit,String dateTime) {
+        System.out.println("进入查询方法");
+        HashMap cdsMap = closingDateService.selectClosingDate(dateTime);
+        int count = (int) cdsMap.get("count");
+        ArrayList<ClosingDate> closingDateList = (ArrayList<ClosingDate>) cdsMap.get("list");
+        System.out.println("集合数据=" + closingDateList);
+        System.out.println(count);
+        HashMap hashMap = new HashMap<>();
+        hashMap.put("msg", "");
+        hashMap.put("code", 0);
+        hashMap.put("count", count);
+        hashMap.put("data", closingDateList);
+        return hashMap;
     }
-
 }
