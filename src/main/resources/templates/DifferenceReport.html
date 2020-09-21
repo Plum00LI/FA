@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>可用现金头寸表</title>
+    <title>成交清算轧差</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <script src="../static/lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
-    <script src="../static/lib/layuimini/js/lay-config.js"></script>
-    <link type="text/css" rel="stylesheet" href="../static/lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
+    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
+    <script src="../lib/layuimini/js/lay-config.js"></script>
+    <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
 
 </head>
 <body>
-<table class="layui-hide" id="test" lay-filter="test"></table>
+<table class="layui-hide" id="myTable" lay-filter="myTable"></table>
 
 <script type="text/html" id="myToolbar">
     <form class="layui-form layui-col-space5">
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">调拨日期</label>
+            <label class="layui-form-label layui-bg-green" style="width: 110px;text-align: center">日期</label>
             <div class="layui-inline layui-show-xs-block">
-                <input class="layui-input"  autocomplete="off" placeholder="请选择日期" name="dbTime" id="selectDate">
+                <input class="layui-input"  autocomplete="off" placeholder="请选择日期" name="dateTime" id="selectDate">
             </div>
         </div>
         <div class="layui-inline layui-show-xs-block">
@@ -44,53 +44,41 @@
         });
         //表单加载
         table.render({
-            elem: '#test'
-            , url: '/test/table/demo1.json'
+            elem: '#myTable'
+            , url: '../selectDifferenceReport'
             , toolbar: '#myToolbar' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: ['filter', 'exports', 'print']
-            , minLength: 80
-            , cellMinWidth: 60
+            , cellMinWidth: 150
             ,height:'full-55'
             , cols:
                 [
                     [
-                        , {field: 'city', title: '',width:500, align: 'center'}
-                        , {field: 'sign', title: '', align: 'center'}
+                        {field: 'securitiesName', title:'证券名称',align: 'center'}
+                        , {field: 'outMoney', title: '今日流出金额', align: 'center'}
+                        , {field: 'inMoney', title: '今日流入金额', align: 'center'}
+                        , {field: 'totalSum', title: '今日清算额', align: 'center'}
+                        , {field: 'commission', title: '佣金费用', align: 'center'}
+                        , {field: 'transfer', title: '过户费', align: 'center'}
+                        , {field: 'brokerage', title: '经手费', align: 'center'}
+                        , {field: 'stamp', title: '印花税', align: 'center'}
+                        , {field: 'management', title: '征管费', align: 'center'}
+                        , {field: 'security', title: '证券利息', align: 'center'}
+                        , {field: 'netReceipts', title: '实际清算额', align: 'center'}
                     ]
                 ]
             , page: true
         });
         //给工具条的按钮添加事件
-        table.on('toolbar(myToolbar)',function (obj) {
-            //获取选中复选框的对象，
-            var checkStatus=table.checkStatus(obj.config.id);//得到表格选中行的ID
+        table.on('toolbar(myTable)',function (obj) {
             switch (obj.event) {
-                case 'add':
-                    var index=layer.open({
-                        type: 1,
-                        title: '添加资金调拨',
-                        closeBtn: 1,
-                        move:false,
-                        content:$("#addContent"),
-                        area:['700px','500px'],
-                        btn:[]
-                    });
-                    form.render();
-                    //全屏
-                    //layer.full(index);
-                    break;
                 case 'search':
-                    //alert("搜索");
-                    var allocatingType= $("#allocatingType").val();
-                    var flag= $("#flag").val();
-                    var dbTime= $("#selectDate").val();
+                    var dateTime= $("#selectDate").val();
+                    //alert(dateTime);
                     //表格的重新加载事件
-                    table.reload('userTable', {
+                    table.reload('myTable', {
                         method: 'post'
                         , where: {
-                            'allocatingType': allocatingType,
-                            'flag': flag,
-                            'dbTime': dbTime
+                            'dateTime': dateTime,
                         }
                         , page: {
                             curr: 1
@@ -99,34 +87,7 @@
                     laydate.render({
                         elem: '#selectDate',//指定元素
                     });
-                    $("#allocatingType").val(allocatingType);
-                    $("#flag").val(flag);
-                    $("#selectDate").val(dbTime);
-                    break;
-                case 'deleteAll':
-                    var data = checkStatus.data;
-                    //    layer.alert(JSON.stringify(data));
-                    if(data.length==0){
-                        layer.msg("请至少选择一条数据",)
-                    }else
-                    {
-                        var ids=[];
-                        for (var i = 0; i <data.length; i++) {
-                            ids.push(data[i].bankTreasurerId);
-                        }
-                        layer.confirm('真的删除行么',{icon: 2}, function(index){
-                            layer.close(index);
-                            $.post("../bankTreasurer/deleteBankTreasurer", {bankTreasurerId:ids.join(',')},function(msg){
-                                table.reload('userTable');
-                                layer.msg('删除'+checkStatus.data.length+'条记录', {
-                                    title:'提示',
-                                    area: ['200px', '140px'],
-                                    time: 0,
-                                    btn: ['知道了']
-                                });
-                            });
-                        });
-                    }
+                    $("#selectDate").val(dateTime);
                     break;
             }
         });

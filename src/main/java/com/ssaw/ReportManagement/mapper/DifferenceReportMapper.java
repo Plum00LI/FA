@@ -1,6 +1,6 @@
 package com.ssaw.ReportManagement.mapper;
 
-import com.ssaw.BusinessData.entity.TransactionData;
+import com.ssaw.ReportManagement.entity.DifferenceReport;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -15,5 +15,5 @@ import java.util.List;
 @Mapper
 public interface DifferenceReportMapper {
 
-   public List<TransactionData> selectDifferenceReport(TransactionData transactionData);
+   public List<DifferenceReport> selectDifferenceReport(String dateTime);
 }

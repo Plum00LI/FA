@@ -4,22 +4,32 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssaw.ReportManagement.mapper.DifferenceReportMapper">
 
-    <select id="selectDifferenceReport" resultType="com.ssaw.BusinessData.entity.TransactionData" parameterType="com.ssaw.BusinessData.entity.TransactionData">
-SELECT (CASE b.exchange WHEN 1 THEN '上海' WHEN 2 THEN '深圳' END)||
-(CASE b.securitiesType WHEN 1 THEN '债券' WHEN 2 THEN '股票' END) AS exchangeName,
-SUM(CASE a.flag WHEN 1 THEN netreceipts*flag END) AS godealmoney,
-SUM(CASE a.flag WHEN -1 THEN netreceipts*flag END) comedealmoney,
-SUM(totalsum*flag) AS totalsum,sum(securitys)as securitys
-,sum(managements)as managements,
-sum(commission)as commission ,sum(transfer)as transfer,sum(brokerage)as brokerage,sum(stamp)as stamp,
-SUM(netreceipts*flag) AS netReceipts
-FROM transactiondata a,securities b
-WHERE a.fundId=#{fundId} AND to_char(a.datetime,'yyyy-MM-dd')=#{dateTime}
-AND a.securitiesid=b.securitiesid GROUP BY b.exchange,b.securitiesType
-UNION ALL
-SELECT '俩地合计',SUM(CASE flag WHEN 1 THEN netreceipts*flag END) AS godealmoney,
-SUM(CASE flag WHEN -1 THEN netreceipts*flag END) AS comedealmoney,SUM(totalsum*flag) as totalSum,sum(securitys)as securitys
-,sum(managements)as managements,sum(commission)as commission,sum(transfer)as transfer,sum(brokerage)as brokerage,sum(stamp)as stamp,SUM(netreceipts*flag)as netReceipts
-FROM transactiondata WHERE fundId=#{fundId} AND to_char(datetime,'yyyy-MM-dd')=#{dateTime}
+
+    <select id="selectDifferenceReport" resultType="com.ssaw.ReportManagement.entity.DifferenceReport">
+    select (case exchange when 1 then '上海' else '深圳' end)||(case securitiesType when 1 then '债卷' else '股票' end)as securitiesName,
+    nvl(sum(case flag when 1 then NETRECEIPTS*flag end),0)as outMoney,
+    nvl(sum(case flag when -1 then NETRECEIPTS*flag end),0)as inMoney,
+    nvl(sum(TOLSTAUM *flag),0)as totalSum,
+    nvl(sum(COMMISSION),0)as commission,
+    nvl(sum(TRANSFER),0)as transfer,
+    nvl(sum(BROKERAGE),0)as brokerage,
+    nvl(sum(STAMP),0)as stamp,
+    nvl(sum(MANAGEMENT),0)as management,
+    nvl(sum(SECURITY),0)as security,
+    nvl(sum(NETRECEIPTS*flag),0)as netReceipts
+    from  (select * from TRANSACTIONDATA t join (select * from SECURITIES)s on t.SECURITIESID=s.SECURITIESID) where  datetime=#{dateTime} group by exchange,securitiesType
+    union all
+    select '两地合计' as securitiesName,
+    nvl(sum(case flag when 1 then NETRECEIPTS*flag end),0)as outMoney,
+    nvl(sum(case flag when -1 then NETRECEIPTS*flag end),0)as inMoney,
+    nvl(sum(TOLSTAUM *flag),0)as totalSum,
+    nvl(sum(COMMISSION),0)as commission,
+    nvl(sum(TRANSFER),0)as transfer,
+    nvl(sum(BROKERAGE),0)as brokerage,
+    nvl(sum(STAMP),0)as stamp,
+    nvl(sum(MANAGEMENT),0)as management,
+    nvl(sum(SECURITY),0)as security,
+    nvl(sum(NETRECEIPTS*flag),0)as netReceipts
+    from TRANSACTIONDATA where datetime=#{dateTime}
     </select>
 </mapper>
