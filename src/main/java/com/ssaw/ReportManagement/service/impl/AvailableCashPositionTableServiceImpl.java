@@ -22,44 +22,7 @@ import java.util.*;
 
 @Service
 @Transactional
-public class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-AvailableCashPositionTableServiceImpl implements AvailableCashPositionTableService {
+public class AvailableCashPositionTableServiceImpl implements AvailableCashPositionTableService {
 
     @Resource
     AvailableCashPositionTableMapper availableCashPositionTableMapper;
