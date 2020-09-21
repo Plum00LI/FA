@@ -12,10 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @program:TescComment
- * @Description:实体类
- * @author:阙魁
- * @create:2020-09-01
+ * ClassName:    AvailableCashPositionTableController
+ * Package:    com.ssaw.ReportManagement.controller
+ * Description: 可用现金头寸表
+ * Version:     1.0
+ * Datetime:    2020/9/18 14:51
+ * Author:   阙魁
  */
 @RestController
 @RequestMapping("AvailableCashPositionTable")

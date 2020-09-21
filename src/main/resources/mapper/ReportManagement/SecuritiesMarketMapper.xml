@@ -6,4 +6,8 @@
     <select id="selectSecuritiesMarket" resultType="com.ssaw.ReportManagement.entity.SecuritiesMarket">
 
     </select>
+    <select id="selectProjectId" resultType="java.lang.Double">
+        select projectId from valueStatistics where projectName = '资产净值'
+    and valueStatistics.dateTime=#{dateTime} and fundId=#{fundId};
+    </select>
 </mapper>

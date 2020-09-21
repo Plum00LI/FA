@@ -9,9 +9,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <script src="../static/lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
-    <script src="../static/lib/layuimini/js/lay-config.js"></script>
-    <link type="text/css" rel="stylesheet" href="../static/lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
+    <script src="../lib/layuimini/lib/layui-v2.5.5/layui.js"></script>
+    <script src="../lib/layuimini/js/lay-config.js"></script>
+    <link type="text/css" rel="stylesheet" href="../lib/layuimini/lib/layui-v2.5.5/css/layui.css"/>
 
 </head>
 <body>
@@ -20,13 +20,13 @@
 <script type="text/html" id="toolbarDemo">
     <form class="layui-form layui-col-space5">
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">日期</label>
+            <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">开始日期</label>
             <div class="layui-inline layui-show-xs-block" style="width: 195px">
                 <input class="layui-input" placeholder="开始日期" name="dateTime" id="start">
             </div>
         </div>
         <div class="layui-inline layui-show-xs-block">
-            <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">日期</label>
+            <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">结束日期</label>
             <div class="layui-inline layui-show-xs-block" style="width: 195px">
                 <input class="layui-input" placeholder="结束日期" name="dateTime" id="start2">
             </div>
@@ -34,10 +34,10 @@
         <div class="layui-inline layui-show-xs-block">
             <label class="layui-form-label layui-bg-gray" style="width: 110px;text-align: center">权益类型</label>
             <div class="layui-inline layui-show-xs-block">
-                <select name="exchangeName" id="exchangeName_3">
+                <select name="equitiesType" id="equitiesTypes">
                     <option value="">请选择</option>
-                    <option value="1">分红</option>
-                    <option value="2">送股</option>
+                    <option value="2">分红</option>
+                    <option value="1">送股</option>
                 </select>
             </div>
         </div>
@@ -59,10 +59,12 @@
         laydate.render({
             elem: '#start'
         });
-
+        laydate.render({
+            elem: '#start2'
+        });
         table.render({
             elem: '#myToolBar'
-            , url: '../AvailableCashPositionTable/selectAvailable'
+            , url: '../StockEquityInformationSheet/selectStockEquityInformationSheet'
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: ['filter', 'exports', 'print']
             ,height:'full-55'
@@ -71,11 +73,19 @@
             , cols:
                 [
                     [
-                        , {field: 'accountName', title: '股票ID', align: 'center'}
-                        , {field: 'cashBlance', title: '股票名称', align: 'center'}
-                        , {field: 'accountName', title: '权益除权日', align: 'center'}
-                        , {field: 'cashBlance', title: '数量', align: 'center'}
-                        , {field: 'accountName', title: '金额', align: 'center'}
+                        , {field: 'securityId', title: '股票ID', align: 'center'}
+                        , {field: 'securitiesName', title: '股票名称', align: 'center'}
+                        , {field: 'equitiesExright', title: '权益除权日', align: 'center'}
+                        , {field: 'equitiesType',title: '权益类型',align: 'center'
+                        , templet: function (item) {
+                            if (item.equitiesType == '1') {
+                                return '送股';
+                            } else if (item.equitiesType == '2') {
+                                return '分红';
+                            }
+                        }}
+                        , {field: 'securitiesNum', title: '数量', align: 'center'}
+                        , {field: 'total', title: '金额', align: 'center'}
                     ]
                 ]
             , page: true
@@ -86,14 +96,18 @@
         table.on('toolbar(myToolBar)', function (obj) {
             switch (obj.event) {
                 case "search":
-                    var dateTime=$('#start').val();
+                    var startTime=$('#start').val();
+                    var endTime=$('#start1').val();
+                    var equitiesTypes=$('#equitiesTypes').val();
                     table.reload('myToolBar', {
                         method: 'post',
                         page: {
                             curr: 1
                         },
                         where:{
-                            'dateTime':dateTime
+                            'startTime':startTime
+                            ,'endTime':endTime
+                            ,'equitiesTypes':equitiesTypes
                         }
                     });
                     laydate.render({

@@ -73,7 +73,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                         //现金库存统计
                         List<CashInventoryData> cashInventoryDataList=inventoryStatisticsMapper.selectCashInventory(dateTime,fundId);
                         cashInventory=new InventoryStatistics(1,"现金库存",fundId,"admain",dateTime,cashInventoryDataList.size(),"已统计");
-                        if(cashInventoryDataList.size()!=1 && cashInventoryDataList.get(0)!=null) {
+                        if(cashInventoryDataList.size()!=0 && cashInventoryDataList.get(0)!=null) {
                             for (CashInventoryData cashInventoryData : cashInventoryDataList) {
                                 System.out.println("现金库存" + cashInventoryData);
                                 //删除原现金库存信息
@@ -106,7 +106,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                         List<SecuritiesInventoryData> securitiesInventoryList=inventoryStatisticsMapper.selectSecuritiesInventory(dateTime,fundId);
                         securitiesInventory = new InventoryStatistics(2,"证券库存",fundId,"admain",dateTime,securitiesInventoryList.size(),"已统计");
                         //遍历
-                        if(securitiesInventoryList.size()!=1 && securitiesInventoryList.get(0)!=null) {
+                        if(securitiesInventoryList.size()!=0 && securitiesInventoryList.get(0)!=null) {
                             for (SecuritiesInventoryData securitiesInventoryData : securitiesInventoryList) {
                                 System.out.println("我是证券库存统计 我查询到的结果为：" + securitiesInventoryData);
                                 //删除证券库存信息
@@ -141,7 +141,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                         //TA库存统计
                         List<TaInventoryData> taInventoryDataList=inventoryStatisticsMapper.selectTaInventory(dateTime,fundId);
                         taInventory=new InventoryStatistics(3,"TA库存",fundId,"admin",dateTime,taInventoryDataList.size(),"已统计");
-                        if(taInventoryDataList.size()!=1 && taInventoryDataList.get(0)!=null) {
+                        if(taInventoryDataList.size()!=0 && taInventoryDataList.get(0)!=null) {
                             for (TaInventoryData taInventoryData : taInventoryDataList) {
                                 System.out.println("ta数据" + taInventoryData);
                                 //根据日期删除原TA库存信息
@@ -172,7 +172,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                         //证券应收应付库存
                         List<SecuritiesClosedPayInventoryData> securitiesClosedPayInventoryDataList=inventoryStatisticsMapper.selectSecuritiesClosedPayInventory(dateTime,fundId);
                         securitiesClosedPayInventory=new InventoryStatistics(4,"证券应收应付库存",fundId,"admin",dateTime,securitiesClosedPayInventoryDataList.size(),"已统计");
-                        if(securitiesClosedPayInventoryDataList.size()!=1 && securitiesClosedPayInventoryDataList.get(0)!=null) {
+                        if(securitiesClosedPayInventoryDataList.size()!=0 && securitiesClosedPayInventoryDataList.get(0)!=null) {
                             for (SecuritiesClosedPayInventoryData securitiesClosedPayInventoryData : securitiesClosedPayInventoryDataList) {
                                 //根据日期删除
                                 securitiesClosedPayInventoryMapper.deleteSecuritiesClosedPayInventoryDate(securitiesClosedPayInventoryData.getSecuritiesId(),dateTime, fundId);
@@ -205,7 +205,7 @@ public class InventoryStatisticsServiceImpl implements InventoryStatisticsServic
                         //现金应收应付库存
                         List<CashClosedPayInventoryData> cashClosedPayInventoryDataList=inventoryStatisticsMapper.selectCashClosedPayInventory(dateTime,fundId);
                         cashClosedPayInventory=new InventoryStatistics(5,"现金应收应付库存",fundId,"admin",dateTime,cashClosedPayInventoryDataList.size(),"已统计");
-                        if(cashClosedPayInventoryDataList.size()!=1 && cashClosedPayInventoryDataList.get(0)!=null) {
+                        if(cashClosedPayInventoryDataList.size()!=0 && cashClosedPayInventoryDataList.get(0)!=null) {
                             for (CashClosedPayInventoryData cashClosedPayInventoryData : cashClosedPayInventoryDataList) {
                                 //根据日期删除
                                 cashClosedPayInventoryMapper.deleteCashClosedPayInventoryDate(cashClosedPayInventoryData.getAccountId(),dateTime, fundId);

@@ -4,6 +4,7 @@ import com.ssaw.BusinessData.entity.EquityData;
 import com.ssaw.BusinessData.entity.TransactionData;
 import com.ssaw.BusinessData.mapper.EquityDataMapper;
 import com.ssaw.BusinessData.mapper.TransactionDataMapper;
+import com.ssaw.BusinessData.service.EquityDataService;
 import com.ssaw.BusinessProcessing.entity.EquityDispose;
 import com.ssaw.BusinessProcessing.entity.Settlement;
 import com.ssaw.BusinessProcessing.mapper.EquityDisposeMapper;
@@ -42,6 +43,9 @@ public class EquityDisposeServiceImpl implements EquityDisposeService {
     TransactionDataMapper transactionDataMapper;
     @Resource
     HttpServletRequest request;
+    @Resource
+    EquityDataService equityDataService;
+
     @Override
     public Map<String, Object> selectEquityDispose(String pageSize, String page, String equitiesType,String equitiesExright, String disposeStatus) {
         //创建一个结果集Map用于存放两个结果变量
@@ -78,38 +82,50 @@ public class EquityDisposeServiceImpl implements EquityDisposeService {
             sqlWhere.append(" and disposeStatus like '%"+v_disposeStatus+"%'" );
         }
 
-
+        //获得权益数据的信息
+        Map<String, Object> equityDataMap = equityDataService.selectEquityData("100","1",null,null);
+        List<EquityData> equityDataList1 = (List<EquityData>) equityDataMap.get("equityDataList");
+        System.out.println("所有的权益信息="+equityDataList1);
 
         //多表查询
-        String p_tableName = "(select decode(qysj.EQUITIESTYPE,2,((SECURITIESNUM*qysj.PROPORTION)/100),0) as settlementAmount,SECURITIESID,qysj.EQUITYDATAID,qysj.SECURITIESNAME,qysj.EQUITIESTYPE,qysj.EQUITIESEXRIGHT,qysj.RECEIVEDDATE,qysj.PROPORTION,qysj.DISPOSESTATUS,qysj.SECURITYID,zjkc.SECURITIESNUM " +
-                "from (select * from "+SysTableNameListUtil.SI+") zjkc " +
-                "full join (select PROPORTION,SECURITYID,EQUITYDATAID,EQUITIESTYPE,EQUITIESEXRIGHT,RECEIVEDDATE,DISPOSESTATUS,s.SECURITIESNAME " +
-                "from "+SysTableNameListUtil.ED+" join (select * from "+SysTableNameListUtil.SE+") s on equityData.SECURITYID=s.SECURITIESID) qysj " +
-                "on qysj.SECURITYID=zjkc.SECURITIESID)";
+        String p_tableName="";
+        List<EquityDispose> equityDisposeList = new ArrayList<>();
+        //返回数据总条数
+        int v_count = 0;
+        for (v_count = 0; v_count < equityDataList1.size(); v_count++) {
+            p_tableName = "(select decode(qysj.EQUITIESTYPE,2,((SECURITIESNUM*qysj.PROPORTION)/100),0) as settlementAmount,SECURITIESID,qysj.EQUITYDATAID,qysj.SECURITIESNAME,qysj.EQUITIESTYPE,qysj.EQUITIESEXRIGHT,qysj.RECEIVEDDATE,qysj.PROPORTION,qysj.DISPOSESTATUS,qysj.SECURITYID,zjkc.SECURITIESNUM " +
+                    "from (select * from " + SysTableNameListUtil.SI + " where dateTime=to_char(to_date('" + equityDataList1.get(v_count).getEquitiesExright() + "','yyyy-MM-dd')-1,'yyyy-MM-dd')) zjkc " +
+                    "full join (select PROPORTION,SECURITYID,EQUITYDATAID,EQUITIESTYPE,EQUITIESEXRIGHT,RECEIVEDDATE,DISPOSESTATUS,s.SECURITIESNAME " +
+                    "from (select * from " + SysTableNameListUtil.ED + " where equityDataId='" + equityDataList1.get(v_count).getEquityDataId() + "') equityData " +
+                    "join (select * from " + SysTableNameListUtil.SE + ") s " +
+                    "on equityData.SECURITYID=s.SECURITIESID) qysj " +
+                    "on qysj.SECURITYID=zjkc.SECURITIESID)";
 
 
+            //创建一个Map，用于存储过程的调用传值
+            Map<String, Object> map = new HashMap<>();
+            //传入存储过程需要的查询的表名
+            map.put("p_tableName", p_tableName);
+            //传入查询条件
+            map.put("p_condition", sqlWhere.toString());
+            //传入分页显示条数
+            map.put("p_pageSize", v_pageSize);
+            //传入分页页码
+            map.put("p_page", v_page);
+            //创建out参数，返回数据总条数
+            map.put("p_count", 0);
+            //创建out游标变量，返回查询数据
+            map.put("p_cursor", null);
+            //调用Mapper执行查询
+            System.out.println("asd" + map.toString());
+            equityDisposeMapper.selectEquityDispose(map);
+            //接收返回数据
+            List<EquityDispose> equityDisposeList1 = (List<EquityDispose>) map.get("p_cursor");
+            for (EquityDispose equityDispose : equityDisposeList1) {
+                equityDisposeList.add(equityDispose);
+            }
+        }
 
-        //创建一个Map，用于存储过程的调用传值
-        Map<String,Object> map = new HashMap<>();
-        //传入存储过程需要的查询的表名
-        map.put("p_tableName",p_tableName);
-        //传入查询条件
-        map.put("p_condition",sqlWhere.toString());
-        //传入分页显示条数
-        map.put("p_pageSize",v_pageSize);
-        //传入分页页码
-        map.put("p_page",v_page);
-        //创建out参数，返回数据总条数
-        map.put("p_count",0);
-        //创建out游标变量，返回查询数据
-        map.put("p_cursor",null);
-        //调用Mapper执行查询
-        System.out.println("asd"+map.toString());
-        equityDisposeMapper.selectEquityDispose(map);
-        //接收返回数据
-        List<EquityDispose> equityDisposeList = (List<EquityDispose>) map.get("p_cursor");
-        //接收返回总条数
-        int v_count = (int) map.get("p_count");
         //将结果放入结果集Map
         resultMap.put("equityDisposeList",equityDisposeList);
         resultMap.put("count",v_count);
