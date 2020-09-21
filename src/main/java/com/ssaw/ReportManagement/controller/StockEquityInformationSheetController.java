@@ -1,5 +1,7 @@
 package com.ssaw.ReportManagement.controller;
 
+import com.ssaw.GlobalManagement.log.OperLog;
+import com.ssaw.GlobalManagement.util.OperationType;
 import com.ssaw.ReportManagement.entity.AvailableCashPositionTable;
 import com.ssaw.ReportManagement.entity.StockEquityInformationSheet;
 import com.ssaw.ReportManagement.service.StockEquityInformationSheetService;
@@ -26,6 +28,7 @@ public class StockEquityInformationSheetController {
     @Resource
     StockEquityInformationSheetService stockEquityInformationSheetService;
 
+    @OperLog(message = "查询股票权益信息表",operation = OperationType.QUERY)
     @RequestMapping("selectStockEquityInformationSheet")
     public Map<String, Object> selectStockEquityInformationSheet(String page, String limit, String startTime, String endTime, String equitiesTypes){
         System.out.println("进入股票权益信息表controller");

@@ -3,7 +3,9 @@ package com.ssaw.BusinessDescription.controller;
 import com.ssaw.BusinessDescription.entity.Account;
 import com.ssaw.BusinessDescription.mapper.AccountMapper;
 import com.ssaw.BusinessDescription.service.AccountService;
+import com.ssaw.GlobalManagement.log.OperLog;
 import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.OperationType;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +45,7 @@ public class AccountController {
      * @return  界面要求的数据格式
      */
     @RequestMapping("selectAccount")
+    @OperLog(message = "查询所有现金账户",operation = OperationType.QUERY)
     public Map<String,Object> selectAccount(String page, String limit,String accountName,String blankName){
         //调用Service层执行查询，接收返回结果集Map
         Map<String, Object> map = accountService.selectAccount(limit, page,accountName,blankName);
@@ -65,6 +68,7 @@ public class AccountController {
      * @return 返回影响的行数 判断是否增加成功
      */
     @RequestMapping("insertAccount")
+    @OperLog(message = "增加现金账户",operation = OperationType.ADD)
     public int insertAccount(Account account){
         account.setAccountId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.A));
         int i = accountService.insertAccount(account);
@@ -77,6 +81,7 @@ public class AccountController {
      * @return 返回影响的行数 判断是否删除成功
      */
     @RequestMapping("deleteAccount")
+    @OperLog(message = "删除现金账户",operation = OperationType.DELETE)
     public int deleteAccount(String accountId){
         System.out.println(accountId);
         int i = accountService.deleteAccount(accountId);
@@ -89,6 +94,7 @@ public class AccountController {
      * @return 返回影响的行数 判断是否修改成功
      */
     @RequestMapping("updateAccount")
+    @OperLog(message = "修改现金账户",operation = OperationType.UPDATE)
     public int updateAccount(Account account){
         System.out.println(account);
         return accountService.updateAccount(account);

@@ -64,10 +64,10 @@
                         ,templet: function(item) {
                             if (item.quoteChange<0) {
                                 var realVal = parseFloat(item.quoteChange).toFixed(2)
-                                return "<span style='color: red'>"+(-read())+"</span>";
+                                return "<span style='color: red'>"+(-realVal)+"</span>";
                             }else{
 
-                               var realVal = parseFloat(item.quoteChange).toFixed(2)
+                                var realVal = parseFloat(item.quoteChange).toFixed(2)
                                 return "<span '>"+realVal+"</span>";
                             }
                         }}

@@ -4,7 +4,9 @@ import com.ssaw.CashManagement.entity.BankTreasurer;
 import com.ssaw.CashManagement.entity.TransferMoney;
 import com.ssaw.CashManagement.service.BankTreasurerService;
 import com.ssaw.CashManagement.service.TransferMoneyService;
+import com.ssaw.GlobalManagement.log.OperLog;
 import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.OperationType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,6 +31,7 @@ public class TransferMoneyController {
     DbUtil dbUtil;
 
     @RequestMapping("selectTransferMoney")
+    @OperLog(message = "查询所有划款指令",operation = OperationType.QUERY)
     public Map<String,Object> selectAccount(String page, String limit,String crossSectionDate){
         System.out.println(crossSectionDate);
         //调用Service层执行查询，接收返回结果集Map
@@ -46,6 +49,7 @@ public class TransferMoneyController {
         return json;
     }
     @RequestMapping("insertTransferMoney")
+    @OperLog(message = "增加划款指令",operation = OperationType.ADD)
     public int insertTransferMoney(TransferMoney transferMoney){
         int i = transferMoneyService.insertTransferMoney(transferMoney);
         return i;
@@ -56,6 +60,7 @@ public class TransferMoneyController {
         return  bankTreasurerService.deleteBankTreasurer(bankTreasurerId);
     }*/
     @RequestMapping("updateTransferMoney")
+    @OperLog(message = "生成划款指令",operation = OperationType.UPDATE)
     public int updateTransferMoney(TransferMoney transferMoney){
         int i = transferMoneyService.updateTransferMoney(transferMoney);
         return i;
@@ -67,6 +72,7 @@ public class TransferMoneyController {
      * @return 返回影响的行数 判断是否删除成功
      */
     @RequestMapping("deleteTransferMoney")
+    @OperLog(message = "删除划款指令",operation = OperationType.DELETE)
     public int deleteTransferMoney(String transferMoneyId){
         System.out.println(transferMoneyId);
         int i = transferMoneyService.deleteTransferMoney(transferMoneyId);
