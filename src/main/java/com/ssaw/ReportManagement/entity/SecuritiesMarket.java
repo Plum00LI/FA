@@ -11,20 +11,23 @@ package com.ssaw.ReportManagement.entity;
 public class SecuritiesMarket {
     private String securitiesId;// 证券代码
     private String securitiesName;// 证券名称
-    private Double securitiesNum;// 库存数量
-    private Double price;// 单位成本
-    private Double closingPrice;// 行情价格
-    private Double mvcr;// 市值变动比
-    private Double mvnv;// 市值占净值
+    private int securitiesNum;// 库存数量
+    private double price;// 单位成本
+    private double closingPrice;// 行情价格
+    private double mvcr;// 市值变动比
+    private double mvnv;// 市值占净值
     private String fundId;//基金ID
-    private Double projectName;//资产净值
+    private double projectName;//资产净值
     private String dateTime;//除权日期
+    private double projectId;
+
+
 
     public SecuritiesMarket(){
 
     }
 
-    public SecuritiesMarket(String securitiesId, String securitiesName, Double securitiesNum, Double price, Double closingPrice, Double mvcr, Double mvnv) {
+    public SecuritiesMarket(String securitiesId, String securitiesName, int securitiesNum, double price, double closingPrice, double mvcr, double mvnv) {
         this.securitiesId = securitiesId;
         this.securitiesName = securitiesName;
         this.securitiesNum = securitiesNum;
@@ -34,7 +37,7 @@ public class SecuritiesMarket {
         this.mvnv = mvnv;
     }
 
-    public SecuritiesMarket(String securitiesId, String securitiesName, Double securitiesNum, Double price, Double closingPrice, Double mvcr, Double mvnv, String fundId, Double projectName, String dateTime) {
+    public SecuritiesMarket(String securitiesId, String securitiesName, int securitiesNum, double price, double closingPrice, double mvcr, double mvnv, String fundId, double projectName, String dateTime, double projectId) {
         this.securitiesId = securitiesId;
         this.securitiesName = securitiesName;
         this.securitiesNum = securitiesNum;
@@ -45,6 +48,7 @@ public class SecuritiesMarket {
         this.fundId = fundId;
         this.projectName = projectName;
         this.dateTime = dateTime;
+        this.projectId = projectId;
     }
 
     @Override
@@ -63,6 +67,14 @@ public class SecuritiesMarket {
                 '}';
     }
 
+    public double getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(double projectId) {
+        this.projectId = projectId;
+    }
+
     public String getSecuritiesId() {
         return securitiesId;
     }
@@ -79,43 +91,43 @@ public class SecuritiesMarket {
         this.securitiesName = securitiesName;
     }
 
-    public Double getSecuritiesNum() {
+    public int getSecuritiesNum() {
         return securitiesNum;
     }
 
-    public void setSecuritiesNum(Double securitiesNum) {
+    public void setSecuritiesNum(int securitiesNum) {
         this.securitiesNum = securitiesNum;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public Double getClosingPrice() {
+    public double getClosingPrice() {
         return closingPrice;
     }
 
-    public void setClosingPrice(Double closingPrice) {
+    public void setClosingPrice(double closingPrice) {
         this.closingPrice = closingPrice;
     }
 
-    public Double getMvcr() {
+    public double getMvcr() {
         return mvcr;
     }
 
-    public void setMvcr(Double mvcr) {
+    public void setMvcr(double mvcr) {
         this.mvcr = mvcr;
     }
 
-    public Double getMvnv() {
+    public double getMvnv() {
         return mvnv;
     }
 
-    public void setMvnv(Double mvnv) {
+    public void setMvnv(double mvnv) {
         this.mvnv = mvnv;
     }
 
@@ -127,11 +139,11 @@ public class SecuritiesMarket {
         this.fundId = fundId;
     }
 
-    public Double getProjectName() {
+    public double getProjectName() {
         return projectName;
     }
 
-    public void setProjectName(Double projectName) {
+    public void setProjectName(double projectName) {
         this.projectName = projectName;
     }
 

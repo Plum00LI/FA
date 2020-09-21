@@ -1,6 +1,7 @@
 package com.ssaw.ReportManagement.mapper;
 
 import com.ssaw.ReportManagement.entity.SecuritiesMarket;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -12,9 +13,10 @@ import java.util.List;
  * Datetime:    2020/9/17   11:44
  * Author:   SYT
  */
+@Mapper
 public interface SecuritiesMarketMapper {
 
-    public List<SecuritiesMarket> selectSecuritiesMarket(SecuritiesMarket securitiesMarket);
+    public List<SecuritiesMarket> selectSecuritiesMarket(String dateTime);
 
-    public double selectProjectId(String dateTime,String fundId);
+//    public double selectProjectId(String dateTime,String fundId);
 }

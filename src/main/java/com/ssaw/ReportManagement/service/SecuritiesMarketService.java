@@ -1,7 +1,9 @@
 package com.ssaw.ReportManagement.service;
 
 import com.ssaw.ReportManagement.entity.SecuritiesMarket;
+import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -12,8 +14,8 @@ import java.util.List;
  * Datetime:    2020/9/19   10:16
  * Author:   SYT
  */
+@Service
 public interface SecuritiesMarketService {
-    public List<SecuritiesMarket> selectSecuritiesMarket(SecuritiesMarket securitiesMarket);
+    public HashMap selectSecuritiesMarket(String dateTime);
 
-    public double selectProjectId(String dateTime,String fundId);
 }
