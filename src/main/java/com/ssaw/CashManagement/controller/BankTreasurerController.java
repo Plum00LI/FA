@@ -3,7 +3,9 @@ package com.ssaw.CashManagement.controller;
 import com.ssaw.BusinessDescription.entity.Account;
 import com.ssaw.CashManagement.entity.BankTreasurer;
 import com.ssaw.CashManagement.service.BankTreasurerService;
+import com.ssaw.GlobalManagement.log.OperLog;
 import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.OperationType;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +43,7 @@ public class BankTreasurerController {
      * @return 界面要求的数据格式
      */
     @RequestMapping("selectBankTreasurer")
+    @OperLog(message = "查询所有资金调拨",operation = OperationType.QUERY)
     public Map<String,Object> selectAccount(String page, String limit,String allocatingType,String flag,String dbTime){
         //调用Service层执行查询，接收返回结果集Map
         Map<String, Object> map = bankTreasurerService.selectBankTreasurer(limit,page,allocatingType,flag,dbTime);
@@ -64,6 +67,7 @@ public class BankTreasurerController {
      * @return 返回影响的行数 判断是否增加成功
      */
     @RequestMapping("insertBankTreasurer")
+    @OperLog(message = "增加资金调拨",operation = OperationType.ADD)
     public int insertBankTreasurer(BankTreasurer bankTreasurer){
         int i = bankTreasurerService.insertBankTreasurer(bankTreasurer);
         return i;
@@ -75,6 +79,7 @@ public class BankTreasurerController {
      * @return
      */
     @RequestMapping("deleteBankTreasurer")
+    @OperLog(message = "删除资金调拨",operation = OperationType.DELETE)
     public int deleteBankTreasurer(String bankTreasurerId){
         System.out.println(bankTreasurerId);
         return  bankTreasurerService.deleteBankTreasurer(bankTreasurerId);
@@ -86,6 +91,7 @@ public class BankTreasurerController {
      * @return
      */
     @RequestMapping("updateBankTreasurer")
+    @OperLog(message = "修改资金调拨",operation = OperationType.UPDATE)
     public int updateBankTreasurer(BankTreasurer bankTreasurer){
         int i = bankTreasurerService.updateBankTreasurer(bankTreasurer);
         return i;

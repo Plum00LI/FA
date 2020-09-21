@@ -1,6 +1,8 @@
 package com.ssaw.InventoryManagement.controller;
 
+import com.ssaw.GlobalManagement.log.OperLog;
 import com.ssaw.GlobalManagement.util.DbUtil;
+import com.ssaw.GlobalManagement.util.OperationType;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import com.ssaw.InventoryManagement.entity.TaInventory;
 import com.ssaw.InventoryManagement.service.TaInventoryService;
@@ -33,6 +35,7 @@ public class TaInventoryController {
      * @return
      */
     @RequestMapping("/select")
+    @OperLog(message = "分页查询TA库存信息",operation = OperationType.QUERY)
     public Map<String,Object> selectTaInventory(String page,String limit,String dateTime){
         Map<String,Object> map=taInventoryService.selectTaInventory(limit,page,dateTime);
         //从结果集中拿出结果
@@ -54,6 +57,7 @@ public class TaInventoryController {
      * @return
      */
     @RequestMapping("/insert")
+    @OperLog(message = "增加TA库存信息",operation = OperationType.ADD)
     public int insertTaInventory(TaInventory taInventory){
         //设置TA库存"100001"Id
         taInventory.setTaInventoryId(dbUtil.requestDbTableMaxId(SysTableNameListUtil.TI));
@@ -73,6 +77,7 @@ public class TaInventoryController {
      * @return
      */
     @RequestMapping("/update")
+    @OperLog(message = "修改TA库存信息",operation = OperationType.UPDATE)
     public int updateTaInventory(TaInventory taInventory){
         System.out.println(taInventory);
         int i=taInventoryService.updateTaInventory(taInventory);
@@ -85,6 +90,7 @@ public class TaInventoryController {
      * @return
      */
     @RequestMapping("/delete")
+    @OperLog(message = "删除TA库存信息",operation = OperationType.DELETE)
     public int deleteTaInventory(String taInventoryId){
         System.out.println(taInventoryId);
         int i=taInventoryService.deleteTaInventory(taInventoryId);

@@ -2,6 +2,8 @@ package com.ssaw.DayEndProcessing.controller;
 
 import com.ssaw.DayEndProcessing.entity.InventoryStatistics;
 import com.ssaw.DayEndProcessing.service.InventoryStatisticsService;
+import com.ssaw.GlobalManagement.log.OperLog;
+import com.ssaw.GlobalManagement.util.OperationType;
 import com.ssaw.GlobalManagement.util.SysTableNameListUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +36,7 @@ public class InventoryStatisticsController {
      * @return
      */
     @RequestMapping("/selectInventory")
+    @OperLog(message = "库存统计显示在网页的数据",operation = OperationType.QUERY)
     public HashMap selectInventory(String fundId, String dateTime, String invId){
         System.out.println("controller的dateTime"+dateTime);
         List<InventoryStatistics> inventoryEntities = inventoryStatisticsService.selectInventoryStatistics(fundId,dateTime,invId);
